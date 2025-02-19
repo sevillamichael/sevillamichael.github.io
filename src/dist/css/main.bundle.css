@@ -604,7 +604,7 @@ body {
 }
 
 a {
-    color: #00d1b2;
+    color: #4a4a4a;
     cursor: pointer;
     text-decoration: none
 }
@@ -614,7 +614,7 @@ a strong {
 }
 
 a:hover {
-    color: #363636
+    color: #0077b5;
 }
 
 code {
