@@ -162,6 +162,10 @@ a.icon>strong {
     margin-left: .25rem
 }
 
+.icon:hover i {
+    color: #0077b5 !important;
+}
+
 .modal-card-body div.content {
     margin: 1.75rem 0
 }
@@ -3703,6 +3707,14 @@ a.tag:hover {
     margin-bottom: 5px;
     text-transform: uppercase
 }
+
+.mr-5 a, .mr-5 p a {
+    transition: color 0.3s ease; /* Smooth transition */
+  }
+  
+  .mr-5:hover a, .mr-5:hover p a {
+    color: #0077b5 !important; /* Change this to your desired color */
+  }  
 
 .number {
     align-items: center;
