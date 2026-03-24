@@ -27,7 +27,9 @@ test.describe("Resume site", () => {
     await page.goto(homeUrl);
 
     await expect(page.locator("#pultemortgage")).toContainText("Gorilla Logic");
-    await expect(page.locator("#hopskipdrive")).toContainText("FullStack Labs");
+    await expect(page.locator("#fullstack")).toContainText("FullStack");
+    await expect(page.locator("#fullstack")).toContainText("Senior QA Engineer at SIDEARM Sports");
+    await expect(page.locator("#fullstack")).toContainText("Senior QA Engineer at HopSkipDrive");
     await expect(page.locator("#accesso")).toContainText("Encora Inc.");
     await expect(page.locator("#healthrecoverysolutions")).toContainText("EX Squared LATAM");
     await expect(page.locator("#bmw-usa")).toContainText("Critical Mass");

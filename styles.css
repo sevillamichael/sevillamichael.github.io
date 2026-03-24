@@ -254,6 +254,21 @@ hr {
   margin-left: 3.85rem;
 }
 
+.role-block {
+  margin-left: 3.85rem;
+}
+
+.role-block-gap {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.role-heading {
+  margin-top: 0;
+  margin-bottom: 0.55rem;
+}
+
 .content ul {
   margin-left: 1.25em;
 }
@@ -505,6 +520,10 @@ hr {
   }
 
   .card-content > .content {
+    margin-left: 0;
+  }
+
+  .role-block {
     margin-left: 0;
   }
 
