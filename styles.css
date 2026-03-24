@@ -448,6 +448,16 @@ hr {
   letter-spacing: 0.06em;
 }
 
+.company-logo {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+}
+
 @media screen and (min-width: 769px) {
   .hero-body {
     padding: 1.55rem 3rem 1.45rem;
