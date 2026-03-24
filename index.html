@@ -1,392 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-
 <head>
-  <title>Michael Sevilla</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="src/dist/css/main.bundle.css">
-  <script src="https://kit.fontawesome.com/4e5a72c756.js"></script>
+  <title>Michael Sevilla</title>
+  <meta
+    name="description"
+    content="Online resume for Michael Sevilla, Senior QA Engineer."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <!-- Header -->
-  <section class="hero is-primary">
+  <header class="hero is-primary">
     <div class="hero-body">
       <div class="container">
-        <div class="level">
-          <div class="level-item has-text-centered">
-            <figure class="image is-128x128">
-              <img class="is-rounded"
-                src="https://media.licdn.com/dms/image/v2/C4E03AQG7DPPRcsNUjQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1649268669381?e=1744848000&v=beta&t=aBLj1qXL_PAjj2hR17zVPGpAL2lGBejOxuBbSrdZ1m0">
-            </figure>
+        <div class="columns has-text-centered hero-intro">
+          <div class="column hero-copy">
+            <div class="hero-copy-text">
+              <div class="hero-heading-block">
+                <h1 class="title is-1">Michael Sevilla</h1>
+                <h2 class="subtitle">Senior QA Engineer</h2>
+              </div>
+              <nav class="level-item has-text-centered social-nav" aria-label="Social links">
+                <div class="mr-5">
+                  <a href="https://github.com/sevillamichael" target="_blank" rel="noreferrer" class="social-link-group" aria-label="GitHub profile">
+                    <span class="icon is-large social-link" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.09 1.83 1.22 1.83 1.22 1.08 1.82 2.82 1.3 3.5.99.11-.77.42-1.3.77-1.6-2.66-.3-5.46-1.31-5.46-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1.01-.32 3.3 1.22a11.6 11.6 0 0 1 6 0c2.29-1.54 3.29-1.22 3.29-1.22.65 1.64.24 2.86.12 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.09.82 2.21v3.28c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/>
+                      </svg>
+                    </span>
+                    <span class="heading">sevillamichael</span>
+                  </a>
+                </div>
+                <div class="mr-5">
+                  <a href="https://www.linkedin.com/in/sevillamichael" target="_blank" rel="noreferrer" class="social-link-group" aria-label="LinkedIn profile">
+                    <span class="icon is-large social-link" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M4.98 3.5A2.48 2.48 0 1 0 5 8.46a2.48 2.48 0 0 0-.02-4.96ZM3 9.5h4v11H3v-11Zm7 0h3.83V11h.05c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.62 4.8 6.03v5.55h-4v-4.92c0-1.17-.02-2.67-1.66-2.67-1.66 0-1.92 1.27-1.92 2.58v5.01h-4v-11Z"/>
+                      </svg>
+                    </span>
+                    <span class="heading">Michael Sevilla</span>
+                  </a>
+                </div>
+                <div class="mr-5">
+                  <button
+                    type="button"
+                    class="social-link-group social-toggle"
+                    id="automation-toggle"
+                    aria-label="Show Playwright report"
+                    aria-controls="resume-view report-view"
+                    aria-pressed="false"
+                  >
+                    <span class="icon is-large social-link" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M7.5 2.5c-2.2 0-4 1.8-4 4v10.7c0 2.4 1.9 4.3 4.3 4.3h.2c1.7 0 3.2-1 3.9-2.5l.4-.9 1 .2c.3.1.6.1.9.1 3.6 0 6.6-2.9 6.6-6.6V6.5c0-2.2-1.8-4-4-4h-9.3Zm.1 2h9.2c1.1 0 2 .9 2 2v5.3c0 2.5-2.1 4.6-4.6 4.6-.7 0-1.3-.1-1.9-.4l-2-.8-.9 2c-.4.8-1.2 1.3-2.1 1.3h-.2c-1.3 0-2.3-1-2.3-2.3V6.5c0-1.1.9-2 2-2Zm1.6 2.6a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm6 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/>
+                      </svg>
+                    </span>
+                    <span class="heading" id="automation-toggle-label">Show Report</span>
+                  </button>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
-        <div class="columns has-text-centered">
-          <div class="column">
-            <h1 class="title is-1">Michael Sevilla</h1>
-            <h2 class="subtitle">Senior QA Engineer</h2>
-            <div class="level-item has-text-centered">
-              <div class="mr-5">
-                <a href="https://github.com/sevillamichael" target="_blank" class="icon is-large">
-                  <i class="fab fa-2x fa-github"></i>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="resume-view">
+    <section class="section" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title" class="title">About</h2>
+        <hr>
+        <div class="content">
+          <p>
+            QA engineer with 10+ years of experience across desktop, web, and mobile applications.
+            Skilled in manual testing, test case management, database validation, API testing, accessibility,
+            and cross-browser and device testing.
+          </p>
+          <p>
+            While my primary focus has been manual testing, I also have experience with test automation.
+            Adept at ensuring high-quality software delivery, collaborating with development teams, and mentoring
+            new QA engineers. Strong problem-solving skills and a commitment to delivering reliable software solutions.
+          </p>
+          <p>
+            Projects:
+            <a href="#ciberrisk">Ciber Risk S.A.</a> (2+ years),
+            <a href="#bmw-usa">BMW USA</a> (2+ years),
+            <a href="#healthrecoverysolutions">Health Recovery Solutions</a> (6 months),
+            <a href="#accesso">accesso</a> (1+ year),
+            <a href="#hopskipdrive">HopSkipDrive</a> (3+ years) and
+            <a href="#pultemortgage">Pulte Mortgage</a> (3+ years).
+          </p>
+          <p>"Trust, but verify."</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="experience-title">
+      <div class="container">
+        <h2 id="experience-title" class="title">Experience</h2>
+        <hr>
+
+        <article class="card" id="pultemortgage">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">GL</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <a href="https://www.linkedin.com/company/gorillalogic/" target="_blank" rel="noreferrer">
+                  <p class="title is-4">Gorilla Logic<span class="visually-hidden">, opens in a new tab</span></p>
                 </a>
-                <p class="heading">
-                  <a class="media-content" href="https://github.com/sevillamichael" target="_blank">sevillamichael</a>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">Senior QA Engineer at Pulte Mortgage</span>
+                  <span class="right">Jun 2022 - Present</span>
                 </p>
               </div>
-              <div class="mr-5">
-                <a href="https://www.linkedin.com/in/sevillamichael" target="_blank" class="icon is-large">
-                  <i class="fab fa-2x fa-linkedin-in"></i>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Worked with a team of 2 QA engineers in an agile environment using Azure DevOps.</li>
+                <li>Tested both a desktop application and a web application, ensuring cross-platform functionality.</li>
+                <li>Performed database validation using SQL tooling to verify data integrity and consistency.</li>
+                <li>Utilized remote desktop connections to access test servers and replicate customer environments for testing.</li>
+                <li>Identified and reported defects, collaborating with the development team to prioritize fixes.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">Azure DevOps</span>
+                <span class="tag">DevTools</span>
+                <span class="tag">Remote Desktop</span>
+                <span class="tag">SQL Server Management Studio</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-gap" id="hopskipdrive">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">FS</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <a href="https://www.linkedin.com/company/fullstack-labs/" target="_blank" rel="noreferrer">
+                  <p class="title is-4">FullStack Labs<span class="visually-hidden">, opens in a new tab</span></p>
                 </a>
-                <p class="heading">
-                  <a href="https://www.linkedin.com/in/sevillamichael" target="_blank">Michael Sevilla</a>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">Senior QA Engineer at HopSkipDrive</span>
+                  <span class="right">Apr 2022 - Present</span>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Collaborated with a team of 7 QA engineers following a Kanban workflow.</li>
+                <li>Tested 2 mobile applications and 2 web applications across multiple platforms and devices.</li>
+                <li>Managed test case creation and execution in Testmo, and conducted API testing with Postman.</li>
+                <li>Monitored feature flags using LaunchDarkly and collected user data through Segment.</li>
+                <li>Used Datadog and Bugsnag for real-time monitoring and tracking of errors in production.</li>
+                <li>Deployed and merged PRs via GitHub, CircleCI, and Argo, ensuring smooth CI/CD processes.</li>
+                <li>Onboarded new QA engineers, providing training and support during their integration into the team.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">Android Studio</span>
+                <span class="tag">Argo CD</span>
+                <span class="tag">Bugsnag</span>
+                <span class="tag">CircleCI</span>
+                <span class="tag">ClickUp</span>
+                <span class="tag">Datadog</span>
+                <span class="tag">DevTools</span>
+                <span class="tag">Figma</span>
+                <span class="tag">GitHub</span>
+                <span class="tag">iOS</span>
+                <span class="tag">LaunchDarkly</span>
+                <span class="tag">Postman</span>
+                <span class="tag">Segment</span>
+                <span class="tag">Testmo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-gap" id="accesso">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">EN</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <a href="https://www.linkedin.com/company/encorainc/" target="_blank" rel="noreferrer">
+                  <p class="title is-4">Encora Inc.<span class="visually-hidden">, opens in a new tab</span></p>
+                </a>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">Senior QA Engineer at accesso</span>
+                  <span class="right">Oct 2021 - Dec 2022</span>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Worked with a team of 4 QA engineers in an agile environment using Jira.</li>
+                <li>Tested a web application featuring iFrames, ensuring compatibility across multiple browsers.</li>
+                <li>Managed test cases in TestRail and performed device testing through BrowserStack and Xcode.</li>
+                <li>Conducted database validation using MySQL to ensure data accuracy and integrity.</li>
+                <li>Performed accessibility testing with Axe to ensure compliance with WCAG standards.</li>
+                <li>Utilized browser devtools for debugging and troubleshooting issues.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">Axe</span>
+                <span class="tag">BrowserStack</span>
+                <span class="tag">Confluence</span>
+                <span class="tag">DevTools</span>
+                <span class="tag">iOS</span>
+                <span class="tag">Jira</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">TestRail</span>
+                <span class="tag">Xcode</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-gap" id="healthrecoverysolutions">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">EX</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <a href="https://www.linkedin.com/company/exsq-outcoding/" target="_blank" rel="noreferrer">
+                  <p class="title is-4">EX Squared LATAM<span class="visually-hidden">, opens in a new tab</span></p>
+                </a>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">QA Engineer at Health Recovery Solutions</span>
+                  <span class="right">May 2021 - Oct 2021</span>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Collaborated with a team of 14 QA engineers in an agile environment using Jira.</li>
+                <li>Tested 3 mobile applications and 2 web applications across multiple platforms.</li>
+                <li>Managed test cases in TestRail and conducted API testing with Postman.</li>
+                <li>Leveraged ELK stack for monitoring application performance and error tracking.</li>
+                <li>Worked closely with developers to ensure timely resolution of defects and seamless release cycles.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">Android</span>
+                <span class="tag">Confluence</span>
+                <span class="tag">DevTools</span>
+                <span class="tag">iOS</span>
+                <span class="tag">Jira</span>
+                <span class="tag">Postman</span>
+                <span class="tag">TestRail</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-gap" id="bmw-usa">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">CM</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <a href="https://www.linkedin.com/company/critical-mass/" target="_blank" rel="noreferrer">
+                  <p class="title is-4">Critical Mass<span class="visually-hidden">, opens in a new tab</span></p>
+                </a>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">QA Engineer at BMW USA</span>
+                  <span class="right">Apr 2019 - May 2021</span>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Worked with a team of 7 QA engineers in a hybrid environment, using both agile and waterfall methodologies, managed through Jira.</li>
+                <li>Tested a website built with Adobe Experience Manager, ensuring functional and content-related integrity.</li>
+                <li>Managed test cases in Excel, tracked defects, and executed manual API tests using Postman.</li>
+                <li>Performed accessibility testing with Axe and used browser devtools to debug and troubleshoot issues.</li>
+                <li>Utilized Sentry for error monitoring and tracking application performance in real-time.</li>
+                <li>Collaborated with the QA Lead to automate lead forms using Cypress with JavaScript.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">AEM</span>
+                <span class="tag">Axe</span>
+                <span class="tag">Bitbucket</span>
+                <span class="tag">Cypress</span>
+                <span class="tag">Jira</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Postman</span>
+                <span class="tag">Sentry</span>
+                <span class="tag">VS Code</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-gap" id="ciberrisk">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">CR</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">Ciber Risk S.A.</p>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">QA Analyst</span>
+                  <span class="right">Mar 2014 - Aug 2016</span>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <ul>
+                <li>Worked as the sole QA in a non-agile environment, managing tasks and defect tracking independently.</li>
+                <li>Tested a desktop application and two web applications, ensuring functionality and compatibility across different environments.</li>
+                <li>Validated databases using phpMyAdmin, ensuring data integrity and correctness.</li>
+                <li>Conducted testing and troubleshooting through the terminal in Linux, managing operating system configurations using virtual machines.</li>
+                <li>Identified and documented defects, collaborating with developers to ensure timely fixes and releases.</li>
+              </ul>
+              <div class="tags" aria-label="Tools and technologies">
+                <span class="tag">Linux</span>
+                <span class="tag">Manual QA</span>
+                <span class="tag">phpMyAdmin</span>
+                <span class="tag">Terminal</span>
+                <span class="tag">Virtual Machines</span>
+                <span class="tag">Web Testing</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="education-title">
+      <div class="container">
+        <h2 id="education-title" class="title">Education</h2>
+        <hr>
+
+        <article class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">UF</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">Universidad Fidelitas</p>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">Bachelor's Degree in Computer Systems Engineering</span>
+                  <span class="right">2022</span>
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
+        <article class="card card-gap">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <div class="company-fallback">CTP</div>
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">CTP Calle Blancos</p>
+                <p class="subtitle is-6 media-content-right">
+                  <span class="left">High School Diploma and Software Development Diploma</span>
+                  <span class="right">2013</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
+    </section>
     </div>
-  </section>
 
-  <!-- About Me -->
-  <section class="section">
-    <div class="container">
-      <h1 class="title">About Me</h1>
-      <hr />
-      <p>
-        QA Engineer with 10 years of experience across six diverse projects, including desktop, web, and mobile
-        applications.
-        Skilled in manual testing, test case management, database validation, API testing, and cross-browser/device
-        testing.
-        While my primary focus has been manual testing, I also have some experience with test automation. Adept at
-        ensuring
-        high-quality software delivery, collaborating with development teams, and mentoring new QA engineers. Strong
-        problem-solving skills and a commitment to delivering reliable software solutions.
-        <br><br>Projects:
-        <a href="#ciberrisk">Ciber Risk S.A.</a> (2+ years),
-        <a href="#bmw-usa">BMW USA</a> (2+ years),
-        <a href="#healthrecoverysolutions">Health Recovery Solutions</a> (6 months),
-        <a href="#accesso">accesso</a> (1+ year),
-        <a href="#hopskipdrive">HopSkipDrive</a> (3+ years) and <a href="#pultemortgage">Pulte Mortgage</a> (3+ years).
-        <br><br>"Trust, but verify."
-      </p>
-    </div>
-  </section>
+    <section class="section report-section" id="report-view" aria-labelledby="report-title" hidden>
+      <div class="container">
+        <div class="report-header">
+          <h2 id="report-title" class="title">Playwright Report</h2>
+        </div>
+        <hr>
+        <iframe
+          class="report-frame"
+          src="automation-report/index.html"
+          title="Embedded Playwright HTML report"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+  </main>
 
-  <!-- Experience -->
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Experience</h1>
-      <hr />
-      <div class="card" id="pultemortgage">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D4E0BAQGFYfHqNCprbg/company-logo_200_200/company-logo_200_200/0/1684775515429/gorillalogic_logo?e=1747267200&v=beta&t=6MndprY-XrXBVAJUOQQHx3camfmOWUb6ULIirNAWqjg"
-                  alt="Gorilla Logic Logo">
-              </figure>
-            </div>
-            <div class="media-content">
-              <a href="https://www.linkedin.com/company/gorillalogic/" target="_blank">
-                <p class="title is-4">Gorilla Logic</p>
-              </a>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">Senior QA Engineer at Pulte Mortgage</span>
-                <span class="right"><time datetime="2022-06">Jun 2022</time> - <time
-                    datetime="present">Present</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Worked with a team of 2 QA engineers in an agile environment using Azure DevOps.</li>
-              <li>Tested both a desktop application and a web application, ensuring cross- platform functionality.</li>
-              <li>Performed database validation using MySQL to verify data integrity and consistency.</li>
-              <li> Utilized remote desktop connections to access test servers and replicate customer environments for
-                testing.</li>
-              <li>Identified and reported defects, collaborating with the development team to prioritize fixes.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Azure DevOps</span>
-              <span class="tag">DevTools</span>
-              <span class="tag">Remote Desktop</span>
-              <span class="tag">SQL Server Management Studio</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap" id="hopskipdrive">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D4E0BAQGJ4Rtz44xx6Q/company-logo_200_200/company-logo_200_200/0/1712602102978/fullstack_labs_logo?e=1747267200&v=beta&t=IbcqQ732lEkC9KUlxYdjcovC02LyLjbIQkHsUfSxw-I"
-                  alt="Fullstack Labs Logo">
-              </figure>
-            </div>
-            <div class="media-content">
-              <a href="https://www.linkedin.com/company/fullstack-labs/" target="_blank">
-                <p class="title is-4">FullStack Labs</p>
-              </a>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">Senior QA Engineer at HopSkipDrive</span>
-                <span class="right"><time datetime="2022-04">Apr 2022</time> - <time
-                    datetime="present">Present</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Collaborated with a team of 7 QA engineers following a Kanban workflow.</li>
-              <li>Tested 2 mobile applications (iOS and Android) and 2 web applications, covering a wide range of
-                platforms and devices.</li>
-              <li> Managed test case creation and execution in Testmo, and conducted API testing with Postman.</li>
-              <li>Monitored feature flags using LaunchDarkly and collected user data through Segment.</li>
-              <li>Used Datadog and Bugsnag for real-time monitoring and tracking of errors in production.</li>
-              <li>Deployed and merged PRs via GitHub, CircleCI, and Argo, ensuring smooth CI/CD processes.</li>
-              <li>Onboarded new QA engineers, providing training and support during their integration into the team.
-              </li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Android Studio</span>
-              <span class="tag">Argo CD</span>
-              <span class="tag">Bugsnag</span> 
-              <span class="tag">CircleCI</span>
-              <span class="tag">ClickUp</span>
-              <span class="tag">Datadog</span>
-              <span class="tag">DevTools</span>
-              <span class="tag">Figma</span>
-              <span class="tag">GitHub</span>
-              <span class="tag">iOS</span>
-              <span class="tag">LaunchDarkly</span>
-              <span class="tag">Postman</span>
-              <span class="tag">Segment</span>
-              <span class="tag">Testmo</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap" id="accesso">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/C4E0BAQHHECNoVhv0HA/company-logo_200_200/company-logo_200_200/0/1663783801368/encorainc_logo?e=1747267200&v=beta&t=5aLLga8ozSxpkGg_u2FeP5jBv45BOuOtN9WyR4KFLyE"
-                  alt="Encora Inc. Logo">
-              </figure>
-            </div>
-            <div class="media-content">
-              <a href="https://www.linkedin.com/company/encorainc/" target="_blank">
-                <p class="title is-4">Encora Inc.</p>
-              </a>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">Senior QA Engineer at accesso</span>
-                <span class="right"><time datetime="2021-10">Oct 2021</time> - <time datetime="2022-12">Dec
-                    2022</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Worked with a team of 4 QA engineers in an agile environment using Jira.</li>
-              <li>Tested a web application featuring iFrames, ensuring compatibility across multiple browsers.</li>
-              <li>Managed test cases in TestRail and performed device testing through BrowserStack and Xcode.</li>
-              <li>Conducted database validation using MySQL to ensure data accuracy and integrity.</li>
-              <li>Performed accessibility testing with Axe to ensure compliance with WCAG standards.</li>
-              <li>Utilized browser devtools for debugging and troubleshooting issues.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">axe</span> 
-              <span class="tag">BrowserStack</span> 
-              <span class="tag">Confluence</span> 
-              <span class="tag">DevTools</span> 
-              <span class="tag">iOS</span> 
-              <span class="tag">Jira</span> 
-              <span class="tag">MySQL</span> 
-              <span class="tag">TestRail</span> 
-              <span class="tag">Xcode</span> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap" id="healthrecoverysolutions">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D4E0BAQFkwSvXFjZ4rQ/company-logo_200_200/company-logo_200_200/0/1725993619116/exsq_outcoding_logo?e=1747267200&v=beta&t=cSGj0Yvechcj2is4LsElsWhxxB_PzrElgqKd6X4oLLY"
-                  alt="EX Squared LATAM Logo">
-              </figure>
-            </div>
-            <div class="media-content">
-              <a href="https://www.linkedin.com/company/exsq-outcoding/" target="_blank">
-                <p class="title is-4">EX Squared LATAM</p>
-              </a>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">QA Engineer at Health Recovery Solutions</span>
-                <span class="right"><time datetime="2021-05">May 2021</time> - <time datetime="2021-10">Oct
-                    2021</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Collaborated with a team of 14 QA engineers in an agile environment using Jira.</li>
-              <li>Tested 3 mobile applications (iOS and Android) and 2 web applications across multiple platforms.</li>
-              <li>Managed test cases in TestRail and conducted API testing with Postman.</li>
-              <li>Leveraged ELK stack for monitoring application performance and error tracking.</li>
-              <li>Worked closely with developers to ensure timely resolution of defects and seamless release cycles.
-              </li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Android</span> 
-              <span class="tag">Confluence</span> 
-              <span class="tag">DevTools</span> 
-              <span class="tag">iOS</span> 
-              <span class="tag">Jira</span> 
-              <span class="tag">Postman</span> 
-              <span class="tag">TestRail</span> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap" id="bmw-usa">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/C560BAQEK42bkbzrJxg/company-logo_200_200/company-logo_200_200/0/1651589879270/critical_mass_logo?e=1747267200&v=beta&t=g7A1swBB8N2TCFEQX89ZjistwapiaEKLEQADTSTEnbY"
-                  alt="Critical Mass Logo">
-              </figure>
-            </div>
-            <div class="media-content">
-              <a href="https://www.linkedin.com/company/critical-mass/" target="_blank">
-                <p class="title is-4">Critical Mass</p>
-              </a>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">QA Engineer at BMW USA</span></span>
-                <span class="right"><time datetime="2019-04">Apr 2019</time> - <time datetime="2021-05">May
-                    2021</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Worked with a team of 7 QA engineers in a hybrid environment, using both agile and waterfall
-                methodologies, managed through Jira.</li>
-              <li>Tested a website built with Adobe Experience Manager (AEM), ensuring functional and content-related
-                integrity.</li>
-              <li>Managed test cases in Excel, tracked defects, and executed manual API tests using Postman.</li>
-              <li>Performed accessibility testing with Axe and used browser devtools to debug and troubleshoot issues.
-              </li>
-              <li>Utilized Sentry for error monitoring and tracking application performance in real-time.</li>
-              <li>Collaborated with the QA Lead to automate lead forms using Cypress with JavaScript, working within
-                Visual Studio Code and Bitbucket.</li>
-              <li>Contributed to the automation effort for approximately one year, increasing test efficiency and
-                coverage for lead form submissions.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">c#</span> <span class="tag">xamarin</span> <span class="tag">asp.net core</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap" id="ciberrisk">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img src="https://www.ciberisk.net/favicon.ico" alt="Ciber Risk S.A icon">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">Ciber Risk S.A.</p>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">QA Analyst</span>
-                <span class="right"><time datetime="2014-03">Mar 2014</time> - <time datetime="2016-08">Aug
-                    2016</time></span>
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <ul>
-              <li>Worked as the sole QA in a non-agile environment, managing tasks and defect tracking independently.
-              </li>
-              <li>Tested a desktop application and two web applications, ensuring functionality and compatibility across
-                different environments.</li>
-              <li>Validated databases using phpMyAdmin, ensuring data integrity and correctness.</li>
-              <li>Conducted testing and troubleshooting through the terminal in Linux, managing different operating
-                system configurations using virtual machines.</li>
-              <li>Identified and documented defects, collaborating with developers to ensure timely fixes and releases.
-              </li>
-            </ul>
-            <div class="tags">
-              <span class="tag">c#</span> <span class="tag">xamarin</span> <span class="tag">asp.net core</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script>
+    (function () {
+      const toggle = document.getElementById("automation-toggle");
+      const toggleLabel = document.getElementById("automation-toggle-label");
+      const resumeView = document.getElementById("resume-view");
+      const reportView = document.getElementById("report-view");
+      const reportTitle = document.getElementById("report-title");
 
-  <!-- Education -->
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Education</h1>
-      <hr />
-      <div class="card card-gap">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img
-                  src="https://media.licdn.com/dms/image/v2/C4E0BAQGAEfE4rQ-79A/company-logo_200_200/company-logo_200_200/0/1658070390573/universidad_fidlitas_logo?e=1747872000&v=beta&t=qgjEosOBKW-eSNFoJT11APyuSh-hccPq9H009ROH8MQ"
-                  alt="Fidélitas icon">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">Universidad Fidélitas</p>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">Bachelor's Degree in Computer Systems Engineering</span>
-                <span class="right"><time datetime="2022">2022</time></span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card card-gap">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img src="https://ctpcalleblancos.ed.cr/wp-content/uploads/2020/08/130x130-min.png"
-                  alt="CTP Calle Blancos icon">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">CTP Calle Blancos</p>
-              <p class="subtitle is-6 media-content-right">
-                <span class="left">High School Diploma and Software Development Diploma</span>
-                <span class="right"><time datetime="2013">2013</time></span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      if (!toggle || !toggleLabel || !resumeView || !reportView || !reportTitle) {
+        return;
+      }
 
-  <script src="js/bundle.js"></script>
+      function setReportMode(showReport) {
+        toggle.setAttribute("aria-pressed", String(showReport));
+        toggle.setAttribute("aria-label", showReport ? "Show resume" : "Show Playwright report");
+        toggleLabel.textContent = showReport ? "Show Resume" : "Show Report";
+        resumeView.hidden = showReport;
+        reportView.hidden = !showReport;
+
+        if (showReport) {
+          reportTitle.focus();
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          toggle.focus();
+        }
+      }
+
+      toggle.addEventListener("click", function () {
+        const showingReport = toggle.getAttribute("aria-pressed") === "true";
+        setReportMode(!showingReport);
+      });
+    }());
+  </script>
 </body>
-
 </html>
