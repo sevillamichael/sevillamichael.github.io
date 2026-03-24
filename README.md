@@ -2,47 +2,39 @@
 
 Static resume site with a lightweight Playwright + TypeScript automation setup.
 
-## Run the site locally
+## Resume
 
-Open the page directly:
+This repository contains the live resume site.
+
+For a quick local preview:
 
 ```powershell
 start index.html
 ```
 
-Or use a small local server:
+The site itself is plain HTML and CSS and does not require a build step.
 
-```powershell
-python -m http.server 4173
-```
+## Playwright
 
-Then open `http://127.0.0.1:4173`.
+This project also includes a small Playwright + TypeScript test suite used to validate the resume site and showcase UI automation.
 
-## Run the Playwright tests
-
-Install dependencies first:
+### Install dependencies
 
 ```powershell
 npm install
 npx playwright install chromium
 ```
 
-Run the suite:
+### Run the tests
 
 ```powershell
 npm run test:e2e
 ```
 
-Open the HTML report:
+### Open the HTML report
 
 ```powershell
 npm run report:e2e
 ```
 
-## What is covered
-
-- hero content and profile links
-- presence of core resume sections
-- expected experience entries
-- external link validation
-- basic mobile readability for experience rows
+The tests run directly against the local static files.

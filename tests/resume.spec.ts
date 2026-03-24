@@ -1,8 +1,12 @@
 import { expect, test } from "@playwright/test";
+import path from "path";
+import { pathToFileURL } from "url";
+
+const homeUrl = pathToFileURL(path.resolve(__dirname, "..", "index.html")).href;
 
 test.describe("Resume site", () => {
   test("renders the main hero content", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(homeUrl);
 
     await expect(page).toHaveTitle("Michael Sevilla");
     await expect(page.getByRole("heading", { level: 1, name: "Michael Sevilla" })).toBeVisible();
@@ -12,7 +16,7 @@ test.describe("Resume site", () => {
   });
 
   test("shows core resume sections", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(homeUrl);
 
     await expect(page.getByRole("heading", { level: 2, name: "About" })).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: "Experience" })).toBeVisible();
@@ -20,7 +24,7 @@ test.describe("Resume site", () => {
   });
 
   test("contains expected experience entries", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(homeUrl);
 
     await expect(page.locator("#pultemortgage")).toContainText("Gorilla Logic");
     await expect(page.locator("#hopskipdrive")).toContainText("FullStack Labs");
@@ -31,7 +35,7 @@ test.describe("Resume site", () => {
   });
 
   test("links to external professional profiles", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(homeUrl);
 
     await expect(page.getByRole("link", { name: "GitHub profile" })).toHaveAttribute("href", "https://github.com/sevillamichael");
     await expect(page.getByRole("link", { name: "LinkedIn profile" })).toHaveAttribute("href", "https://www.linkedin.com/in/sevillamichael");
@@ -39,7 +43,7 @@ test.describe("Resume site", () => {
 
   test("keeps company rows readable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/");
+    await page.goto(homeUrl);
 
     const firstJob = page.locator("#pultemortgage");
     await expect(firstJob.getByText("Senior QA Engineer at Pulte Mortgage")).toBeVisible();

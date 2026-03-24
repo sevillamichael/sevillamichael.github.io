@@ -193,6 +193,11 @@ hr {
   color: var(--text-strong);
 }
 
+.media-content a:hover .title.is-4,
+.media-content a:focus-visible .title.is-4 {
+  color: var(--blue);
+}
+
 .subtitle {
   color: var(--subtitle);
   font-size: 1.25rem;
