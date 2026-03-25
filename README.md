@@ -1,40 +1,30 @@
-# Michael Sevilla Resume
+# Michael Sevilla Online Resume
 
-Static resume site with a lightweight Playwright + TypeScript automation setup.
+This repository contains Michael Sevilla's static online resume website.
 
-## Resume
+## Overview
 
-This repository contains the live resume site.
+The site is built as a lightweight static page that presents experience, education, and selected
+projects in a clean, responsive format. It includes dark and light mode support and can be
+published without any build process.
 
-For a quick local preview:
+## Stack
 
-```powershell
-start index.html
-```
+- HTML
+- CSS
+- Vanilla JavaScript
 
-The site itself is plain HTML and CSS and does not require a build step.
+## Project Structure
 
-## Playwright
+- `index.html` contains the site content and structure
+- `styles.css` contains the visual styling and responsive layout rules
+- `script.js` handles theme selection and persistence
+- `assets/` contains logos, placeholders, and project thumbnails
 
-This project also includes a small Playwright + TypeScript test suite used to validate the resume site and showcase UI automation.
+## Local Preview
 
-### Install dependencies
+Open [index.html](c:\Users\michael.sevilla\Desktop\Stuff\sevillamichael.github.io\index.html) in a browser.
 
-```powershell
-npm install
-npx playwright install chromium
-```
+## Deployment
 
-### Run the tests
-
-```powershell
-npm run test:e2e
-```
-
-### Open the HTML report
-
-```powershell
-npm run report:e2e
-```
-
-The tests run directly against the local static files.
+This site is fully static and can be deployed directly to GitHub Pages or any static host.

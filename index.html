@@ -1,180 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Michael Sevilla</title>
-  <meta
-    name="description"
-    content="Online resume for Michael Sevilla, Senior QA Engineer."
-  >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="hero is-primary">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns has-text-centered hero-intro">
-          <div class="column hero-copy">
-            <div class="hero-copy-text">
-              <div class="hero-heading-block">
-                <h1 class="title is-1">Michael Sevilla</h1>
-                <h2 class="subtitle">Senior QA Engineer</h2>
-              </div>
-              <nav class="level-item has-text-centered social-nav" aria-label="Social links">
-                <div class="mr-5">
-                  <a href="https://github.com/sevillamichael" target="_blank" rel="noreferrer" class="social-link-group" aria-label="GitHub profile">
-                    <span class="icon is-large social-link" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" focusable="false">
-                        <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.09 1.83 1.22 1.83 1.22 1.08 1.82 2.82 1.3 3.5.99.11-.77.42-1.3.77-1.6-2.66-.3-5.46-1.31-5.46-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1.01-.32 3.3 1.22a11.6 11.6 0 0 1 6 0c2.29-1.54 3.29-1.22 3.29-1.22.65 1.64.24 2.86.12 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.09.82 2.21v3.28c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/>
-                      </svg>
-                    </span>
-                    <span class="heading">sevillamichael</span>
-                  </a>
-                </div>
-                <div class="mr-5">
-                  <a href="https://www.linkedin.com/in/sevillamichael" target="_blank" rel="noreferrer" class="social-link-group" aria-label="LinkedIn profile">
-                    <span class="icon is-large social-link" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" focusable="false">
-                        <path d="M4.98 3.5A2.48 2.48 0 1 0 5 8.46a2.48 2.48 0 0 0-.02-4.96ZM3 9.5h4v11H3v-11Zm7 0h3.83V11h.05c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.62 4.8 6.03v5.55h-4v-4.92c0-1.17-.02-2.67-1.66-2.67-1.66 0-1.92 1.27-1.92 2.58v5.01h-4v-11Z"/>
-                      </svg>
-                    </span>
-                    <span class="heading">Michael Sevilla</span>
-                  </a>
-                </div>
-                <div class="mr-5">
-                  <button
-                    type="button"
-                    class="social-link-group social-toggle"
-                    id="automation-toggle"
-                    aria-label="Show Playwright report"
-                    aria-controls="resume-view report-view"
-                    aria-pressed="false"
-                  >
-                    <span class="icon is-large social-link" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" focusable="false">
-                        <path d="M7.5 2.5c-2.2 0-4 1.8-4 4v10.7c0 2.4 1.9 4.3 4.3 4.3h.2c1.7 0 3.2-1 3.9-2.5l.4-.9 1 .2c.3.1.6.1.9.1 3.6 0 6.6-2.9 6.6-6.6V6.5c0-2.2-1.8-4-4-4h-9.3Zm.1 2h9.2c1.1 0 2 .9 2 2v5.3c0 2.5-2.1 4.6-4.6 4.6-.7 0-1.3-.1-1.9-.4l-2-.8-.9 2c-.4.8-1.2 1.3-2.1 1.3h-.2c-1.3 0-2.3-1-2.3-2.3V6.5c0-1.1.9-2 2-2Zm1.6 2.6a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm6 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/>
-                      </svg>
-                    </span>
-                    <span class="heading" id="automation-toggle-label">Show Report</span>
-                  </button>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Michael Sevilla</title>
+    <meta
+      name="description"
+      content="Michael Sevilla - Senior QA Engineer portfolio and resume."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg aria-hidden="true" class="icon-sprite">
+      <symbol id="icon-user" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 256a112 112 0 1 0-112-112 112 112 0 0 0 112 112Zm0 32c-88.37 0-160 57.31-160 128v32h320v-32c0-70.69-71.63-128-160-128Z"
+        />
+      </symbol>
+      <symbol id="icon-briefcase" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M184 48a40 40 0 0 0-40 40v40H72a56 56 0 0 0-56 56v216a56 56 0 0 0 56 56h368a56 56 0 0 0 56-56V184a56 56 0 0 0-56-56h-72V88a40 40 0 0 0-40-40Zm40 80V96h64v32Z"
+        />
+      </symbol>
+      <symbol id="icon-school" viewBox="0 0 640 512">
+        <path
+          fill="currentColor"
+          d="M320 32 0 176l320 144 261.25-117.56V352H640V176L320 32Zm-160 256v80c0 44.18 71.63 80 160 80s160-35.82 160-80v-80l-160 72Z"
+        />
+      </symbol>
+      <symbol id="icon-code" viewBox="0 0 640 512">
+        <path
+          fill="currentColor"
+          d="M392.8 1.2a32 32 0 0 1 45.3 0l192 192a32 32 0 0 1 0 45.3l-192 192a32 32 0 1 1-45.3-45.3L562.7 216 392.8 46.5a32 32 0 0 1 0-45.3ZM247.2 46.5 77.3 216l169.9 169.5a32 32 0 1 1-45.3 45.3l-192-192a32 32 0 0 1 0-45.3l192-192a32 32 0 0 1 45.3 45.3Z"
+        />
+      </symbol>
+      <symbol id="icon-link" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M320 0a32 32 0 0 0 0 64h82.75L201.38 265.38a32 32 0 0 0 45.25 45.25L448 109.25V192a32 32 0 0 0 64 0V32a32 32 0 0 0-32-32ZM64 96a64 64 0 0 0-64 64v288a64 64 0 0 0 64 64h288a64 64 0 0 0 64-64V320a32 32 0 0 0-64 0v128H64V160h128a32 32 0 0 0 0-64Z"
+        />
+      </symbol>
+      <symbol id="icon-github" viewBox="0 0 496 512">
+        <path
+          fill="currentColor"
+          d="M248 8C111 8 0 119 0 256c0 109.8 71.5 202.8 170.7 235.7 12.5 2.3 17.1-5.4 17.1-12v-46.4c-69.5 15.1-84.2-29.5-84.2-29.5-11.4-29-27.8-36.8-27.8-36.8-22.7-15.5 1.7-15.2 1.7-15.2 25.1 1.8 38.4 25.8 38.4 25.8 22.3 38.2 58.5 27.2 72.8 20.8 2.3-16.1 8.7-27.2 15.8-33.5-55.5-6.3-113.9-27.8-113.9-123.7 0-27.3 9.8-49.5 25.8-66.9-2.6-6.3-11.2-31.8 2.5-66.2 0 0 21.1-6.7 69.1 25.6A238.9 238.9 0 0 1 248 142a239 239 0 0 1 62.9 8.5c48-32.3 69.1-25.6 69.1-25.6 13.7 34.4 5.1 59.9 2.5 66.2 16 17.4 25.8 39.6 25.8 66.9 0 96.2-58.5 117.3-114.2 123.5 9 7.8 17 23.1 17 46.6v69.1c0 6.7 4.5 14.5 17.2 12C424.6 458.7 496 365.7 496 256 496 119 385 8 248 8Z"
+        />
+      </symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 448 512">
+        <path
+          fill="currentColor"
+          d="M100.28 448H7.4V148.9h92.88Zm-46.44-340a53.79 53.79 0 1 1 53.79-53.8 53.79 53.79 0 0 1-53.79 53.8ZM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.3 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.7-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448Z"
+        />
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"
+        />
+      </symbol>
+      <symbol id="icon-sun" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+        />
+      </symbol>
+    </svg>
 
-  <main id="main">
-    <div id="resume-view">
-    <section class="section" aria-labelledby="about-title">
-      <div class="container">
-        <h2 id="about-title" class="title">About</h2>
-        <hr>
-        <div class="content">
+    <main class="page">
+      <section class="hero">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        >
+          <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
+          <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
+        </button>
+        <h1>Michael Sevilla</h1>
+        <p class="hero-role">Senior QA Engineer</p>
+        <div class="social-links" aria-label="Social links">
+          <a
+            class="social-link social-link-github"
+            href="https://github.com/sevillamichael"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <svg><use href="#icon-github"></use></svg>
+          </a>
+          <a
+            class="social-link social-link-linkedin"
+            href="https://www.linkedin.com/in/sevillamichael"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <svg><use href="#icon-linkedin"></use></svg>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <svg><use href="#icon-user"></use></svg>
+          <h2>About</h2>
+        </div>
+        <div class="section-body section-body-prose">
           <p>
-            Senior QA Engineer with experience validating mobile and web applications, including CMS-driven platforms, payment systems, and large-scale migrations.
-            Strong background in manual testing, API validation, data integrity, accessibility testing, and debugging using tools such as Postman, SQL, BrowserStack,
-            DevTools, and axe.
+            Senior QA Engineer with experience validating mobile and web applications, including
+            CMS-driven platforms, payment systems, and large-scale migrations. Strong background in
+            manual testing, API validation, data integrity, accessibility testing, and debugging
+            using tools such as Postman, SQL, BrowserStack, DevTools, and axe.
           </p>
           <p>
-            Experienced in supporting release and deployment processes within CI/CD environments and troubleshooting issues across frontend, backend,
-            and production systems. Detail-oriented approach to quality, strong collaboration with development teams, and exposure to automation initiatives
-            through proof-of-concept work.
+            Experienced in supporting release and deployment processes within CI/CD environments and
+            troubleshooting issues across frontend, backend, and production systems. Detail-oriented
+            approach to quality, strong collaboration with development teams, and exposure to
+            automation initiatives through proof-of-concept work.
           </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" aria-labelledby="experience-title">
-      <div class="container">
-        <h2 id="experience-title" class="title">Experience</h2>
-        <hr>
-
-        <article class="card" id="pultemortgage">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <a href="https://www.linkedin.com/company/gorillalogic/" target="_blank" rel="noreferrer" aria-label="Gorilla Logic, opens in a new tab">
-                  <figure class="image is-48x48">
-                    <img src="assets/gorillalogic_logo.jpg" alt="Gorilla Logic logo" class="company-logo">
-                  </figure>
-                </a>
-              </div>
-              <div class="media-content">
-                <a href="https://www.linkedin.com/company/gorillalogic/" target="_blank" rel="noreferrer">
-                  <p class="title is-4">Gorilla Logic<span class="visually-hidden">, opens in a new tab</span></p>
-                </a>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">Senior QA Engineer at Pulte Mortgage</span>
-                  <span class="right">Jun 2022 - Present</span>
-                </p>
-              </div>
+      <section class="section">
+        <div class="section-heading">
+          <svg><use href="#icon-briefcase"></use></svg>
+          <h2>Experience</h2>
+        </div>
+        <div class="section-body">
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/gorillalogic_logo.jpg" alt="Gorilla Logic" />
             </div>
-            <div class="content">
-              <ul>
+            <div class="entry-content">
+              <h3 class="entry-company">Gorilla Logic</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">Senior QA Engineer at Pulte Mortgage</h4>
+                <p class="entry-date">June 2022 - Present</p>
+              </div>
+              <ul class="entry-list">
                 <li>Supported the migration of a legacy desktop application to a web platform through structured manual testing.</li>
                 <li>Validated backend data with SQL Server to ensure consistency with application behavior.</li>
                 <li>Performed API testing with Swagger to verify request and response structures.</li>
                 <li>Created and maintained test cases in TestRail after migration from Azure DevOps Test Plans, while tracking defects in Azure DevOps.</li>
                 <li>Participated in a Playwright (TypeScript) proof of concept to evaluate automation feasibility.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">Azure DevOps</span>
-                <span class="tag">Playwright</span>
-                <span class="tag">SQL Server</span>
-                <span class="tag">Swagger</span>
-                <span class="tag">TestRail</span>
-              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card card-gap" id="fullstack">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <a href="https://www.linkedin.com/company/fullstack-labs/" target="_blank" rel="noreferrer" aria-label="FullStack, opens in a new tab">
-                  <figure class="image is-48x48">
-                    <img src="assets/fullstack_labs_logo.jpg" alt="FullStack Labs logo" class="company-logo">
-                  </figure>
-                </a>
-              </div>
-              <div class="media-content">
-                <a href="https://www.linkedin.com/company/fullstack-labs/" target="_blank" rel="noreferrer">
-                  <p class="title is-4">FullStack<span class="visually-hidden">, opens in a new tab</span></p>
-                </a>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">Senior QA Engineer at SIDEARM Sports</span>
-                  <span class="right">Oct 2025 - Present</span>
-                </p>
-              </div>
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/fullstack_labs_logo.jpg" alt="FullStack" />
             </div>
-            <div class="content role-block" id="sidearmsports">
-              <ul>
+            <div class="entry-content">
+              <h3 class="entry-company">FullStack</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">Senior QA Engineer at SIDEARM Sports</h4>
+                <p class="entry-date">October 2025 - Present</p>
+              </div>
+              <ul class="entry-list">
                 <li>Validated iOS and Android college mobile applications powered by a CMS using BrowserStack, ensuring consistent behavior across devices and screen sizes.</li>
                 <li>Created and executed test cases in TestRail to cover CMS-driven content and feature updates within the applications.</li>
                 <li>Reported and tracked defects in Jira, documenting clear reproduction steps for triage and resolution.</li>
                 <li>Investigated UI and network issues using DevTools within BrowserStack sessions.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">BrowserStack</span>
-                <span class="tag">CMS</span>
-                <span class="tag">Jira</span>
-                <span class="tag">TestRail</span>
-              </div>
             </div>
-            <div class="content role-block role-block-gap" id="hopskipdrive">
-              <p class="subtitle is-6 media-content-right role-heading">
-                <span class="left">Senior QA Engineer at HopSkipDrive</span>
-                <span class="right">Apr 2022 - Sep 2025</span>
-              </p>
-              <ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-logo entry-logo-empty" aria-hidden="true"></div>
+            <div class="entry-content">
+              <div class="entry-meta">
+                <h4 class="entry-role">Senior QA Engineer at HopSkipDrive</h4>
+                <p class="entry-date">April 2022 - October 2025</p>
+              </div>
+              <ul class="entry-list">
                 <li>Tested functionality across mobile and web applications, covering multiple user flows and platform combinations.</li>
                 <li>Managed deployments, first through terminal-based workflows and later through CircleCI and ArgoCD pipelines.</li>
                 <li>Validated API behavior using Postman and investigated issues with Charles Proxy and DevTools.</li>
@@ -183,273 +192,181 @@
                 <li>Supported onboarding and mentorship of QA engineers and participated in technical interviews.</li>
                 <li>Contributed to a Cypress (JavaScript) proof of concept to explore automation approaches.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">ArgoCD</span>
-                <span class="tag">Bugsnag</span>
-                <span class="tag">Charles Proxy</span>
-                <span class="tag">CircleCI</span>
-                <span class="tag">Cypress</span>
-                <span class="tag">Datadog</span>
-                <span class="tag">DevTools</span>
-                <span class="tag">GitHub</span>
-                <span class="tag">Postman</span>
-                <span class="tag">Segment</span>
-              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card card-gap" id="accesso">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <a href="https://www.linkedin.com/company/encorainc/" target="_blank" rel="noreferrer" aria-label="Encora Inc., opens in a new tab">
-                  <figure class="image is-48x48">
-                    <img src="assets/encorainc_logo.jpg" alt="Encora Inc. logo" class="company-logo">
-                  </figure>
-                </a>
-              </div>
-              <div class="media-content">
-                <a href="https://www.linkedin.com/company/encorainc/" target="_blank" rel="noreferrer">
-                  <p class="title is-4">Encora Inc.<span class="visually-hidden">, opens in a new tab</span></p>
-                </a>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">Senior QA Engineer at accesso</span>
-                  <span class="right">Oct 2021 - Dec 2022</span>
-                </p>
-              </div>
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/encorainc_logo.jpg" alt="Encora Inc." />
             </div>
-            <div class="content">
-              <ul>
+            <div class="entry-content">
+              <h3 class="entry-company">Encora Inc.</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">Senior QA Engineer at accesso</h4>
+                <p class="entry-date">October 2021 - December 2022</p>
+              </div>
+              <ul class="entry-list">
                 <li>Validated end-to-end payment flows for an embedded platform, ensuring reliable transaction processing.</li>
                 <li>Verified transaction data in MySQL and created test coverage in TestRail for payment scenarios and edge cases.</li>
                 <li>Reported and tracked payment-related defects in Jira and troubleshot frontend issues using DevTools.</li>
-                <li>Performed accessibility testing with axe (Deque) to support compliance validation.</li>
+                <li>Performed accessibility testing with axe.</li>
                 <li>Tested mobile payment functionality, including Apple Pay, using BrowserStack and Xcode.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">axe (Deque)</span>
-                <span class="tag">BrowserStack</span>
-                <span class="tag">DevTools</span>
-                <span class="tag">Jira</span>
-                <span class="tag">MySQL</span>
-                <span class="tag">TestRail</span>
-                <span class="tag">Xcode</span>
-              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card card-gap" id="healthrecoverysolutions">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <a href="https://www.linkedin.com/company/exsq-outcoding/" target="_blank" rel="noreferrer" aria-label="EX Squared LATAM, opens in a new tab">
-                  <figure class="image is-48x48">
-                    <img src="assets/exsq_outcoding_logo.jpg" alt="EX Squared LATAM logo" class="company-logo">
-                  </figure>
-                </a>
-              </div>
-              <div class="media-content">
-                <a href="https://www.linkedin.com/company/exsq-outcoding/" target="_blank" rel="noreferrer">
-                  <p class="title is-4">EX Squared LATAM<span class="visually-hidden">, opens in a new tab</span></p>
-                </a>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">QA Engineer at Health Recovery Solutions</span>
-                  <span class="right">May 2021 - Oct 2021</span>
-                </p>
-              </div>
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/exsq_outcoding_logo.jpg" alt="EX Squared LATAM" />
             </div>
-            <div class="content">
-              <ul>
+            <div class="entry-content">
+              <h3 class="entry-company">EX Squared LATAM</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">QA Engineer at Health Recovery Solutions</h4>
+                <p class="entry-date">May 2021 - October 2021</p>
+              </div>
+              <ul class="entry-list">
                 <li>Performed manual testing across mobile and web applications to validate functionality and user experience.</li>
                 <li>Executed and maintained test cases in TestRail, performed API testing using Postman, and reported defects through Jira.</li>
                 <li>Investigated UI issues using DevTools during feature validation.</li>
                 <li>Conducted mobile testing on real devices to verify platform-specific behavior.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">DevTools</span>
-                <span class="tag">Jira</span>
-                <span class="tag">TestRail</span>
-              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card card-gap" id="bmw-usa">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <a href="https://www.linkedin.com/company/critical-mass/" target="_blank" rel="noreferrer" aria-label="Critical Mass, opens in a new tab">
-                  <figure class="image is-48x48">
-                    <img src="assets/critical_mass_logo.jpg" alt="Critical Mass logo" class="company-logo">
-                  </figure>
-                </a>
-              </div>
-              <div class="media-content">
-                <a href="https://www.linkedin.com/company/critical-mass/" target="_blank" rel="noreferrer">
-                  <p class="title is-4">Critical Mass<span class="visually-hidden">, opens in a new tab</span></p>
-                </a>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">QA Engineer at BMW USA</span>
-                  <span class="right">Apr 2019 - May 2021</span>
-                </p>
-              </div>
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/critical_mass_logo.jpg" alt="Critical Mass" />
             </div>
-            <div class="content">
-              <ul>
-                <li>Validated CMS-driven web content using Adobe Experience Manager (AEM) and tested interactive web application features, including a vehicle configurator.</li>
+            <div class="entry-content">
+              <h3 class="entry-company">Critical Mass</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">QA Engineer at BMW USA</h4>
+                <p class="entry-date">April 2019 - May 2021</p>
+              </div>
+              <ul class="entry-list">
+                <li>Validated CMS-driven web content using Adobe Experience Manager and tested interactive web application features, including a vehicle configurator.</li>
                 <li>Executed API testing with Postman collections and monitored production issues through Sentry.</li>
                 <li>Performed cross-device testing using BrowserStack and Xcode, and investigated UI issues with DevTools.</li>
-                <li>Performed accessibility testing with axe (Deque) to support compliance validation.</li>
+                <li>Performed accessibility testing with axe.</li>
                 <li>Reported and tracked defects in Jira.</li>
                 <li>Contributed to a Cypress (JavaScript) proof of concept and supported CI workflows with Jenkins.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">AEM</span>
-                <span class="tag">axe (Deque)</span>
-                <span class="tag">BrowserStack</span>
-                <span class="tag">Bitbucket</span>
-                <span class="tag">Cypress</span>
-                <span class="tag">DevTools</span>
-                <span class="tag">Jira</span>
-                <span class="tag">Jenkins</span>
-                <span class="tag">Postman</span>
-                <span class="tag">Sentry</span>
-                <span class="tag">Xcode</span>
-              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card card-gap" id="ciberrisk">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <div class="company-fallback">CR</div>
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">Ciber Risk S.A.</p>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">QA Analyst</span>
-                  <span class="right">Mar 2014 - Aug 2016</span>
-                </p>
-              </div>
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/ciberrisk_placeholder.svg" alt="Ciber Risk S.A." />
             </div>
-            <div class="content">
-              <ul>
+            <div class="entry-content">
+              <h3 class="entry-company">Ciber Risk S.A.</h3>
+              <div class="entry-meta">
+                <h4 class="entry-role">QA Analyst</h4>
+                <p class="entry-date">March 2014 - August 2016</p>
+              </div>
+              <ul class="entry-list">
                 <li>Conducted manual testing for desktop and web applications, validating core functionality and user flows.</li>
                 <li>Verified backend data using phpMyAdmin and reported issues through an internal ticketing system.</li>
                 <li>Investigated UI issues with DevTools and browser responsive design tools.</li>
                 <li>Tested across Windows and Linux environments to validate cross-platform behavior.</li>
               </ul>
-              <div class="tags" aria-label="Tools and technologies">
-                <span class="tag">DevTools</span>
-                <span class="tag">phpMyAdmin</span>
-                <span class="tag">Responsive Design Mode</span>
-              </div>
             </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="education-title">
-      <div class="container">
-        <h2 id="education-title" class="title">Education</h2>
-        <hr>
-
-        <article class="card">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="assets/universidad_fidlitas_logo.jpg" alt="Universidad Fidelitas logo" class="company-logo">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">Universidad Fidelitas</p>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">Bachelor's Degree in Computer Systems Engineering</span>
-                  <span class="right">2022</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card-gap">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <div class="company-fallback">CTP</div>
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">CTP Calle Blancos</p>
-                <p class="subtitle is-6 media-content-right">
-                  <span class="left">High School Diploma and Software Development Diploma</span>
-                  <span class="right">2013</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-    </div>
-
-    <section class="section report-section" id="report-view" aria-labelledby="report-title" hidden>
-      <div class="container">
-        <div class="report-header">
-          <h2 id="report-title" class="title">Playwright Report</h2>
+          </article>
         </div>
-        <hr>
-        <iframe
-          class="report-frame"
-          src="automation-report/index.html"
-          title="Embedded Playwright HTML report"
-          loading="lazy"
-        ></iframe>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <script>
-    (function () {
-      const toggle = document.getElementById("automation-toggle");
-      const toggleLabel = document.getElementById("automation-toggle-label");
-      const resumeView = document.getElementById("resume-view");
-      const reportView = document.getElementById("report-view");
-      const reportTitle = document.getElementById("report-title");
+      <section class="section">
+        <div class="section-heading">
+          <svg><use href="#icon-school"></use></svg>
+          <h2>Education</h2>
+        </div>
+        <div class="section-body">
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/universidad_fidelitas_logo.jpg" alt="Universidad Fidelitas" />
+            </div>
+            <div class="entry-content">
+              <div class="entry-meta">
+                <h4 class="entry-role">Universidad Fidelitas</h4>
+                <p class="entry-date">2022</p>
+              </div>
+              <p class="entry-detail">Bachelor's Degree in Computer Systems Engineering</p>
+            </div>
+          </article>
 
-      if (!toggle || !toggleLabel || !resumeView || !reportView || !reportTitle) {
-        return;
-      }
+          <article class="entry">
+            <div class="entry-logo">
+              <img src="assets/ctp_placeholder.svg" alt="CTP Calle Blancos" />
+            </div>
+            <div class="entry-content">
+              <div class="entry-meta">
+                <h4 class="entry-role">CTP Calle Blancos</h4>
+                <p class="entry-date">2013</p>
+              </div>
+              <p class="entry-detail">High School Diploma and Software Development Diploma</p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-      function setReportMode(showReport) {
-        toggle.setAttribute("aria-pressed", String(showReport));
-        toggle.setAttribute("aria-label", showReport ? "Show resume" : "Show Playwright report");
-        toggleLabel.textContent = showReport ? "Show Resume" : "Show Report";
-        resumeView.hidden = showReport;
-        reportView.hidden = !showReport;
+      <section class="section">
+        <div class="section-heading">
+          <svg><use href="#icon-code"></use></svg>
+          <h2>Projects</h2>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <a
+              class="project-media"
+              href="https://github.com/sevillamichael/sevillamichael.github.io"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="project-image-resume"
+                src="assets/online-resume-cover.png"
+                alt="Online Resume"
+              />
+              <span class="project-media-icon">
+                <svg><use href="#icon-link"></use></svg>
+              </span>
+            </a>
+            <h3 class="project-title">Online Resume</h3>
+            <p class="project-description">
+              A personal resume website built as a lightweight static site to present my experience,
+              education, and selected projects in a clean, easy-to-scan format. It supports dark and
+              light mode, responsive layouts for desktop and mobile, and ongoing refinements as I
+              tailor it for applications and future updates.
+            </p>
+          </article>
 
-        if (showReport) {
-          reportTitle.focus();
-        } else {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          toggle.focus();
-        }
-      }
+          <article class="project-card">
+            <a
+              class="project-media"
+              href="https://github.com/sevillamichael/playwright"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="assets/playwright-automation-placeholder.svg"
+                alt="Playwright TypeScript automation for online resume"
+              />
+              <span class="project-media-icon">
+                <svg><use href="#icon-link"></use></svg>
+              </span>
+            </a>
+            <h3 class="project-title">Playwright + TypeScript Automation</h3>
+            <p class="project-description">
+              A Playwright and TypeScript automation project focused on validating this live online
+              resume site through UI checks, regression protection, and automated verification of key
+              flows, layout stability, and overall presentation.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
 
-      toggle.addEventListener("click", function () {
-        const showingReport = toggle.getAttribute("aria-pressed") === "true";
-        setReportMode(!showingReport);
-      });
-    }());
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
