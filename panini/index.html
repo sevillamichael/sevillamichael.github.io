@@ -117,22 +117,22 @@
 
       // ── Album data ─────────────────────────────────────────────────────────
       const ALBUMS = [
-        { year: 1970, host: "Mexico",                          flag: "🇲🇽", stickers: 191,  postales: null, extras: 0  },
-        { year: 1974, host: "Germany",                         flag: "🇩🇪", stickers: 400,  postales: null, extras: 0  },
+        { year: 1970, host: "México",                          flag: "🇲🇽", stickers: 191,  postales: null, extras: 0  },
+        { year: 1974, host: "Alemania",                        flag: "🇩🇪", stickers: 400,  postales: null, extras: 0  },
         { year: 1978, host: "Argentina",                       flag: "🇦🇷", stickers: 396,  postales: null, extras: 0  },
-        { year: 1982, host: "Spain",                           flag: "🇪🇸", stickers: 396,  postales: null, extras: 0  },
-        { year: 1986, host: "Mexico",                          flag: "🇲🇽", stickers: 432,  postales: 427, extras: 0  },
-        { year: 1990, host: "Italy",                           flag: "🇮🇹", stickers: 444,  postales: 448, extras: 0  },
+        { year: 1982, host: "España",                          flag: "🇪🇸", stickers: 396,  postales: null, extras: 0  },
+        { year: 1986, host: "México",                          flag: "🇲🇽", stickers: 432,  postales: 427, extras: 0  },
+        { year: 1990, host: "Italia",                          flag: "🇮🇹", stickers: 444,  postales: 448, extras: 0  },
         { year: "story", host: "World Cup Story",              flag: "📖", stickers: null, postales: null, extras: null },
-        { year: 1994, host: "United States",                   flag: "🇺🇸", stickers: 480,  postales: 228, extras: 0  },
-        { year: 1998, host: "France",                          flag: "🇫🇷", stickers: 480,  postales: 444, extras: 0  },
-        { year: 2002, host: "South Korea / Japan",             flag: "🇰🇷", stickers: 576,  postales: 561, extras: 0  },
-        { year: 2006, host: "Germany",                         flag: "🇩🇪", stickers: 597,  postales: 576, extras: 0  },
-        { year: 2010, host: "South Africa",                    flag: "🇿🇦", stickers: 640,  postales: 596, extras: 0  },
-        { year: 2014, host: "Brazil",                          flag: "🇧🇷", stickers: 640,  postales: 638, extras: 0  },
-        { year: 2018, host: "Russia",                          flag: "🇷🇺", stickers: 682,  postales: 639, extras: 0  },
-        { year: 2022, host: "Qatar",                           flag: "🇶🇦", stickers: 670,  postales: 669, onyx: 669,     extras: 80, extrasConfirmed: true  },
-        { year: 2026, host: "Canada / United States / Mexico", flag: "🌎",  stickers: null, postales: null, cocaCola: 14, extras: 80, extrasConfirmed: false },
+        { year: 1994, host: "Estados Unidos",                  flag: "🇺🇸", stickers: 480,  postales: 228, extras: 0  },
+        { year: 1998, host: "Francia",                         flag: "🇫🇷", stickers: 480,  postales: 444, extras: 0  },
+        { year: 2002, host: "Corea del Sur / Japón",           flag: "🇰🇷", stickers: 576,  postales: 561, extras: 0  },
+        { year: 2006, host: "Alemania",                        flag: "🇩🇪", stickers: 597,  postales: 576, extras: 0  },
+        { year: 2010, host: "Sudáfrica",                       flag: "🇿🇦", stickers: 640,  postales: 596, extras: 0  },
+        { year: 2014, host: "Brasil",                          flag: "🇧🇷", stickers: 640,  postales: 638, extras: 0  },
+        { year: 2018, host: "Rusia",                           flag: "🇷🇺", stickers: 682,  postales: 639, extras: 0  },
+        { year: 2022, host: "Catar",                           flag: "🇶🇦", stickers: 670,  postales: 669, onyx: 669,     extras: 80, extrasConfirmed: true  },
+        { year: 2026, host: "Canadá / Estados Unidos / México", flag: "🌎", stickers: null, postales: null, cocaCola: 14, extras: 80, extrasConfirmed: false },
       ];
 
       // ── Image probing ──────────────────────────────────────────────────────
@@ -150,13 +150,15 @@
       }
 
       async function listImages(folder, year) {
-        const paths = [];
-        for (let i = 0; i <= MAX_VARIANTS; i++) {
+        const srcs   = Array.from({ length: MAX_VARIANTS + 1 }, (_, i) => {
           const suffix = i === 0 ? "" : `_${i}`;
-          const src    = `../assets/${folder}/${year}${suffix}.jpg`;
-          const exists = await probeImage(src);
-          if (!exists) break;
-          paths.push(src);
+          return `../assets/${folder}/${year}${suffix}.jpg`;
+        });
+        const exists = await Promise.all(srcs.map(probeImage));
+        const paths  = [];
+        for (let i = 0; i < srcs.length; i++) {
+          if (!exists[i]) break;
+          paths.push(srcs[i]);
         }
         return paths;
       }
@@ -233,8 +235,8 @@
         const counts   = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
         const isStory  = year === "story";
 
-        document.getElementById("gallery-year").textContent = isStory ? "Story" : album.year;
-        document.getElementById("gallery-host").textContent = isStory ? "World Cup" : album.host;
+        document.getElementById("gallery-year").textContent = isStory ? album.host : album.year;
+        document.getElementById("gallery-host").textContent = isStory ? "" : album.host;
 
         function gridClass(n) {
           if (n >= 4) return "gallery-images cols-4";
@@ -245,8 +247,9 @@
 
         const albumsSection = document.getElementById("gallery-albums-section");
         if (counts.albumPaths.length) {
+          const an = counts.albumPaths.length;
           albumsSection.querySelector(".gallery-section-label").textContent =
-            counts.albumPaths.length === 1 ? "Álbum" : "Álbumes";
+            an === 1 ? "Álbum" : `Álbumes: ${an}`;
           const el = document.getElementById("gallery-albums");
           el.className = gridClass(counts.albumPaths.length);
           el.innerHTML = counts.albumPaths.map(src =>
@@ -259,8 +262,9 @@
 
         const sobresSection = document.getElementById("gallery-sobres-section");
         if (counts.sobrePaths.length) {
+          const sn = counts.sobrePaths.length;
           sobresSection.querySelector(".gallery-section-label").textContent =
-            counts.sobrePaths.length === 1 ? "Sobre" : "Sobres";
+            sn === 1 ? "Sobre" : `Sobres: ${sn}`;
           const el = document.getElementById("gallery-sobres");
           el.className = gridClass(counts.sobrePaths.length);
           el.innerHTML = counts.sobrePaths.map(src =>
@@ -318,33 +322,65 @@
         if (e.key === "Escape") closeLightbox();
       });
 
+      // ── Cache ──────────────────────────────────────────────────────────────
+      const CACHE_KEY = "panini_counts_v1";
+      const CACHE_TTL = 24 * 60 * 60 * 1000;
+
+      function loadCache() {
+        try {
+          const raw = localStorage.getItem(CACHE_KEY);
+          if (!raw) return null;
+          const { ts, data } = JSON.parse(raw);
+          if (Date.now() - ts > CACHE_TTL) return null;
+          return data;
+        } catch { return null; }
+      }
+
+      function saveCache() {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: imageCounts }));
+        } catch {}
+      }
+
       // ── Init ───────────────────────────────────────────────────────────────
+      function applyCount(album, albumPaths, sobrePaths) {
+        imageCounts[album.year] = { albumPaths, sobrePaths };
+        const card   = document.querySelector(`.album-card[data-year="${album.year}"]`);
+        const aEl    = document.querySelector(`[data-type="albums"][data-year="${album.year}"]`);
+        const pEl    = document.querySelector(`[data-type="sobres"][data-year="${album.year}"]`);
+        const aLabel = document.querySelector(`[data-label="albums"][data-year="${album.year}"]`);
+        const pLabel = document.querySelector(`[data-label="sobres"][data-year="${album.year}"]`);
+        if (aEl) aEl.textContent = albumPaths.length;
+        if (pEl) pEl.textContent = sobrePaths.length;
+        if (aLabel) aLabel.textContent = albumPaths.length === 1 ? "Álbum" : "Álbumes";
+        if (pLabel) pLabel.textContent = sobrePaths.length === 1 ? "Sobre" : "Sobres";
+        if (card && albumPaths.length === 0 && sobrePaths.length === 0) {
+          card.classList.add("is-empty");
+        }
+      }
+
       async function init() {
         renderGrid();
+
+        const cached = loadCache();
+        if (cached) {
+          ALBUMS.forEach(album => {
+            const c = cached[album.year];
+            if (c) applyCount(album, c.albumPaths, c.sobrePaths);
+          });
+          updateStats();
+          return;
+        }
 
         await Promise.all(ALBUMS.map(async album => {
           const [albumPaths, sobrePaths] = await Promise.all([
             listImages("albums", album.year),
             listImages("sobres", album.year),
           ]);
-
-          imageCounts[album.year] = { albumPaths, sobrePaths };
-
-          // Update count badges and mark empty cards
-          const card = document.querySelector(`.album-card[data-year="${album.year}"]`);
-          const aEl    = document.querySelector(`[data-type="albums"][data-year="${album.year}"]`);
-          const pEl    = document.querySelector(`[data-type="sobres"][data-year="${album.year}"]`);
-          const aLabel = document.querySelector(`[data-label="albums"][data-year="${album.year}"]`);
-          const pLabel = document.querySelector(`[data-label="sobres"][data-year="${album.year}"]`);
-          if (aEl) aEl.textContent = albumPaths.length;
-          if (pEl) pEl.textContent = sobrePaths.length;
-          if (aLabel) aLabel.textContent = albumPaths.length === 1 ? "Álbum" : "Álbumes";
-          if (pLabel) pLabel.textContent = sobrePaths.length === 1 ? "Sobre" : "Sobres";
-          if (card && albumPaths.length === 0 && sobrePaths.length === 0) {
-            card.classList.add("is-empty");
-          }
+          applyCount(album, albumPaths, sobrePaths);
         }));
 
+        saveCache();
         updateStats();
       }
 
