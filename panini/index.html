@@ -53,6 +53,10 @@
             <span class="gallery-host" id="gallery-host"></span>
             <h2 class="gallery-year" id="gallery-year"></h2>
           </div>
+          <div class="gallery-nav">
+            <button class="gallery-nav-btn" id="gallery-prev" aria-label="Anterior">&#8249;</button>
+            <button class="gallery-nav-btn" id="gallery-next" aria-label="Siguiente">&#8250;</button>
+          </div>
         </header>
 
         <section class="gallery-section" id="gallery-albums-section">
@@ -70,6 +74,8 @@
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
     <div class="lightbox" id="lightbox">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+      <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
       <img class="lightbox-img" id="lightbox-img" src="" alt="" />
     </div>
 
@@ -109,21 +115,21 @@
       // ── Album data ─────────────────────────────────────────────────────────
       const ALBUMS = [
         { year: 1970, host: "México",                          flag: "🇲🇽", stickers: 191,  postales: null, extras: 0  },
-        { year: 1974, host: "Alemania",                        flag: "🇩🇪", stickers: 400,  postales: null, extras: 0  },
-        { year: 1978, host: "Argentina",                       flag: "🇦🇷", stickers: 396,  postales: null, extras: 0  },
-        { year: 1982, host: "España",                          flag: "🇪🇸", stickers: 396,  postales: null, extras: 0  },
+        { year: 1974, host: "Alemania",                        flag: "🇩🇪", stickers: 400,  postales: 400, postalesConfirmed: false, extras: 0  },
+        { year: 1978, host: "Argentina",                       flag: "🇦🇷", stickers: 396,  postales: 400, postalesConfirmed: false, extras: 0  },
+        { year: 1982, host: "España",                          flag: "🇪🇸", stickers: 396,  postales: 427, postalesConfirmed: false, extras: 0  },
         { year: 1986, host: "México",                          flag: "🇲🇽", stickers: 432,  postales: 427, extras: 0  },
         { year: 1990, host: "Italia",                          flag: "🇮🇹", stickers: 444,  postales: 448, extras: 0  },
-        { year: "story", host: "World Cup Story",              flag: "📖", stickers: null, postales: null, extras: null },
-        { year: 1994, host: "Estados Unidos",                  flag: "🇺🇸", stickers: 480,  postales: 228, extras: 0  },
-        { year: 1998, host: "Francia",                         flag: "🇫🇷", stickers: 480,  postales: 444, extras: 0  },
-        { year: 2002, host: "Corea del Sur / Japón",           flag: "🇰🇷", stickers: 576,  postales: 561, extras: 0  },
-        { year: 2006, host: "Alemania",                        flag: "🇩🇪", stickers: 597,  postales: 576, extras: 0  },
-        { year: 2010, host: "Sudáfrica",                       flag: "🇿🇦", stickers: 640,  postales: 596, extras: 0  },
-        { year: 2014, host: "Brasil",                          flag: "🇧🇷", stickers: 640,  postales: 638, extras: 0  },
-        { year: 2018, host: "Rusia",                           flag: "🇷🇺", stickers: 682,  postales: 639, extras: 0  },
-        { year: 2022, host: "Catar",                           flag: "🇶🇦", stickers: 670,  postales: 669, onyx: 669,     extras: 80, extrasConfirmed: true  },
-        { year: 2026, host: "Canadá / Estados Unidos / México", flag: "🌎", stickers: null, postales: null, cocaCola: 14, extras: 80, extrasConfirmed: false },
+        { year: "story", host: "World Cup Story",              flag: "📖", stickers: null, postales: 262, extras: null },
+        { year: 1994, host: "Estados Unidos",                  flag: "🇺🇸", stickers: 480,  postales: 444, extras: 0  },
+        { year: 1998, host: "Francia",                         flag: "🇫🇷", stickers: 480,  postales: 561, extras: 0,  actualizacion: true  },
+        { year: 2002, host: "Corea del Sur / Japón",           flag: "🇰🇷", stickers: 576,  postales: 576, extras: 0  },
+        { year: 2006, host: "Alemania",                        flag: "🇩🇪", stickers: 597,  postales: 596, extras: 0  },
+        { year: 2010, host: "Sudáfrica",                       flag: "🇿🇦", stickers: 640,  postales: 638, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2014, host: "Brasil",                          flag: "🇧🇷", stickers: 640,  postales: 639, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: true  },
+        { year: 2018, host: "Rusia",                           flag: "🇷🇺", stickers: 682,  postales: 669, extras: 0,  cocaCola: 9,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2022, host: "Qatar",                            flag: "🇶🇦", stickers: 670,  postales: 670, onyx: 669,     cocaCola: 14, cocaColaCollected: 0,  extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: true  },
+        { year: 2026, host: "Canadá / Estados Unidos / México", flag: "🌎", stickers: null, postales: null, cocaCola: 14, cocaColaCollected: 14, extras: 80, extrasCollected: 0,  extrasConfirmed: false, actualizacion: false },
       ];
 
       // ── Image probing ──────────────────────────────────────────────────────
@@ -175,19 +181,23 @@
               </div>
               <div class="card-count-row">
                 <span class="count-label">Postales</span>
-                <span class="count-val${album.postales !== null ? ' is-confirmed' : ''}">${album.postales ?? "—"}</span>
+                <span class="count-val${album.postales !== null ? (album.postalesConfirmed === false ? ' is-pending' : ' is-confirmed') : ''}">${album.postales ?? "—"}</span>
               </div>
               ${album.onyx ? `<div class="card-count-row">
                 <span class="count-label">Onyx</span>
                 <span class="count-val is-confirmed">${album.onyx}</span>
               </div>` : ""}
-              ${album.cocaCola ? `<div class="card-count-row">
+              ${album.cocaCola !== undefined ? `<div class="card-count-row">
                 <span class="count-label">Coca Cola</span>
-                <span class="count-val is-confirmed">${album.cocaCola}</span>
+                <span class="count-val ${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.cocaColaCollected !== undefined ? `${album.cocaColaCollected}/${album.cocaCola}` : album.cocaCola}</span>
               </div>` : ""}
               ${album.extras ? `<div class="card-count-row">
                 <span class="count-label">Extras</span>
-                <span class="count-val${album.extrasConfirmed ? ' is-confirmed' : ''}">${album.extras}</span>
+                <span class="count-val ${album.extrasConfirmed ? 'is-confirmed' : 'is-pending'}">${album.extrasCollected !== undefined ? `${album.extrasCollected}/${album.extras}` : album.extras}</span>
+              </div>` : ""}
+              ${album.actualizacion !== undefined ? `<div class="card-count-row">
+                <span class="count-label">Actualización</span>
+                <span class="count-val ${album.actualizacion ? 'is-confirmed' : 'is-pending'}"></span>
               </div>` : ""}
             </div>`;
           return `<article class="album-card" data-year="${album.year}">
@@ -199,16 +209,25 @@
 
       // ── Stats ──────────────────────────────────────────────────────────────
       function updateStats() {
-        let totalAlbums = 0, totalSobres = 0, totalSets = 0, totalExtras = 0;
+        let totalAlbums = 0, totalSobres = 0, totalSets = 0;
+        let extrasConfirmed = 0, extrasTotal = 0;
+        let actConfirmed = 0, actTotal = 0;
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
           if (c) {
             totalAlbums += c.albumPaths.length;
             totalSobres += c.sobrePaths.length;
           }
-          if (a.postales  !== null)      totalSets    += 1;
-          if (a.onyx      !== undefined) totalSets    += 1;
-          if (a.extras)                  totalExtras  += a.extras;
+          if (a.postales !== null && a.postalesConfirmed !== false) totalSets += 1;
+          if (a.onyx !== undefined) totalSets += 1;
+          if (a.extras) {
+            extrasTotal++;
+            if (a.extrasConfirmed) extrasConfirmed++;
+          }
+          if (a.actualizacion !== undefined) {
+            actTotal++;
+            if (a.actualizacion) actConfirmed++;
+          }
         });
 
         const stat = (val, label, short) =>
@@ -225,16 +244,38 @@
             <div class="inv-stats-subgroup">
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
-                ${stat(totalSets,   "Postales")}
-                ${stat(totalExtras, "Extras")}
-                ${stat("—",         "Actualización", "Act.")}
+                ${stat(totalSets,                          "Postales")}
+                ${stat(`${extrasConfirmed}/${extrasTotal}`, "Extras")}
+                ${stat(`${actConfirmed}/${actTotal}`, "Actualización", "Act.")}
               </div>
             </div>
           </div>`;
       }
 
       // ── Gallery ────────────────────────────────────────────────────────────
+      let currentGalleryYear = null;
+
+      function navigableAlbums() {
+        return ALBUMS.filter(a => {
+          const c = imageCounts[a.year];
+          return c && (c.albumPaths.length > 0 || c.sobrePaths.length > 0);
+        });
+      }
+
+      function navigateGallery(dir) {
+        const nav = navigableAlbums();
+        const idx = nav.findIndex(a => a.year === currentGalleryYear);
+        if (idx === -1) return;
+        showGallery(nav[(idx + dir + nav.length) % nav.length].year);
+      }
+
       function showGallery(year) {
+        currentGalleryYear = year;
+        const nav   = navigableAlbums();
+        const hasNav = nav.length > 1;
+        document.getElementById("gallery-prev").hidden = !hasNav;
+        document.getElementById("gallery-next").hidden = !hasNav;
+
         const album    = ALBUMS.find(a => a.year === year);
         const counts   = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
         const isStory  = year === "story";
@@ -297,16 +338,35 @@
       });
 
       document.getElementById("gallery-back").addEventListener("click", hideGallery);
+      document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
+      document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
 
       // ── Lightbox ───────────────────────────────────────────────────────────
       const lightbox    = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightbox-img");
+      const lbPrev      = document.getElementById("lightbox-prev");
+      const lbNext      = document.getElementById("lightbox-next");
 
-      function openLightbox(src, alt) {
-        lightboxImg.src = src;
-        lightboxImg.alt = alt;
+      let lbImages = [];
+      let lbIndex  = 0;
+
+      function openLightbox(images, index) {
+        lbImages = images;
+        lbIndex  = index;
+        lbPrev.hidden = lbNext.hidden = images.length <= 1;
+        updateLightboxImage();
         lightbox.classList.add("is-open");
         document.body.style.overflow = "hidden";
+      }
+
+      function updateLightboxImage() {
+        lightboxImg.src = lbImages[lbIndex].src;
+        lightboxImg.alt = lbImages[lbIndex].alt;
+      }
+
+      function lightboxNav(dir) {
+        lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+        updateLightboxImage();
       }
 
       function closeLightbox() {
@@ -317,13 +377,27 @@
 
       document.getElementById("gallery-view").addEventListener("click", e => {
         const img = e.target.closest(".gallery-img");
-        if (img) openLightbox(img.src, img.alt);
+        if (!img) return;
+        const section = img.closest("#gallery-albums, #gallery-sobres");
+        const scope   = section || document.getElementById("gallery-view");
+        const all     = [...scope.querySelectorAll(".gallery-img")];
+        const images  = all.map(el => ({ src: el.src, alt: el.alt }));
+        openLightbox(images, all.indexOf(img));
       });
 
       lightbox.addEventListener("click", closeLightbox);
+      lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); });
+      lbNext.addEventListener("click", e => { e.stopPropagation(); lightboxNav(1); });
 
       document.addEventListener("keydown", e => {
-        if (e.key === "Escape") closeLightbox();
+        if (lightbox.classList.contains("is-open")) {
+          if (e.key === "Escape")     closeLightbox();
+          if (e.key === "ArrowLeft")  lightboxNav(-1);
+          if (e.key === "ArrowRight") lightboxNav(1);
+        } else if (!document.getElementById("gallery-view").hidden) {
+          if (e.key === "ArrowLeft")  navigateGallery(-1);
+          if (e.key === "ArrowRight") navigateGallery(1);
+        }
       });
 
       // ── Cache ──────────────────────────────────────────────────────────────
