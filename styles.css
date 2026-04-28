@@ -34,6 +34,8 @@ html[data-theme="light"] {
   box-sizing: border-box;
 }
 
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
 }
@@ -183,6 +185,20 @@ html[data-theme="light"] .theme-icon-sun {
 
 .social-link-linkedin {
   background: var(--linkedin);
+}
+
+.inv-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.inv-link:hover {
+  color: var(--heading);
+  text-decoration: none;
 }
 
 .hero + .section,
