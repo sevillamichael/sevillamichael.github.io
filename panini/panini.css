@@ -16,10 +16,37 @@
 }
 
 .inv-stats {
+  margin-top: 20px;
+}
+
+.inv-stats-row {
   display: flex;
   gap: 32px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+
+.inv-postales-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+  padding-bottom: 4px;
+}
+
+.inv-stats-divider {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+.inv-stats-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .inv-stat {
@@ -346,5 +373,29 @@
 
   .gallery-img {
     max-height: 220px;
+  }
+
+  .inv-stats-row {
+    gap: 14px;
+  }
+
+  .inv-stat-value {
+    font-size: 1.3rem;
+  }
+
+  .inv-stats-subgroup .inv-stats-row {
+    gap: 14px;
+  }
+
+  .inv-stat-label[data-short]::after {
+    content: attr(data-short);
+  }
+
+  .inv-stat-label[data-short] {
+    font-size: 0;
+  }
+
+  .inv-stat-label[data-short]::after {
+    font-size: 12px;
   }
 }

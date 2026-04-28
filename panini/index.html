@@ -39,16 +39,7 @@
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
         <h1 class="inv-title">Colección Panini</h1>
-        <div class="inv-stats" id="inv-stats">
-          <div class="inv-stat">
-            <span class="inv-stat-value">—</span>
-            <span class="inv-stat-label">Álbumes</span>
-          </div>
-          <div class="inv-stat">
-            <span class="inv-stat-value">—</span>
-            <span class="inv-stat-label">Sobres</span>
-          </div>
-        </div>
+        <div class="inv-stats" id="inv-stats"></div>
       </section>
 
       <!-- ── Card grid ───────────────────────────────────────────────────── -->
@@ -208,24 +199,37 @@
 
       // ── Stats ──────────────────────────────────────────────────────────────
       function updateStats() {
-        let totalAlbums = 0, totalSobres = 0;
+        let totalAlbums = 0, totalSobres = 0, totalSets = 0, totalExtras = 0;
         ALBUMS.forEach(a => {
-          if (a.year === "story") return;
           const c = imageCounts[a.year];
           if (c) {
-            totalAlbums  += c.albumPaths.length;
+            totalAlbums += c.albumPaths.length;
             totalSobres += c.sobrePaths.length;
           }
+          if (a.postales  !== null)      totalSets    += 1;
+          if (a.onyx      !== undefined) totalSets    += 1;
+          if (a.extras)                  totalExtras  += a.extras;
         });
-        const statsEl = document.getElementById("inv-stats");
-        statsEl.innerHTML =
+
+        const stat = (val, label, short) =>
           `<div class="inv-stat">
-            <span class="inv-stat-value">${totalAlbums}</span>
-            <span class="inv-stat-label">Álbumes</span>
-          </div>
-          <div class="inv-stat">
-            <span class="inv-stat-value">${totalSobres}</span>
-            <span class="inv-stat-label">Sobres</span>
+            <span class="inv-stat-value">${val}</span>
+            <span class="inv-stat-label"${short ? ` data-short="${short}"` : ""}>${label}</span>
+          </div>`;
+
+        document.getElementById("inv-stats").innerHTML = `
+          <div class="inv-stats-row">
+            ${stat(totalAlbums, "Álbumes")}
+            ${stat(totalSobres, "Sobres")}
+            <div class="inv-stats-divider"></div>
+            <div class="inv-stats-subgroup">
+              <span class="inv-postales-label">Sets</span>
+              <div class="inv-stats-row">
+                ${stat(totalSets,   "Postales")}
+                ${stat(totalExtras, "Extras")}
+                ${stat("—",         "Actualización", "Act.")}
+              </div>
+            </div>
           </div>`;
       }
 
