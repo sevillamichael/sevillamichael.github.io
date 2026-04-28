@@ -193,7 +193,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 12px 0 28px;
+  padding: 12px 0 8px;
   flex-wrap: wrap;
 }
 
@@ -261,23 +261,20 @@
 
 .gallery-year {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--heading);
-  letter-spacing: -0.04em;
   line-height: 1;
 }
 
 .gallery-host {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--muted);
-  letter-spacing: -0.04em;
-  line-height: 1;
 }
 
 .gallery-section {
-  margin-top: 28px;
+  margin-top: 12px;
 }
 
 .gallery-section-label {
@@ -448,15 +445,12 @@
     gap: 14px;
   }
 
-  .inv-stat-label[data-short]::after {
-    content: attr(data-short);
-  }
-
   .inv-stat-label[data-short] {
     font-size: 0;
   }
 
   .inv-stat-label[data-short]::after {
+    content: attr(data-short);
     font-size: 12px;
   }
 }
