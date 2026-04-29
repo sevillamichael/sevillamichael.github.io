@@ -418,6 +418,18 @@ html[data-theme="light"] .theme-icon-sun {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @media (max-width: 767px) {
   :root {
     --section-gap: 24px;

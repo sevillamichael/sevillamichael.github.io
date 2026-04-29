@@ -27,7 +27,7 @@
 }
 
 .inv-postales-label {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--subtle);
   text-transform: uppercase;
@@ -177,6 +177,22 @@
   font-weight: 800;
 }
 
+.inv-stat-value.is-confirmed::after {
+  content: "✓";
+  margin-left: 6px;
+  color: #4ade80;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.inv-stat-value.is-pending::after {
+  content: "✗";
+  margin-left: 6px;
+  color: #f87171;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
 /* ── Gallery view ───────────────────────────────────────────────────────── */
 
 .gallery-view {
@@ -252,34 +268,13 @@
   outline-offset: 2px;
 }
 
-.gallery-title-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.gallery-year {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--heading);
-  line-height: 1;
-}
-
-.gallery-host {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--muted);
-}
-
 .gallery-section {
   margin-top: 12px;
 }
 
 .gallery-section-label {
   margin: 0 0 14px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--subtle);
   text-transform: uppercase;
@@ -419,6 +414,21 @@
 .lightbox-next { right: 16px; }
 
 @media (max-width: 480px) {
+  .theme-toggle {
+    display: none;
+  }
+
+  .inv-header {
+    padding-right: 0;
+  }
+
+  .inv-title {
+    font-size: clamp(0.875rem, 4vw, 2rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .albums-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
