@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.0.2</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.0.3</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -533,19 +533,20 @@
         if (window.innerWidth > 480) return;
         const textSpan = document.getElementById("inv-title-text");
         if (!textSpan) return;
-        // Hide while adjusting — iOS Safari reports stale layout synchronously;
-        // deferring one frame lets the engine finish laying out the new text.
-        el.style.visibility = "hidden";
-        requestAnimationFrame(() => {
-          const max = el.parentElement.clientWidth;
-          let size = parseFloat(getComputedStyle(el).fontSize);
-          const range = document.createRange();
-          range.selectNodeContents(textSpan);
-          while (range.getBoundingClientRect().width > max && size > 12) {
-            size -= 0.5;
-            el.style.fontSize = size + "px";
-          }
-          el.style.visibility = "";
+        // Wait for fonts to finish loading before measuring — iOS Safari may
+        // first render with a narrower fallback font, then swap to Fira Sans
+        // (which is wider), causing overflow after the measurement already ran.
+        (document.fonts?.ready ?? Promise.resolve()).then(() => {
+          requestAnimationFrame(() => {
+            const max = el.parentElement.clientWidth;
+            let size = parseFloat(getComputedStyle(el).fontSize);
+            const range = document.createRange();
+            range.selectNodeContents(textSpan);
+            while (range.getBoundingClientRect().width > max && size > 12) {
+              size -= 0.5;
+              el.style.fontSize = size + "px";
+            }
+          });
         });
       }
 
