@@ -443,6 +443,10 @@
     max-height: 220px;
   }
 
+  .gallery-nav {
+    display: none;
+  }
+
   .inv-stats-row {
     gap: 14px;
   }
@@ -453,6 +457,7 @@
 
   .inv-stats-subgroup .inv-stats-row {
     gap: 14px;
+    flex-wrap: wrap;
   }
 
   .inv-stat-label[data-short] {
