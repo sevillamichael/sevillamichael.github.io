@@ -71,6 +71,59 @@
   letter-spacing: 0.05em;
 }
 
+/* ── Tooltip ────────────────────────────────────────────────────────────── */
+
+.inv-tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3px;
+  color: var(--subtle);
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.inv-tooltip-icon::before,
+.inv-tooltip-icon::after {
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+
+.inv-tooltip-icon::after {
+  content: attr(data-tooltip);
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: var(--surface-strong);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: pre-wrap;
+  max-width: 240px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.inv-tooltip-icon::before {
+  content: "";
+  bottom: calc(100% + 2px);
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--border);
+}
+
+.inv-tooltip-icon.is-active::before,
+.inv-tooltip-icon.is-active::after {
+  opacity: 1;
+}
+
 /* ── Grid ───────────────────────────────────────────────────────────────── */
 
 .albums-grid {
@@ -181,7 +234,7 @@
   content: "✓";
   margin-left: 6px;
   color: #4ade80;
-  font-size: 1.4rem;
+  font-size: 1em;
   font-weight: 800;
 }
 
@@ -189,7 +242,7 @@
   content: "✗";
   margin-left: 6px;
   color: #f87171;
-  font-size: 1.4rem;
+  font-size: 1em;
   font-weight: 800;
 }
 
@@ -423,10 +476,9 @@
   }
 
   .inv-title {
-    font-size: clamp(0.875rem, 4vw, 2rem);
+    font-size: clamp(2rem, 9vw, 2.8rem);
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .albums-grid {
@@ -443,7 +495,14 @@
     max-height: 220px;
   }
 
-  .gallery-nav {
+  .gallery-images.cols-3,
+  .gallery-images.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-nav,
+  .lightbox-prev,
+  .lightbox-next {
     display: none;
   }
 
@@ -459,6 +518,7 @@
     gap: 14px;
     flex-wrap: wrap;
   }
+
 
   .inv-stat-label[data-short] {
     font-size: 0;
