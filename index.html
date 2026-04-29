@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.0.6</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.1.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -271,10 +271,10 @@
           }
         });
 
-        const stat = (val, label, cls, short, tooltip) =>
+        const stat = (val, label, cls, tooltip) =>
           `<div class="inv-stat">
             <span class="inv-stat-value${cls ? ` ${cls}` : ""}">${val}</span>
-            <span class="inv-stat-label"${short ? ` data-short="${short}"` : ""}>
+            <span class="inv-stat-label">
               ${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}
             </span>
           </div>`;
@@ -288,7 +288,7 @@
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
                 ${stat(totalSets, "Postales")}
-                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", null, null, "Coca Cola&#10;McDonald's&#10;Actualización") : ""}
+                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", null, "Coca Cola&#10;McDonald's&#10;Actualización") : ""}
                 ${extrasTotal ? stat(`${extrasConfirmed}/${extrasTotal}`, "Extras") : ""}
               </div>
             </div>

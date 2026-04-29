@@ -488,6 +488,7 @@
     font-size: clamp(2rem, 9vw, 2.8rem);
     white-space: nowrap;
     overflow: hidden;
+    min-height: calc(9vw * 1.05);
   }
 
   .albums-grid {
@@ -528,13 +529,4 @@
     flex-wrap: wrap;
   }
 
-
-  .inv-stat-label[data-short] {
-    font-size: 0;
-  }
-
-  .inv-stat-label[data-short]::after {
-    content: attr(data-short);
-    font-size: 12px;
-  }
 }
