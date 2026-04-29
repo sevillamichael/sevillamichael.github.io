@@ -15,6 +15,15 @@
   letter-spacing: -0.03em;
 }
 
+.inv-version {
+  font-size: 0.32em;
+  font-weight: 600;
+  color: var(--subtle);
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  opacity: 0.6;
+}
+
 .inv-stats {
   margin-top: 20px;
 }
