@@ -533,14 +533,20 @@
         if (window.innerWidth > 480) return;
         const textSpan = document.getElementById("inv-title-text");
         if (!textSpan) return;
-        const max = el.parentElement.clientWidth;
-        let size = parseFloat(getComputedStyle(el).fontSize);
-        const range = document.createRange();
-        range.selectNodeContents(textSpan);
-        while (range.getBoundingClientRect().width > max && size > 12) {
-          size -= 0.5;
-          el.style.fontSize = size + "px";
-        }
+        // Hide while adjusting — iOS Safari reports stale layout synchronously;
+        // deferring one frame lets the engine finish laying out the new text.
+        el.style.visibility = "hidden";
+        requestAnimationFrame(() => {
+          const max = el.parentElement.clientWidth;
+          let size = parseFloat(getComputedStyle(el).fontSize);
+          const range = document.createRange();
+          range.selectNodeContents(textSpan);
+          while (range.getBoundingClientRect().width > max && size > 12) {
+            size -= 0.5;
+            el.style.fontSize = size + "px";
+          }
+          el.style.visibility = "";
+        });
       }
 
       // ── Swipe navigation ───────────────────────────────────────────────────
