@@ -477,6 +477,22 @@
         }
       });
 
+      // ── Swipe navigation ───────────────────────────────────────────────────
+      let swipeTouchStartX = 0;
+      document.addEventListener("touchstart", e => {
+        swipeTouchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      document.addEventListener("touchend", e => {
+        const dx = e.changedTouches[0].clientX - swipeTouchStartX;
+        if (Math.abs(dx) < 40) return;
+        const dir = dx < 0 ? 1 : -1;
+        if (lightbox.classList.contains("is-open")) {
+          lightboxNav(dir);
+        } else if (!document.getElementById("gallery-view").hidden) {
+          navigateGallery(dir);
+        }
+      }, { passive: true });
+
       // ── Init ───────────────────────────────────────────────────────────────
       function applyCount(album, albumPaths, sobrePaths) {
         imageCounts[album.year] = { albumPaths, sobrePaths };
