@@ -531,10 +531,13 @@
         if (window.innerWidth > 480) return;
         const max = el.parentElement.offsetWidth;
         let size = parseFloat(getComputedStyle(el).fontSize);
+        // Temporarily lift overflow:hidden so iOS Safari reports true scrollWidth
+        el.style.overflow = "visible";
         while (el.scrollWidth > max && size > 12) {
           size -= 0.5;
           el.style.fontSize = size + "px";
         }
+        el.style.overflow = "";
       }
 
       // ── Swipe navigation ───────────────────────────────────────────────────
