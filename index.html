@@ -3,79 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Michael Sevilla</title>
-    <meta
-      name="description"
-      content="Michael Sevilla - Senior QA Engineer portfolio and resume."
-    />
+    <title>Colección Panini</title>
+    <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
+    <link rel="icon" type="image/x-icon" href="assets/logos/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=2" />
+    <link rel="stylesheet" href="css/panini.css?v=2" />
+    <meta name="theme-color" content="#121416" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Panini" />
+    <link rel="apple-touch-icon" href="assets/icons/icon.svg" />
   </head>
   <body>
     <svg aria-hidden="true" class="icon-sprite">
-      <symbol id="icon-user" viewBox="0 0 512 512">
-        <path
-          fill="currentColor"
-          d="M256 256a112 112 0 1 0-112-112 112 112 0 0 0 112 112Zm0 32c-88.37 0-160 57.31-160 128v32h320v-32c0-70.69-71.63-128-160-128Z"
-        />
-      </symbol>
-      <symbol id="icon-briefcase" viewBox="0 0 512 512">
-        <path
-          fill="currentColor"
-          d="M184 48a40 40 0 0 0-40 40v40H72a56 56 0 0 0-56 56v216a56 56 0 0 0 56 56h368a56 56 0 0 0 56-56V184a56 56 0 0 0-56-56h-72V88a40 40 0 0 0-40-40Zm40 80V96h64v32Z"
-        />
-      </symbol>
-      <symbol id="icon-school" viewBox="0 0 640 512">
-        <path
-          fill="currentColor"
-          d="M320 32 0 176l320 144 261.25-117.56V352H640V176L320 32Zm-160 256v80c0 44.18 71.63 80 160 80s160-35.82 160-80v-80l-160 72Z"
-        />
-      </symbol>
-      <symbol id="icon-code" viewBox="0 0 640 512">
-        <path
-          fill="currentColor"
-          d="M392.8 1.2a32 32 0 0 1 45.3 0l192 192a32 32 0 0 1 0 45.3l-192 192a32 32 0 1 1-45.3-45.3L562.7 216 392.8 46.5a32 32 0 0 1 0-45.3ZM247.2 46.5 77.3 216l169.9 169.5a32 32 0 1 1-45.3 45.3l-192-192a32 32 0 0 1 0-45.3l192-192a32 32 0 0 1 45.3 45.3Z"
-        />
-      </symbol>
-      <symbol id="icon-link" viewBox="0 0 512 512">
-        <path
-          fill="currentColor"
-          d="M320 0a32 32 0 0 0 0 64h82.75L201.38 265.38a32 32 0 0 0 45.25 45.25L448 109.25V192a32 32 0 0 0 64 0V32a32 32 0 0 0-32-32ZM64 96a64 64 0 0 0-64 64v288a64 64 0 0 0 64 64h288a64 64 0 0 0 64-64V320a32 32 0 0 0-64 0v128H64V160h128a32 32 0 0 0 0-64Z"
-        />
-      </symbol>
-      <symbol id="icon-github" viewBox="0 0 496 512">
-        <path
-          fill="currentColor"
-          d="M248 8C111 8 0 119 0 256c0 109.8 71.5 202.8 170.7 235.7 12.5 2.3 17.1-5.4 17.1-12v-46.4c-69.5 15.1-84.2-29.5-84.2-29.5-11.4-29-27.8-36.8-27.8-36.8-22.7-15.5 1.7-15.2 1.7-15.2 25.1 1.8 38.4 25.8 38.4 25.8 22.3 38.2 58.5 27.2 72.8 20.8 2.3-16.1 8.7-27.2 15.8-33.5-55.5-6.3-113.9-27.8-113.9-123.7 0-27.3 9.8-49.5 25.8-66.9-2.6-6.3-11.2-31.8 2.5-66.2 0 0 21.1-6.7 69.1 25.6A238.9 238.9 0 0 1 248 142a239 239 0 0 1 62.9 8.5c48-32.3 69.1-25.6 69.1-25.6 13.7 34.4 5.1 59.9 2.5 66.2 16 17.4 25.8 39.6 25.8 66.9 0 96.2-58.5 117.3-114.2 123.5 9 7.8 17 23.1 17 46.6v69.1c0 6.7 4.5 14.5 17.2 12C424.6 458.7 496 365.7 496 256 496 119 385 8 248 8Z"
-        />
-      </symbol>
-      <symbol id="icon-linkedin" viewBox="0 0 448 512">
-        <path
-          fill="currentColor"
-          d="M100.28 448H7.4V148.9h92.88Zm-46.44-340a53.79 53.79 0 1 1 53.79-53.8 53.79 53.79 0 0 1-53.79 53.8ZM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.3 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.7-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448Z"
-        />
-      </symbol>
       <symbol id="icon-moon" viewBox="0 0 512 512">
-        <path
-          fill="currentColor"
-          d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"
-        />
+        <path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/>
       </symbol>
       <symbol id="icon-sun" viewBox="0 0 512 512">
-        <path
-          fill="currentColor"
-          d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
-        />
+        <path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/>
       </symbol>
     </svg>
 
     <main class="page">
-      <section class="hero">
+      <!-- ── Page header ──────────────────────────────────────────────────── -->
+      <section class="inv-header">
         <button
           class="theme-toggle"
           id="theme-toggle"
@@ -86,279 +43,479 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1>Michael Sevilla</h1>
-        <p class="hero-role">Senior QA Engineer</p>
-        <div class="social-links" aria-label="Social links">
-          <a
-            class="social-link social-link-github"
-            href="https://github.com/sevillamichael"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <svg><use href="#icon-github"></use></svg>
-          </a>
-          <a
-            class="social-link social-link-linkedin"
-            href="https://www.linkedin.com/in/sevillamichael"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
-            <svg><use href="#icon-linkedin"></use></svg>
-          </a>
-        </div>
-        <a class="inv-link" href="/panini/">Panini WC Collection →</a>
+        <h1 class="inv-title">Colección Panini</h1>
+        <div class="inv-stats" id="inv-stats"></div>
       </section>
 
-      <section class="section">
-        <div class="section-heading">
-          <svg><use href="#icon-user"></use></svg>
-          <h2>About</h2>
-        </div>
-        <div class="section-body section-body-prose">
-          <p>
-            Senior QA Engineer with experience across mobile and web application testing in fintech, transportation, healthcare, eCommerce, and automotive. Progressed from establishing a QA function as a sole tester to leading testing efforts for high-visibility projects, mentoring engineers, and owning deployment pipelines.
-          </p>
-          <p>
-            Backed by hands-on experience in functional testing, API validation, data integrity, accessibility compliance, and debugging in multiple environments. Proficient with tools including Postman, SQL, BrowserStack, TestRail, and axe, with exposure to automation through proof-of-concept work with Cypress and Playwright.
-          </p>
-        </div>
-      </section>
+      <!-- ── Card grid ───────────────────────────────────────────────────── -->
+      <div class="albums-grid" id="albums-grid"></div>
 
-      <section class="section">
-        <div class="section-heading">
-          <svg><use href="#icon-briefcase"></use></svg>
-          <h2>Experience</h2>
-        </div>
-        <div class="section-body">
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/gorillalogic_logo.jpg" alt="Gorilla Logic" />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">Gorilla Logic</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">Senior QA Engineer at Pulte Mortgage</h4>
-                <p class="entry-date">June 2022 - Present</p>
-              </div>
-              <ul class="entry-list">
-                <li>Performed functional testing for a mortgage lending application undergoing a desktop-to-web migration following Agile, validating functionality across 2 lower environments during the transition</li>
-                <li>Leveraged Azure DevOps for bug reports and test case management, later migrating test cases and regression suites to TestRail</li>
-                <li>Validated back-end data integrity using SQL Server and verified API responses in XML format</li>
-                <li>Operated across Azure Virtual Desktop environments and collaborated with 3 different teams throughout the engagement, adapting to each team's workflows and domain areas</li>
-                <li>Conducted proof-of-concept automation efforts using Playwright with TypeScript to evaluate framework viability</li>
-              </ul>
-            </div>
-          </article>
+      <!-- ── Gallery view (shown when a year is selected) ───────────────── -->
+      <div class="gallery-view" id="gallery-view" hidden>
+        <header class="gallery-header">
+          <button class="gallery-back-btn" id="gallery-back">← Todos</button>
+          <div class="gallery-nav">
+            <button class="gallery-nav-btn" id="gallery-prev" aria-label="Anterior">&#8249;</button>
+            <button class="gallery-nav-btn" id="gallery-next" aria-label="Siguiente">&#8250;</button>
+          </div>
+        </header>
 
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/fullstack_labs_logo.jpg" alt="FullStack" />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">FullStack</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">Senior QA Engineer at SIDEARM Sports</h4>
-                <p class="entry-date">October 2025 - Present</p>
-              </div>
-              <ul class="entry-list">
-                <li>Tested a CMS-driven platform powering 100+ college mobile applications across iOS and Android, following Kanban</li>
-                <li>Managed test cases and regression suites in TestRail and filed bug reports in Jira</li>
-                <li>Authored detailed test plans and performed cross-device testing using BrowserStack against a lower environment, leveraging DevTools for debugging during cloud-based sessions</li>
-                <li>Participated in the interviewing and hiring process for a QA Engineer, and provided ongoing mentorship on testing strategies and test case design</li>
-              </ul>
-            </div>
-          </article>
+        <section class="gallery-section" id="gallery-albums-section">
+          <h3 class="gallery-section-label">Álbumes</h3>
+          <div class="gallery-images" id="gallery-albums"></div>
+        </section>
 
-          <article class="entry">
-            <div class="entry-logo entry-logo-empty" aria-hidden="true"></div>
-            <div class="entry-content">
-              <div class="entry-meta">
-                <h4 class="entry-role">Senior QA Engineer at HopSkipDrive</h4>
-                <p class="entry-date">April 2022 - October 2025</p>
-              </div>
-              <ul class="entry-list">
-                <li>Tested 2 mobile applications (iOS and Android) using Android Studio and real devices, and 2 web applications for a youth transportation platform following Kanban, progressing from mobile to Rails back-end to web responsibilities as the team grew from 3 to 10 QAs</li>
-                <li>Managed regression cycles and authored test cases in Testmo, having led the migration from TestRail, and tracked defects through GitHub Issues</li>
-                <li>Owned the deployment process for 3 years, scaling from weekly terminal-based releases to 4x per week using CircleCI and ArgoCD</li>
-                <li>Performed API testing with Postman and debugged mobile traffic using Charles Proxy</li>
-                <li>Validated mobile analytics events through Segment and leveraged Bugsnag and Datadog to trace production issues and verify fixes across dynamic environments</li>
-                <li>Interviewed, onboarded, and mentored new QA Engineers, guiding them through testing workflows, tools, and team processes</li>
-                <li>Conducted proof-of-concept automation using Cypress with JavaScript</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/encorainc_logo.jpg" alt="Encora Inc." />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">Encora Inc.</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">Senior QA Engineer at accesso</h4>
-                <p class="entry-date">October 2021 - December 2022</p>
-              </div>
-              <ul class="entry-list">
-                <li>Tested the eCommerce and payment components of a ticketing platform used by amusement parks and other venues following Agile, validating transaction flows across environments and client-specific configurations</li>
-                <li>Managed test cases and regression suites in TestRail, tracked defects in Jira, and verified data integrity through MySQL queries</li>
-                <li>Performed accessibility testing using axe by Deque to ensure compliance standards were met across the platform</li>
-                <li>Executed web testing through BrowserStack and Xcode, and confirmed Apple Pay flows on real devices</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/exsq_outcoding_logo.jpg" alt="EX Squared LATAM" />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">EX Squared LATAM</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">QA Engineer at Health Recovery Solutions</h4>
-                <p class="entry-date">May 2021 - October 2021</p>
-              </div>
-              <ul class="entry-list">
-                <li>Tested 3 mobile applications across iOS and Android using real devices and 2 web applications for a remote patient monitoring platform, validating functionality against a lower environment following Agile</li>
-                <li>Managed test cases and regression suites in TestRail, tracked defects in Jira, and performed API testing using Postman Collections</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/critical_mass_logo.jpg" alt="Critical Mass" />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">Critical Mass</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">QA Engineer at BMW USA</h4>
-                <p class="entry-date">April 2019 - May 2021</p>
-              </div>
-              <ul class="entry-list">
-                <li>Tested the BMW USA website built on Adobe Experience Manager (AEM) following Agile, covering content-driven and technical functionality across 2 lower environments</li>
-                <li>Transitioned from the content-focused QA team to the technical team, taking ownership of testing for more complex, development-heavy features</li>
-                <li>Managed test cases in Excel and filed bug reports in Jira</li>
-                <li>Performed accessibility testing using axe by Deque and API testing using Postman Collections</li>
-                <li>Executed cross-device testing via BrowserStack and Xcode</li>
-                <li>Led testing efforts for the Build Your Own (BYO) redesign project and earned an internal award for individual performance</li>
-                <li>Conducted proof-of-concept automation using Cypress with JavaScript, integrated with Jenkins for CI/CD</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/ciberrisk_placeholder.svg" alt="Ciber Risk S.A." />
-            </div>
-            <div class="entry-content">
-              <h3 class="entry-company">Ciber Risk S.A.</h3>
-              <div class="entry-meta">
-                <h4 class="entry-role">QA Analyst</h4>
-                <p class="entry-date">March 2014 - August 2016</p>
-              </div>
-              <ul class="entry-list">
-                <li>Served as the sole QA resource for a credit and background data aggregation platform, owning all testing efforts across 1 desktop application and 2 web applications in dynamic environments</li>
-                <li>Performed ad-hoc and exploratory testing in the absence of a formal QA process, using DevTools for debugging and phpMyAdmin for data validation across both Windows and Linux environments</li>
-                <li>Identified the need for a dedicated QA function within the organization, proposed its implementation to stakeholders, and received approval to establish and lead it</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-heading">
-          <svg><use href="#icon-school"></use></svg>
-          <h2>Education</h2>
-        </div>
-        <div class="section-body">
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/universidad_fidelitas_logo.jpg" alt="Universidad Fidelitas" />
-            </div>
-            <div class="entry-content">
-              <div class="entry-meta">
-                <h4 class="entry-role">Universidad Fidelitas</h4>
-                <p class="entry-date">2022</p>
-              </div>
-              <p class="entry-detail">Bachelor's Degree in Computer Systems Engineering</p>
-            </div>
-          </article>
-
-          <article class="entry">
-            <div class="entry-logo">
-              <img src="assets/ctp_placeholder.svg" alt="CTP Calle Blancos" />
-            </div>
-            <div class="entry-content">
-              <div class="entry-meta">
-                <h4 class="entry-role">CTP Calle Blancos</h4>
-                <p class="entry-date">2013</p>
-              </div>
-              <p class="entry-detail">High School Diploma and Software Development Diploma</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-heading">
-          <svg><use href="#icon-code"></use></svg>
-          <h2>Projects</h2>
-        </div>
-        <div class="projects-grid">
-          <article class="project-card">
-            <a
-              class="project-media"
-              href="https://github.com/sevillamichael/sevillamichael.github.io"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="project-image-resume"
-                src="assets/online-resume-cover.png"
-                alt="Online Resume"
-              />
-              <span class="project-media-icon">
-                <svg><use href="#icon-link"></use></svg>
-              </span>
-            </a>
-            <h3 class="project-title">Online Resume</h3>
-            <p class="project-description">
-              A personal resume website built as a lightweight static site to present my experience,
-              education, and selected projects in a clean, easy-to-scan format. It supports dark and
-              light mode, responsive layouts for desktop and mobile, and ongoing refinements as I
-              tailor it for applications and future updates.
-            </p>
-          </article>
-
-          <article class="project-card">
-            <a
-              class="project-media"
-              href="https://github.com/sevillamichael/playwright"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="assets/playwright-automation-placeholder.svg"
-                alt="Playwright TypeScript automation for online resume"
-              />
-              <span class="project-media-icon">
-                <svg><use href="#icon-link"></use></svg>
-              </span>
-            </a>
-            <h3 class="project-title">Playwright + TypeScript Automation</h3>
-            <p class="project-description">
-              A Playwright and TypeScript automation project focused on validating this live online
-              resume site through UI checks, regression protection, and automated verification of key
-              flows, layout stability, and overall presentation.
-            </p>
-          </article>
-        </div>
-      </section>
+        <section class="gallery-section" id="gallery-sobres-section">
+          <h3 class="gallery-section-label">Sobres</h3>
+          <div class="gallery-images" id="gallery-sobres"></div>
+        </section>
+      </div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+      <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+
+    <script>
+      // ── Theme ──────────────────────────────────────────────────────────────
+      (function () {
+        const storageKey = "dark";
+        const root   = document.documentElement;
+        const toggle = document.getElementById("theme-toggle");
+        const supportsDark = () =>
+          window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const getTheme = () => {
+          const saved = localStorage.getItem(storageKey);
+          if (saved === "false") return "light";
+          if (saved === "true")  return "dark";
+          return supportsDark() ? "dark" : "light";
+        };
+        const applyTheme = theme => {
+          root.setAttribute("data-theme", theme);
+          if (toggle) {
+            const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+            toggle.setAttribute("aria-label", label);
+            toggle.setAttribute("title", label);
+          }
+        };
+        let current = getTheme();
+        applyTheme(current);
+        if (toggle) {
+          toggle.addEventListener("click", () => {
+            current = current === "dark" ? "light" : "dark";
+            localStorage.setItem(storageKey, JSON.stringify(current === "dark"));
+            applyTheme(current);
+          });
+        }
+      })();
+
+      // ── Album data ─────────────────────────────────────────────────────────
+      const ALBUMS = [
+        { year: 1970, host: "México",                           postales: null, extras: 0  },
+        { year: 1974, host: "Alemania",                         postales: 400, postalesConfirmed: false, extras: 0  },
+        { year: 1978, host: "Argentina",                        postales: 400, postalesConfirmed: false, extras: 0  },
+        { year: 1982, host: "España",                           postales: 427, postalesConfirmed: false, extras: 0  },
+        { year: 1986, host: "México",                           postales: 427, extras: 0  },
+        { year: 1990, host: "Italia",                           postales: 448, extras: 0  },
+        { year: "story", host: "World Cup Story",               postales: 262, extras: null },
+        { year: 1994, host: "Estados Unidos",                   postales: 444, extras: 0  },
+        { year: 1998, host: "Francia",                          postales: 561, extras: 0,  actualizacion: true  },
+        { year: 2002, host: "Corea del Sur / Japón",            postales: 576, extras: 0  },
+        { year: 2006, host: "Alemania",                         postales: 596, extras: 0  },
+        { year: 2010, host: "Sudáfrica",                        postales: 638, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2014, host: "Brasil",                           postales: 639, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: true  },
+        { year: 2018, host: "Rusia",                            postales: 669, extras: 0,  cocaCola: 9,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2022, host: "Qatar",                            postales: 670, onyx: 669,  cocaCola: 14, cocaColaCollected: 0,  extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: true  },
+        { year: 2026, host: "Canadá / Estados Unidos / México", postales: null, cocaCola: 14, cocaColaCollected: 14, mcdonalds: 20, mcdonaldsCollected: 0, extras: 80, extrasCollected: 0,  extrasConfirmed: false, actualizacion: false },
+      ];
+
+      // ── Image discovery via GitHub API ─────────────────────────────────────
+      const REPO          = "sevillamichael/sevillamichael.github.io";
+      const BRANCH        = "main";
+      const IMG_CACHE_KEY = "panini-images-v1";
+
+      const imageCounts = {};
+
+      async function fetchImageLists() {
+        const cached = sessionStorage.getItem(IMG_CACHE_KEY);
+        if (cached) return JSON.parse(cached);
+
+        const [albumsRes, sobresRes] = await Promise.all([
+          fetch(`https://api.github.com/repos/${REPO}/contents/assets/albums?ref=${BRANCH}`),
+          fetch(`https://api.github.com/repos/${REPO}/contents/assets/sobres?ref=${BRANCH}`)
+        ]);
+
+        const map = {};
+
+        function processDir(files, type) {
+          if (!Array.isArray(files)) return;
+          files.forEach(f => {
+            if (f.type !== "file") return;
+            const base = f.name.replace(/\.[^.]+$/, "");
+            const raw  = base.split("_")[0];
+            const year = /^\d+$/.test(raw) ? Number(raw) : raw;
+            if (!map[year]) map[year] = { albumPaths: [], sobrePaths: [] };
+            const path = `assets/${type}/${f.name}`;
+            if (type === "albums") map[year].albumPaths.push(path);
+            else map[year].sobrePaths.push(path);
+          });
+        }
+
+        if (albumsRes.ok) processDir(await albumsRes.json(), "albums");
+        if (sobresRes.ok) processDir(await sobresRes.json(), "sobres");
+
+        Object.values(map).forEach(v => { v.albumPaths.sort(); v.sobrePaths.sort(); });
+
+        sessionStorage.setItem(IMG_CACHE_KEY, JSON.stringify(map));
+        return map;
+      }
+
+      // ── Card rendering ─────────────────────────────────────────────────────
+      function renderGrid() {
+        document.getElementById("albums-grid").innerHTML = ALBUMS.map(album => {
+          const logoHtml = `<div class="card-logo">
+              <img
+                src="assets/logos/${album.year}.png"
+                alt="${album.year} logo"
+                onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none'}"
+              />
+            </div>`;
+          const countsHtml = `<div class="card-counts">
+              <div class="card-count-row">
+                <span class="count-label" data-label="albums" data-year="${album.year}">Álbumes</span>
+                <span class="count-val" data-type="albums" data-year="${album.year}">—</span>
+              </div>
+              <div class="card-count-row">
+                <span class="count-label" data-label="sobres" data-year="${album.year}">Sobres</span>
+                <span class="count-val" data-type="sobres" data-year="${album.year}">—</span>
+              </div>
+              <div class="card-count-row">
+                <span class="count-label">Postales</span>
+                <span class="count-val${album.postales !== null ? (album.postalesConfirmed === false ? ' is-pending' : ' is-confirmed') : ''}">${album.postales ?? "—"}</span>
+              </div>
+              ${album.onyx ? `<div class="card-count-row">
+                <span class="count-label">Onyx</span>
+                <span class="count-val is-confirmed">${album.onyx}</span>
+              </div>` : ""}
+              ${album.cocaCola !== undefined ? `<div class="card-count-row">
+                <span class="count-label">Coca Cola</span>
+                <span class="count-val ${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.cocaColaCollected !== undefined ? `${album.cocaColaCollected}/${album.cocaCola}` : album.cocaCola}</span>
+              </div>` : ""}
+              ${album.mcdonalds !== undefined ? `<div class="card-count-row">
+                <span class="count-label">McDonald's</span>
+                <span class="count-val ${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.mcdonaldsCollected !== undefined ? `${album.mcdonaldsCollected}/${album.mcdonalds}` : album.mcdonalds}</span>
+              </div>` : ""}
+              ${album.extras ? `<div class="card-count-row">
+                <span class="count-label">Extras</span>
+                <span class="count-val ${album.extrasConfirmed ? 'is-confirmed' : 'is-pending'}">${album.extrasCollected !== undefined ? `${album.extrasCollected}/${album.extras}` : album.extras}</span>
+              </div>` : ""}
+              ${album.actualizacion !== undefined ? `<div class="card-count-row">
+                <span class="count-label">Actualización</span>
+                <span class="count-val ${album.actualizacion ? 'is-confirmed' : 'is-pending'}"></span>
+              </div>` : ""}
+            </div>`;
+          return `<article class="album-card" data-year="${album.year}">
+            ${logoHtml}
+            ${countsHtml}
+          </article>`;
+        }).join("");
+      }
+
+      // ── Stats ──────────────────────────────────────────────────────────────
+      function updateStats() {
+        let totalAlbums = 0, totalSobres = 0, totalSets = 0;
+        let extrasConfirmed = 0, extrasTotal = 0;
+        let actConfirmed = 0, actTotal = 0;
+        ALBUMS.forEach(a => {
+          const c = imageCounts[a.year];
+          if (c) {
+            totalAlbums += c.albumPaths.length;
+            totalSobres += c.sobrePaths.length;
+          }
+          if (a.postales !== null && a.postalesConfirmed !== false) totalSets += 1;
+          if (a.onyx !== undefined) totalSets += 1;
+          if (a.extras) {
+            extrasTotal++;
+            if (a.extrasConfirmed) extrasConfirmed++;
+          }
+          if (a.actualizacion !== undefined) {
+            actTotal++;
+            if (a.actualizacion) actConfirmed++;
+          }
+        });
+
+        const stat = (val, label, short) =>
+          `<div class="inv-stat">
+            <span class="inv-stat-value">${val}</span>
+            <span class="inv-stat-label"${short ? ` data-short="${short}"` : ""}>${label}</span>
+          </div>`;
+
+        document.getElementById("inv-stats").innerHTML = `
+          <div class="inv-stats-row">
+            ${stat(totalAlbums, "Álbumes")}
+            ${stat(totalSobres, "Sobres")}
+            <div class="inv-stats-divider"></div>
+            <div class="inv-stats-subgroup">
+              <span class="inv-postales-label">Sets</span>
+              <div class="inv-stats-row">
+                ${stat(totalSets,                          "Postales")}
+                ${stat(`${extrasConfirmed}/${extrasTotal}`, "Extras")}
+                ${stat(`${actConfirmed}/${actTotal}`, "Actualización", "Act.")}
+              </div>
+            </div>
+          </div>`;
+      }
+
+      // ── Gallery ────────────────────────────────────────────────────────────
+      let currentGalleryYear = null;
+
+      function updateGalleryStats(year) {
+        const album  = ALBUMS.find(a => a.year === year);
+        const counts = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
+        const albumsLabel = counts.albumPaths.length === 1 ? "Álbum" : "Álbumes";
+        const sobresLabel = counts.sobrePaths.length === 1 ? "Sobre" : "Sobres";
+        const stat = (val, label, cls) =>
+          `<div class="inv-stat">
+            <span class="inv-stat-value${cls ? ` ${cls}` : ""}">${val}</span>
+            <span class="inv-stat-label">${label}</span>
+          </div>`;
+        const setsItems = [];
+        if (album.postales !== null) {
+          const collected = album.postalesConfirmed === false ? 0 : album.postales;
+          setsItems.push(stat(`${collected}/${album.postales}`, "Postales", null));
+        }
+        if (album.onyx !== undefined) {
+          setsItems.push(stat(`${album.onyx}/${album.onyx}`, "Onyx", null));
+        }
+        if (album.cocaCola !== undefined) {
+          const val = album.cocaColaCollected !== undefined
+            ? `${album.cocaColaCollected}/${album.cocaCola}` : album.cocaCola;
+          setsItems.push(stat(val, "Coca Cola", null));
+        }
+        if (album.mcdonalds !== undefined) {
+          const val = album.mcdonaldsCollected !== undefined
+            ? `${album.mcdonaldsCollected}/${album.mcdonalds}` : album.mcdonalds;
+          setsItems.push(stat(val, "McDonald's", null));
+        }
+        if (album.extras) {
+          const val = album.extrasCollected !== undefined
+            ? `${album.extrasCollected}/${album.extras}` : album.extras;
+          setsItems.push(stat(val, "Extras", null));
+        }
+        if (album.actualizacion !== undefined) {
+          setsItems.push(stat("", "Actualización", album.actualizacion ? "is-confirmed" : "is-pending"));
+        }
+        document.getElementById("inv-stats").innerHTML = `
+          <div class="inv-stats-row">
+            <div class="inv-stat">
+              <span class="inv-stat-value">${counts.albumPaths.length}</span>
+              <span class="inv-stat-label">${albumsLabel}</span>
+            </div>
+            <div class="inv-stat">
+              <span class="inv-stat-value">${counts.sobrePaths.length}</span>
+              <span class="inv-stat-label">${sobresLabel}</span>
+            </div>
+            ${setsItems.length ? `
+            <div class="inv-stats-divider"></div>
+            <div class="inv-stats-subgroup">
+              <span class="inv-postales-label">Sets</span>
+              <div class="inv-stats-row">
+                ${setsItems.join("")}
+              </div>
+            </div>` : ""}
+          </div>`;
+      }
+
+      function navigableAlbums() {
+        return ALBUMS.filter(a => {
+          const c = imageCounts[a.year];
+          return c && (c.albumPaths.length > 0 || c.sobrePaths.length > 0);
+        });
+      }
+
+      function navigateGallery(dir) {
+        const nav = navigableAlbums();
+        const idx = nav.findIndex(a => a.year === currentGalleryYear);
+        if (idx === -1) return;
+        showGallery(nav[(idx + dir + nav.length) % nav.length].year);
+      }
+
+      function showGallery(year) {
+        currentGalleryYear = year;
+        const nav   = navigableAlbums();
+        const hasNav = nav.length > 1;
+        document.getElementById("gallery-prev").hidden = !hasNav;
+        document.getElementById("gallery-next").hidden = !hasNav;
+
+        const album    = ALBUMS.find(a => a.year === year);
+        const counts   = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
+        const isStory  = year === "story";
+
+        document.querySelector(".inv-title").textContent = isStory ? album.host : `${album.host} ${album.year}`;
+
+        function gridClass(n) {
+          if (n >= 4) return "gallery-images cols-4";
+          if (n === 3) return "gallery-images cols-3";
+          if (n === 2) return "gallery-images cols-2";
+          return "gallery-images";
+        }
+
+        const albumsSection = document.getElementById("gallery-albums-section");
+        if (counts.albumPaths.length) {
+          const an = counts.albumPaths.length;
+          albumsSection.querySelector(".gallery-section-label").textContent =
+            an === 1 ? "Álbum" : `Álbumes: ${an}`;
+          const el = document.getElementById("gallery-albums");
+          el.className = gridClass(counts.albumPaths.length);
+          el.innerHTML = counts.albumPaths.map(src =>
+            `<img class="gallery-img" src="${src}" alt="${year} album" />`
+          ).join("");
+          albumsSection.hidden = false;
+        } else {
+          albumsSection.hidden = true;
+        }
+
+        const sobresSection = document.getElementById("gallery-sobres-section");
+        if (counts.sobrePaths.length) {
+          const sn = counts.sobrePaths.length;
+          sobresSection.querySelector(".gallery-section-label").textContent =
+            sn === 1 ? "Sobre" : `Sobres: ${sn}`;
+          const el = document.getElementById("gallery-sobres");
+          el.className = gridClass(counts.sobrePaths.length);
+          el.innerHTML = counts.sobrePaths.map(src =>
+            `<img class="gallery-img" src="${src}" alt="${year} sobre" />`
+          ).join("");
+          sobresSection.hidden = false;
+        } else {
+          sobresSection.hidden = true;
+        }
+
+        document.getElementById("albums-grid").hidden  = true;
+        document.getElementById("gallery-view").hidden = false;
+        updateGalleryStats(year);
+      }
+
+      function hideGallery() {
+        document.getElementById("gallery-view").hidden = true;
+        document.getElementById("albums-grid").hidden  = false;
+        document.querySelector(".inv-title").textContent = "Colección Panini";
+        updateStats();
+      }
+
+      // ── Events ─────────────────────────────────────────────────────────────
+      document.getElementById("albums-grid").addEventListener("click", e => {
+        const card = e.target.closest(".album-card");
+        if (!card) return;
+        const raw = card.dataset.year;
+        showGallery(/^\d+$/.test(raw) ? Number(raw) : raw);
+      });
+
+      document.getElementById("gallery-back").addEventListener("click", hideGallery);
+      document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
+      document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
+
+      // ── Lightbox ───────────────────────────────────────────────────────────
+      const lightbox    = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      const lbPrev      = document.getElementById("lightbox-prev");
+      const lbNext      = document.getElementById("lightbox-next");
+
+      let lbImages = [];
+      let lbIndex  = 0;
+
+      function openLightbox(images, index) {
+        lbImages = images;
+        lbIndex  = index;
+        lbPrev.hidden = lbNext.hidden = images.length <= 1;
+        updateLightboxImage();
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function updateLightboxImage() {
+        lightboxImg.src = lbImages[lbIndex].src;
+        lightboxImg.alt = lbImages[lbIndex].alt;
+      }
+
+      function lightboxNav(dir) {
+        lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+        updateLightboxImage();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightboxImg.src = "";
+        document.body.style.overflow = "";
+      }
+
+      document.getElementById("gallery-view").addEventListener("click", e => {
+        const img = e.target.closest(".gallery-img");
+        if (!img) return;
+        const section = img.closest("#gallery-albums, #gallery-sobres");
+        const scope   = section || document.getElementById("gallery-view");
+        const all     = [...scope.querySelectorAll(".gallery-img")];
+        const images  = all.map(el => ({ src: el.src, alt: el.alt }));
+        openLightbox(images, all.indexOf(img));
+      });
+
+      lightbox.addEventListener("click", closeLightbox);
+      lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); });
+      lbNext.addEventListener("click", e => { e.stopPropagation(); lightboxNav(1); });
+
+      document.addEventListener("keydown", e => {
+        if (lightbox.classList.contains("is-open")) {
+          if (e.key === "Escape")     closeLightbox();
+          if (e.key === "ArrowLeft")  lightboxNav(-1);
+          if (e.key === "ArrowRight") lightboxNav(1);
+        } else if (!document.getElementById("gallery-view").hidden) {
+          if (e.key === "ArrowLeft")  navigateGallery(-1);
+          if (e.key === "ArrowRight") navigateGallery(1);
+        }
+      });
+
+      // ── Init ───────────────────────────────────────────────────────────────
+      function applyCount(album, albumPaths, sobrePaths) {
+        imageCounts[album.year] = { albumPaths, sobrePaths };
+        const card   = document.querySelector(`.album-card[data-year="${album.year}"]`);
+        const aEl    = document.querySelector(`[data-type="albums"][data-year="${album.year}"]`);
+        const pEl    = document.querySelector(`[data-type="sobres"][data-year="${album.year}"]`);
+        const aLabel = document.querySelector(`[data-label="albums"][data-year="${album.year}"]`);
+        const pLabel = document.querySelector(`[data-label="sobres"][data-year="${album.year}"]`);
+        if (aEl) aEl.textContent = albumPaths.length;
+        if (pEl) pEl.textContent = sobrePaths.length;
+        if (aLabel) aLabel.textContent = albumPaths.length === 1 ? "Álbum" : "Álbumes";
+        if (pLabel) pLabel.textContent = sobrePaths.length === 1 ? "Sobre" : "Sobres";
+        if (card && albumPaths.length === 0 && sobrePaths.length === 0) {
+          card.classList.add("is-empty");
+        }
+      }
+
+      async function init() {
+        renderGrid();
+        const imageLists = await fetchImageLists();
+        ALBUMS.forEach(album => {
+          const lists = imageLists[album.year] || { albumPaths: [], sobrePaths: [] };
+          applyCount(album, lists.albumPaths, lists.sobrePaths);
+        });
+        updateStats();
+      }
+
+      init();
+
+      // PWA: only register when served over http(s); skipped on file://
+      if (location.protocol.startsWith("http")) {
+        const link = document.createElement("link");
+        link.rel = "manifest";
+        link.href = "manifest.json";
+        document.head.appendChild(link);
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/sw.js");
+        }
+      }
+    </script>
   </body>
 </html>
