@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title">Colección Panini <span class="inv-version">v1.0.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.0.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -387,7 +387,8 @@
         const isStory  = year === "story";
 
         const titleEl = document.querySelector(".inv-title");
-        titleEl.textContent = isStory ? album.host : `${album.host} ${album.year}`;
+        document.getElementById("inv-title-text").textContent = isStory ? album.host : `${album.host} ${album.year}`;
+        document.querySelector(".inv-version").hidden = true;
         fitTitle(titleEl);
 
         function gridClass(n) {
@@ -436,7 +437,8 @@
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
-        titleEl2.textContent = "Colección Panini";
+        document.getElementById("inv-title-text").textContent = "Colección Panini";
+        document.querySelector(".inv-version").hidden = false;
         fitTitle(titleEl2);
         updateStats();
       }
@@ -529,15 +531,16 @@
       function fitTitle(el) {
         el.style.fontSize = "";
         if (window.innerWidth > 480) return;
-        const max = el.parentElement.offsetWidth;
+        const textSpan = document.getElementById("inv-title-text");
+        if (!textSpan) return;
+        const max = el.parentElement.clientWidth;
         let size = parseFloat(getComputedStyle(el).fontSize);
-        // Temporarily lift overflow:hidden so iOS Safari reports true scrollWidth
-        el.style.overflow = "visible";
-        while (el.scrollWidth > max && size > 12) {
+        const range = document.createRange();
+        range.selectNodeContents(textSpan);
+        while (range.getBoundingClientRect().width > max && size > 12) {
           size -= 0.5;
           el.style.fontSize = size + "px";
         }
-        el.style.overflow = "";
       }
 
       // ── Swipe navigation ───────────────────────────────────────────────────

@@ -20,8 +20,8 @@
   font-weight: 600;
   color: var(--subtle);
   letter-spacing: 0.04em;
-  vertical-align: middle;
   opacity: 0.6;
+  margin-left: 4px;
 }
 
 .inv-stats {
