@@ -133,29 +133,34 @@
       ];
 
       // ── Image probing ──────────────────────────────────────────────────────
-      // Naming convention: assets/{folder}/{year}.jpg, {year}_1.jpg, {year}_2.jpg …
+      // Naming convention: {year}.jpg/.png, {year}_1.jpg/.png, {year}_2.jpg/.png …
       const MAX_VARIANTS = 9;
       const imageCounts  = {}; // { 1990: { albumPaths: […], sobrePaths: […] } }
 
       function probeImage(src) {
         return new Promise(resolve => {
-          const img  = new Image();
-          img.onload = () => resolve(true);
+          const img    = new Image();
+          img.onload  = () => resolve(true);
           img.onerror = () => resolve(false);
           img.src = src;
         });
       }
 
+      async function probeVariant(folder, year, suffix) {
+        const base = `../assets/${folder}/${year}${suffix}`;
+        if (await probeImage(base + ".jpg")) return base + ".jpg";
+        if (await probeImage(base + ".png")) return base + ".png";
+        return null;
+      }
+
       async function listImages(folder, year) {
-        const srcs   = Array.from({ length: MAX_VARIANTS + 1 }, (_, i) => {
-          const suffix = i === 0 ? "" : `_${i}`;
-          return `../assets/${folder}/${year}${suffix}.jpg`;
-        });
-        const exists = await Promise.all(srcs.map(probeImage));
-        const paths  = [];
-        for (let i = 0; i < srcs.length; i++) {
-          if (!exists[i]) break;
-          paths.push(srcs[i]);
+        const base = await probeVariant(folder, year, "");
+        if (!base) return [];
+        const paths = [base];
+        for (let i = 1; i <= MAX_VARIANTS; i++) {
+          const src = await probeVariant(folder, year, `_${i}`);
+          if (!src) break;
+          paths.push(src);
         }
         return paths;
       }
