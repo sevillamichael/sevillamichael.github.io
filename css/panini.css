@@ -20,7 +20,6 @@
   font-weight: 600;
   color: var(--subtle);
   letter-spacing: 0.04em;
-  opacity: 0.6;
   margin-left: 4px;
 }
 
@@ -38,7 +37,7 @@
 .inv-postales-label {
   font-size: 12px;
   font-weight: 700;
-  color: var(--subtle);
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   align-self: flex-start;
@@ -75,7 +74,7 @@
 .inv-stat-label {
   font-size: 12px;
   font-weight: 600;
-  color: var(--subtle);
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -110,7 +109,7 @@
   transform: translateX(-50%);
   background: var(--surface-strong);
   color: var(--text);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   white-space: pre-wrap;
   max-width: 240px;
@@ -230,7 +229,7 @@
   content: "✓";
   margin-left: 4px;
   color: #4ade80;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -238,7 +237,7 @@
   content: "✗";
   margin-left: 4px;
   color: #f87171;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -341,7 +340,7 @@
   margin: 0 0 14px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--subtle);
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -478,6 +477,24 @@
 .lightbox-prev { left: 16px; }
 .lightbox-next { right: 16px; }
 
+/* Buttons hidden — navigate via keyboard (←/→/Esc), swipe, or click backdrop */
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  display: none;
+}
+
+.lightbox-counter {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  color: rgba(255, 255, 255, 0.65);
+  font: 600 13px/1 "Fira Sans", sans-serif;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
 @media (max-width: 480px) {
   .theme-toggle {
     display: none;
@@ -519,9 +536,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .gallery-nav,
-  .lightbox-prev,
-  .lightbox-next {
+  .gallery-nav {
     display: none;
   }
 
