@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.1.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.2.3</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -242,7 +242,8 @@
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        let extrasConfirmed = 0, extrasTotal = 0;
+        let hasGoldEdition = false, hasOryx = false;
+        let hasCocaCola = false, hasMcDonalds = false, hasExtras = false, hasActualizacion = false;
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -251,25 +252,30 @@
             totalSobres += c.sobrePaths.length;
           }
           if (a.postales !== null && a.postalesConfirmed !== false) totalSets++;
-          if (a.oryx !== undefined) totalSets++;
-          if (a.goldEdition !== undefined && a.goldEditionConfirmed !== false) totalSets++;
+          if (a.oryx !== undefined) { totalSets++; hasOryx = true; }
+          if (a.goldEdition !== undefined) { hasGoldEdition = true; if (a.goldEditionConfirmed !== false) totalSets++; }
           if (a.cocaCola !== undefined) {
-            otrosTotal++;
+            otrosTotal++; hasCocaCola = true;
             if (a.cocaColaCollected === a.cocaCola) otrosConfirmed++;
           }
           if (a.mcdonalds !== undefined) {
-            otrosTotal++;
+            otrosTotal++; hasMcDonalds = true;
             if (a.mcdonaldsCollected === a.mcdonalds) otrosConfirmed++;
           }
           if (a.extras) {
-            extrasTotal++;
-            if (a.extrasConfirmed) extrasConfirmed++;
+            otrosTotal++; hasExtras = true;
+            if (a.extrasConfirmed) otrosConfirmed++;
           }
           if (a.actualizacion !== undefined) {
-            otrosTotal++;
+            otrosTotal++; hasActualizacion = true;
             if (a.actualizacion) otrosConfirmed++;
           }
         });
+
+        const postalExtras = [...(hasGoldEdition ? ["Gold Edition"] : []), ...(hasOryx ? ["Oryx"] : [])];
+        const postalesTooltip = postalExtras.length ? `Incluye:&#10;&#10;${postalExtras.join("&#10;")}` : null;
+        const otrosLines = [...(hasCocaCola ? ["Coca Cola"] : []), ...(hasMcDonalds ? ["McDonald's"] : []), ...(hasExtras ? ["Extras"] : []), ...(hasActualizacion ? ["Actualización"] : [])];
+        const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
         const stat = (val, label, cls, tooltip) =>
           `<div class="inv-stat">
@@ -287,9 +293,8 @@
             <div class="inv-stats-subgroup">
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
-                ${stat(totalSets, "Postales")}
-                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", null, "Coca Cola&#10;McDonald's&#10;Actualización") : ""}
-                ${extrasTotal ? stat(`${extrasConfirmed}/${extrasTotal}`, "Extras") : ""}
+                ${stat(totalSets, "Postales", null, postalesTooltip)}
+                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", null, otrosTooltip) : ""}
               </div>
             </div>
           </div>`;
@@ -303,42 +308,47 @@
         const counts = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
         const albumsLabel = counts.albumPaths.length === 1 ? "Álbum" : "Álbumes";
         const sobresLabel = counts.sobrePaths.length === 1 ? "Sobre" : "Sobres";
-        const stat = (val, label, cls) =>
+        const stat = (val, label, tooltip) =>
           `<div class="inv-stat">
-            <span class="inv-stat-value${cls ? ` ${cls}` : ""}">${val}</span>
-            <span class="inv-stat-label">${label}</span>
+            <span class="inv-stat-value">${val}</span>
+            <span class="inv-stat-label">${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}</span>
           </div>`;
         const setsItems = [];
         if (album.postales !== null) {
-          const confirmed = album.postalesConfirmed !== false;
-          setsItems.push(stat(album.postales, "Postales", confirmed ? "is-confirmed" : "is-pending"));
+          let postalTotal = 1;
+          const extras = [];
+          if (album.goldEdition !== undefined) { postalTotal++; extras.push("Gold Edition"); }
+          if (album.oryx !== undefined)         { postalTotal++; extras.push("Oryx"); }
+          const tooltip = extras.length ? `Incluye:&#10;&#10;${extras.join("&#10;")}` : null;
+          const val = album.postalesConfirmed === false ? `0/${album.postales}` : postalTotal;
+          setsItems.push(stat(val, "Postales", tooltip));
         }
-        if (album.goldEdition !== undefined) {
-          const confirmed = album.goldEditionConfirmed !== false;
-          setsItems.push(stat(album.goldEdition, "Gold Edition", confirmed ? "is-confirmed" : "is-pending"));
-        }
-        if (album.oryx !== undefined) {
-          setsItems.push(stat(album.oryx, "Oryx", "is-confirmed"));
-        }
+
+        // Otros = Coca Cola + McDonald's + Extras + Actualización (same grouping as main stats)
+        let otrosConfirmed = 0, otrosTotal = 0;
+        const otrosLines = [];
         if (album.cocaCola !== undefined) {
-          const val = album.cocaColaCollected !== undefined
-            ? `${album.cocaColaCollected}/${album.cocaCola}` : album.cocaCola;
-          const cls = album.cocaColaCollected === album.cocaCola ? "is-confirmed" : "is-pending";
-          setsItems.push(stat(val, "Coca Cola", cls));
+          otrosTotal++;
+          if (album.cocaColaCollected === album.cocaCola) otrosConfirmed++;
+          otrosLines.push("Coca Cola");
         }
         if (album.mcdonalds !== undefined) {
-          const val = album.mcdonaldsCollected !== undefined
-            ? `${album.mcdonaldsCollected}/${album.mcdonalds}` : album.mcdonalds;
-          const cls = album.mcdonaldsCollected === album.mcdonalds ? "is-confirmed" : "is-pending";
-          setsItems.push(stat(val, "McDonald's", cls));
+          otrosTotal++;
+          if (album.mcdonaldsCollected === album.mcdonalds) otrosConfirmed++;
+          otrosLines.push("McDonald's");
         }
         if (album.extras) {
-          const val = album.extrasCollected !== undefined
-            ? `${album.extrasCollected}/${album.extras}` : album.extras;
-          setsItems.push(stat(val, "Extras", album.extrasConfirmed ? "is-confirmed" : "is-pending"));
+          otrosTotal++;
+          if (album.extrasConfirmed) otrosConfirmed++;
+          otrosLines.push("Extras");
         }
         if (album.actualizacion !== undefined) {
-          setsItems.push(stat("", "Actualización", album.actualizacion ? "is-confirmed" : "is-pending"));
+          otrosTotal++;
+          if (album.actualizacion) otrosConfirmed++;
+          otrosLines.push("Actualización");
+        }
+        if (otrosTotal) {
+          setsItems.push(stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
         }
         document.getElementById("inv-stats").innerHTML = `
           <div class="inv-stats-row">
@@ -353,7 +363,7 @@
             ${setsItems.length ? `
             <div class="inv-stats-divider"></div>
             <div class="inv-stats-subgroup">
-              <span class="inv-postales-label">Sets</span>
+              <span class="inv-postales-label"${album.postalesConfirmed === false && setsItems.length === 1 ? ' style="visibility:hidden"' : ''}>Sets</span>
               <div class="inv-stats-row">
                 ${setsItems.join("")}
               </div>
@@ -387,6 +397,7 @@
         const isStory  = year === "story";
 
         const titleEl = document.querySelector(".inv-title");
+        titleEl.classList.add("is-gallery");
         document.getElementById("inv-title-text").textContent = isStory ? album.host : `${album.host} ${album.year}`;
         document.querySelector(".inv-version").hidden = true;
         if (window.innerWidth <= 480) {
@@ -441,6 +452,7 @@
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
+        titleEl2.classList.remove("is-gallery");
         document.getElementById("inv-title-text").textContent = "Colección Panini";
         document.querySelector(".inv-version").hidden = false;
         titleEl2.style.fontSize = "";

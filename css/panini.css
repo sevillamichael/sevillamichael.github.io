@@ -118,6 +118,9 @@
   border-radius: 6px;
   border: 1px solid var(--border);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-transform: none;
+  letter-spacing: normal;
+  width: max-content;
 }
 
 .inv-tooltip-icon::before {
@@ -489,6 +492,12 @@
     white-space: nowrap;
     overflow: hidden;
     min-height: calc(9vw * 1.05);
+    display: flex;
+    align-items: baseline;
+  }
+
+  .inv-title.is-gallery {
+    align-items: flex-end;
   }
 
   .albums-grid {
