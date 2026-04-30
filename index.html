@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.2.3</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.2.4</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -315,12 +315,27 @@
           </div>`;
         const setsItems = [];
         if (album.postales !== null) {
-          let postalTotal = 1;
+          let postalTotal = 0, postalConfirmed = 0;
           const extras = [];
-          if (album.goldEdition !== undefined) { postalTotal++; extras.push("Gold Edition"); }
-          if (album.oryx !== undefined)         { postalTotal++; extras.push("Oryx"); }
+          if (album.postalesConfirmed === false) {
+            postalTotal = 1; // count the slot; postalConfirmed stays 0
+          } else {
+            postalTotal++;
+            postalConfirmed++;
+          }
+          if (album.goldEdition !== undefined) {
+            postalTotal++; extras.push("Gold Edition");
+            if (album.goldEditionConfirmed !== false) postalConfirmed++;
+          }
+          if (album.oryx !== undefined) {
+            postalTotal++; extras.push("Oryx");
+            postalConfirmed++;
+          }
           const tooltip = extras.length ? `Incluye:&#10;&#10;${extras.join("&#10;")}` : null;
-          const val = album.postalesConfirmed === false ? `0/${album.postales}` : postalTotal;
+          let val;
+          if (album.postalesConfirmed === false)    val = `0/${album.postales}`;
+          else if (postalConfirmed < postalTotal)   val = `${postalConfirmed}/${postalTotal}`;
+          else                                      val = postalTotal;
           setsItems.push(stat(val, "Postales", tooltip));
         }
 
