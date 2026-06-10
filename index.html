@@ -131,12 +131,12 @@
         { year: 1994, host: "Estados Unidos",                   postales: 444, extras: 0  },
         { year: 1998, host: "Francia",                          postales: 561, extras: 0,  actualizacion: true  },
         { year: 2002, host: "Corea del Sur / Japón",            postales: 576, extras: 0  },
-        { year: 2006, host: "Alemania",                         postales: 596, extras: 0  },
-        { year: 2010, host: "Sudáfrica",                        postales: 638, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: false },
-        { year: 2014, host: "Brasil",                           postales: 639, extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: true  },
-        { year: 2018, host: "Rusia",                            postales: 669, goldEdition: 694, goldEditionConfirmed: false, extras: 0,  cocaCola: 9,  cocaColaCollected: 0,  actualizacion: false },
-        { year: 2022, host: "Qatar",                            postales: 670, oryx: 669,  cocaCola: 14, cocaColaCollected: 0,  extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: true  },
-        { year: 2026, host: "Canadá / Estados Unidos / México", postales: 980, postalesConfirmed: false, cocaCola: 14, cocaColaCollected: 14, mcdonalds: 20, mcdonaldsCollected: 0, extras: 80, extrasCollected: 0,  extrasConfirmed: false, actualizacion: false },
+        { year: 2006, host: "Alemania",                         postales: 596, extras: 0,  actualizacion: false },
+        { year: 2010, host: "Sudáfrica",                        postales: 638, specialEdition: { name: "Swiss Edition",    confirmed: false },              extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2014, host: "Brasil",                           postales: 639, specialEdition: { name: "Platinum Edition", confirmed: false },              extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: true  },
+        { year: 2018, host: "Rusia",                            postales: 669, specialEdition: { name: "Gold Edition",     confirmed: false },              extras: 0,  cocaCola: 9,  cocaColaCollected: 0,  actualizacion: false },
+        { year: 2022, host: "Qatar",                            postales: 670, specialEdition: { name: "Oryx Edition",     count: 669, confirmed: true  },   cocaCola: 14, cocaColaCollected: 0,  extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: true  },
+        { year: 2026, host: "Canadá / Estados Unidos / México", postales: 980, specialEdition: { name: "United Edition",   confirmed: false },              cocaCola: 14, cocaColaCollected: 14, mcdonalds: 28, mcdonaldsCollected: 28, extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: false },
       ];
 
       // ── Image discovery via GitHub API ─────────────────────────────────────
@@ -207,25 +207,21 @@
                 <span class="count-label">Postales</span>
                 <span class="count-val${album.postales !== null ? (album.postalesConfirmed === false ? ' is-pending' : ' is-confirmed') : ''}">${album.postales ?? "—"}</span>
               </div>
-              ${album.goldEdition !== undefined ? `<div class="card-count-row">
-                <span class="count-label">Gold Edition</span>
-                <span class="count-val ${album.goldEditionConfirmed === false ? 'is-pending' : 'is-confirmed'}">${album.goldEdition}</span>
-              </div>` : ""}
-              ${album.oryx ? `<div class="card-count-row">
-                <span class="count-label">Oryx</span>
-                <span class="count-val is-confirmed">${album.oryx}</span>
+              ${album.specialEdition !== undefined ? `<div class="card-count-row">
+                <span class="count-label">${album.specialEdition.name}</span>
+                <span class="count-val ${album.specialEdition.confirmed ? 'is-confirmed' : 'is-pending'}">${!album.specialEdition.confirmed && album.specialEdition.count != null ? album.specialEdition.count : ""}</span>
               </div>` : ""}
               ${album.cocaCola !== undefined ? `<div class="card-count-row">
                 <span class="count-label">Coca Cola</span>
-                <span class="count-val ${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.cocaColaCollected !== undefined ? `${album.cocaColaCollected}/${album.cocaCola}` : album.cocaCola}</span>
+                <span class="count-val ${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? album.cocaCola : `${album.cocaColaCollected}/${album.cocaCola}`) : album.cocaCola}</span>
               </div>` : ""}
               ${album.mcdonalds !== undefined ? `<div class="card-count-row">
                 <span class="count-label">McDonald's</span>
-                <span class="count-val ${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.mcdonaldsCollected !== undefined ? `${album.mcdonaldsCollected}/${album.mcdonalds}` : album.mcdonalds}</span>
+                <span class="count-val ${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? album.mcdonalds : `${album.mcdonaldsCollected}/${album.mcdonalds}`) : album.mcdonalds}</span>
               </div>` : ""}
               ${album.extras ? `<div class="card-count-row">
                 <span class="count-label">Extras</span>
-                <span class="count-val ${album.extrasConfirmed ? 'is-confirmed' : 'is-pending'}">${album.extrasCollected !== undefined ? `${album.extrasCollected}/${album.extras}` : album.extras}</span>
+                <span class="count-val ${album.extrasConfirmed ? 'is-confirmed' : 'is-pending'}">${album.extrasConfirmed ? album.extras : (album.extrasCollected !== undefined ? `${album.extrasCollected}/${album.extras}` : album.extras)}</span>
               </div>` : ""}
               ${album.actualizacion !== undefined ? `<div class="card-count-row">
                 <span class="count-label">Actualización</span>
@@ -243,7 +239,7 @@
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        let hasGoldEdition = false, hasOryx = false;
+        const specialEditionNames = [];
         let hasCocaCola = false, hasMcDonalds = false, hasExtras = false, hasActualizacion = false;
 
         ALBUMS.forEach(a => {
@@ -253,8 +249,7 @@
             totalSobres += c.sobrePaths.length;
           }
           if (a.postales !== null && a.postalesConfirmed !== false) totalSets++;
-          if (a.oryx !== undefined) { totalSets++; hasOryx = true; }
-          if (a.goldEdition !== undefined) { hasGoldEdition = true; if (a.goldEditionConfirmed !== false) totalSets++; }
+          if (a.specialEdition !== undefined) { specialEditionNames.push(a.specialEdition.name); if (a.specialEdition.confirmed) totalSets++; }
           if (a.cocaCola !== undefined) {
             otrosTotal++; hasCocaCola = true;
             if (a.cocaColaCollected === a.cocaCola) otrosConfirmed++;
@@ -273,8 +268,7 @@
           }
         });
 
-        const postalExtras = [...(hasGoldEdition ? ["Gold Edition"] : []), ...(hasOryx ? ["Oryx"] : [])];
-        const postalesTooltip = postalExtras.length ? `Incluye:&#10;&#10;${postalExtras.join("&#10;")}` : null;
+        const postalesTooltip = specialEditionNames.length ? `Incluye:&#10;&#10;${specialEditionNames.join("&#10;")}` : null;
         const otrosLines = [...(hasCocaCola ? ["Coca Cola"] : []), ...(hasMcDonalds ? ["McDonald's"] : []), ...(hasExtras ? ["Extras"] : []), ...(hasActualizacion ? ["Actualización"] : [])];
         const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
@@ -324,13 +318,9 @@
             postalTotal++;
             postalConfirmed++;
           }
-          if (album.goldEdition !== undefined) {
-            postalTotal++; extras.push("Gold Edition");
-            if (album.goldEditionConfirmed !== false) postalConfirmed++;
-          }
-          if (album.oryx !== undefined) {
-            postalTotal++; extras.push("Oryx");
-            postalConfirmed++;
+          if (album.specialEdition !== undefined) {
+            postalTotal++; extras.push(album.specialEdition.name);
+            if (album.specialEdition.confirmed) postalConfirmed++;
           }
           const tooltip = extras.length ? `Incluye:&#10;&#10;${extras.join("&#10;")}` : null;
           let val;
