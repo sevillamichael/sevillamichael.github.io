@@ -83,7 +83,10 @@
       <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
       <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
       <span class="lightbox-counter" id="lightbox-counter"></span>
-      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+      <div class="lightbox-content">
+        <span class="lightbox-label" id="lightbox-label"></span>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+      </div>
     </div>
 
     <script>
@@ -175,13 +178,20 @@
         if (sobresRes.ok) processDir(await sobresRes.json(), "sobres");
 
         const byIndex = (a, b) => {
-          const idx = p => { const m = p.match(/_(\d+)\.[^.]+$/); return m ? parseInt(m[1]) : 0; };
+          const idx = p => { const m = p.match(/_(\d+)/); return m ? parseInt(m[1]) : 0; };
           return idx(a) - idx(b);
         };
         Object.values(map).forEach(v => { v.albumPaths.sort(byIndex); v.sobrePaths.sort(byIndex); });
 
         sessionStorage.setItem(IMG_CACHE_KEY, JSON.stringify(map));
         return map;
+      }
+
+      function getVersionLabel(path) {
+        const base = path.replace(/\.[^.]+$/, "").split("/").pop();
+        const parts = base.split("_");
+        if (parts.length < 3) return null;
+        return parts.slice(2).join(" ").replace(/-/g, " ");
       }
 
       // ── Card rendering ─────────────────────────────────────────────────────
@@ -426,9 +436,12 @@
             an === 1 ? "Álbum" : `Álbumes: ${an}`;
           const el = document.getElementById("gallery-albums");
           el.className = gridClass(counts.albumPaths.length);
-          el.innerHTML = counts.albumPaths.map(src =>
-            `<img class="gallery-img" src="${src}" alt="${year} album" />`
-          ).join("");
+          el.innerHTML = counts.albumPaths.map(src => {
+            const label = getVersionLabel(src);
+            return label
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} album" /><figcaption class="gallery-label">Versión: ${label}</figcaption></figure>`
+              : `<img class="gallery-img" src="${src}" alt="${year} album" />`;
+          }).join("");
           albumsSection.hidden = false;
         } else {
           albumsSection.hidden = true;
@@ -441,9 +454,12 @@
             sn === 1 ? "Sobre" : `Sobres: ${sn}`;
           const el = document.getElementById("gallery-sobres");
           el.className = gridClass(counts.sobrePaths.length);
-          el.innerHTML = counts.sobrePaths.map(src =>
-            `<img class="gallery-img" src="${src}" alt="${year} sobre" />`
-          ).join("");
+          el.innerHTML = counts.sobrePaths.map(src => {
+            const label = getVersionLabel(src);
+            return label
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} sobre" /><figcaption class="gallery-label">Versión: ${label}</figcaption></figure>`
+              : `<img class="gallery-img" src="${src}" alt="${year} sobre" />`;
+          }).join("");
           sobresSection.hidden = false;
         } else {
           sobresSection.hidden = true;
@@ -483,6 +499,7 @@
       const lbPrev        = document.getElementById("lightbox-prev");
       const lbNext        = document.getElementById("lightbox-next");
       const lbCounter     = document.getElementById("lightbox-counter");
+      const lbLabel       = document.getElementById("lightbox-label");
 
       let lbImages = [];
       let lbIndex  = 0;
@@ -500,6 +517,11 @@
         lightboxImg.src = lbImages[lbIndex].src;
         lightboxImg.alt = lbImages[lbIndex].alt;
         if (lbCounter) lbCounter.textContent = `${lbIndex + 1} de ${lbImages.length}`;
+        if (lbLabel) {
+          const l = lbImages[lbIndex].label;
+          lbLabel.textContent = l || "";
+          lbLabel.hidden = !l;
+        }
       }
 
       function lightboxNav(dir) {
@@ -519,7 +541,11 @@
         const section = img.closest("#gallery-albums, #gallery-sobres");
         const scope   = section || document.getElementById("gallery-view");
         const all     = [...scope.querySelectorAll(".gallery-img")];
-        const images  = all.map(el => ({ src: el.src, alt: el.alt }));
+        const images  = all.map(el => {
+          const fig = el.closest(".gallery-figure");
+          const cap = fig ? fig.querySelector(".gallery-label") : null;
+          return { src: el.src, alt: el.alt, label: cap ? cap.textContent : null };
+        });
         openLightbox(images, all.indexOf(img));
       });
 
