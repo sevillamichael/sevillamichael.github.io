@@ -439,7 +439,7 @@
           el.innerHTML = counts.albumPaths.map(src => {
             const label = getVersionLabel(src);
             return label
-              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} album" /><figcaption class="gallery-label">Versión: ${label}</figcaption></figure>`
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} album" /><figcaption class="gallery-label">${label}</figcaption></figure>`
               : `<img class="gallery-img" src="${src}" alt="${year} album" />`;
           }).join("");
           albumsSection.hidden = false;
@@ -457,7 +457,7 @@
           el.innerHTML = counts.sobrePaths.map(src => {
             const label = getVersionLabel(src);
             return label
-              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} sobre" /><figcaption class="gallery-label">Versión: ${label}</figcaption></figure>`
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} sobre" /><figcaption class="gallery-label">${label}</figcaption></figure>`
               : `<img class="gallery-img" src="${src}" alt="${year} sobre" />`;
           }).join("");
           sobresSection.hidden = false;
