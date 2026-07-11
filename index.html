@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,8 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=2" />
-    <link rel="stylesheet" href="css/panini.css?v=2" />
+    <link rel="stylesheet" href="css/styles.css?v=3" />
+    <link rel="stylesheet" href="css/panini.css?v=3" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,9 +48,12 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.2.7</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.3.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
+
+      <!-- ── View tabs (Todo + one per sticker set, derived from data) ───── -->
+      <nav class="view-tabs" id="view-tabs" aria-label="Vistas"></nav>
 
       <!-- ── Card grid ───────────────────────────────────────────────────── -->
       <div class="albums-grid" id="albums-grid"></div>
@@ -65,6 +68,9 @@
           </div>
         </header>
 
+        <!-- Per-year tabs: Álbumes/Sobres photos + this year's sticker sets -->
+        <nav class="view-tabs gallery-tabs" id="gallery-tabs" aria-label="Secciones"></nav>
+
         <section class="gallery-section" id="gallery-albums-section">
           <h3 class="gallery-section-label">Álbumes</h3>
           <div class="gallery-images" id="gallery-albums"></div>
@@ -74,7 +80,13 @@
           <h3 class="gallery-section-label">Sobres</h3>
           <div class="gallery-images" id="gallery-sobres"></div>
         </section>
+
+        <section class="gallery-section" id="gallery-set-section" hidden>
+          <h3 class="gallery-section-label" id="gallery-set-label"></h3>
+          <div class="gallery-images" id="gallery-set-panel"></div>
+        </section>
       </div>
+
     </main>
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
@@ -123,24 +135,124 @@
       })();
 
       // ── Album data ─────────────────────────────────────────────────────────
+      // postales: the core sticker set — { total, collected, items? }
+      // editions: parallel album editions — { label, total?, complete }
+      // sets: secondary sticker sets — { id, label, total?, collected?, complete?, items? }
+      //   id is the stable cross-year identity (never rename);
+      //   label is the display name (rename freely).
+      //   items: [{ label, total?, collected?, complete? }] breaks a set into
+      //   sub-items; the set only reads complete when every item is complete.
       const ALBUMS = [
-        { year: 1970, host: "México",                           postales: 288, postalesConfirmed: false, extras: 0  },
-        { year: 1974, host: "Alemania",                         postales: 400, postalesConfirmed: false, extras: 0  },
-        { year: 1978, host: "Argentina",                        postales: 400, postalesConfirmed: false, extras: 0  },
-        { year: 1982, host: "España",                           postales: 427, postalesConfirmed: false, extras: 0  },
-        { year: 1986, host: "México",                           postales: 427, extras: 0  },
-        { year: 1990, host: "Italia",                           postales: 448, extras: 0  },
-        { year: "story", host: "World Cup Story",               postales: 262, extras: null },
-        { year: 1994, host: "Estados Unidos",                   postales: 444, extras: 0  },
-        { year: 1998, host: "Francia",                          postales: 561, extras: 0,  actualizacion: true  },
-        { year: 2002, host: "Corea del Sur / Japón",            postales: 576, extras: 0  },
-        { year: 2006, host: "Alemania",                         postales: 596, extras: 0,  actualizacion: false },
-        { year: 2010, host: "Sudáfrica",                        postales: 638, specialEdition: { name: "Swiss Edition",    confirmed: false },              extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: false },
-        { year: 2014, host: "Brasil",                           postales: 639, specialEdition: { name: "Platinum Edition", confirmed: false },              extras: 0,  cocaCola: 8,  cocaColaCollected: 0,  actualizacion: true  },
-        { year: 2018, host: "Rusia",                            postales: 669, specialEdition: { name: "Gold Edition",     confirmed: false },              extras: 0,  cocaCola: 9,  cocaColaCollected: 0,  actualizacion: false },
-        { year: 2022, host: "Qatar",                            postales: 670, specialEdition: { name: "Oryx Edition",     count: 669, confirmed: true  },   cocaCola: 14, cocaColaCollected: 0,  extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: true  },
-        { year: 2026, host: "Canadá / Estados Unidos / México", postales: 980, specialEdition: { name: "United Edition",   confirmed: false },              cocaCola: 14, cocaColaCollected: 14, mcdonalds: 28, mcdonaldsCollected: 28, extras: 80, extrasCollected: 80, extrasConfirmed: true,  actualizacion: false },
+        { year: 1970, host: "México",                           postales: { total: 288, collected: 0 } },
+        { year: 1974, host: "Alemania",                         postales: { total: 400, collected: 0 } },
+        { year: 1978, host: "Argentina",                        postales: { total: 400, collected: 0 } },
+        { year: 1982, host: "España",                           postales: { total: 427, collected: 0 } },
+        { year: 1986, host: "México",                           postales: { total: 427, collected: 427 } },
+        { year: 1990, host: "Italia",                           postales: { total: 448, collected: 448 } },
+        { year: "story", host: "World Cup Story",               postales: { total: 262, collected: 262 } },
+        { year: 1994, host: "Estados Unidos",                   postales: { total: 444, collected: 444 } },
+        { year: 1998, host: "Francia",                          postales: { total: 561, collected: 561 },
+          sets: [{ id: "actualizacion", label: "Actualización", items: [
+            { label: "Inglaterra", total: 3,  collected: 3 },
+            { label: "Irán",       total: 10, collected: 10 },
+          ] }] },
+        { year: 2002, host: "Corea del Sur / Japón",            postales: { total: 576, collected: 576 } },
+        { year: 2006, host: "Alemania",                         postales: { total: 596, collected: 596 },
+          sets: [{ id: "actualizacion", label: "Actualización", total: 7, complete: false }] },
+        { year: 2010, host: "Sudáfrica",                        postales: { total: 638, collected: 638 },
+          editions: [{ label: "Swiss Edition", complete: false }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     total: 8,  collected: 0 },
+            { id: "actualizacion", label: "Actualización", complete: false },
+          ] },
+        { year: 2014, host: "Brasil",                           postales: { total: 639, collected: 639 },
+          editions: [{ label: "Platinum Edition", complete: false }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     total: 8,  collected: 0 },
+            { id: "actualizacion", label: "Actualización", complete: true },
+          ] },
+        { year: 2018, host: "Rusia",                            postales: { total: 669, collected: 669 },
+          editions: [{ label: "Gold Edition", complete: false }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     total: 9,  collected: 0 },
+            { id: "actualizacion", label: "Actualización", complete: false },
+          ] },
+        { year: 2022, host: "Qatar",                            postales: { total: 670, collected: 670 },
+          editions: [{ label: "Oryx Edition", total: 669, complete: true }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     total: 14, collected: 0 },
+            { id: "extras",        label: "Extras",        total: 80, collected: 80 },
+            { id: "actualizacion", label: "Actualización", complete: true },
+          ] },
+        { year: 2026, host: "Canadá / Estados Unidos / México", postales: { total: 980, collected: 980 },
+          editions: [{ label: "United Edition", complete: false }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     items: [
+              { label: "Latin America",     total: 14, collected: 14 },
+              { label: "USA/Canada",        total: 12, collected: 12 },
+              { label: "Europe",            total: 12, collected: 0 },
+              { label: "Rest of the World", total: 14, collected: 0 },
+            ] },
+            { id: "mcdonalds",     label: "McDonald's",    total: 28, collected: 28 },
+            { id: "extras",        label: "Extras",        total: 80, collected: 80 },
+            { id: "actualizacion", label: "Actualización", complete: false },
+          ] },
       ];
+
+      // ── Set status ─────────────────────────────────────────────────────────
+      // One rule for every sticker set (and each item inside one):
+      //   complete ✓ · in-progress "x/y" ✗ · unknown (not tracked yet) "—"
+      // summary: what Todo shows — only the check, never numbers (numbers for
+      // Álbumes/Sobres only there; each set's numbers live in its own tab)
+      // detail:  what the set's own tab shows (the full x/y ledger)
+      // A set with items: [...] aggregates them — it only reads complete when
+      // every listed item is complete.
+      function setStatus(s) {
+        if (Array.isArray(s.items) && s.items.length) {
+          const done = s.items.filter(it => setStatus(it).state === "complete").length;
+          return done === s.items.length
+            ? { state: "complete", summary: "", detail: "" }
+            : { state: "pending",  summary: "", detail: `${done}/${s.items.length}` };
+        }
+        if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
+        if (s.complete === false) return { state: "pending",  summary: "", detail: s.total ?? "" };
+        if (s.total != null && s.collected != null) {
+          // Complete: just the total next to the green check; pending keeps x/y
+          return s.collected >= s.total
+            ? { state: "complete", summary: "", detail: s.total }
+            : { state: "pending",  summary: "", detail: `${s.collected}/${s.total}` };
+        }
+        return { state: "unknown", summary: "—", detail: s.total ?? "—" };
+      }
+      const stateClass = st =>
+        st === "complete" ? "is-confirmed" : st === "pending" ? "is-pending" : "is-unknown";
+
+      // Stats count leaf items: a set with items contributes each item,
+      // a simple set contributes itself — so partial variants aren't lost.
+      const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items : [s]);
+
+      // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
+      function ledgerRow(label, st) {
+        return `<div class="card-count-row">
+            <span class="count-label">${label}</span>
+            <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
+          </div>`;
+      }
+
+      function setLedgerRows(album, key) {
+        const s = setForFilter(album, key);
+        let rows;
+        if (Array.isArray(s.items) && s.items.length) {
+          rows = s.items.map(it => ledgerRow(it.label, setStatus(it))).join("");
+        } else {
+          rows = ledgerRow(album.year === "story" ? "Story" : album.year, setStatus(s));
+        }
+        // Album editions belong to the core set — list them with it by name
+        if (key === "postales") {
+          rows += (album.editions || []).map(e => ledgerRow(e.label, setStatus(e))).join("");
+        }
+        return rows;
+      }
 
       // ── Image discovery via GitHub API ─────────────────────────────────────
       const REPO          = "sevillamichael/sevillamichael.github.io";
@@ -195,8 +307,11 @@
       }
 
       // ── Card rendering ─────────────────────────────────────────────────────
-      function renderGrid() {
-        document.getElementById("albums-grid").innerHTML = ALBUMS.map(album => {
+      // filterKey: null renders every album (Todo); a set key renders only the
+      // albums where that set applies.
+      function renderGrid(filterKey) {
+        const albums = filterKey ? ALBUMS.filter(a => setForFilter(a, filterKey)) : ALBUMS;
+        document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const logoHtml = `<div class="card-logo">
               <img
                 src="assets/logos/${album.year}.png"
@@ -204,7 +319,27 @@
                 onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none'}"
               />
             </div>`;
-          const countsHtml = `<div class="card-counts">
+          const setRow = s => {
+            const st = setStatus(s);
+            return `<div class="card-count-row">
+                <span class="count-label">${s.label}</span>
+                <span class="count-val ${stateClass(st.state)}">${st.summary}</span>
+              </div>`;
+          };
+          let countsHtml;
+          if (filterKey) {
+            // Set tab: the tab already names the set. With items, one row per
+            // item; otherwise a single row labeled by year. Always the full ledger.
+            countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey)}</div>`;
+          } else {
+            const editionRows = (album.editions || []).map(e => {
+              const st = setStatus(e);
+              return `<div class="card-count-row">
+                <span class="count-label">${e.label}</span>
+                <span class="count-val ${stateClass(st.state)}">${st.summary}</span>
+              </div>`;
+            }).join("");
+            countsHtml = `<div class="card-counts">
               <div class="card-count-row">
                 <span class="count-label" data-label="albums" data-year="${album.year}">Álbumes</span>
                 <span class="count-val" data-type="albums" data-year="${album.year}">—</span>
@@ -215,42 +350,29 @@
               </div>
               <div class="card-count-row">
                 <span class="count-label">Postales</span>
-                <span class="count-val${album.postales !== null ? (album.postalesConfirmed === false ? ' is-pending' : ' is-confirmed') : ''}">${album.postales ?? "—"}</span>
+                <span class="count-val${album.postales ? ' ' + stateClass(setStatus(album.postales).state) : ''}">${album.postales ? setStatus(album.postales).summary : "—"}</span>
               </div>
-              ${album.specialEdition !== undefined ? `<div class="card-count-row">
-                <span class="count-label">${album.specialEdition.name}</span>
-                <span class="count-val ${album.specialEdition.confirmed ? 'is-confirmed' : 'is-pending'}">${!album.specialEdition.confirmed && album.specialEdition.count != null ? album.specialEdition.count : ""}</span>
-              </div>` : ""}
-              ${album.cocaCola !== undefined ? `<div class="card-count-row">
-                <span class="count-label">Coca Cola</span>
-                <span class="count-val ${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.cocaColaCollected !== undefined ? (album.cocaColaCollected === album.cocaCola ? album.cocaCola : `${album.cocaColaCollected}/${album.cocaCola}`) : album.cocaCola}</span>
-              </div>` : ""}
-              ${album.mcdonalds !== undefined ? `<div class="card-count-row">
-                <span class="count-label">McDonald's</span>
-                <span class="count-val ${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? 'is-confirmed' : 'is-pending') : 'is-confirmed'}">${album.mcdonaldsCollected !== undefined ? (album.mcdonaldsCollected === album.mcdonalds ? album.mcdonalds : `${album.mcdonaldsCollected}/${album.mcdonalds}`) : album.mcdonalds}</span>
-              </div>` : ""}
-              ${album.extras ? `<div class="card-count-row">
-                <span class="count-label">Extras</span>
-                <span class="count-val ${album.extrasConfirmed ? 'is-confirmed' : 'is-pending'}">${album.extrasConfirmed ? album.extras : (album.extrasCollected !== undefined ? `${album.extrasCollected}/${album.extras}` : album.extras)}</span>
-              </div>` : ""}
-              ${album.actualizacion !== undefined ? `<div class="card-count-row">
-                <span class="count-label">Actualización</span>
-                <span class="count-val ${album.actualizacion ? 'is-confirmed' : 'is-pending'}"></span>
-              </div>` : ""}
+              ${editionRows}
+              ${(album.sets || []).map(s => setRow(s)).join("")}
             </div>`;
+          }
           return `<article class="album-card" data-year="${album.year}">
             ${logoHtml}
             ${countsHtml}
           </article>`;
         }).join("");
+        // Re-applying counts matters when switching tabs after the initial fetch
+        albums.forEach(album => {
+          const c = imageCounts[album.year];
+          if (c) applyCount(album, c.albumPaths, c.sobrePaths);
+        });
       }
 
       // ── Stats ──────────────────────────────────────────────────────────────
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        const specialEditionNames = [];
-        let hasCocaCola = false, hasMcDonalds = false, hasExtras = false, hasActualizacion = false;
+        const editionNames = [], otrosLines = [];
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -258,33 +380,25 @@
             totalAlbums += c.albumPaths.length;
             totalSobres += c.sobrePaths.length;
           }
-          if (a.postales !== null && a.postalesConfirmed !== false) totalSets++;
-          if (a.specialEdition !== undefined) { specialEditionNames.push(a.specialEdition.name); if (a.specialEdition.confirmed) totalSets++; }
-          if (a.cocaCola !== undefined) {
-            otrosTotal++; hasCocaCola = true;
-            if (a.cocaColaCollected === a.cocaCola) otrosConfirmed++;
-          }
-          if (a.mcdonalds !== undefined) {
-            otrosTotal++; hasMcDonalds = true;
-            if (a.mcdonaldsCollected === a.mcdonalds) otrosConfirmed++;
-          }
-          if (a.extras) {
-            otrosTotal++; hasExtras = true;
-            if (a.extrasConfirmed) otrosConfirmed++;
-          }
-          if (a.actualizacion !== undefined) {
-            otrosTotal++; hasActualizacion = true;
-            if (a.actualizacion) otrosConfirmed++;
-          }
+          if (a.postales && setStatus(a.postales).state === "complete") totalSets++;
+          (a.editions || []).forEach(e => {
+            editionNames.push(e.label);
+            if (setStatus(e).state === "complete") totalSets++;
+          });
+          (a.sets || []).forEach(s => {
+            const leaves = setLeaves(s);
+            otrosTotal += leaves.length;
+            otrosConfirmed += leaves.filter(l => setStatus(l).state === "complete").length;
+            if (!otrosLines.includes(s.label)) otrosLines.push(s.label);
+          });
         });
 
-        const postalesTooltip = specialEditionNames.length ? `Incluye:&#10;&#10;${specialEditionNames.join("&#10;")}` : null;
-        const otrosLines = [...(hasCocaCola ? ["Coca Cola"] : []), ...(hasMcDonalds ? ["McDonald's"] : []), ...(hasExtras ? ["Extras"] : []), ...(hasActualizacion ? ["Actualización"] : [])];
+        const postalesTooltip = editionNames.length ? `Incluye:&#10;&#10;${editionNames.join("&#10;")}` : null;
         const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
-        const stat = (val, label, cls, tooltip) =>
+        const stat = (val, label, tooltip) =>
           `<div class="inv-stat">
-            <span class="inv-stat-value${cls ? ` ${cls}` : ""}">${val}</span>
+            <span class="inv-stat-value">${val}</span>
             <span class="inv-stat-label">
               ${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}
             </span>
@@ -298,8 +412,8 @@
             <div class="inv-stats-subgroup">
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
-                ${stat(totalSets, "Postales", null, postalesTooltip)}
-                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", null, otrosTooltip) : ""}
+                ${stat(totalSets, "Postales", postalesTooltip)}
+                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", otrosTooltip) : ""}
               </div>
             </div>
           </div>`;
@@ -307,6 +421,93 @@
 
       // ── Gallery ────────────────────────────────────────────────────────────
       let currentGalleryYear = null;
+      let currentGalleryTab  = null;
+
+      // Tabs for one year: photos first, then sticker sets — a set gets a tab
+      // once at least one of its rows is green; the panel holds a scan
+      // placeholder per green row
+      function galleryTabsFor(album, counts) {
+        const tabs = [];
+        if (counts.albumPaths.length) tabs.push({ key: "albumes", label: counts.albumPaths.length === 1 ? "Álbum" : "Álbumes" });
+        if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
+        (album.sets || []).forEach(s => {
+          if (setPlaceholderEntries(album, setKey(s)).length) tabs.push({ key: setKey(s), label: s.label });
+        });
+        if (album.postales && setPlaceholderEntries(album, "postales").length) {
+          tabs.push({ key: "postales", label: "Postales" });
+        }
+        return tabs;
+      }
+
+      // Placeholder image (SVG) standing in for a scan — a real gallery image,
+      // so set tabs behave exactly like Álbumes/Sobres (lightbox, hover, alt)
+      const PLACEHOLDER_SRC = "data:image/svg+xml," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">' +
+        '<rect x="6" y="6" width="288" height="388" rx="12" fill="none" stroke="#8a94a0" stroke-width="3" stroke-dasharray="10 8"/>' +
+        '<text x="150" y="206" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="18" font-weight="600" letter-spacing="1.5" fill="#8a94a0">SIN ESCANEAR</text>' +
+        '</svg>'
+      );
+
+      // One scan placeholder per green row of the set (scans pending)
+      function setPlaceholderEntries(album, key) {
+        const s = setForFilter(album, key);
+        const entries = [];
+        const push = (label, st) => {
+          if (st.state === "complete") entries.push({ label, value: st.detail });
+        };
+        if (Array.isArray(s.items) && s.items.length) {
+          s.items.forEach(it => push(it.label, setStatus(it)));
+        } else {
+          push(album.year === "story" ? "Story" : String(album.year), setStatus(s));
+        }
+        if (key === "postales") {
+          (album.editions || []).forEach(e => push(e.label, setStatus(e)));
+        }
+        return entries;
+      }
+
+      function renderGalleryTabs(tabs) {
+        document.getElementById("gallery-tabs").innerHTML = tabs.map(t => {
+          const active = t.key === currentGalleryTab;
+          return `<button class="view-tab${active ? " is-active" : ""}" data-tab="${t.key}" type="button" aria-pressed="${active}">${t.label}</button>`;
+        }).join("");
+      }
+
+      function gridClass(n) {
+        if (n >= 4) return "gallery-images cols-4";
+        if (n === 3) return "gallery-images cols-3";
+        if (n === 2) return "gallery-images cols-2";
+        return "gallery-images";
+      }
+
+      function showGalleryTab(key) {
+        currentGalleryTab = key;
+        const album  = ALBUMS.find(a => a.year === currentGalleryYear);
+        const counts = imageCounts[currentGalleryYear] || { albumPaths: [], sobrePaths: [] };
+        const tabs   = galleryTabsFor(album, counts);
+        document.getElementById("gallery-albums-section").hidden = key !== "albumes" || !counts.albumPaths.length;
+        document.getElementById("gallery-sobres-section").hidden = key !== "sobres"  || !counts.sobrePaths.length;
+        const isSet = key !== "albumes" && key !== "sobres";
+        document.getElementById("gallery-set-section").hidden = !isSet;
+        if (isSet) {
+          const tabDef  = tabs.find(t => t.key === key);
+          const label   = tabDef ? tabDef.label : "";
+          const entries = setPlaceholderEntries(album, key);
+          // Same heading rule as Álbumes/Sobres: hidden when there's only one
+          const headEl  = document.getElementById("gallery-set-label");
+          headEl.hidden = entries.length === 1;
+          headEl.textContent = `${label}: ${entries.length}`;
+          const panel = document.getElementById("gallery-set-panel");
+          // Natural-size flex layout (no cols-N): placeholders stay tile-sized
+          // instead of stretching to fill grid columns
+          panel.className = "gallery-images";
+          panel.innerHTML = entries.map(en => `<figure class="gallery-figure is-placeholder">
+              <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" />
+              <figcaption class="gallery-label">${en.label}${en.value !== "" ? ` · ${en.value}` : ""}</figcaption>
+            </figure>`).join("");
+        }
+        renderGalleryTabs(tabs);
+      }
 
       function updateGalleryStats(year) {
         const album  = ALBUMS.find(a => a.year === year);
@@ -319,50 +520,31 @@
             <span class="inv-stat-label">${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}</span>
           </div>`;
         const setsItems = [];
-        if (album.postales !== null) {
-          let postalTotal = 0, postalConfirmed = 0;
-          const extras = [];
-          if (album.postalesConfirmed === false) {
-            postalTotal = 1; // count the slot; postalConfirmed stays 0
-          } else {
-            postalTotal++;
-            postalConfirmed++;
-          }
-          if (album.specialEdition !== undefined) {
-            postalTotal++; extras.push(album.specialEdition.name);
-            if (album.specialEdition.confirmed) postalConfirmed++;
-          }
-          const tooltip = extras.length ? `Incluye:&#10;&#10;${extras.join("&#10;")}` : null;
+        const postalesComplete = album.postales && setStatus(album.postales).state === "complete";
+        if (album.postales) {
+          let postalTotal = 1, postalConfirmed = postalesComplete ? 1 : 0;
+          const editionLabels = [];
+          (album.editions || []).forEach(e => {
+            postalTotal++; editionLabels.push(e.label);
+            if (setStatus(e).state === "complete") postalConfirmed++;
+          });
+          const tooltip = editionLabels.length ? `Incluye:&#10;&#10;${editionLabels.join("&#10;")}` : null;
           let val;
-          if (album.postalesConfirmed === false)    val = `0/${album.postales}`;
+          if (!postalesComplete)                    val = `${album.postales.collected ?? 0}/${album.postales.total}`;
           else if (postalConfirmed < postalTotal)   val = `${postalConfirmed}/${postalTotal}`;
           else                                      val = postalTotal;
           setsItems.push(stat(val, "Postales", tooltip));
         }
 
-        // Otros = Coca Cola + McDonald's + Extras + Actualización (same grouping as main stats)
+        // Otros = secondary sticker sets (same grouping as main stats)
         let otrosConfirmed = 0, otrosTotal = 0;
         const otrosLines = [];
-        if (album.cocaCola !== undefined) {
-          otrosTotal++;
-          if (album.cocaColaCollected === album.cocaCola) otrosConfirmed++;
-          otrosLines.push("Coca Cola");
-        }
-        if (album.mcdonalds !== undefined) {
-          otrosTotal++;
-          if (album.mcdonaldsCollected === album.mcdonalds) otrosConfirmed++;
-          otrosLines.push("McDonald's");
-        }
-        if (album.extras) {
-          otrosTotal++;
-          if (album.extrasConfirmed) otrosConfirmed++;
-          otrosLines.push("Extras");
-        }
-        if (album.actualizacion !== undefined) {
-          otrosTotal++;
-          if (album.actualizacion) otrosConfirmed++;
-          otrosLines.push("Actualización");
-        }
+        (album.sets || []).forEach(s => {
+          const leaves = setLeaves(s);
+          otrosTotal += leaves.length;
+          otrosConfirmed += leaves.filter(l => setStatus(l).state === "complete").length;
+          otrosLines.push(s.label);
+        });
         if (otrosTotal) {
           setsItems.push(stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
         }
@@ -379,7 +561,7 @@
             ${setsItems.length ? `
             <div class="inv-stats-divider"></div>
             <div class="inv-stats-subgroup">
-              <span class="inv-postales-label"${album.postalesConfirmed === false && setsItems.length === 1 ? ' style="visibility:hidden"' : ''}>Sets</span>
+              <span class="inv-postales-label"${album.postales && !postalesComplete && setsItems.length === 1 ? ' style="visibility:hidden"' : ''}>Sets</span>
               <div class="inv-stats-row">
                 ${setsItems.join("")}
               </div>
@@ -389,6 +571,7 @@
 
       function navigableAlbums() {
         return ALBUMS.filter(a => {
+          if (currentFilter && !setForFilter(a, currentFilter)) return false;
           const c = imageCounts[a.year];
           return c && (c.albumPaths.length > 0 || c.sobrePaths.length > 0);
         });
@@ -401,7 +584,7 @@
         showGallery(nav[(idx + dir + nav.length) % nav.length].year);
       }
 
-      function showGallery(year) {
+      function showGallery(year, initialTab) {
         currentGalleryYear = year;
         const nav   = navigableAlbums();
         const hasNav = nav.length > 1;
@@ -422,18 +605,13 @@
           else                    titleEl.style.fontSize = "";
         }
 
-        function gridClass(n) {
-          if (n >= 4) return "gallery-images cols-4";
-          if (n === 3) return "gallery-images cols-3";
-          if (n === 2) return "gallery-images cols-2";
-          return "gallery-images";
-        }
-
         const albumsSection = document.getElementById("gallery-albums-section");
         if (counts.albumPaths.length) {
           const an = counts.albumPaths.length;
-          albumsSection.querySelector(".gallery-section-label").textContent =
-            an === 1 ? "Álbum" : `Álbumes: ${an}`;
+          // One image: the tab already says Álbumes — skip the redundant heading
+          const albumsLabelEl = albumsSection.querySelector(".gallery-section-label");
+          albumsLabelEl.hidden = an === 1;
+          albumsLabelEl.textContent = an === 1 ? "Álbum" : `Álbumes: ${an}`;
           const el = document.getElementById("gallery-albums");
           el.className = gridClass(counts.albumPaths.length);
           el.innerHTML = counts.albumPaths.map(src => {
@@ -450,8 +628,9 @@
         const sobresSection = document.getElementById("gallery-sobres-section");
         if (counts.sobrePaths.length) {
           const sn = counts.sobrePaths.length;
-          sobresSection.querySelector(".gallery-section-label").textContent =
-            sn === 1 ? "Sobre" : `Sobres: ${sn}`;
+          const sobresLabelEl = sobresSection.querySelector(".gallery-section-label");
+          sobresLabelEl.hidden = sn === 1;
+          sobresLabelEl.textContent = sn === 1 ? "Sobre" : `Sobres: ${sn}`;
           const el = document.getElementById("gallery-sobres");
           el.className = gridClass(counts.sobrePaths.length);
           el.innerHTML = counts.sobrePaths.map(src => {
@@ -465,13 +644,22 @@
           sobresSection.hidden = true;
         }
 
+        // Land on the requested tab when this year has it (e.g. arriving from a
+        // set tab in the main grid); otherwise every year starts on its first tab
+        const tabs = galleryTabsFor(album, counts);
+        const start = initialTab && tabs.some(t => t.key === initialTab) ? initialTab : tabs.length ? tabs[0].key : null;
+        if (start) showGalleryTab(start);
+
+        document.getElementById("view-tabs").hidden    = true;
         document.getElementById("albums-grid").hidden  = true;
         document.getElementById("gallery-view").hidden = false;
         updateGalleryStats(year);
       }
 
       function hideGallery() {
+        currentGalleryTab = null;
         document.getElementById("gallery-view").hidden = true;
+        document.getElementById("view-tabs").hidden    = false;
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
         titleEl2.classList.remove("is-gallery");
@@ -486,12 +674,55 @@
         const card = e.target.closest(".album-card");
         if (!card) return;
         const raw = card.dataset.year;
-        showGallery(/^\d+$/.test(raw) ? Number(raw) : raw);
+        // From a set tab, land on that same set inside the year
+        showGallery(/^\d+$/.test(raw) ? Number(raw) : raw, currentFilter);
       });
 
       document.getElementById("gallery-back").addEventListener("click", hideGallery);
       document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
       document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
+      document.getElementById("gallery-tabs").addEventListener("click", e => {
+        const btn = e.target.closest(".view-tab");
+        if (btn) showGalleryTab(btn.dataset.tab);
+      });
+
+      // ── View tabs: Todo + one tab per sticker set ──────────────────────────
+      const setKey = s => s.id || s.label;
+
+      // Union of set identities across all years, in first-appearance order
+      function setColumns() {
+        const cols = [];
+        ALBUMS.forEach(a => (a.sets || []).forEach(s => {
+          if (!cols.some(c => c.key === setKey(s))) cols.push({ key: setKey(s), label: s.label });
+        }));
+        return cols;
+      }
+
+      const findSet = (album, key) => (album.sets || []).find(s => setKey(s) === key);
+
+      // Postales is stored on the album itself, not in sets — the tab treats it
+      // like any other set via this lookup.
+      const setForFilter = (album, key) =>
+        key === "postales" ? album.postales : findSet(album, key);
+
+      let currentFilter = null; // null = Todo (source of truth)
+
+      function renderTabs() {
+        const tabs = [{ key: null, label: "Todo" }, ...setColumns(), { key: "postales", label: "Postales" }];
+        document.getElementById("view-tabs").innerHTML = tabs.map(t => {
+          const active = t.key === currentFilter;
+          return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
+        }).join("");
+      }
+
+      document.getElementById("view-tabs").addEventListener("click", e => {
+        const btn = e.target.closest(".view-tab");
+        if (!btn) return;
+        currentFilter = btn.dataset.set || null;
+        renderTabs();
+        renderGrid(currentFilter);
+        updateStats();
+      });
 
       // ── Lightbox ───────────────────────────────────────────────────────────
       const lightbox      = document.getElementById("lightbox");
@@ -538,7 +769,7 @@
       document.getElementById("gallery-view").addEventListener("click", e => {
         const img = e.target.closest(".gallery-img");
         if (!img) return;
-        const section = img.closest("#gallery-albums, #gallery-sobres");
+        const section = img.closest("#gallery-albums, #gallery-sobres, #gallery-set-panel");
         const scope   = section || document.getElementById("gallery-view");
         const all     = [...scope.querySelectorAll(".gallery-img")];
         const images  = all.map(el => {
@@ -612,6 +843,7 @@
 
       async function init() {
         renderGrid();
+        renderTabs();
         const imageLists = await fetchImageLists();
         ALBUMS.forEach(album => {
           const lists = imageLists[album.year] || { albumPaths: [], sobrePaths: [] };

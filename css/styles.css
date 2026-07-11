@@ -187,20 +187,6 @@ html[data-theme="light"] .theme-icon-sun {
   background: var(--linkedin);
 }
 
-.inv-link {
-  display: inline-block;
-  margin-top: 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-  transition: color 0.15s;
-}
-
-.inv-link:hover {
-  color: var(--heading);
-  text-decoration: none;
-}
-
 .hero + .section,
 .section + .section {
   margin-top: var(--section-gap);

@@ -135,6 +135,56 @@
   opacity: 1;
 }
 
+/* ── View tabs ──────────────────────────────────────────────────────────── */
+
+.view-tabs {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.view-tab {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 18px;
+  color: var(--muted);
+  font: 600 14px/1 "Fira Sans", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.view-tab:hover {
+  background: var(--surface);
+  color: var(--heading);
+  border-color: var(--muted);
+}
+
+.view-tab.is-active {
+  background: var(--heading);
+  color: var(--bg);
+  border-color: var(--heading);
+}
+
+.view-tab:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ── Per-year gallery tabs and set panel ────────────────────────────────── */
+
+/* 18px above (header 8px + 10px) and 18px below (6px + section 12px) */
+.gallery-tabs {
+  margin: 10px 0 6px;
+}
+
+
+.count-val.is-unknown {
+  color: var(--subtle);
+  font-weight: 600;
+}
+
 /* ── Grid ───────────────────────────────────────────────────────────────── */
 
 .albums-grid {
@@ -238,22 +288,6 @@
   margin-left: 4px;
   color: #f87171;
   font-size: 11px;
-  font-weight: 800;
-}
-
-.inv-stat-value.is-confirmed::after {
-  content: "✓";
-  margin-left: 6px;
-  color: #4ade80;
-  font-size: 1em;
-  font-weight: 800;
-}
-
-.inv-stat-value.is-pending::after {
-  content: "✗";
-  margin-left: 6px;
-  color: #f87171;
-  font-size: 1em;
   font-weight: 800;
 }
 
@@ -413,6 +447,18 @@
   letter-spacing: 0.02em;
 }
 
+/* Scan placeholders: fixed tile size, never stretched by grid columns */
+.gallery-figure.is-placeholder {
+  flex: 0 0 auto;
+  width: 240px;
+}
+
+.gallery-figure.is-placeholder .gallery-img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+}
+
 /* ── Lightbox ───────────────────────────────────────────────────────────── */
 
 .lightbox {
@@ -567,6 +613,11 @@
 
   .gallery-img {
     max-height: 220px;
+  }
+
+  /* Two placeholder tiles per row (14px gap), like the photo grids */
+  .gallery-figure.is-placeholder {
+    width: calc(50% - 7px);
   }
 
   .gallery-images.cols-3,

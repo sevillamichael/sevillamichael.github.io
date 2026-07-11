@@ -1,4 +1,4 @@
-const CACHE_NAME = "panini-v1";
+const CACHE_NAME = "panini-v2";
 const SHELL = ["/", "/css/styles.css", "/css/panini.css"];
 
 self.addEventListener("install", e =>
