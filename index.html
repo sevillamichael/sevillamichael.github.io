@@ -150,42 +150,82 @@
         { year: 1986, host: "México",                           postales: { total: 427, collected: 427 } },
         { year: 1990, host: "Italia",                           postales: { total: 448, collected: 448 } },
         { year: "story", host: "World Cup Story",               postales: { total: 262, collected: 262 } },
-        { year: 1994, host: "Estados Unidos",                   postales: { total: 444, collected: 444 } },
+        { year: 1994, host: "Estados Unidos",                   postales: { items: [
+            { label: "Set",          total: 444, collected: 444 },
+            { label: "German/Dutch", total: 345, complete: false },
+            { label: "French",       total: 330, complete: false },
+            { label: "UK and Eire",  total: 416, complete: false },
+          ] } },
         { year: 1998, host: "Francia",                          postales: { total: 561, collected: 561 },
           sets: [{ id: "actualizacion", label: "Actualización", items: [
             { label: "Inglaterra", total: 3,  collected: 3 },
             { label: "Irán",       total: 10, collected: 10 },
           ] }] },
-        { year: 2002, host: "Corea del Sur / Japón",            postales: { total: 576, collected: 576 } },
+        { year: 2002, host: "Corea del Sur / Japón",            postales: { items: [
+            { label: "Set",    total: 576, collected: 576 },
+            { label: "Israel", total: 650, complete: false },
+          ] },
+          sets: [
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Brasil", total: 5, complete: false },
+            ] },
+          ] },
         { year: 2006, host: "Alemania",                         postales: { total: 596, collected: 596 },
           sets: [{ id: "actualizacion", label: "Actualización", total: 7, complete: false }] },
-        { year: 2010, host: "Sudáfrica",                        postales: { total: 638, collected: 638 },
-          editions: [{ label: "Swiss Edition", complete: false }],
-          sets: [
-            { id: "coca-cola",     label: "Coca Cola",     total: 8,  collected: 0 },
-            { id: "actualizacion", label: "Actualización", complete: false },
+        { year: 2010, host: "Sudáfrica",                        postales: { items: [
+            { label: "Black Back", total: 640, complete: true },
+            { label: "Blue Back",  total: 640, complete: false },
           ] },
-        { year: 2014, host: "Brasil",                           postales: { total: 639, collected: 639 },
-          editions: [{ label: "Platinum Edition", complete: false }],
+          editions: [{ label: "Swiss", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     total: 8,  collected: 0 },
-            { id: "actualizacion", label: "Actualización", complete: true },
+            { id: "coca-cola",     label: "Coca Cola",     items: [
+              { label: "Set",            total: 60, complete: true },
+              { label: "Miroslav Klose", total: 4,  complete: false },
+            ] },
+            { id: "actualizacion", label: "Actualización", total: 80, complete: false },
           ] },
-        { year: 2018, host: "Rusia",                            postales: { total: 669, collected: 669 },
-          editions: [{ label: "Gold Edition", complete: false }],
+        { year: 2014, host: "Brasil",                           postales: { total: 640, collected: 640 },
+          editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     total: 9,  collected: 0 },
-            { id: "actualizacion", label: "Actualización", complete: false },
+            { id: "coca-cola",     label: "Coca Cola",     items: [
+              { label: "A-F",    total: 6, complete: false },
+              { label: "Mexico", total: 8, complete: false },
+            ] },
+            { id: "actualizacion", label: "Actualización", total: 71, complete: false },
           ] },
-        { year: 2022, host: "Qatar",                            postales: { total: 670, collected: 670 },
-          editions: [{ label: "Oryx Edition", total: 669, complete: true }],
+        { year: 2018, host: "Rusia",                            postales: { items: [
+            { label: "Black Back", total: 682, complete: false },
+            { label: "Pink Back",  total: 670, complete: true },
+          ] },
+          editions: [{ label: "Gold", complete: false }],
+          sets: [
+            { id: "coca-cola",     label: "Coca Cola",     items: [
+              { label: "Mexico", total: 9, complete: false },
+            ] },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Set",              total: 92, complete: false },
+              { label: "Brazil Exclusive", total: 8,  complete: false },
+            ] },
+          ] },
+        { year: 2022, host: "Qatar",                            postales: { items: [
+            { label: "International", total: 638, complete: true },
+            { label: "Standard",      total: 670, complete: false },
+            { label: "USA",           total: 670, complete: false },
+            { label: "Oryx",          total: 670, complete: true },
+          ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     total: 14, collected: 0 },
-            { id: "extras",        label: "Extras",        total: 80, collected: 80 },
-            { id: "actualizacion", label: "Actualización", complete: true },
+            { id: "otros",         label: "Otros",         items: [
+              { label: "Extras",    total: 80, collected: 80 },
+              { label: "Letras 22", complete: true },
+            ] },
+            { id: "actualizacion", label: "Actualización", total: 80, complete: true },
           ] },
-        { year: 2026, host: "Canadá / Estados Unidos / México", postales: { total: 980, collected: 980 },
-          editions: [{ label: "United Edition", complete: false }],
+        { year: 2026, host: "Canadá / Estados Unidos / México", postales: { items: [
+            { label: "Standard",       total: 980, complete: true },
+            { label: "USA/Canada",     total: 980, complete: false },
+            { label: "United", total: 980, complete: false },
+          ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     items: [
               { label: "Latin America",     total: 14, collected: 14 },
@@ -193,9 +233,11 @@
               { label: "Europe",            total: 12, collected: 0 },
               { label: "Rest of the World", total: 14, collected: 0 },
             ] },
-            { id: "mcdonalds",     label: "McDonald's",    total: 28, collected: 28 },
-            { id: "extras",        label: "Extras",        total: 80, collected: 80 },
-            { id: "actualizacion", label: "Actualización", complete: false },
+            { id: "otros",         label: "Otros",         items: [
+              { label: "Extras",     total: 80, collected: 80 },
+              { label: "McDonald's", total: 28, collected: 28 },
+            ] },
+            { id: "actualizacion", label: "Actualización", total: 120, complete: true },
           ] },
       ];
 
@@ -217,10 +259,12 @@
         if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
         if (s.complete === false) return { state: "pending",  summary: "", detail: s.total ?? "" };
         if (s.total != null && s.collected != null) {
-          // Complete: just the total next to the green check; pending keeps x/y
+          // Complete: just the total next to the green check; in progress keeps
+          // x/y; nothing collected yet shows the total alone (parity with
+          // flag-tracked sets)
           return s.collected >= s.total
             ? { state: "complete", summary: "", detail: s.total }
-            : { state: "pending",  summary: "", detail: `${s.collected}/${s.total}` };
+            : { state: "pending",  summary: "", detail: s.collected > 0 ? `${s.collected}/${s.total}` : s.total };
         }
         return { state: "unknown", summary: "—", detail: s.total ?? "—" };
       }
@@ -245,7 +289,7 @@
         if (Array.isArray(s.items) && s.items.length) {
           rows = s.items.map(it => ledgerRow(it.label, setStatus(it))).join("");
         } else {
-          rows = ledgerRow(album.year === "story" ? "Story" : album.year, setStatus(s));
+          rows = ledgerRow("Set", setStatus(s));
         }
         // Album editions belong to the core set — list them with it by name
         if (key === "postales") {
@@ -311,6 +355,7 @@
       // albums where that set applies.
       function renderGrid(filterKey) {
         const albums = filterKey ? ALBUMS.filter(a => setForFilter(a, filterKey)) : ALBUMS;
+        const setOrder = setColumns(); // canonical order, same as the tab bar
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const logoHtml = `<div class="card-logo">
               <img
@@ -332,13 +377,9 @@
             // item; otherwise a single row labeled by year. Always the full ledger.
             countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey)}</div>`;
           } else {
-            const editionRows = (album.editions || []).map(e => {
-              const st = setStatus(e);
-              return `<div class="card-count-row">
-                <span class="count-label">${e.label}</span>
-                <span class="count-val ${stateClass(st.state)}">${st.summary}</span>
-              </div>`;
-            }).join("");
+            // Set rows in canonical (tab) order, split from the core rows by a divider
+            // (editions like Swiss/Platinum live in the Postales tab, not here)
+            const setRows = setOrder.map(c => findSet(album, c.key)).filter(Boolean).map(s => setRow(s)).join("");
             countsHtml = `<div class="card-counts">
               <div class="card-count-row">
                 <span class="count-label" data-label="albums" data-year="${album.year}">Álbumes</span>
@@ -352,8 +393,7 @@
                 <span class="count-label">Postales</span>
                 <span class="count-val${album.postales ? ' ' + stateClass(setStatus(album.postales).state) : ''}">${album.postales ? setStatus(album.postales).summary : "—"}</span>
               </div>
-              ${editionRows}
-              ${(album.sets || []).map(s => setRow(s)).join("")}
+              ${setRows ? `<div class="card-divider"></div>${setRows}` : ""}
             </div>`;
           }
           return `<article class="album-card" data-year="${album.year}">
@@ -372,7 +412,7 @@
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        const editionNames = [], otrosLines = [];
+        const otrosLines = [];
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -380,9 +420,10 @@
             totalAlbums += c.albumPaths.length;
             totalSobres += c.sobrePaths.length;
           }
-          if (a.postales && setStatus(a.postales).state === "complete") totalSets++;
+          // Count complete postales leaves, so a year's collected variants
+          // still count while its other variants are pending
+          if (a.postales) totalSets += setLeaves(a.postales).filter(l => setStatus(l).state === "complete").length;
           (a.editions || []).forEach(e => {
-            editionNames.push(e.label);
             if (setStatus(e).state === "complete") totalSets++;
           });
           (a.sets || []).forEach(s => {
@@ -393,7 +434,6 @@
           });
         });
 
-        const postalesTooltip = editionNames.length ? `Incluye:&#10;&#10;${editionNames.join("&#10;")}` : null;
         const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
         const stat = (val, label, tooltip) =>
@@ -412,8 +452,8 @@
             <div class="inv-stats-subgroup">
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
-                ${stat(totalSets, "Postales", postalesTooltip)}
-                ${otrosTotal ? stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", otrosTooltip) : ""}
+                ${stat(totalSets, "Postales")}
+                ${otrosTotal ? stat(otrosConfirmed, "Otros", otrosTooltip) : ""}
               </div>
             </div>
           </div>`;
@@ -458,7 +498,7 @@
         if (Array.isArray(s.items) && s.items.length) {
           s.items.forEach(it => push(it.label, setStatus(it)));
         } else {
-          push(album.year === "story" ? "Story" : String(album.year), setStatus(s));
+          push("Set", setStatus(s));
         }
         if (key === "postales") {
           (album.editions || []).forEach(e => push(e.label, setStatus(e)));
@@ -530,7 +570,9 @@
           });
           const tooltip = editionLabels.length ? `Incluye:&#10;&#10;${editionLabels.join("&#10;")}` : null;
           let val;
-          if (!postalesComplete)                    val = `${album.postales.collected ?? 0}/${album.postales.total}`;
+          if (!postalesComplete)                    val = Array.isArray(album.postales.items) && album.postales.items.length
+                                                          ? setStatus(album.postales).detail
+                                                          : `${album.postales.collected ?? 0}/${album.postales.total}`;
           else if (postalConfirmed < postalTotal)   val = `${postalConfirmed}/${postalTotal}`;
           else                                      val = postalTotal;
           setsItems.push(stat(val, "Postales", tooltip));
