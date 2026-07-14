@@ -296,6 +296,12 @@
   font-weight: 800;
 }
 
+.count-val.is-coming::after {
+  content: "✈️";
+  margin-left: 4px;
+  font-size: 11px;
+}
+
 /* ── Gallery view ───────────────────────────────────────────────────────── */
 
 .gallery-view {

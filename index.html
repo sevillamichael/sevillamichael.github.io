@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.3.2</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.4.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -142,6 +142,8 @@
       //   label is the display name (rename freely).
       //   items: [{ label, total?, collected?, complete? }] breaks a set into
       //   sub-items; the set only reads complete when every item is complete.
+      //   afterPostales: true places the set's tab after Postales (player sets).
+      //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       const ALBUMS = [
         { year: 1970, host: "México",                           postales: { total: 288, collected: 0 } },
         { year: 1974, host: "Alemania",                         postales: { total: 400, collected: 0 } },
@@ -171,7 +173,15 @@
             ] },
           ] },
         { year: 2006, host: "Alemania",                         postales: { total: 596, collected: 596 },
-          sets: [{ id: "actualizacion", label: "Actualización", total: 7, complete: false }] },
+          sets: [
+            { id: "actualizacion", label: "Actualización", total: 7, complete: false },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "185", complete: false },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "298", complete: false },
+            ] },
+          ] },
         { year: 2010, host: "Sudáfrica",                        postales: { items: [
             { label: "Black Back", total: 640, complete: true },
             { label: "Blue Back",  total: 640, complete: false },
@@ -183,6 +193,17 @@
               { label: "Miroslav Klose", total: 4,  complete: false },
             ] },
             { id: "actualizacion", label: "Actualización", total: 80, complete: false },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "122 Black Back", complete: true },
+              { label: "122 Blue Back",  coming: true },
+              { label: "Coca Cola",      complete: true },
+              { label: "122 Swiss",      complete: false },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "559 Black Back", coming: true },
+              { label: "559 Blue Back",  complete: false },
+              { label: "559 Swiss",      complete: false },
+            ] },
           ] },
         { year: 2014, host: "Brasil",                           postales: { total: 640, collected: 640 },
           editions: [{ label: "Platinum", total: 660, complete: false }],
@@ -192,6 +213,16 @@
               { label: "Mexico", total: 8, complete: false },
             ] },
             { id: "actualizacion", label: "Actualización", total: 71, complete: false },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "430",          complete: true },
+              { label: "V9",           coming: true },
+              { label: "430 Platinum", complete: false },
+              { label: "P1 Platinum",  complete: false },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "523",          complete: true },
+              { label: "523 Platinum", complete: true },
+            ] },
           ] },
         { year: 2018, host: "Rusia",                            postales: { items: [
             { label: "Black Back", total: 682, complete: false },
@@ -200,11 +231,30 @@
           editions: [{ label: "Gold", complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "Mexico", total: 9, complete: false },
+              { label: "Mexico",   total: 9, complete: false },
+              { label: "Germany",  total: 9, coming: true },
+              { label: "Portugal", total: 8, coming: true },
+              { label: "Russia",   total: 8, coming: true },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Set",              total: 92, complete: false },
               { label: "Brazil Exclusive", total: 8,  complete: false },
+            ] },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "288 Black Back", complete: true },
+              { label: "276 Pink Back",  complete: true },
+              { label: "288 Gold",       coming: true },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "130 Black Back", coming: true },
+              { label: "MP6 McDonald's", complete: false },
+              { label: "118 Pink Back",  complete: true },
+              { label: "130 Gold",       coming: true },
+            ] },
+            { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
+              { label: "209 Black Back", complete: true },
+              { label: "197 Pink Back",  complete: true },
+              { label: "209 Gold",       complete: false },
             ] },
           ] },
         { year: 2022, host: "Qatar",                            postales: { items: [
@@ -214,12 +264,51 @@
             { label: "Oryx",          total: 670, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     total: 14, collected: 0 },
+            { id: "coca-cola",     label: "Coca Cola",     items: [
+              { label: "Believers", total: 14, complete: false },
+              { label: "Brazil",   total: 8,  complete: false },
+            ] },
             { id: "otros",         label: "Otros",         items: [
               { label: "Extras",    total: 80, collected: 80 },
               { label: "Letras 22", complete: true },
             ] },
             { id: "actualizacion", label: "Actualización", total: 80, complete: true },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "ARG19 International", complete: true },
+              { label: "ARG20 Oryx",          coming: true },
+              { label: "ARG20 Standard",      complete: true },
+              { label: "ARG20 USA",           complete: false },
+              { label: "ARG20 USA Blue",      complete: false },
+              { label: "ARG20 USA Red",       complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: false },
+              { label: "Extra Gold",          complete: false },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "POR17 International", complete: true },
+              { label: "POR18 Oryx",          coming: true },
+              { label: "POR18 Standard",      coming: true },
+              { label: "POR18 USA",           coming: true },
+              { label: "POR18 USA Blue",      complete: false },
+              { label: "POR18 USA Red",       complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: false },
+              { label: "Extra Gold",          complete: true },
+            ] },
+            { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
+              { label: "FRA18 International", complete: true },
+              { label: "FRA19 Oryx",          complete: false },
+              { label: "FRA19 Standard",      complete: false },
+              { label: "FRA19 USA",           coming: true },
+              { label: "FRA19 USA Blue",      coming: true },
+              { label: "FRA19 USA Red",       complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: true },
+              { label: "Extra Gold",          complete: true },
+            ] },
           ] },
         { year: 2026, host: "Canadá / Estados Unidos / México", postales: { items: [
             { label: "Standard",       total: 980, complete: true },
@@ -238,6 +327,45 @@
               { label: "McDonald's", total: 28, collected: 28 },
             ] },
             { id: "actualizacion", label: "Actualización", total: 120, complete: true },
+            { id: "messi",     label: "Messi",             afterPostales: true, items: [
+              { label: "ARG17 Standard",      complete: true },
+              { label: "ARG17 United",        complete: false },
+              { label: "ARG17 USA/Canada",    complete: true },
+              { label: "ARG17 USA Blue",      complete: false },
+              { label: "ARG17 USA Red",       complete: false },
+              { label: "ARG17 Amazon",        complete: false },
+              { label: "ARG17 Gold Crumple",  complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: true },
+              { label: "Extra Gold",          complete: true },
+            ] },
+            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+              { label: "POR15 Standard",      complete: true },
+              { label: "POR15 United",        complete: false },
+              { label: "POR15 USA/Canada",    complete: false },
+              { label: "POR15 USA Blue",      complete: false },
+              { label: "POR15 USA Red",       complete: false },
+              { label: "POR15 Amazon",        complete: false },
+              { label: "POR15 Gold Crumple",  complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: false },
+              { label: "Extra Gold",          complete: false },
+            ] },
+            { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
+              { label: "FRA20 Standard",      complete: true },
+              { label: "FRA20 United",        complete: false },
+              { label: "FRA20 USA/Canada",    complete: false },
+              { label: "FRA20 USA Blue",      complete: false },
+              { label: "FRA20 USA Red",       complete: false },
+              { label: "FRA20 Amazon",        complete: false },
+              { label: "FRA20 Gold Crumple",  complete: false },
+              { label: "Extra Base",          complete: true },
+              { label: "Extra Bronze",        complete: true },
+              { label: "Extra Silver",        complete: true },
+              { label: "Extra Gold",          complete: false },
+            ] },
           ] },
       ];
 
@@ -256,6 +384,7 @@
             ? { state: "complete", summary: "", detail: "" }
             : { state: "pending",  summary: "", detail: `${done}/${s.items.length}` };
         }
+        if (s.coming)             return { state: "coming",   summary: "", detail: s.total ?? "" };
         if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
         if (s.complete === false) return { state: "pending",  summary: "", detail: s.total ?? "" };
         if (s.total != null && s.collected != null) {
@@ -269,7 +398,9 @@
         return { state: "unknown", summary: "—", detail: s.total ?? "—" };
       }
       const stateClass = st =>
-        st === "complete" ? "is-confirmed" : st === "pending" ? "is-pending" : "is-unknown";
+        st === "complete" ? "is-confirmed" :
+        st === "pending"  ? "is-pending"   :
+        st === "coming"   ? "is-coming"    : "is-unknown";
 
       // Stats count leaf items: a set with items contributes each item,
       // a simple set contributes itself — so partial variants aren't lost.
@@ -355,7 +486,9 @@
       // albums where that set applies.
       function renderGrid(filterKey) {
         const albums = filterKey ? ALBUMS.filter(a => setForFilter(a, filterKey)) : ALBUMS;
-        const setOrder = setColumns(); // canonical order, same as the tab bar
+        // Canonical order, same as the tab bar; player sets (afterPostales)
+        // live only in their own tabs — no rows on the Todo cards
+        const setOrder = setColumns();
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const logoHtml = `<div class="card-logo">
               <img
@@ -427,6 +560,7 @@
             if (setStatus(e).state === "complete") totalSets++;
           });
           (a.sets || []).forEach(s => {
+            if (s.afterPostales) return; // player sets don't count toward Otros
             const leaves = setLeaves(s);
             otrosTotal += leaves.length;
             const greens = leaves.filter(l => setStatus(l).state === "complete").length;
@@ -473,7 +607,8 @@
         const tabs = [];
         if (counts.albumPaths.length) tabs.push({ key: "albumes", label: counts.albumPaths.length === 1 ? "Álbum" : "Álbumes" });
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
-        // Set tabs in the same canonical order as the main grid's tab bar
+        // Set tabs in the same canonical order as the main grid's tab bar.
+        // Player sets (afterPostales) have their own tabs and never appear here.
         setColumns().forEach(c => {
           const s = findSet(album, c.key);
           if (s && setPlaceholderEntries(album, c.key).length) tabs.push({ key: c.key, label: s.label });
@@ -578,6 +713,7 @@
         let otrosConfirmed = 0;
         const otrosGreenKeys = new Set();
         (album.sets || []).forEach(s => {
+          if (s.afterPostales) return; // player sets don't count toward Otros
           const greens = setLeaves(s).filter(l => setStatus(l).state === "complete").length;
           otrosConfirmed += greens;
           if (greens > 0) otrosGreenKeys.add(setKey(s));
@@ -728,10 +864,13 @@
       // ── View tabs: Todo + one tab per sticker set ──────────────────────────
       const setKey = s => s.id || s.label;
 
-      // Union of set identities across all years, in first-appearance order
-      function setColumns() {
+      // Union of set identities across all years, in first-appearance order.
+      // Sets flagged afterPostales: true form a second group placed after the
+      // Postales tab (e.g. player collections).
+      function setColumns(afterPostales = false) {
         const cols = [];
         ALBUMS.forEach(a => (a.sets || []).forEach(s => {
+          if (!!s.afterPostales !== afterPostales) return;
           if (!cols.some(c => c.key === setKey(s))) cols.push({ key: setKey(s), label: s.label });
         }));
         return cols;
@@ -747,7 +886,7 @@
       let currentFilter = null; // null = Todo (source of truth)
 
       function renderTabs() {
-        const tabs = [{ key: null, label: "Todo" }, ...setColumns(), { key: "postales", label: "Postales" }];
+        const tabs = [{ key: null, label: "Todo" }, ...setColumns(), { key: "postales", label: "Postales" }, ...setColumns(true)];
         document.getElementById("view-tabs").innerHTML = tabs.map(t => {
           const active = t.key === currentFilter;
           return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
