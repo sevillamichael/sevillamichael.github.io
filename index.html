@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.3.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.3.2</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -412,7 +412,7 @@
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        const otrosLines = [];
+        const otrosGreenKeys = new Set();
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -429,11 +429,14 @@
           (a.sets || []).forEach(s => {
             const leaves = setLeaves(s);
             otrosTotal += leaves.length;
-            otrosConfirmed += leaves.filter(l => setStatus(l).state === "complete").length;
-            if (!otrosLines.includes(s.label)) otrosLines.push(s.label);
+            const greens = leaves.filter(l => setStatus(l).state === "complete").length;
+            otrosConfirmed += greens;
+            if (greens > 0) otrosGreenKeys.add(setKey(s));
           });
         });
 
+        // Tooltip lists only sets with green checks, in tab order
+        const otrosLines = setColumns().filter(c => otrosGreenKeys.has(c.key)).map(c => c.label);
         const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
         const stat = (val, label, tooltip) =>
@@ -470,8 +473,10 @@
         const tabs = [];
         if (counts.albumPaths.length) tabs.push({ key: "albumes", label: counts.albumPaths.length === 1 ? "Álbum" : "Álbumes" });
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
-        (album.sets || []).forEach(s => {
-          if (setPlaceholderEntries(album, setKey(s)).length) tabs.push({ key: setKey(s), label: s.label });
+        // Set tabs in the same canonical order as the main grid's tab bar
+        setColumns().forEach(c => {
+          const s = findSet(album, c.key);
+          if (s && setPlaceholderEntries(album, c.key).length) tabs.push({ key: c.key, label: s.label });
         });
         if (album.postales && setPlaceholderEntries(album, "postales").length) {
           tabs.push({ key: "postales", label: "Postales" });
@@ -559,36 +564,28 @@
             <span class="inv-stat-value">${val}</span>
             <span class="inv-stat-label">${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}</span>
           </div>`;
+        // Same rule as the main stats: count the green leaves, don't show
+        // what's missing — a count of 0 hides the stat entirely
         const setsItems = [];
-        const postalesComplete = album.postales && setStatus(album.postales).state === "complete";
         if (album.postales) {
-          let postalTotal = 1, postalConfirmed = postalesComplete ? 1 : 0;
-          const editionLabels = [];
+          let postalesGreens = setLeaves(album.postales).filter(l => setStatus(l).state === "complete").length;
           (album.editions || []).forEach(e => {
-            postalTotal++; editionLabels.push(e.label);
-            if (setStatus(e).state === "complete") postalConfirmed++;
+            if (setStatus(e).state === "complete") postalesGreens++;
           });
-          const tooltip = editionLabels.length ? `Incluye:&#10;&#10;${editionLabels.join("&#10;")}` : null;
-          let val;
-          if (!postalesComplete)                    val = Array.isArray(album.postales.items) && album.postales.items.length
-                                                          ? setStatus(album.postales).detail
-                                                          : `${album.postales.collected ?? 0}/${album.postales.total}`;
-          else if (postalConfirmed < postalTotal)   val = `${postalConfirmed}/${postalTotal}`;
-          else                                      val = postalTotal;
-          setsItems.push(stat(val, "Postales", tooltip));
+          if (postalesGreens > 0) setsItems.push(stat(postalesGreens, "Postales"));
         }
 
-        // Otros = secondary sticker sets (same grouping as main stats)
-        let otrosConfirmed = 0, otrosTotal = 0;
-        const otrosLines = [];
+        let otrosConfirmed = 0;
+        const otrosGreenKeys = new Set();
         (album.sets || []).forEach(s => {
-          const leaves = setLeaves(s);
-          otrosTotal += leaves.length;
-          otrosConfirmed += leaves.filter(l => setStatus(l).state === "complete").length;
-          otrosLines.push(s.label);
+          const greens = setLeaves(s).filter(l => setStatus(l).state === "complete").length;
+          otrosConfirmed += greens;
+          if (greens > 0) otrosGreenKeys.add(setKey(s));
         });
-        if (otrosTotal) {
-          setsItems.push(stat(`${otrosConfirmed}/${otrosTotal}`, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
+        if (otrosConfirmed > 0) {
+          // Tooltip lists only this year's green sets, in tab order
+          const otrosLines = setColumns().filter(c => otrosGreenKeys.has(c.key)).map(c => c.label);
+          setsItems.push(stat(otrosConfirmed, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
         }
         document.getElementById("inv-stats").innerHTML = `
           <div class="inv-stats-row">
@@ -603,7 +600,7 @@
             ${setsItems.length ? `
             <div class="inv-stats-divider"></div>
             <div class="inv-stats-subgroup">
-              <span class="inv-postales-label"${album.postales && !postalesComplete && setsItems.length === 1 ? ' style="visibility:hidden"' : ''}>Sets</span>
+              <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
                 ${setsItems.join("")}
               </div>
