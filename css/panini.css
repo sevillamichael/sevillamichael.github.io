@@ -186,6 +186,17 @@
   display: none;
 }
 
+/* ── Sub tabs (Upcoming / Missing / Ready) ──────────────────────────────── */
+
+.sub-tabs {
+  margin-top: 10px;
+}
+
+.view-tab.sub-tab {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
 /* ── Per-year gallery tabs and set panel ────────────────────────────────── */
 
 /* 18px above (header 8px + 10px) and 18px below (6px + section 12px) */

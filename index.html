@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=4" />
+    <link rel="stylesheet" href="css/panini.css?v=5" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,12 +48,15 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.5.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.6.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
       <!-- ── View tabs (Todo + one per sticker set, derived from data) ───── -->
       <nav class="view-tabs" id="view-tabs" aria-label="Vistas"></nav>
+
+      <!-- ── Sub tabs: filter a set tab's rows by state ──────────────────── -->
+      <nav class="view-tabs sub-tabs" id="sub-tabs" aria-label="Estado" hidden></nav>
 
       <!-- ── Card grid ───────────────────────────────────────────────────── -->
       <div class="albums-grid" id="albums-grid"></div>
@@ -449,25 +452,39 @@
           </div>`;
       }
 
-      const setRowsHtml = s =>
-        Array.isArray(s.items) && s.items.length
-          ? s.items.map(it => it.divider ? '<div class="card-divider"></div>' : ledgerRow(it.label, setStatus(it))).join("")
-          : ledgerRow("Set", setStatus(s));
+      // state (optional) keeps only rows in that state; item dividers split the
+      // list into sections and survive between sections that still have rows
+      const setRowsHtml = (s, state) => {
+        if (Array.isArray(s.items) && s.items.length) {
+          const sections = [[]];
+          s.items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
+          return sections
+            .map(sec => (state ? sec.filter(it => setStatus(it).state === state) : sec)
+              .map(it => ledgerRow(it.label, setStatus(it))).join(""))
+            .filter(Boolean)
+            .join('<div class="card-divider"></div>');
+        }
+        if (state && setStatus(s).state !== state) return "";
+        return ledgerRow("Set", setStatus(s));
+      };
 
-      function setLedgerRows(album, key) {
+      function setLedgerRows(album, key, state) {
         const parts = [];
         const s = setForFilter(album, key);
         if (s) {
-          let rows = setRowsHtml(s);
+          let rows = setRowsHtml(s, state);
           // Album editions belong to the core set — list them with it by name
           if (key === "postales") {
             rows += (album.editions || []).map(e => ledgerRow(e.label, setStatus(e))).join("");
           }
-          parts.push(rows);
+          if (rows) parts.push(rows);
         }
         // Sets shown under this tab (showWith) follow a subtle divider
         (album.sets || []).forEach(c => {
-          if (c.showWith === key) parts.push(setRowsHtml(c));
+          if (c.showWith === key) {
+            const rows = setRowsHtml(c, state);
+            if (rows) parts.push(rows);
+          }
         });
         return parts.join('<div class="card-divider"></div>');
       }
@@ -528,7 +545,10 @@
       // filterKey: null renders every album (Todo); a set key renders only the
       // albums where that set applies.
       function renderGrid(filterKey) {
-        const albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
+        const subState = hasSubTabs(filterKey) ? currentSubFilter : null;
+        let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
+        // Under a sub tab, only years with at least one row in that state
+        if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
         // Canonical order, same as the tab bar; player sets (afterPostales)
         // live only in their own tabs — no rows on the Todo cards
         const setOrder = setColumns();
@@ -551,7 +571,7 @@
           if (filterKey) {
             // Set tab: the tab already names the set. With items, one row per
             // item; otherwise a single row labeled by year. Always the full ledger.
-            countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey)}</div>`;
+            countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey, subState)}</div>`;
           } else {
             // Set rows in canonical (tab) order, split from the core rows by a divider
             // (editions like Swiss/Platinum live in the Postales tab, not here)
@@ -875,6 +895,7 @@
         if (start) showGalleryTab(start);
 
         document.getElementById("view-tabs").hidden    = true;
+        document.getElementById("sub-tabs").hidden     = true;
         document.getElementById("albums-grid").hidden  = true;
         document.getElementById("gallery-view").hidden = false;
         updateGalleryStats(year);
@@ -884,6 +905,7 @@
         currentGalleryTab = null;
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("view-tabs").hidden    = false;
+        renderSubTabs();
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
         titleEl2.classList.remove("is-gallery");
@@ -952,7 +974,47 @@
       const matchesFilter = (album, key) =>
         !!setForFilter(album, key) || (album.sets || []).some(s => s.showWith === key);
 
-      let currentFilter = null; // null = Todo (source of truth)
+      let currentFilter    = null; // null = Todo (source of truth)
+      let currentSubFilter = null; // coming | pending | complete | null
+
+      const SUB_TABS = [
+        { state: "coming",   label: "Upcoming" },
+        { state: "complete", label: "Ready" },
+        { state: "pending",  label: "Missing" },
+      ];
+
+      // Sub tabs apply to every set tab except Postales
+      const hasSubTabs = key => !!key && key !== "postales";
+
+      // Which states exist anywhere in a tab (host set + its showWith partners)
+      function tabStates(key) {
+        const states = new Set();
+        ALBUMS.forEach(a => {
+          if (!matchesFilter(a, key)) return;
+          const sets = [];
+          const s = setForFilter(a, key);
+          if (s) sets.push(s);
+          (a.sets || []).forEach(c => { if (c.showWith === key) sets.push(c); });
+          sets.forEach(x => setLeaves(x).forEach(l => states.add(setStatus(l).state)));
+        });
+        return states;
+      }
+
+      function renderSubTabs() {
+        const nav = document.getElementById("sub-tabs");
+        if (!hasSubTabs(currentFilter)) {
+          nav.hidden = true;
+          nav.innerHTML = "";
+          return;
+        }
+        const avail = tabStates(currentFilter);
+        const tabs = SUB_TABS.filter(t => avail.has(t.state));
+        nav.hidden = tabs.length === 0;
+        nav.innerHTML = tabs.map(t => {
+          const active = t.state === currentSubFilter;
+          return `<button class="view-tab sub-tab${active ? " is-active" : ""}" data-state="${t.state}" type="button" aria-pressed="${active}">${t.label}</button>`;
+        }).join("");
+      }
 
       function renderTabs() {
         const tabBtn = t => {
@@ -977,9 +1039,22 @@
         const btn = e.target.closest(".view-tab");
         if (!btn) return;
         currentFilter = btn.dataset.set || null;
+        // Land on the first sub tab that has rows (Upcoming → Missing → Ready)
+        currentSubFilter = hasSubTabs(currentFilter)
+          ? SUB_TABS.map(t => t.state).find(st => tabStates(currentFilter).has(st)) || null
+          : null;
         renderTabs();
+        renderSubTabs();
         renderGrid(currentFilter);
         updateStats();
+      });
+
+      document.getElementById("sub-tabs").addEventListener("click", e => {
+        const btn = e.target.closest(".sub-tab");
+        if (!btn) return;
+        currentSubFilter = btn.dataset.state;
+        renderSubTabs();
+        renderGrid(currentFilter);
       });
 
       // ── Lightbox ───────────────────────────────────────────────────────────
