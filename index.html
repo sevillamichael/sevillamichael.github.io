@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=3" />
+    <link rel="stylesheet" href="css/panini.css?v=4" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.4.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.5.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -72,17 +72,17 @@
         <nav class="view-tabs gallery-tabs" id="gallery-tabs" aria-label="Secciones"></nav>
 
         <section class="gallery-section" id="gallery-albums-section">
-          <h3 class="gallery-section-label">Álbumes</h3>
+          <h2 class="gallery-section-label">Álbumes</h2>
           <div class="gallery-images" id="gallery-albums"></div>
         </section>
 
         <section class="gallery-section" id="gallery-sobres-section">
-          <h3 class="gallery-section-label">Sobres</h3>
+          <h2 class="gallery-section-label">Sobres</h2>
           <div class="gallery-images" id="gallery-sobres"></div>
         </section>
 
         <section class="gallery-section" id="gallery-set-section" hidden>
-          <h3 class="gallery-section-label" id="gallery-set-label"></h3>
+          <h2 class="gallery-section-label" id="gallery-set-label"></h2>
           <div class="gallery-images" id="gallery-set-panel"></div>
         </section>
       </div>
@@ -90,7 +90,7 @@
     </main>
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" tabindex="-1">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
       <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
       <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
@@ -144,6 +144,10 @@
       //   sub-items; the set only reads complete when every item is complete.
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
+      //   showWith: "<id>" removes the set's own tab; its rows render under
+      //   that tab after a subtle divider (stats still count it as itself).
+      //   tabLabel: "<name>" renames the tab a set hosts (e.g. "Otros").
+      //   { divider: true } inside items draws a subtle divider between rows.
       const ALBUMS = [
         { year: 1970, host: "México",                           postales: { total: 288, collected: 0 } },
         { year: 1974, host: "Alemania",                         postales: { total: 400, collected: 0 } },
@@ -159,7 +163,7 @@
             { label: "UK and Eire",  total: 416, complete: false },
           ] } },
         { year: 1998, host: "Francia",                          postales: { total: 561, collected: 561 },
-          sets: [{ id: "actualizacion", label: "Actualización", items: [
+          sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", items: [
             { label: "Inglaterra", total: 3,  collected: 3 },
             { label: "Irán",       total: 10, collected: 10 },
           ] }] },
@@ -174,7 +178,9 @@
           ] },
         { year: 2006, host: "Alemania",                         postales: { total: 596, collected: 596 },
           sets: [
-            { id: "actualizacion", label: "Actualización", total: 7, complete: false },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Actualización", total: 7, complete: false },
+            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", complete: false },
             ] },
@@ -188,39 +194,47 @@
           ] },
           editions: [{ label: "Swiss", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "Set",            total: 60, complete: true },
-              { label: "Miroslav Klose", total: 4,  complete: false },
+            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+              { label: "CC Set",            total: 60, complete: true },
+              { label: "CC Miroslav Klose", total: 4,  complete: false },
             ] },
-            { id: "actualizacion", label: "Actualización", total: 80, complete: false },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Actualización", total: 80, complete: false },
+            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "122 Black Back", complete: true },
               { label: "122 Blue Back",  coming: true },
               { label: "Coca Cola",      complete: true },
+              { divider: true },
               { label: "122 Swiss",      complete: false },
             ] },
             { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
               { label: "559 Black Back", coming: true },
               { label: "559 Blue Back",  complete: false },
+              { divider: true },
               { label: "559 Swiss",      complete: false },
             ] },
           ] },
         { year: 2014, host: "Brasil",                           postales: { total: 640, collected: 640 },
           editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "A-F",    total: 6, complete: false },
-              { label: "Mexico", total: 8, complete: false },
+            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+              { label: "CC A-F",    total: 6, complete: false },
+              { label: "CC Mexico", total: 8, complete: false },
             ] },
-            { id: "actualizacion", label: "Actualización", total: 71, complete: false },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Actualización", total: 71, complete: false },
+            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430",          complete: true },
               { label: "V9",           coming: true },
+              { divider: true },
               { label: "430 Platinum", complete: false },
               { label: "P1 Platinum",  complete: false },
             ] },
             { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
               { label: "523",          complete: true },
+              { divider: true },
               { label: "523 Platinum", complete: true },
             ] },
           ] },
@@ -230,30 +244,33 @@
           ] },
           editions: [{ label: "Gold", complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "Mexico",   total: 9, complete: false },
-              { label: "Germany",  total: 9, coming: true },
-              { label: "Portugal", total: 8, coming: true },
-              { label: "Russia",   total: 8, coming: true },
+            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+              { label: "CC Mexico",   total: 9, complete: false },
+              { label: "CC Germany",  total: 9, coming: true },
+              { label: "CC Portugal", total: 8, coming: true },
+              { label: "CC Russia",   total: 8, coming: true },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Set",              total: 92, complete: false },
-              { label: "Brazil Exclusive", total: 8,  complete: false },
+              { label: "Actualización",    total: 92, coming: true },
+              { label: "Brazil Exclusive", total: 8,  coming: true },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "288 Black Back", complete: true },
               { label: "276 Pink Back",  complete: true },
+              { divider: true },
               { label: "288 Gold",       coming: true },
             ] },
             { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
               { label: "130 Black Back", coming: true },
               { label: "MP6 McDonald's", complete: false },
               { label: "118 Pink Back",  complete: true },
+              { divider: true },
               { label: "130 Gold",       coming: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "209 Black Back", complete: true },
               { label: "197 Pink Back",  complete: true },
+              { divider: true },
               { label: "209 Gold",       complete: false },
             ] },
           ] },
@@ -264,22 +281,27 @@
             { label: "Oryx",          total: 670, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "Believers", total: 14, complete: false },
-              { label: "Brazil",   total: 8,  complete: false },
+            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+              { label: "CC Believers", total: 14, complete: false },
+              { label: "CC Brazil",    total: 8,  coming: true },
             ] },
-            { id: "otros",         label: "Otros",         items: [
-              { label: "Extras",    total: 80, collected: 80 },
-              { label: "Letras 22", complete: true },
+            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+              { label: "Extras", total: 80, collected: 80 },
+              { label: "Letras", total: 22, complete: true },
+              { label: "VISA",   total: 11, coming: true },
             ] },
-            { id: "actualizacion", label: "Actualización", total: 80, complete: true },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Actualización", total: 80, complete: true },
+            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG19 International", complete: true },
               { label: "ARG20 Oryx",          coming: true },
               { label: "ARG20 Standard",      complete: true },
+              { divider: true },
               { label: "ARG20 USA",           complete: false },
               { label: "ARG20 USA Blue",      complete: false },
               { label: "ARG20 USA Red",       complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: false },
@@ -289,9 +311,11 @@
               { label: "POR17 International", complete: true },
               { label: "POR18 Oryx",          coming: true },
               { label: "POR18 Standard",      coming: true },
+              { divider: true },
               { label: "POR18 USA",           coming: true },
               { label: "POR18 USA Blue",      complete: false },
               { label: "POR18 USA Red",       complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: false },
@@ -301,9 +325,11 @@
               { label: "FRA18 International", complete: true },
               { label: "FRA19 Oryx",          complete: false },
               { label: "FRA19 Standard",      complete: false },
+              { divider: true },
               { label: "FRA19 USA",           coming: true },
               { label: "FRA19 USA Blue",      coming: true },
               { label: "FRA19 USA Red",       complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: true },
@@ -316,25 +342,29 @@
             { label: "United", total: 980, complete: false },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     items: [
-              { label: "Latin America",     total: 14, collected: 14 },
-              { label: "USA/Canada",        total: 12, collected: 12 },
-              { label: "Europe",            total: 12, collected: 0 },
-              { label: "Rest of the World", total: 14, collected: 0 },
+            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+              { label: "CC Latin America",     total: 14, collected: 14 },
+              { label: "CC USA/Canada",        total: 12, collected: 12 },
+              { label: "CC Europe",            total: 12, collected: 0 },
+              { label: "CC Rest of the World", total: 14, collected: 0 },
             ] },
-            { id: "otros",         label: "Otros",         items: [
+            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "McDonald's", total: 28, collected: 28 },
             ] },
-            { id: "actualizacion", label: "Actualización", total: 120, complete: true },
+            { id: "actualizacion", label: "Actualización", items: [
+              { label: "Actualización", total: 120, complete: true },
+            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG17 Standard",      complete: true },
               { label: "ARG17 United",        complete: false },
+              { divider: true },
               { label: "ARG17 USA/Canada",    complete: true },
               { label: "ARG17 USA Blue",      complete: false },
               { label: "ARG17 USA Red",       complete: false },
               { label: "ARG17 Amazon",        complete: false },
               { label: "ARG17 Gold Crumple",  complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: true },
@@ -343,11 +373,13 @@
             { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
               { label: "POR15 Standard",      complete: true },
               { label: "POR15 United",        complete: false },
+              { divider: true },
               { label: "POR15 USA/Canada",    complete: false },
               { label: "POR15 USA Blue",      complete: false },
               { label: "POR15 USA Red",       complete: false },
               { label: "POR15 Amazon",        complete: false },
               { label: "POR15 Gold Crumple",  complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: false },
@@ -356,11 +388,13 @@
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA20 Standard",      complete: true },
               { label: "FRA20 United",        complete: false },
+              { divider: true },
               { label: "FRA20 USA/Canada",    complete: false },
               { label: "FRA20 USA Blue",      complete: false },
               { label: "FRA20 USA Red",       complete: false },
               { label: "FRA20 Amazon",        complete: false },
               { label: "FRA20 Gold Crumple",  complete: false },
+              { divider: true },
               { label: "Extra Base",          complete: true },
               { label: "Extra Bronze",        complete: true },
               { label: "Extra Silver",        complete: true },
@@ -379,10 +413,11 @@
       // every listed item is complete.
       function setStatus(s) {
         if (Array.isArray(s.items) && s.items.length) {
-          const done = s.items.filter(it => setStatus(it).state === "complete").length;
-          return done === s.items.length
+          const real = s.items.filter(it => !it.divider);
+          const done = real.filter(it => setStatus(it).state === "complete").length;
+          return done === real.length
             ? { state: "complete", summary: "", detail: "" }
-            : { state: "pending",  summary: "", detail: `${done}/${s.items.length}` };
+            : { state: "pending",  summary: "", detail: `${done}/${real.length}` };
         }
         if (s.coming)             return { state: "coming",   summary: "", detail: s.total ?? "" };
         if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
@@ -404,7 +439,7 @@
 
       // Stats count leaf items: a set with items contributes each item,
       // a simple set contributes itself — so partial variants aren't lost.
-      const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items : [s]);
+      const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
 
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       function ledgerRow(label, st) {
@@ -414,19 +449,27 @@
           </div>`;
       }
 
+      const setRowsHtml = s =>
+        Array.isArray(s.items) && s.items.length
+          ? s.items.map(it => it.divider ? '<div class="card-divider"></div>' : ledgerRow(it.label, setStatus(it))).join("")
+          : ledgerRow("Set", setStatus(s));
+
       function setLedgerRows(album, key) {
+        const parts = [];
         const s = setForFilter(album, key);
-        let rows;
-        if (Array.isArray(s.items) && s.items.length) {
-          rows = s.items.map(it => ledgerRow(it.label, setStatus(it))).join("");
-        } else {
-          rows = ledgerRow("Set", setStatus(s));
+        if (s) {
+          let rows = setRowsHtml(s);
+          // Album editions belong to the core set — list them with it by name
+          if (key === "postales") {
+            rows += (album.editions || []).map(e => ledgerRow(e.label, setStatus(e))).join("");
+          }
+          parts.push(rows);
         }
-        // Album editions belong to the core set — list them with it by name
-        if (key === "postales") {
-          rows += (album.editions || []).map(e => ledgerRow(e.label, setStatus(e))).join("");
-        }
-        return rows;
+        // Sets shown under this tab (showWith) follow a subtle divider
+        (album.sets || []).forEach(c => {
+          if (c.showWith === key) parts.push(setRowsHtml(c));
+        });
+        return parts.join('<div class="card-divider"></div>');
       }
 
       // ── Image discovery via GitHub API ─────────────────────────────────────
@@ -485,7 +528,7 @@
       // filterKey: null renders every album (Todo); a set key renders only the
       // albums where that set applies.
       function renderGrid(filterKey) {
-        const albums = filterKey ? ALBUMS.filter(a => setForFilter(a, filterKey)) : ALBUMS;
+        const albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
         // Canonical order, same as the tab bar; player sets (afterPostales)
         // live only in their own tabs — no rows on the Todo cards
         const setOrder = setColumns();
@@ -529,7 +572,8 @@
               ${setRows ? `<div class="card-divider"></div>${setRows}` : ""}
             </div>`;
           }
-          return `<article class="album-card" data-year="${album.year}">
+          const cardLabel = album.year === "story" ? album.host : `${album.host} ${album.year}`;
+          return `<article class="album-card" data-year="${album.year}" role="button" tabindex="0" aria-label="${cardLabel}">
             ${logoHtml}
             ${countsHtml}
           </article>`;
@@ -577,7 +621,7 @@
           `<div class="inv-stat">
             <span class="inv-stat-value">${val}</span>
             <span class="inv-stat-label">
-              ${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}
+              ${label}${tooltip ? `<button type="button" class="inv-tooltip-icon" data-tooltip="${tooltip}" aria-label="${tooltip}"><svg width="10" height="10" aria-hidden="true"><use href="#icon-info"></use></svg></button>` : ""}
             </span>
           </div>`;
 
@@ -609,13 +653,17 @@
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
         // Set tabs in the same canonical order as the main grid's tab bar.
         // Player sets (afterPostales) have their own tabs and never appear here.
-        setColumns().forEach(c => {
-          const s = findSet(album, c.key);
-          if (s && setPlaceholderEntries(album, c.key).length) tabs.push({ key: c.key, label: s.label });
-        });
         if (album.postales && setPlaceholderEntries(album, "postales").length) {
           tabs.push({ key: "postales", label: "Postales" });
         }
+        setColumns().forEach(c => {
+          if (c.showWith) return; // rendered under its partner tab
+          if (matchesFilter(album, c.key) && setPlaceholderEntries(album, c.key).length) {
+            // Combined name only when this year actually has the partner set
+            const partners = (album.sets || []).filter(s => s.showWith === c.key).map(s => s.label);
+            tabs.push({ key: c.key, label: c.tabLabel || (partners.length ? `${c.label} / ${partners.join(" / ")}` : c.label) });
+          }
+        });
         return tabs;
       }
 
@@ -630,19 +678,20 @@
 
       // One scan placeholder per green row of the set (scans pending)
       function setPlaceholderEntries(album, key) {
-        const s = setForFilter(album, key);
         const entries = [];
         const push = (label, st) => {
           if (st.state === "complete") entries.push({ label, value: st.detail });
         };
-        if (Array.isArray(s.items) && s.items.length) {
-          s.items.forEach(it => push(it.label, setStatus(it)));
-        } else {
-          push("Set", setStatus(s));
-        }
+        const addSet = s => {
+          if (Array.isArray(s.items) && s.items.length) s.items.forEach(it => { if (!it.divider) push(it.label, setStatus(it)); });
+          else push("Set", setStatus(s));
+        };
+        const s = setForFilter(album, key);
+        if (s) addSet(s);
         if (key === "postales") {
           (album.editions || []).forEach(e => push(e.label, setStatus(e)));
         }
+        (album.sets || []).forEach(c => { if (c.showWith === key) addSet(c); });
         return entries;
       }
 
@@ -682,7 +731,7 @@
           // instead of stretching to fill grid columns
           panel.className = "gallery-images";
           panel.innerHTML = entries.map(en => `<figure class="gallery-figure is-placeholder">
-              <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" />
+              <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" role="button" tabindex="0" />
               <figcaption class="gallery-label">${en.label}${en.value !== "" ? ` · ${en.value}` : ""}</figcaption>
             </figure>`).join("");
         }
@@ -697,7 +746,7 @@
         const stat = (val, label, tooltip) =>
           `<div class="inv-stat">
             <span class="inv-stat-value">${val}</span>
-            <span class="inv-stat-label">${label}${tooltip ? `<span class="inv-tooltip-icon" data-tooltip="${tooltip}"><svg width="10" height="10"><use href="#icon-info"></use></svg></span>` : ""}</span>
+            <span class="inv-stat-label">${label}${tooltip ? `<button type="button" class="inv-tooltip-icon" data-tooltip="${tooltip}" aria-label="${tooltip}"><svg width="10" height="10" aria-hidden="true"><use href="#icon-info"></use></svg></button>` : ""}</span>
           </div>`;
         // Same rule as the main stats: count the green leaves, don't show
         // what's missing — a count of 0 hides the stat entirely
@@ -746,7 +795,7 @@
 
       function navigableAlbums() {
         return ALBUMS.filter(a => {
-          if (currentFilter && !setForFilter(a, currentFilter)) return false;
+          if (currentFilter && !matchesFilter(a, currentFilter)) return false;
           const c = imageCounts[a.year];
           return c && (c.albumPaths.length > 0 || c.sobrePaths.length > 0);
         });
@@ -792,8 +841,8 @@
           el.innerHTML = counts.albumPaths.map(src => {
             const label = getVersionLabel(src);
             return label
-              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} album" /><figcaption class="gallery-label">${label}</figcaption></figure>`
-              : `<img class="gallery-img" src="${src}" alt="${year} album" />`;
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="Álbum ${year}" role="button" tabindex="0" /><figcaption class="gallery-label">${label}</figcaption></figure>`
+              : `<img class="gallery-img" src="${src}" alt="Álbum ${year}" role="button" tabindex="0" />`;
           }).join("");
           albumsSection.hidden = false;
         } else {
@@ -811,8 +860,8 @@
           el.innerHTML = counts.sobrePaths.map(src => {
             const label = getVersionLabel(src);
             return label
-              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="${year} sobre" /><figcaption class="gallery-label">${label}</figcaption></figure>`
-              : `<img class="gallery-img" src="${src}" alt="${year} sobre" />`;
+              ? `<figure class="gallery-figure"><img class="gallery-img" src="${src}" alt="Sobre ${year}" role="button" tabindex="0" /><figcaption class="gallery-label">${label}</figcaption></figure>`
+              : `<img class="gallery-img" src="${src}" alt="Sobre ${year}" role="button" tabindex="0" />`;
           }).join("");
           sobresSection.hidden = false;
         } else {
@@ -845,12 +894,23 @@
       }
 
       // ── Events ─────────────────────────────────────────────────────────────
-      document.getElementById("albums-grid").addEventListener("click", e => {
-        const card = e.target.closest(".album-card");
-        if (!card) return;
+      function openCard(card) {
+        if (!card || card.classList.contains("is-empty")) return;
         const raw = card.dataset.year;
         // From a set tab, land on that same set inside the year
         showGallery(/^\d+$/.test(raw) ? Number(raw) : raw, currentFilter);
+      }
+
+      document.getElementById("albums-grid").addEventListener("click", e => {
+        openCard(e.target.closest(".album-card"));
+      });
+
+      document.getElementById("albums-grid").addEventListener("keydown", e => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const card = e.target.closest(".album-card");
+        if (!card) return;
+        e.preventDefault();
+        openCard(card);
       });
 
       document.getElementById("gallery-back").addEventListener("click", hideGallery);
@@ -871,7 +931,12 @@
         const cols = [];
         ALBUMS.forEach(a => (a.sets || []).forEach(s => {
           if (!!s.afterPostales !== afterPostales) return;
-          if (!cols.some(c => c.key === setKey(s))) cols.push({ key: setKey(s), label: s.label });
+          const existing = cols.find(c => c.key === setKey(s));
+          if (existing) {
+            if (s.tabLabel) existing.tabLabel = s.tabLabel;
+            return;
+          }
+          cols.push({ key: setKey(s), label: s.label, showWith: s.showWith, tabLabel: s.tabLabel });
         }));
         return cols;
       }
@@ -883,14 +948,29 @@
       const setForFilter = (album, key) =>
         key === "postales" ? album.postales : findSet(album, key);
 
+      // A year matches a tab if it has the set itself or one shown with it
+      const matchesFilter = (album, key) =>
+        !!setForFilter(album, key) || (album.sets || []).some(s => s.showWith === key);
+
       let currentFilter = null; // null = Todo (source of truth)
 
       function renderTabs() {
-        const tabs = [{ key: null, label: "Todo" }, ...setColumns(), { key: "postales", label: "Postales" }, ...setColumns(true)];
-        document.getElementById("view-tabs").innerHTML = tabs.map(t => {
+        const tabBtn = t => {
           const active = t.key === currentFilter;
           return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
-        }).join("");
+        };
+        const cols = setColumns();
+        // Tabs hosting another set (showWith) carry a combined name
+        const combinedLabel = c => {
+          const partners = cols.filter(p => p.showWith === c.key).map(p => p.label);
+          return partners.length ? `${c.label} / ${partners.join(" / ")}` : c.label;
+        };
+        const main    = [{ key: null, label: "Todo" }, { key: "postales", label: "Postales" }, ...cols.filter(c => !c.showWith).map(c => ({ key: c.key, label: c.tabLabel || combinedLabel(c) }))];
+        const players = setColumns(true);
+        // The break forces player tabs onto their own row on mobile
+        document.getElementById("view-tabs").innerHTML =
+          main.map(tabBtn).join("") +
+          (players.length ? `<span class="view-tabs-break" aria-hidden="true"></span>${players.map(tabBtn).join("")}` : "");
       }
 
       document.getElementById("view-tabs").addEventListener("click", e => {
@@ -912,13 +992,16 @@
 
       let lbImages = [];
       let lbIndex  = 0;
+      let lbReturnFocus = null;
 
       function openLightbox(images, index) {
         lbImages = images;
         lbIndex  = index;
         lbPrev.hidden = lbNext.hidden = images.length <= 1;
         updateLightboxImage();
+        lbReturnFocus = document.activeElement;
         lightbox.classList.add("is-open");
+        lightbox.focus();
         document.body.style.overflow = "hidden";
       }
 
@@ -942,11 +1025,11 @@
         lightbox.classList.remove("is-open");
         lightboxImg.src = "";
         document.body.style.overflow = "";
+        if (lbReturnFocus && typeof lbReturnFocus.focus === "function") lbReturnFocus.focus();
+        lbReturnFocus = null;
       }
 
-      document.getElementById("gallery-view").addEventListener("click", e => {
-        const img = e.target.closest(".gallery-img");
-        if (!img) return;
+      function openLightboxFromImg(img) {
         const section = img.closest("#gallery-albums, #gallery-sobres, #gallery-set-panel");
         const scope   = section || document.getElementById("gallery-view");
         const all     = [...scope.querySelectorAll(".gallery-img")];
@@ -956,6 +1039,19 @@
           return { src: el.src, alt: el.alt, label: cap ? cap.textContent : null };
         });
         openLightbox(images, all.indexOf(img));
+      }
+
+      document.getElementById("gallery-view").addEventListener("click", e => {
+        const img = e.target.closest(".gallery-img");
+        if (img) openLightboxFromImg(img);
+      });
+
+      document.getElementById("gallery-view").addEventListener("keydown", e => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const img = e.target.closest(".gallery-img");
+        if (!img) return;
+        e.preventDefault();
+        openLightboxFromImg(img);
       });
 
       lightbox.addEventListener("click", closeLightbox);
@@ -1016,6 +1112,7 @@
         if (pLabel) pLabel.textContent = sobrePaths.length === 1 ? "Sobre" : "Sobres";
         if (card && albumPaths.length === 0 && sobrePaths.length === 0) {
           card.classList.add("is-empty");
+          card.setAttribute("tabindex", "-1"); // not interactive without images
         }
       }
 
