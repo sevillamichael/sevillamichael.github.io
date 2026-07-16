@@ -197,6 +197,147 @@
   font-size: 13px;
 }
 
+.gallery-checklist {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.gallery-checklist .count-label,
+.gallery-checklist .count-val {
+  font-size: 14px;
+}
+
+/* ── Impossible-set checklist ───────────────────────────────────────────── */
+
+/* State filter above the grid (Todas / Upcoming / Ready / Missing) */
+.grid-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.view-tab.grid-filter-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+/* Category rows: label left, sticker chips flowing to the right */
+.sticker-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sticker-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.sticker-cat {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-top: 5px;
+}
+
+.sticker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  color: var(--heading);
+}
+
+.chip-n {
+  font-weight: 700;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.chip::after { font-weight: 800; margin-left: 1px; }
+.chip.is-confirmed { background: rgba(74, 222, 128, 0.14); border-color: rgba(74, 222, 128, 0.45); }
+.chip.is-confirmed::after { content: "✓"; color: #4ade80; }
+.chip.is-pending   { background: rgba(248, 113, 113, 0.1); }
+.chip.is-pending::after { content: "✗"; color: #f87171; }
+.chip.is-coming    { background: rgba(96, 165, 250, 0.14); border-color: rgba(96, 165, 250, 0.45); }
+.chip.is-coming::after { content: "✈️"; }
+
+/* Numbered grid (years without a named checklist yet) */
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  gap: 6px;
+}
+
+.grid-cell {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 2px 4px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.grid-cell::after {
+  display: block;
+  margin-top: 1px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.grid-cell.is-confirmed {
+  background: rgba(74, 222, 128, 0.14);
+  border-color: rgba(74, 222, 128, 0.45);
+}
+.grid-cell.is-confirmed::after { content: "✓"; color: #4ade80; }
+
+.grid-cell.is-pending {
+  background: rgba(248, 113, 113, 0.1);
+}
+.grid-cell.is-pending::after { content: "✗"; color: #f87171; }
+
+.grid-cell.is-coming {
+  background: rgba(96, 165, 250, 0.14);
+  border-color: rgba(96, 165, 250, 0.45);
+}
+.grid-cell.is-coming::after { content: "✈️"; }
+
+@media (max-width: 480px) {
+  .sticker-grid {
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  }
+  /* Category label stacks above its chips on narrow screens */
+  .sticker-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .sticker-cat {
+    padding-top: 0;
+  }
+}
+
 /* ── Per-year gallery tabs and set panel ────────────────────────────────── */
 
 /* 18px above (header 8px + 10px) and 18px below (6px + section 12px) */
@@ -689,20 +830,32 @@
     flex-wrap: wrap;
   }
 
-  /* Compact pills so the 5 main tabs fit one row; players get row 2 */
   .view-tabs {
     gap: 8px 4px;
   }
 
   .view-tab {
-    padding: 10px 8px; /* taller tap target at the smaller font size */
+    padding: 10px 8px;
     font-size: 12px;
   }
 
-  .view-tabs-break {
-    display: block;
-    flex-basis: 100%;
-    height: 0;
+  /* Main tab bar: all tabs in one equal-width row, filling the width */
+  #view-tabs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 4px;
+  }
+
+  #view-tabs .view-tab {
+    padding: 9px 2px;
+    font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  #view-tabs .view-tabs-break {
+    display: none;
   }
 
 }

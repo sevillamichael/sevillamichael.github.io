@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=5" />
+    <link rel="stylesheet" href="css/panini.css?v=6" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.6.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.7.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -139,6 +139,10 @@
 
       // ── Album data ─────────────────────────────────────────────────────────
       // postales: the core sticker set — { total, collected, items? }
+      //   or number-grid mode { total, owned: "1-150, 200-288", coming?: "151" }
+      //   → renders a numbered sticker grid (owned ✓ / coming ✈️ / missing ✗)
+      //   groups: [{ cat, names: [...] }] replaces total — numbers run 1..N in
+      //   order across groups; the grid renders one labeled section per category
       // editions: parallel album editions — { label, total?, complete }
       // sets: secondary sticker sets — { id, label, total?, collected?, complete?, items? }
       //   id is the stable cross-year identity (never rename);
@@ -152,54 +156,195 @@
       //   tabLabel: "<name>" renames the tab a set hosts (e.g. "Otros").
       //   { divider: true } inside items draws a subtle divider between rows.
       const ALBUMS = [
-        { year: 1970, host: "México",                           postales: { total: 288, collected: 0 } },
-        { year: 1974, host: "Alemania",                         postales: { total: 400, collected: 0 } },
-        { year: 1978, host: "Argentina",                        postales: { total: 400, collected: 0 } },
-        { year: 1982, host: "España",                           postales: { total: 427, collected: 0 } },
-        { year: 1986, host: "México",                           postales: { total: 427, collected: 427 } },
-        { year: 1990, host: "Italia",                           postales: { total: 448, collected: 448 } },
-        { year: "story", host: "World Cup Story",               postales: { total: 262, collected: 262 } },
-        { year: 1994, host: "Estados Unidos",                   postales: { items: [
+        { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
+              { cat: "Mexico 70", names: ["Rimet Cup", "F.I.F.A.", "Mexican Map", "Juanito (Mascot)", "Mexican Poster"] },
+              { cat: "Uruguay 1930", names: ["Poster Uruguay 1930", "Winners - Uruguay", "Cea (Uruguay)", "Andrade (Uruguay)", "Stabile (Argentina)"] },
+              { cat: "Italia 1934", names: ["Poster Italia 1934", "Winners - Italy", "Combi - Planicka", "Schiavio (Italy)", "Orsi (Italy)"] },
+              { cat: "Italia 1938", names: ["Poster Italia 1938", "Winners - Italy", "Leonidas (Brazil)", "Meazza - Sarosi", "Piola (Italy)"] },
+              { cat: "Uruguay 1950", names: ["Poster Uruguay 1950", "Winners - Uruguay", "Schiaffino (Uruguay)", "Ademir (Brazil)", "Ghiggia (Uruguay)"] },
+              { cat: "Deutschland 1954", names: ["Poster Deutschland 1954", "Winners - Germany", "Rahn (Germany)", "Puskas (Hungary)", "Kocsis (Hungary)"] },
+              { cat: "Brasil 1958", names: ["Poster Brasil 1958", "Winners - Brazil", "Fontaine (France)", "Djalma Santos (Brazil)", "Didi (Brazil)"] },
+              { cat: "Brasil 1962", names: ["Poster Brasil 1962", "Winners - Brazil", "Albert (Hungary)", "Garrincha (Brazil)", "Amarildo (Brazil)"] },
+              { cat: "England 1966", names: ["Poster England 1966", "Winners - England", "Albrecht (Argentina)", "Eusebio (Portugal)", "Hunt (England)"] },
+              { cat: "Programma Mexico 70", names: ["Azteca Stadium"] },
+              { cat: "Mexico", names: ["Flag", "Emblem", "Team", "Ignacio Calderon", "Juan Manuel Alejandrez", "Gustavo Pena", "Gabriel Nunez", "Mario Perez", "Sabas Ponce", "Alberto Onofre", "Isidoro Diaz", "Juan Alvarado", "Vicente Pereda", "Aaron Padilla", "Javier Fragoso", "Enrique Borja", "Francisco Castrejon"] },
+              { cat: "Belgique-Belgie", names: ["Flag", "Emblem", "Jean Trappeniers", "Team", "Georges Heylens", "Nicolas Dewalque", "Leon Jeck", "Jean Thissen", "Wilfried van Moer", "Odilon Polleunis", "Leon Semmeling", "Johan Devrindt", "Paul van Himst", "Wilfried Puis"] },
+              { cat: "El Salvador", names: ["Flag", "Emblem", "Juan Gualberto Fernandez", "Team", "Roberto Rivas", "Salvador Mariona", "Mauricio Manzano", "Jorge Alfredo Vazquez", "Jose Antonio Quintanilla", "Mauricio Rodriguez", "Juan Ramon Martinez", "Salvador Flamenco", "Mario Monje", "Elmer Acevedo"] },
+              { cat: "U.S.S.R.", names: ["Flag", "Emblem", "Team", "Eugene Roudakov", "Revaz Dzodzuashvili", "Albert Chesternev", "Mourtaz Khourtzilava", "Eugene Zovtchev", "Vladimir Kaplitchnyi", "Victor Serebzianikov", "Vladimir Mountian", "Kakhi Asatiani", "Anatole Bichevetz", "Anatole Pouzatch", "Guivi Nodia", "Vitali Khmelnitzki", "Anzor Kavazachvili"] },
+              { cat: "Italia", names: ["Flag", "Emblem", "Team", "Dino Zoff", "Tarcisio Burgnich", "Giacinto Facchetti", "Mario Bertini", "Giorgio Puia", "Sandro Salvadore", "Angelo Domenghini", "Gianni Rivera", "Sandro Mazzola", "Giancarlo De Sisti", "Luigi Riva", "Pietro Anastasi", "Antonio Juliano", "Enrico Albertosi"] },
+              { cat: "Uruguay", names: ["Flag", "Emblem", "Ladislao Mazurkiewicz", "Team", "Luis Ubina", "Atilio Anchetta", "Roberto Matozas", "Omar Caetano", "Julio Castillo Montero", "Luis Cubilla", "Pedro Virgilio Rocha", "Sergio Silva", "Julio Cesar Cortes", "Raul Bareno"] },
+              { cat: "Sverige", names: ["Flag", "Emblem", "Ronnie Hellstroem", "Team", "Hans Selander", "Kurt Axelsson", "Bjorn Nordqvist", "Roland Grip", "Tommy Svensson", "Bo Larsson", "Leif Eriksson", "Ove Grahn", "Ove Kindvall", "Hans Johansson"] },
+              { cat: "Israel", names: ["Flag", "Emblem", "Izchak Visoker", "Team", "Shraga Bar", "Menachem Bello", "Mordechai Lubetzki", "Zvi Rozen", "Samuel Rosenthal", "Rachamim Talbi", "Izchak Shum", "Giora Spiegel", "Joshua Feigenbaum", "Mordechai Spiegler"] },
+              { cat: "Brasil", names: ["Flag", "Emblem", "Team", "Ado", "Carlos Alberto", "Brito", "Joel", "Everaldo", "Piazza", "Jairzinho", "Gerson", "Tostao", "Pele", "Edu", "Rivelino", "Dirceu Lopes", "Leao"] },
+              { cat: "England", names: ["Flag", "Emblem", "Team", "Gordon Banks", "Tommy Wright", "Keith Newton", "Alan Mullery", "Brian Labone", "Jack Charlton", "Bobby Moore", "Francis Lee", "Colin Bell", "Bobby Charlton", "Alan Ball", "Geoff Hurst", "Martin Peters", "Peter Bonetti"] },
+              { cat: "Ceskoslovensko", names: ["Flag", "Emblem", "Ivo Viktor", "Team", "Jan Pivarnik", "Vladimir Hagara", "Alexander Horvath", "Vaclav Migas", "Andrej Kvasnak", "Ladislav Kuna", "Bohumil Vesely", "Karel Jokl", "Josef Adamec", "Jan Capkovic"] },
+              { cat: "Romania", names: ["Flag", "Emblem", "Necula Raducanu", "Team", "Ludovic Satmareanu", "Bujor Halmageanu", "Coe Dan", "Augustin Deleanu", "Cornel Dinu", "Flaviu Domide", "Emerich Dembrovschi", "Nicolae Dobrin", "Florea Dumitrache", "Mircea Lucescu"] },
+              { cat: "Bulgaria", names: ["Flag", "Emblem", "Simeon Simeonov", "Team", "Alexander Scialamanov", "Ivan Dimitrov", "Boris Gaganelov", "Dobromir Zhecev", "Dimiter Penev", "Dinco Dermengiiev", "Hristo Bonev", "Gheorghi Asparuhov", "Dimiter Jakimov", "Peter Zhecov"] },
+              { cat: "Peru", names: ["Flag", "Emblem", "Luis Rubinos", "Team", "Angel Eloy Campos", "Orlando de la Torre", "Hector Chumpitaz", "Luis Pafael Risco", "Roberto Mifflin", "Roberto Challe", "Julio Baylon", "Pedro Pablo Leon", "Teofilo Cubillas", "Alberto Gallardo"] },
+              { cat: "Maroc", names: ["Flag", "Emblem", "Kassou Allal", "Team", "Mohamed Abdallah", "Benkrif Boujemaa", "Alaoui Moulay Idriss", "Kacem Slimani", "Mohamed Maaroufi", "Ghandi Said", "Mohamed Filali", "Ahmed Faras", "Driss Bamouss", "Mahjoub Ghazouani"] },
+              { cat: "Deutschland", names: ["Flag", "Emblem", "Team", "Sepp Maier", "Hubert Vogts", "Willi Schulz", "Franz Beckenbauer", "Karl Heinz Schnellinger", "Horst-Dieter Hottges", "Klaus Fichtel", "Helmut Haller", "Wolfgang Overath", "Bernd Dorfel", "Uwe Seeler", "Gerd Muller", "Siegfried Held", "Horst Wolter"] },
+            ] } },
+        { year: 1974, host: "Germany",            postales: { owned: "", groups: [
+              { cat: "Special", names: ["Fifa Badge", "World Cup 74 Poster", "World Cup 74 Symbol", "FIFA Trophy", "Mascote", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Jules Rimet"] },
+              { cat: "History", names: ["World Cup 30 Poster", "Uruguay 1930", "Nasazzi (uruguay) And Ferreira (argentina)", "Uruguay – Argentina: 4-2", "World Cup 34 Poster", "Italia 1934", "Italia – Cehoslovacia 2-1", "Italia The Champions", "World Cup 38 Poster", "Italia 1938", "Meazza (italia) And Sarosi (ungaria)", "Italia – Ungaria 4-2", "World Cup 50 Poster", "Uruguay 1950", "Uruguay-brazilia 2-1", "Varela And The Trophy", "World Cup 54 Poster", "Germania 54", "Hidegkuti, Lorant, Grosics, Puskas (ungaria)", "Germania – Ungaria 3-2", "World Cup 58 Poster", "Brazil 58", "Just Fontaine (franta)", "Sweden Federation Monument", "World Cup 62 Poster", "Brazil 62", "Brazil – Cehoslovacia", "Mauro (brazilia) And Trophy", "World Cup 66 Poster", "Anglia 66", "Bobby Charlton (anglia)", "Uwe Seeler (germania)", "World Cup 70 Poster", "Brazilia 70", "Brazilia – Italy 4-1", "Pele (brazilia)", "Stanley Rous", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "West Germany Harta"] },
+              { cat: "Stadiums", names: ["Olympia Stadion - Berlin", "Olympiastadion - Munchen", "Waldstadion - Frankfurt", "Volksparkstadion – Hamburg", "Rheinstadion – Dusseldorf", "Neckarstadion - Stuttgart", "Parkstadion - Gelsenkirchen", "Westfalenstadion - Dortmund", "Niedersachsenstadion – Hannover"] },
+              { cat: "W. Germany", names: ["Stema Germania", "Echipa W. Germany", "Mascota", "Hermann Gosmann", "Helmut Schon", "Sepp Maier", "Wolfgang Kleff", "Horst-Dieter Hottges", "Hans- Hubert Vogts", "Paul Breitner", "Franz Beckenbauer", "Wolfgang Weber", "Bernard Cullmann", "Georg Schwarzenbeck", "Helmut Kremers", "Herbert Wimmer", "Heinz Flohe", "Wolfgang Overath", "Gunter Netzer", "Uli Hoeness", "Jurgen Grabowski", "Josef Heynckes", "Gerd Muller", "Erwin Kremers", "Siegfried Held"] },
+              { cat: "Australia", names: ["Stema Australia", "Echipa Australia", "Australia Mascota", "Jim Fraser", "Peter Wilson", "Manfred Schaefer", "Ray Richards", "Jim McKay", "Ray Baartz"] },
+              { cat: "East Germany", names: ["Steama East Germany", "Echipa East Germany", "Mascota East Germany", "Jurgen Croy", "Wolfgang Blochwitz", "Bernd Bransch", "Lothar Kurbjuweit", "Frank Ganzera", "Klaus Sammer", "Helmut Stein", "Hans-Jurgen Kreische", "Wolfgang Segun", "Reinhard Lauck", "Joachim Streich", "Jurgen Sparwasser", "Peter Ducke", "Wolfram Lowe"] },
+              { cat: "Chile", names: ["Stema Chile", "Echipa Chile", "Chile Caricature", "Juan Olivares", "Adoflo Nef", "Rafael Gonzalez", "Juan Rodriguez", "Eduardo Herrera", "Mario Galindo", "Antonio Arias", "Francisco Valdes", "Nelson Vasquez", "Alfonso Lara", "Carlos Caszely", "Sergio Ahumada", "Leonardo Veliz", "Julio Crisosto"] },
+              { cat: "Brazil", names: ["Stema Brazil", "Echipa Brazil", "Brazil Caricature", "Joao Havelange", "Mario Zagalo", "Felix", "Leao", "Carlos Alberto", "Ze Maria", "Marco Antonio", "Marinho", "Luis Pereira", "Alfredo", "Piazza", "Clodoaldo", "Carbone", "Ademir", "Rivelino", "Paulo Cesar", "Jairzinho", "Valdomiro", "Mirandinha", "Leivinha", "Palinha", "Dirceu"] },
+              { cat: "Zair", names: ["Stema Zair", "Echipa Zair", "Zaire Caricature", "Mwamba Kazadi", "Tshimen Bwanga", "Mafu Kibonge", "Mantantu Kidumu", "Etepe Kakoko", "Maku Mayanga"] },
+              { cat: "Iugoslavia", names: ["Stema Iugoslavia", "Echipa Iugoslavia", "Iugoslavia Caricature", "Enver Maric", "Ivan Buljan", "Enver Hadziabdic", "Josip Katalinskin", "Vladislav Bogicevic", "Miroslav Pavlovic", "Brane Oblak", "Jovan Acimovic", "Stanislav Karasi", "Slobodan Santrac", "Iljia Petkovic", "Ivica Surjak", "Dusan Bajevic", "Dragan Dzjic"] },
+              { cat: "Scotia", names: ["Stema Scotia", "Echipa Scotia", "Scotia Caricature", "Alistair Hunter", "David Harvey", "Sandy Jardine", "Danny Mcgrain", "Jim Holton", "George Connelly", "David Hay", "Billy Bremner", "Ken Dalglish", "Denis Law", "Willie Morgan", "Joe Jordan", "Derek Parlane", "Tommy Hutchison"] },
+              { cat: "Uruguay", names: ["Stema Uruguay", "Echipa Uruguay", "Uruguay Caricature", "Hector Santos", "Ladislao Mazurkiewicz", "Walter Olivera", "Gustavo De Simone", "Juan Masnik", "Mario Soryez", "Atilio Ancheta", "Mario Gonzalez", "Pedro Rocha", "Alberto Cardaccio", "Victor Esparrago", "Luis Cubilla", "Fernando Morena", "Denis Milar"] },
+              { cat: "Holland", names: ["Stema Olanda", "Echipa Olanda", "Holland Caricature", "Piet Schrijvers", "Heinz Stuy", "Wim Suurbier", "Aad Mansveld", "Barry Hulshoff", "Ruud Krol", "Gerry Muhren", "Arie Haan", "Johan Neeskens", "Wim Van Hanegem", "Johnny Rep", "Johan Cruyff", "Piet Keizer", "Rob Rensenbrink"] },
+              { cat: "Bulgaria", names: ["Stema Bulgaria", "Echipa Bulgaria", "Bulgaria Caricature", "Rumen Goranov", "Ivan Zafirov", "Dimitar Penev", "Kiril Ivkov", "Stefan Aladjov", "Bozhil Kolev", "Stefan Velitschkov", "Ivan Stoianov", "Hristo Bonev", "Pavel Panov", "Dimitar Dimitrov", "Atanas Mihailov", "Petko Petkov", "Georgi Denev"] },
+              { cat: "Sweden", names: ["Stema Suedia", "Echipa Suedia", "Sweden Caricature", "Ronnie Hellstrom", "Roland Grip", "Jan Olsson", "Kent Karlsson", "Bjorn Nordqvist", "Bjorn Andersson", "Ove Grahn", "Staffan Tapper", "Bo Larsson", "Conny Torstensson", "Harry Svensson", "Ove Kindvall", "Ralf Edstrom", "Roland Sandberg"] },
+              { cat: "Italia", names: ["Stema Italia", "Echipa Italia", "Italy Caricature", "Artemio Franchi", "Ferruccio Valcareggi", "Dino Zoff", "Enrico Albertosi", "Luciano Spinosi", "Giuseppe Sabadini", "Giacinto Facchetti", "Mauro Bellugi", "Francesco Morini", "Tarcisio Burgnich", "Giuseppe Wilson", "Romeo Benetti", "Fabio Capello", "Gianni Rivera", "Antonio Juliano", "Sandro Mazzola", "Franco Causio", "Giorgio Chinaglia", "Pietro Anastasi", "Roberto Boninsegna", "Luigi Riva", "Luciano Chiarugi"] },
+              { cat: "Haiti", names: ["Stema Haiti", "Echipa Haiti", "Haiti Caricature", "Henry Francillon", "Wilmer Nazaire", "Arsene Auguste", "Philippe Vorbe", "Jean Claude Desir", "Emmanuel Sanon"] },
+              { cat: "Argentina", names: ["Stema Argentina", "Echipa Argentina", "Argentina Caricature", "Daniel Carnevali", "Miguel Angel Santoro", "Francisco Sa", "Enrique Wolff", "Roberto Perfume", "Hugo Bargas", "Enrique Chazarreta", "Roberto Telch", "Miguel Angel Brindisi", "Ruben Galvan", "Norberto Alonso", "Hector Yazalde", "Roque Avallay", "Ruben Hugo Ayala"] },
+              { cat: "Poland", names: ["Stema Polonia", "Echipa Polonia", "Poland Caricature", "Jan Tomasewski", "Jerzy Gorgon", "Antoni Szymanowski", "Adam Musial", "Miroslaw Bulzacki", "Zbigniew Gut", "Zygmunt Maszczyk", "Hendyk Kasperczak", "Leslaw Cmikiewicz", "Kazimierz Deyna", "Grzegorz Lato", "Wlodzimierz Lubanski", "Jan Domarski", "Robert Gadocha"] },
+              { cat: "Belgium", names: ["Paul Van Himst", "Christian Piot", "Belgium Badge", "Maurice Martens", "Leon Semmeling"] },
+              { cat: "USSR", names: ["Vladimir Muntian", "Revaz Dzodzuashvili", "Ussr Badge", "Vladimir Kaplichnyi", "Murtaz Khurtsilava"] },
+              { cat: "Chzechoslovakia", names: ["Ivo Viktor", "Josef Adamec", "Chzechoslovakia Badge", "Jan Pivarnik", "Pavel Stratil"] },
+              { cat: "England", names: ["Bobby Moore", "Allan Clarke", "England Badge", "Martin Peters", "Roy Mcfarland"] },
+              { cat: "Spain", names: ["Jose Angel Iribar", "Juan Manuel Asensi", "Spain Badge", "Jose Martinez \"pirri\"", "Jose Claramunt"] },
+              { cat: "France", names: ["Henri Michel", "Georges Bereta", "France Badge", "Marius Tresor", "Herve Revelli"] },
+              { cat: "Switzerland", names: ["Karl Odermatt", "Kurt Muller", "Switzerland Badge", "Pierre Chapuisat", "Jakob Kuhn"] },
+              { cat: "Hungaria", names: ["Ferenc Bene", "Istvan Juhasz", "Hungaria Badge", "Sandor Zambo", "Mihaly Kozma"] },
+              { cat: "Austria", names: ["Kurt Jara", "August Starek", "Austria Badge", "Thomas Parits", "Franz Hasil"] },
+              { cat: "Portugal", names: ["Eusebio", "Jose Henrique", "Portugal Badge", "Jose Torres", "Antonio Simoes"] },
+            ] } },
+        { year: 1978, host: "Argentina",          postales: { owned: "", groups: [
+              { cat: "History", names: ["Rimet Cup"] },
+              { cat: "History: WC 1930", names: ["Poster Uruguay 1930", "Guillermo Stabile (ARG)", "Champions: Uruguay"] },
+              { cat: "History: WC 1934", names: ["Poster Italia 1934", "Giuseppe Meazza (ITA)", "Champions: Italia"] },
+              { cat: "History: WC 1938", names: ["Poster France 1938", "Silvio Piola (ITA)", "Champions: Italia"] },
+              { cat: "History: WC 1950", names: ["Poster Brasil 1950", "Juan Schiaffino (URU)", "Champions: Uruguay"] },
+              { cat: "History: WC 1954", names: ["Poster Switzerland 1954", "Ferenc Puskas (HUN)", "Champions West Germany"] },
+              { cat: "History: WC 1958", names: ["Poster Sweden 1958", "Just Fontaine (FRA)", "Champions Brasil"] },
+              { cat: "History: WC 1962", names: ["Poster Chile 1962", "Gilmar (BRA)", "Champions Brasil"] },
+              { cat: "History: WC 1966", names: ["Poster England 1966", "Bobby Charlton (ENG)", "Champions England"] },
+              { cat: "History: WC 1970", names: ["Poster Mexico 1970", "Pele (BRA)", "Champions Brasil"] },
+              { cat: "History", names: ["FIFA World Cup Trophy"] },
+              { cat: "History: WC 1974", names: ["Poster West Germany 1974", "Franz Beckenbauer (FRG)", "Champions West Germany"] },
+              { cat: "Cities & Stadiums", names: ["Estadio de River Plate (Buenos Aires)", "Buenos Aires", "Estadio de Rosario", "Rosario", "Estadio de Cordoba", "Cordoba", "Estadio de Mendoza", "Mendoza", "Estadio de Mar del Plata", "Mar del Plata"] },
+              { cat: "Argentina", names: ["Argentina Federation", "Argentina Team Photo", "Ubaldo Fillol", "Jorge Mario Olguin", "Daniel Pedro Killer", "Daniel Alberto Passarella", "Alberto Cesar Tarantini", "Hugo Alves", "Americo Ruben Gallelo", "Osvaldo Carlos Ardiles", "Ricardo Julio Villa", "Omar Ruben Larrosa", "Rene Orlando Housemann", "Mario Alberto Kempes", "Leopoldo Luque", "Ricardo Daniel Bertoni", "Oscar Alberto Ortiz", "Hector Baley"] },
+              { cat: "Hungary", names: ["Hungary Federation", "Hyngary Team", "Sandor Gujdar", "Gyozo Martos", "Peter Torok", "Zoltan Kereki", "Laszlo Balint", "Istvan Kocsis", "Joszef Toth", "Tibor Rab", "Sandor Zombori", "Tibor Nyilasi", "Sandor Pinter", "Laszlo Fazekas", "Laszlo Pusztai", "Andras Torocsik", "Bela Varadi", "Ferenc Meszaros"] },
+              { cat: "France", names: ["France Federation", "France team", "Andre Rey", "Gerard Janvion", "Patrice Rio", "Marius Tresor", "Christian Lopez", "Maxime Bossis", "Dominique Bathenay", "Jean-Marc Guillou", "Henri Michel", "Michel Platini", "Dominique Rochetau", "Christian Dalger", "Bernard Lacombe", "Didier Six", "Olivier Rouyer", "Dominique Baratelli"] },
+              { cat: "Italia", names: ["Italia Federation", "Italia Team", "Dino Zoff", "Claudio Gentile", "Mauro Bellugi", "Giacinto Facchetti", "Gaetano Scirea", "Aldo Maldera", "Marco Tardelli", "Romeo Benetti", "Renato Zaccarelli", "Giancarlo Antognoni", "Franco Clausio", "Claudio Sala", "Francesco Graziani", "Paolo Rossi", "Roberto Bettega", "Paolo Conti"] },
+              { cat: "Poland", names: ["Poland Federation", "Poland Team", "Jan Tomaszewski", "Antoni Szymanowski", "Henryk Maculewicz", "Wladyslaw Zmuda", "Jerzy Gorgon", "Wojciech Rudy", "Henryk Kasperczak", "Bogdan Masztaler", "Kazimierz Deyna", "Zbigniew Boniek", "Adam Hawalka", "Grzegorz Lato", "Andrzej Szarmach", "Wlodzimerz Lubanski", "Stanislaw Terlecki", "Zygmunt Kukla"] },
+              { cat: "West Germany", names: ["West Germany Federation", "West Germany Team", "Josef Maier", "Berti Vogts", "Rolf Russmann", "Hans-Georg Schwarzenbeck", "Manfred Kaltz", "Bernhard Dietz", "Herbert Zimmermann", "Rainer Bonhof", "Erich Beer", "Heinz Flohe", "Manfred Burgsmuller", "Bernd Holzenbein", "Rudiger Abramczik", "Klaus Fischer", "Karlheinz Rummenigge", "Bernd Franke"] },
+              { cat: "Tunis", names: ["Tunis Federation", "Tunis Team", "Sadok Sassi Atouga", "Moktar Dhouieb", "Khaled Gasmi", "Chebly Kamel", "Amor Jebali", "Ali Kaabi", "Nejib Ghommidh", "Khemais Labidi", "Hamadi Agrebi", "Dhiab Tarak", "Lahzami Temime", "Mohamed Ali Akid", "Nejib Limam", "Raouf Ben Aziza", "Ali Manai", "Lamine Ben Aziza"] },
+              { cat: "Mexico", names: ["Mexico Federation", "Mexico Team", "Francisco Castrejon", "Manuel Najera", "Carlos Gomez", "Eduardo Ramos", "Javier Guzman", "Arturo Vasquez Ayala", "Antonio De La Torre", "Javier Cardenaz", "Rafael Chavez", "Jose Luis Real", "Alfredo Jimenez", "Victor Rangel", "Leonardo Cuellar", "Hugo Sanchez", "Cristobal Ortega", "Jose Pilar Reyes"] },
+              { cat: "Austria", names: ["Austria Federation", "Austria Team", "Friedrich Koncilia", "Robert Sara", "Bruno Pezzey", "Peter Persidis", "Eddy Krieger", "Gerhart Breitenberger", "Heunrich Strasser", "Josef Hickersberger", "Roland Hattenberger", "Kurt Jara", "Herbert Prohaska", "Josef Stering", "Hans Krankl", "Willy Kreuz", "Walter Schachner", "Hubert Baumgartner"] },
+              { cat: "Spain", names: ["Spain Federation", "Spain Team", "Miguel Angel Gonzalez", "Marcelino Perez", "Miguel Banquetti «Migueli»", "Jose Martinez «Pirri»", "Antonio Olmo", "Jose Antonio Camacho", "Isidoro San Jose", "Eugenio Leal", "Angel Villar", "Juan Manuel Asensi", "Julio Cardenosa", "Ignacio Churruca", "Juan Gomez «Juanito»", "Daniel Ruiz «Dani»", "Ruben Cano Martinez", "Luis Arconada"] },
+              { cat: "Sweden", names: ["Sweden Federation", "Sweden Team", "Ronnie Hellstrom", "Hasse Borg", "Bjorn Andersson", "Kent Karlsson", "Bjorn Nordqvist", "Roy Andersson", "Bo Borjesson", "Anders Linderoth", "Staffan Tapper", "Tommy Larsson", "Conny Torstensson", "Ralf Edstrom", "Benny Wendt", "Thomas Sjoberg", "Olle Nordin", "Goran Hagberg"] },
+              { cat: "Brasil", names: ["Brasil Federation", "Brasil Team", "Leao", "Ze Maria", "Nelinho", "Luis Pereira", "Amaral", "Edinho", "Rodrigues Neto", "Toninho Cereso", "Rivelino", "Dirceu", "Gil", "Zico", "Roberto", "Reinaldo", "Paulo Cesar", "Raul"] },
+              { cat: "Netherlands", names: ["Netherlands Federation", "Netherlands Team", "Piet Schrijvers", "Wim Suurbier", "Wim Rijsbergen", "Johnny Dusbaba", "Ruud Krol", "Hugo Hovenkamp", "Wim Jansen", "Johan Neeskens", "Wim van Hanegem", "Willy van der Kerkhoff", "Jan Peters", "Johnny Rep", "Kees Kist", "Rob Rensenbrink", "Rene van der Kerkhoff", "Jan Jongbloed"] },
+              { cat: "Iran", names: ["Iran Federation", "Iran Team", "Mansour Rashidi", "Hassan Nazari", "Nasrullah Abdollahi", "Hossein Kazerani", "Andranik Eskandarian", "Hassan Nayebagha", "Ebrahim Ghassempour", "Ali Parvin", "Mohamed Sadeghi", "Iradj Danaefar", "Hassan Rowshan", "Ali Reza Khorshidi", "Ghafour Djahani", "Mohamed Reza Adelkani", "Gholam Mazloumi", "Baharam Mavedat"] },
+              { cat: "Peru", names: ["Peru Federation", "Peru Team", "Ramon Quiroga", "Jose Navarro", "Hector Chumpitaz", "Julio Melendez", "Ruben Toribio Diaz", "Eleazar Soria", "Alfredo Quesada", "Jose Manuel Velasquez", "Teofilo Cubillas", "Julio Aparicio", "Percy Rojas", "Juan Jose Munante", "Hugo Sotil", "Juan Carlos Oblitas", "Alejandro Luces", "Horacio Ballesteros"] },
+              { cat: "Scotland", names: ["Scotland Federation", "Scotland team", "Alan Rough", "Willie Donachie", "Gordon McQueen", "Martin Buchan", "Tom Forsyth", "Danny McGrain", "Bruce Rioch", "Don Masson", "Archie Gemmill", "Asa Hartford", "Lou Macari", "Kenny Dalglish", "Andy Gray", "Joe Jordan", "Willie Johnston", "David Stewart"] },
+              { cat: "Belgium", names: ["Belgium Federation", "Christian Piot", "Ludo Coeck", "Julien Cools", "Frans van der Elst"] },
+              { cat: "Bulgaria", names: ["Bulgaria Federation", "Kiril Ivkov", "Zonio Vassiliev", "Hristo Bonev", "Pavel Panov"] },
+              { cat: "CSSR", names: ["CSSR Federation", "Anton Ondrus", "Koloman Gogh", "Karol Dobias", "Zdenek Nehoda"] },
+              { cat: "Denmark", names: ["Denmark Federation", "Per Roentved", "Allan Simonsen", "Henning Jensen", "Jorgen Kristensen"] },
+              { cat: "GDR", names: ["GDR Federation", "Jurgen Croy", "Reinhard Hafner", "Joachim Streich", "Martin Hoffman"] },
+              { cat: "England", names: ["England Federation", "Ray Clemence", "Emlyn Hughes", "Trevor Brooking", "Kevin Keegan"] },
+              { cat: "Switzerland", names: ["Switzerland Federation", "Pierre Chapuisat", "Umberto Barberis", "Rene Botteron", "Ruedi Elsener"] },
+              { cat: "Jugoslavija", names: ["Jugoslavija Federation", "Drazen Muzinic", "Ivica Surjak", "Danilo Popivoda", "Zoran Filipovic"] },
+              { cat: "Norway", names: ["Norway Federation", "Svein Grondalen", "Jan Birkelund", "Tom Lund", "Odd Iversen"] },
+              { cat: "Portugal", names: ["Portugal Federation", "Alves", "Octavio", "Toni", "Manuel Fernandes"] },
+              { cat: "Romania", names: ["Romania Federation", "Alexandru Satmareanu", "Anghel Iordanescu", "Ladislau Boloni", "Dudu Georgescu"] },
+              { cat: "CCCP", names: ["CCCP Federation", "Anatolij Konkov", "Leonid Burjak", "David Kipiani", "Oleg Blochin"] },
+              { cat: "Uruguay", names: ["Uruguay Federation", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
+              { cat: "Wales", names: ["Wales Federation", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
+            ] } },
+        { year: 1982, host: "Spain",              postales: { owned: "50", groups: [
+              { cat: "Special", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
+              { cat: "poster", names: ["Madrid (poster)", "Barcelona (poster)", "Sevilla (poster)", "Vigo (poster)", "La Coruna (poster)", "Gijon (poster)"] },
+              { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
+              { cat: "poster", names: ["Oviedo (poster)", "Alicante (poster)", "Elche (poster)", "Bilbao (poster)"] },
+              { cat: "Estadio", names: ["Vigo - Estadio Balaidos", "La Coruna - Estadio Riazor", "Gijon - Estadio El Molinon", "Oviedo - Estadio Carlos Tatiere", "Alicante - Estadio Rico Perez", "Elche - Nuevo Estadio"] },
+              { cat: "poster", names: ["Valladolid (poster)", "Valencia (poster)", "Zaragoza (poster)", "Malaga (poster)"] },
+              { cat: "Estadio", names: ["Bilbao - Estadio San Mames", "Valladolid - Estadio Jose Zorrilla", "Valencia - Estadio Luis Casanova", "Zaragoza - Estadio La Romareda", "Malaga - Estadio La Rosaleda"] },
+              { cat: "Italia", names: ["Italia (emblem)", "Italia (team)", "Dino Zoff", "Claudio Gentile", "Gaetano Scirea", "Fulvio Collovati", "Pietro Vierchowod", "Antonio Cabrini", "Gabriele Oriali", "Giampiero Marini", "Marco Tardelli", "Giuseppe Dossena", "Giancarlo Antognoni", "Bruno Conti", "Paolo Rossi", "Roberto Pruzzo", "Francesco Graziani", "Roberto Bettega"] },
+              { cat: "Polska", names: ["Polska (emblem)", "Polska (team)", "Jozef Mlynarczyk", "Marek Dziuba", "Wladyslaw Zmuda", "Pawel Janas", "Piotr Skrobowski", "Jan Jalocha", "Roman Wojcicki", "Stefan Majewski", "Waldemar Matysik", "Janusz Kupcewicz", "Zbigniew Boniek", "Grzegorz Lato", "Andrzej Szarmach", "Wlodzimierz Smolarek", "Andrzej Iwan", "Piotr Mowlik"] },
+              { cat: "Peru", names: ["Peru (emblem)", "Peru (team)", "Ramon Quiroga", "Jaime Duarte", "Hector Chumpitaz", "Salvador Salguero", "Ruben Toribio Diaz", "Roberto Rojas", "Jorge Olaechea", "Jose Velasquez", "Cesar Cueto", "Luis Alberto Reyna", "Julio Cesar Uribe", "Teofilo Cubillas", "Jeronimo Barbadillo", "Guillermo La Rosa", "Juan Carlos Oblitas", "Eusebio Acasuzo"] },
+              { cat: "Cameroun", names: ["Cameroun (emblem)", "Cameroun (team)", "Thomas N'Kono & Michel Kaham", "Francois Doumbe Lea & Ibrahim AouDou", "Ephraim M'Bom & Edmond Enoka", "Emmanuel Kunde & Theophile Abega", "Joseph Kanga & Jean-Pierre Tokoto", "Paul Bahoken & Ernest-Lottin Ebongue", "Roger Milla & Martin Maya", "Jacques N'Guea & Antoine Bell"] },
+              { cat: "Algerie", names: ["Algerie (emblem)", "Algerie (team)", "Mehdi Cerbah & Salah Larbes", "Mahmoud Guendouz & Abdel Djaadaoui", "Norredine Kourichi & Faquzi Mansouri", "Bouzid Mahyouz & Mohammed Kaci Said", "Ali Fergani & Lakhdar Belloumi", "Hocine Yahi & Mustapha Dahleb", "Rabah Madjer & Djamel Zidane", "Rabah Gamouh & Mourad Amara"] },
+              { cat: "Deutschland-BRD", names: ["Deutschland-BRD (emblem)", "Deutschland-BRD (team)", "Harald Schumacher", "Manfred Kaltz", "Ulrich Stielike", "Wilfried Hannes", "Karl-Heinz Forster", "Hans-Peter Briegel", "Bernd Forster", "Wolfgang Dremmler", "Bernd Schuster", "Paul Breitner", "Felix Wolfgang Magath", "Hans Muller", "Pierre Littbarski", "Klaus Fischer", "Horst Hrubesch", "Karl-Heinz Rummenigge"] },
+              { cat: "Osterreich", names: ["Osterreich (emblem)", "Osterreich (team)", "Herbert Feurer", "Hans Dihanich", "Bernd Krauss", "Bruno Pezzey", "Heribert Weber", "Hans-Dieter Mirnegg", "Roland Hattenberger", "Reinhold Hintermaier", "Ernst Baumeister", "Herbert Prohaska", "Kurt Jara", "Walter Schachner", "Hans Krankl", "Kurt Welzl", "Christian Keglevits", "Friedrich Koncilia"] },
+              { cat: "Chile", names: ["Chile (emblem)", "Chile (team)", "Mario Osben", "Lizardo Garrido", "Elias Figueroa", "Mario Soto", "Rene Valenzuela", "Mario Galindo", "Vladimir Bigorra", "Rodolfo Dubo", "Manuel Rojas", "Carlos Rivas", "Miguel Angel Neira", "Orlando Mondaca", "Patrizio Yanez", "Carlos Caszely", "Gustavo Moscoso", "Oscar Wirth"] },
+              { cat: "Argentina", names: ["Argentina (emblem)", "Argentina (team)", "Ubaldo Matildo Fillol", "Jorge Mario Olguin", "Luis Adolf Galvan", "Jose Van Tuyne", "Daniel Alberto Passarella", "Enzo Trossero", "Alberto Cesar Tarantini", "Americo Ruben Gallego", "Juan Alberto Barbas", "Osvaldo Carlos Ardiles", "Diego Armando Maradona", "Daniel Jose Valencia", "Daniel Ricardo Bertoni", "Ramon Angel Diaz", "Mario Alberto Kempes", "Hector Rodolfo Baley"] },
+              { cat: "Magyarorszag", names: ["Magyarorszag (emblem)", "Magyarorszag (team)", "Ferenc Meszaros", "Gyozo Martos", "Gabor Szanto", "Laszlo Balint", "Attila Kerekes", "Imre Garaba", "Jozsef Toth", "Sandor Sallai", "Sandor Muller", "Karoly Csapo", "Tibor Nyilasi", "Laszlo Fazekas", "Laszlo Kiss", "Andras Torocsik", "Ignac Izso", "Bela Katzirz"] },
+              { cat: "Belgique-Belgie", names: ["Belgique-Belgie (emblem)", "Belgique-Belgie (team)", "Jean-Marie Pfaff", "Eric Gerets", "Walter Meeuws", "Luc Millecamps", "Michel Renquin", "Marc Baecke", "Ludo Coeck", "Rene Vandereycken", "Wilfried Van Moer", "Juan Lozano", "Frankie Vercauteren", "Frans Van Der Elst", "Erwin Vandenbergh", "Jan Ceulemans", "Alex Czerniatinsky", "Michel Preud'homme"] },
+              { cat: "El Salvador", names: ["El Salvador (emblem)", "El Salvador (team)", "Luis Ricardo Guevara Mora & Carlos Humberto Recinos", "Jose Francisco Jovel & Jaime Alberto Rodrigues", "Ramon Alfredo Fagoaga & Francisco Salvador Osorto", "Juan Gilberto Quinteros & Jose Luis Rugamas", "Jose Norberto Huezo & Joaquin Alonso Ventura", "Jose Miguel Escamilla & Jorge Alberto Gonzalez", "Oscar Gustavo Guerrero & Francisco Ever Hernandez", "Mauricio Quintanilla & Carlos Rivera"] },
+              { cat: "Kuwait", names: ["Kuwait (emblem)", "Kuwait (team)", "Ahmad Al-Tarabulsi & Naeem Saad Mubarak", "Mahboub Jumaa Mubarak & Abdullah Mayouf", "Waleed Al-Jasem & Sami Al-Hashash", "Humoud Al-Shammari & Saad Al-Houti", "Nasser Al-Ghanem & Abdullah Al-Buloushi", "Mohammad Karam & Fathi Kameel", "Faisal Al-Dakheel & Jasem Yaqoub", "Abdul-Aziz Al-Anbari & Adam Marjan"] },
+              { cat: "England", names: ["England (emblem)", "England (team)", "Peter Shilton", "Phil Neal", "Phil Thompson", "Alvin Martin", "Kenny Sansom", "Mick Mills", "Bryan Robson", "Terry McDermott", "Trevor Brooking", "Glenn Hoddle", "Kevin Keegan", "Steve Coppell", "Paul Mariner", "Trevor Francis", "Tony Woodcock", "Ray Clemence"] },
+              { cat: "Ceskoslovensko", names: ["Ceskoslovensko (emblem)", "Ceskoslovensko (team)", "Zdenek Hruska", "Frantisek Jakubec", "Jan Fiala", "Ladislav Jurkemik", "Rostislav Vojacek", "Jozef Barmos", "Jan Berger", "Frantisek Stambachr", "Premysl Bicovsky", "Antonin Panenka", "Jan Kozak", "Ladislav Vizek", "Marian Masny", "Zdenek Nehoda", "Tomas Kriz", "Stanislav Seman"] },
+              { cat: "France", names: ["France (emblem)", "France (team)", "Jean Castaneda", "Gerard Janvion", "Patrick Battiston", "Marius Tresor", "Christian Lopez", "Maxime Bossis", "Jean-Amadou Tigana", "Bernard Genghini", "Jean-Francois Larios", "Alain Giresse", "Michel Platini", "Jacques Zimako", "Dominique Rocheteau", "Bernard Lacombe", "Didier Six", "Bruno Bellone"] },
+              { cat: "Espana", names: ["Espana (emblem)", "Espana (team)", "Luis Arconada", "Jose Antonio Camacho", "Genaro Celayeta", "Jose Ramon Alesanco", "Miguel Tendillo", "Rafael Gordillo", "Victor Munoz", "Miguel Angel Alonso", "Jesus Maria Zamora", "Enrique Saura", "Marcos Alonso", "Juan Gomez \"Juanito\"", "Jesus Satrustegui", "Enrique Castro \"Quini\"", "Carlos Alonso \"Santillana\"", "Roberto Lopez Ufarte"] },
+              { cat: "Jugoslavija", names: ["Jugoslavija (emblem)", "Jugoslavija (team)", "Dragan Pantelic", "Zoran Vujovic", "Ivan Buljan", "Velimir Zajec", "Nenad Stojkovic", "Zlatko Krmpotic", "Ivan Gudelj", "Edhem Slijvo", "Vladimir Petrovic", "Ivo Jerolimov", "Ivica Surjak", "Zlatko Vujovic", "Vahid Halilhodzic", "Safet Susic", "Predrag Pasic", "Ratko Svilar"] },
+              { cat: "Northern Ireland", names: ["Northern Ireland (emblem)", "Northern Ireland (team)", "Pat Jennings", "Jimmy Nicholl", "Chris Nicholl", "Sammy Nelson", "John O'Neill", "Mal Donaghy", "Tommy Cassidy", "Noel Brotherston", "Martin O'Neill", "Sammy McIlroy", "David McCreery", "Terry Cochrane", "Gerry Armstrong", "Billy Hamilton", "Tommy Sloan", "Jim Platt"] },
+              { cat: "Honduras", names: ["Honduras (emblem)", "Honduras (team)", "Julio Cesar Arzu", "Efrain Gutierrez", "Gilberto Yearwood", "Anthony Costly", "Jaime Villegas", "Fernando Bulnes", "Hector Zelaya", "Javier Toledo", "Ramon Maradiaga", "Salvador Bernardes", "Carlos Orlando Caballero", "Tony Laing", "Jorge Urquia", "Jimmy James Bailey", "Roberto Figueroa", "Jimmy Steward"] },
+              { cat: "Brasil", names: ["Brasil (emblem)", "Brasil (team)", "Valdir Peres", "Edevaldo", "Luisinho", "Oscar", "Edinho", "Junior", "Falcao", "Toninho Cerezo", "Socrates", "Zico", "Renato", "Paulo Isidoro", "Serginho", "Roberto", "Eder", "Ze Sergio"] },
+              { cat: "SSSR", names: ["SSSR (emblem)", "SSSR (team)", "Rinat Dasaev", "Tengiz Sulakvelidze", "Aleksandr Civadze", "Sergei Baltacha", "Anatoliy Demjanenko", "Sergei Borovski", "Yuri Susloparov", "Sergei Shavlo", "Vladimir Bessonov", "Vitali Daraselia", "Leonid Buryak", "David Kipiani", "Yuri Gavrilov", "Ramaz Scenghelia", "Sergei Andreev", "Oleg Blokhin"] },
+              { cat: "Scotland", names: ["Scotland (emblem)", "Scotland (team)", "Alan Rough", "Danny McGrain", "Alex McLeish", "Alan Hansen", "Willie Miller", "Frank Gray", "Gordon Strachan", "Asa Hartford", "Graeme Souness", "John Wark", "John Robertson", "Kenny Dalglish", "Steve Archibald", "Joe Jordan", "Andy Gray", "Davie Provan"] },
+              { cat: "New Zealand", names: ["New Zealand (emblem)", "New Zealand (team)", "Richard Wilson & Glen Dods", "Bobby Almond & Ricky Herbert", "Glen Adam & Adrian Elrick", "Keith Mackay & Duncan Cole", "Alan Boath & Peter Simonsen", "Grant Turner & Steve Sumner", "Brian Turner & Wynton Rufer", "Steve Wooddin & Frank Van Hattum"] },
+            ] } },
+        { year: 1986, host: "Mexico",             postales: { total: 427, collected: 427 } },
+        { year: 1990, host: "Italy",              postales: { total: 448, collected: 448 } },
+        { year: "story", host: "World Cup Story", postales: { total: 262, collected: 262 } },
+        { year: 1994, host: "USA",                postales: { items: [
             { label: "Set",          total: 444, collected: 444 },
             { label: "German/Dutch", total: 345, complete: false },
             { label: "French",       total: 330, complete: false },
             { label: "UK and Eire",  total: 416, complete: false },
           ] } },
-        { year: 1998, host: "Francia",                          postales: { total: 561, collected: 561 },
+        { year: 1998, host: "France",             postales: { total: 561, collected: 561 },
           sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", items: [
             { label: "Inglaterra", total: 3,  collected: 3 },
             { label: "Irán",       total: 10, collected: 10 },
           ] }] },
-        { year: 2002, host: "Corea del Sur / Japón",            postales: { items: [
+        { year: 2002, host: "Korea/Japan",        postales: { items: [
             { label: "Set",    total: 576, collected: 576 },
             { label: "Israel", total: 650, complete: false },
           ] },
           sets: [
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Brasil", total: 5, complete: false },
+              { label: "Extra (Brasil)", total: 5, complete: false },
             ] },
           ] },
-        { year: 2006, host: "Alemania",                         postales: { total: 596, collected: 596 },
+        { year: 2006, host: "Germany",            postales: { total: 596, collected: 596 },
           sets: [
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 7, complete: false },
+              { label: "Actualización", total: 6, complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", complete: false },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "298", complete: false },
             ] },
           ] },
-        { year: 2010, host: "Sudáfrica",                        postales: { items: [
+        { year: 2010, host: "South Africa",       postales: { items: [
             { label: "Black Back", total: 640, complete: true },
             { label: "Blue Back",  total: 640, complete: false },
           ] },
           editions: [{ label: "Swiss", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Set",            total: 60, complete: true },
-              { label: "CC Miroslav Klose", total: 4,  complete: false },
+              { label: "CC Set",       total: 60, complete: true },
+              { label: "CC A-T",       total: 9,  complete: false },
+              { label: "CC German",    total: 4,  complete: false },
+            ] },
+            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+              { label: "Chile (A-I)",                total: 9,  complete: false },
+              { label: "Extra (Brasil)",             total: 6,  complete: false },
+              { label: "Pop-up Chile",               total: 17, complete: false },
+              { label: "Swiss (P1-P20)",             total: 20, complete: false },
+              { label: "Tournament Tracker (A-X)",   total: 24, complete: false },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, complete: false },
@@ -211,22 +356,32 @@
               { divider: true },
               { label: "122 Swiss",      complete: false },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559 Black Back", coming: true },
               { label: "559 Blue Back",  complete: false },
               { divider: true },
               { label: "559 Swiss",      complete: false },
             ] },
           ] },
-        { year: 2014, host: "Brasil",                           postales: { total: 640, collected: 640 },
+        { year: 2014, host: "Brazil",             postales: { total: 640, collected: 640 },
           editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "CC A-F",    total: 6, complete: false },
-              { label: "CC Mexico", total: 8, complete: false },
+              { label: "CC Mexico",            complete: false },
+            ] },
+            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+              { label: "Brasil (J1-W1)", total: 9,  complete: false },
+              { label: "Ecuador (V1-V11)",  total: 11, coming: true },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 71, complete: false },
+              { label: "Actualización", total: 72, complete: true },
+              { label: "Bélgica",  total: 6,  complete: false },
+              { label: "Brasil",   total: 6,  complete: false },
+              { label: "Colombia", total: 1,  complete: false },
+              { label: "Spain",    total: 6,  complete: false },
+              { label: "France",   total: 7,  complete: false },
+              { label: "Portugal", total: 7,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430",          complete: true },
@@ -235,13 +390,13 @@
               { label: "430 Platinum", complete: false },
               { label: "P1 Platinum",  complete: false },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "523",          complete: true },
               { divider: true },
               { label: "523 Platinum", complete: true },
             ] },
           ] },
-        { year: 2018, host: "Rusia",                            postales: { items: [
+        { year: 2018, host: "Russia",             postales: { items: [
             { label: "Black Back", total: 682, complete: false },
             { label: "Pink Back",  total: 670, complete: true },
           ] },
@@ -255,7 +410,7 @@
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización",    total: 92, coming: true },
-              { label: "Brazil Exclusive", total: 8,  coming: true },
+              { label: "Brasil Exclusive", total: 8,  coming: true },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "288 Black Back", complete: true },
@@ -263,7 +418,7 @@
               { divider: true },
               { label: "288 Gold",       coming: true },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "130 Black Back", coming: true },
               { label: "MP6 McDonald's", complete: false },
               { label: "118 Pink Back",  complete: true },
@@ -277,7 +432,7 @@
               { label: "209 Gold",       complete: false },
             ] },
           ] },
-        { year: 2022, host: "Qatar",                            postales: { items: [
+        { year: 2022, host: "Qatar",              postales: { items: [
             { label: "International", total: 638, complete: true },
             { label: "Standard",      total: 670, complete: false },
             { label: "USA",           total: 670, complete: false },
@@ -286,12 +441,11 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "CC Believers", total: 14, complete: false },
-              { label: "CC Brazil",    total: 8,  coming: true },
+              { label: "CC Brasil",    total: 8,  coming: true },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras", total: 80, collected: 80 },
               { label: "Letras", total: 22, complete: true },
-              { label: "VISA",   total: 11, coming: true },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, complete: true },
@@ -310,7 +464,7 @@
               { label: "Extra Silver",        complete: false },
               { label: "Extra Gold",          complete: false },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR17 International", complete: true },
               { label: "POR18 Oryx",          coming: true },
               { label: "POR18 Standard",      coming: true },
@@ -339,7 +493,7 @@
               { label: "Extra Gold",          complete: true },
             ] },
           ] },
-        { year: 2026, host: "Canadá / Estados Unidos / México", postales: { items: [
+        { year: 2026, host: "World Cup 26",        postales: { items: [
             { label: "Standard",       total: 980, complete: true },
             { label: "USA/Canada",     total: 980, complete: false },
             { label: "United", total: 980, complete: false },
@@ -348,7 +502,7 @@
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "CC Latin America",     total: 14, collected: 14 },
               { label: "CC USA/Canada",        total: 12, collected: 12 },
-              { label: "CC Europe",            total: 12, collected: 0 },
+              { label: "CC Europa",            total: 12, collected: 0 },
               { label: "CC Rest of the World", total: 14, collected: 0 },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
@@ -373,7 +527,7 @@
               { label: "Extra Silver",        complete: true },
               { label: "Extra Gold",          complete: true },
             ] },
-            { id: "cristiano", label: "Cristiano Ronaldo", afterPostales: true, items: [
+            { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR15 Standard",      complete: true },
               { label: "POR15 United",        complete: false },
               { divider: true },
@@ -414,7 +568,29 @@
       // detail:  what the set's own tab shows (the full x/y ledger)
       // A set with items: [...] aggregates them — it only reads complete when
       // every listed item is complete.
+      // "1-150, 152, 200-288" → Set{1..150, 152, 200..288}
+      function parseRanges(str) {
+        const set = new Set();
+        (str || "").split(",").forEach(part => {
+          part = part.trim();
+          const m = part.match(/^(\d+)\s*-\s*(\d+)$/);
+          if (m) { for (let i = +m[1]; i <= +m[2]; i++) set.add(i); }
+          else if (/^\d+$/.test(part)) set.add(+part);
+        });
+        return set;
+      }
+
+      // Total sticker count for a grid set (from groups, or explicit total)
+      const gridTotal = s => s.groups ? s.groups.reduce((a, g) => a + g.names.length, 0) : s.total;
+
       function setStatus(s) {
+        // Number-range grid sets (impossible 1970-82 postales)
+        if (s.owned !== undefined && (s.total != null || s.groups)) {
+          const tot = gridTotal(s), owned = parseRanges(s.owned).size;
+          return owned >= tot
+            ? { state: "complete", summary: "", detail: tot }
+            : { state: "pending",  summary: "", detail: `${owned}/${tot}` };
+        }
         if (Array.isArray(s.items) && s.items.length) {
           const real = s.items.filter(it => !it.divider);
           const done = real.filter(it => setStatus(it).state === "complete").length;
@@ -475,7 +651,8 @@
           let rows = setRowsHtml(s, state);
           // Album editions belong to the core set — list them with it by name
           if (key === "postales") {
-            rows += (album.editions || []).map(e => ledgerRow(e.label, setStatus(e))).join("");
+            const eds = (album.editions || []).filter(e => !state || setStatus(e).state === state);
+            rows += eds.map(e => ledgerRow(e.label, setStatus(e))).join("");
           }
           if (rows) parts.push(rows);
         }
@@ -663,6 +840,57 @@
       // ── Gallery ────────────────────────────────────────────────────────────
       let currentGalleryYear = null;
       let currentGalleryTab  = null;
+      let currentGridSet     = null;
+      let gridFilter         = null; // null = all; else "is-confirmed" | "is-pending" | "is-coming"
+
+      // Render the numbered sticker grid for currentGridSet, honoring gridFilter
+      function renderStickerGrid() {
+        const gset   = currentGridSet;
+        const panel  = document.getElementById("gallery-set-panel");
+        const headEl = document.getElementById("gallery-set-label");
+        const owned  = parseRanges(gset.owned);
+        const coming = parseRanges(gset.coming);
+        const tot    = gridTotal(gset);
+        const stateOf = num => owned.has(num) ? "is-confirmed" : coming.has(num) ? "is-coming" : "is-pending";
+        headEl.hidden = false;
+        headEl.textContent = `Postales: ${owned.size}/${tot}`;
+
+        // Which states are present → which filter buttons to show
+        const present = new Set();
+        let k = 0;
+        (gset.groups || [{ names: Array.from({ length: tot }) }]).forEach(g =>
+          g.names.forEach(() => present.add(stateOf(++k))));
+        const FILTERS = [
+          { key: null,           label: "Todo" },
+          { key: "is-coming",    label: "De camino" },
+          { key: "is-confirmed", label: "Tengo" },
+          { key: "is-pending",   label: "Falta" },
+        ].filter(f => f.key === null || present.has(f.key));
+        const bar = FILTERS.map(f =>
+          `<button class="view-tab grid-filter-btn${f.key === gridFilter ? " is-active" : ""}" data-gf="${f.key ?? ""}" type="button">${f.label}</button>`).join("");
+
+        let n = 0;
+        let body;
+        if (gset.groups) {
+          const chip = (num, nm) => {
+            const st = stateOf(num);
+            return gridFilter && st !== gridFilter ? "" : `<span class="chip ${st}"><span class="chip-n">${num}</span> ${nm}</span>`;
+          };
+          body = `<div class="sticker-rows">${gset.groups.map(g => {
+            const chips = g.names.map(nm => chip(++n, nm)).join("");
+            return chips ? `<div class="sticker-row"><div class="sticker-cat">${g.cat}</div><div class="sticker-chips">${chips}</div></div>` : "";
+          }).join("")}</div>`;
+        } else {
+          let cells = "";
+          for (let i = 1; i <= tot; i++) {
+            const st = stateOf(i);
+            if (!gridFilter || st === gridFilter) cells += `<div class="grid-cell ${st}">${i}</div>`;
+          }
+          body = `<div class="sticker-grid">${cells}</div>`;
+        }
+        panel.className = "grid-wrap";
+        panel.innerHTML = `<div class="grid-filter">${bar}</div>${body}`;
+      }
 
       // Tabs for one year: photos first, then sticker sets — a set gets a tab
       // once at least one of its rows is green; the panel holds a scan
@@ -673,7 +901,9 @@
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
         // Set tabs in the same canonical order as the main grid's tab bar.
         // Player sets (afterPostales) have their own tabs and never appear here.
-        if (album.postales && setPlaceholderEntries(album, "postales").length) {
+        // Postales tab is always available so you can open it even with nothing
+        // collected yet (impossible-set lot tracking)
+        if (album.postales) {
           tabs.push({ key: "postales", label: "Postales" });
         }
         setColumns().forEach(c => {
@@ -741,19 +971,34 @@
         if (isSet) {
           const tabDef  = tabs.find(t => t.key === key);
           const label   = tabDef ? tabDef.label : "";
-          const entries = setPlaceholderEntries(album, key);
-          // Same heading rule as Álbumes/Sobres: hidden when there's only one
           const headEl  = document.getElementById("gallery-set-label");
-          headEl.hidden = entries.length === 1;
-          headEl.textContent = `${label}: ${entries.length}`;
-          const panel = document.getElementById("gallery-set-panel");
-          // Natural-size flex layout (no cols-N): placeholders stay tile-sized
-          // instead of stretching to fill grid columns
-          panel.className = "gallery-images";
-          panel.innerHTML = entries.map(en => `<figure class="gallery-figure is-placeholder">
-              <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" role="button" tabindex="0" />
-              <figcaption class="gallery-label">${en.label}${en.value !== "" ? ` · ${en.value}` : ""}</figcaption>
-            </figure>`).join("");
+          const panel   = document.getElementById("gallery-set-panel");
+          const gset    = setForFilter(album, key);
+          if (key === "postales" && gset && gset.owned !== undefined) {
+            // Numbered sticker grid with a state filter (all / ready / missing / upcoming)
+            currentGridSet = gset;
+            gridFilter = null; // reset the filter each time the tab is opened
+            renderStickerGrid();
+            renderGalleryTabs(tabs);
+            return;
+          }
+          const entries = setPlaceholderEntries(album, key);
+          if (!entries.length) {
+            // No scans yet — show the lot checklist (✓ / ✗ / ✈️) instead of images
+            headEl.hidden = true;
+            panel.className = "gallery-checklist";
+            panel.innerHTML = setLedgerRows(album, key);
+          } else {
+            // Same heading rule as Álbumes/Sobres: hidden when there's only one
+            headEl.hidden = entries.length === 1;
+            headEl.textContent = `${label}: ${entries.length}`;
+            // Natural-size flex layout (no cols-N): placeholders stay tile-sized
+            panel.className = "gallery-images";
+            panel.innerHTML = entries.map(en => `<figure class="gallery-figure is-placeholder">
+                <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" role="button" tabindex="0" />
+                <figcaption class="gallery-label">${en.label}${en.value !== "" ? ` · ${en.value}` : ""}</figcaption>
+              </figure>`).join("");
+          }
         }
         renderGalleryTabs(tabs);
       }
@@ -841,13 +1086,10 @@
 
         const titleEl = document.querySelector(".inv-title");
         titleEl.classList.add("is-gallery");
-        document.getElementById("inv-title-text").textContent = isStory ? album.host : `${album.host} ${album.year}`;
+        const soloTitle = isStory || year === 2026; // host already reads as a full name
+        document.getElementById("inv-title-text").textContent = soloTitle ? album.host : `${album.host} ${album.year}`;
         document.querySelector(".inv-version").hidden = true;
-        if (window.innerWidth <= 480) {
-          if      (year === 2026) titleEl.style.fontSize = "5vw";
-          else if (year === 2002) titleEl.style.fontSize = "7.5vw";
-          else                    titleEl.style.fontSize = "";
-        }
+        titleEl.style.fontSize = ""; // names are short now — use the default responsive size
 
         const albumsSection = document.getElementById("gallery-albums-section");
         if (counts.albumPaths.length) {
@@ -888,10 +1130,11 @@
           sobresSection.hidden = true;
         }
 
-        // Land on the requested tab when this year has it (e.g. arriving from a
-        // set tab in the main grid); otherwise every year starts on its first tab
+        // Land on the requested tab only if it has content; otherwise fall back
+        // to the first available tab (e.g. the scan-less Postales of 1970-1982)
         const tabs = galleryTabsFor(album, counts);
-        const start = initialTab && tabs.some(t => t.key === initialTab) ? initialTab : tabs.length ? tabs[0].key : null;
+        const canLand = initialTab && tabs.some(t => t.key === initialTab) && setPlaceholderEntries(album, initialTab).length > 0;
+        const start = canLand ? initialTab : tabs.length ? tabs[0].key : null;
         if (start) showGalleryTab(start);
 
         document.getElementById("view-tabs").hidden    = true;
@@ -938,6 +1181,13 @@
       document.getElementById("gallery-back").addEventListener("click", hideGallery);
       document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
       document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
+      document.getElementById("gallery-set-panel").addEventListener("click", e => {
+        const btn = e.target.closest(".grid-filter-btn");
+        if (!btn) return;
+        gridFilter = btn.dataset.gf || null;
+        renderStickerGrid();
+      });
+
       document.getElementById("gallery-tabs").addEventListener("click", e => {
         const btn = e.target.closest(".view-tab");
         if (btn) showGalleryTab(btn.dataset.tab);
@@ -978,13 +1228,14 @@
       let currentSubFilter = null; // coming | pending | complete | null
 
       const SUB_TABS = [
-        { state: "coming",   label: "Upcoming" },
-        { state: "complete", label: "Ready" },
-        { state: "pending",  label: "Missing" },
+        { state: null,       label: "Todo" },
+        { state: "coming",   label: "De camino" },
+        { state: "complete", label: "Tengo" },
+        { state: "pending",  label: "Falta" },
       ];
 
-      // Sub tabs apply to every set tab except Postales
-      const hasSubTabs = key => !!key && key !== "postales";
+      // Sub tabs apply to every set tab, Postales included
+      const hasSubTabs = key => !!key;
 
       // Which states exist anywhere in a tab (host set + its showWith partners)
       function tabStates(key) {
@@ -1008,11 +1259,12 @@
           return;
         }
         const avail = tabStates(currentFilter);
-        const tabs = SUB_TABS.filter(t => avail.has(t.state));
-        nav.hidden = tabs.length === 0;
+        // "All" (state null) is always present; then only the states that exist
+        const tabs = SUB_TABS.filter(t => t.state === null || avail.has(t.state));
+        nav.hidden = avail.size === 0;
         nav.innerHTML = tabs.map(t => {
           const active = t.state === currentSubFilter;
-          return `<button class="view-tab sub-tab${active ? " is-active" : ""}" data-state="${t.state}" type="button" aria-pressed="${active}">${t.label}</button>`;
+          return `<button class="view-tab sub-tab${active ? " is-active" : ""}" data-state="${t.state ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
         }).join("");
       }
 
@@ -1039,10 +1291,7 @@
         const btn = e.target.closest(".view-tab");
         if (!btn) return;
         currentFilter = btn.dataset.set || null;
-        // Land on the first sub tab that has rows (Upcoming → Missing → Ready)
-        currentSubFilter = hasSubTabs(currentFilter)
-          ? SUB_TABS.map(t => t.state).find(st => tabStates(currentFilter).has(st)) || null
-          : null;
+        currentSubFilter = null; // default to the "All" sub tab
         renderTabs();
         renderSubTabs();
         renderGrid(currentFilter);
@@ -1052,7 +1301,7 @@
       document.getElementById("sub-tabs").addEventListener("click", e => {
         const btn = e.target.closest(".sub-tab");
         if (!btn) return;
-        currentSubFilter = btn.dataset.state;
+        currentSubFilter = btn.dataset.state || null;
         renderSubTabs();
         renderGrid(currentFilter);
       });
