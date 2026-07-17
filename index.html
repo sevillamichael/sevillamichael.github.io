@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.7.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.7.1</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -303,9 +303,9 @@
             { label: "UK and Eire",  total: 416, complete: false },
           ] } },
         { year: 1998, host: "France",             postales: { total: 561, collected: 561 },
-          sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", items: [
-            { label: "Inglaterra", total: 3,  collected: 3 },
+          sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", keepOrder: true, items: [
             { label: "Irán",       total: 10, collected: 10 },
+            { label: "Inglaterra", total: 3,  collected: 3 },
           ] }] },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
             { label: "Set",    total: 576, collected: 576 },
@@ -337,14 +337,14 @@
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "CC Set",       total: 60, complete: true },
               { label: "CC A-T",       total: 9,  complete: false },
-              { label: "CC German",    total: 4,  complete: false },
+              { label: "CC Alemania",  total: 4,  complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Chile (A-I)",                total: 9,  complete: false },
               { label: "Extra (Brasil)",             total: 6,  complete: false },
               { label: "Pop-up Chile",               total: 17, complete: false },
-              { label: "Swiss (P1-P20)",             total: 20, complete: false },
-              { label: "Tournament Tracker (A-X)",   total: 24, complete: false },
+              { label: "Suiza (P1-P20)",             total: 20, complete: false },
+              { label: "TT (A-X)",                   total: 24, complete: false },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, complete: false },
@@ -368,7 +368,7 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "CC A-F",    total: 6, complete: false },
-              { label: "CC Mexico",            complete: false },
+              { label: "CC Mexico", total: 8, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Brasil (J1-W1)", total: 9,  complete: false },
@@ -379,8 +379,8 @@
               { label: "Bélgica",  total: 6,  complete: false },
               { label: "Brasil",   total: 6,  complete: false },
               { label: "Colombia", total: 1,  complete: false },
-              { label: "Spain",    total: 6,  complete: false },
-              { label: "France",   total: 7,  complete: false },
+              { label: "España",   total: 6,  complete: false },
+              { label: "Francia",  total: 7,  complete: false },
               { label: "Portugal", total: 7,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -403,14 +403,20 @@
           editions: [{ label: "Gold", complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Mexico",   total: 9, complete: false },
-              { label: "CC Germany",  total: 9, coming: true },
-              { label: "CC Portugal", total: 8, coming: true },
-              { label: "CC Russia",   total: 8, coming: true },
+              { label: "CC Mexico",  total: 9,  complete: false },
+              { label: "CC Austria", total: 12, complete: false },
+            ] },
+            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+              { label: "Mc Dinamarca", total: 8, complete: false },
+              { label: "Mc Alemania",  total: 9, coming: true },
+              { label: "Mc Portugal",  total: 8, coming: true },
+              { label: "Mc Rusia",     total: 8, coming: true },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización",    total: 92, coming: true },
-              { label: "Brasil Exclusive", total: 8,  coming: true },
+              { label: "Actualización", total: 92, coming: true },
+              { label: "Brasil",        total: 8,  coming: true },
+              { label: "España",        total: 6,  complete: false },
+              { label: "Francia",       total: 6,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "288 Black Back", complete: true },
@@ -440,15 +446,18 @@
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Believers", total: 14, complete: false },
-              { label: "CC Brasil",    total: 8,  coming: true },
+              { label: "CC Serbia", total: 14, complete: false },
+              { label: "CC Brasil", total: 8,  coming: true },
+              { label: "CC Corea",  total: 14, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
-              { label: "Extras", total: 80, collected: 80 },
-              { label: "Letras", total: 22, complete: true },
+              { label: "Extras",     total: 80, collected: 80 },
+              { label: "Letras",     total: 22, complete: true },
+              { label: "McDonald's", total: 8,  complete: false },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, complete: true },
+              { label: "España",        total: 8,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG19 International", complete: true },
@@ -500,17 +509,19 @@
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Latin America",     total: 14, collected: 14 },
+              { label: "CC Latinoamérica",     total: 14, collected: 14 },
               { label: "CC USA/Canada",        total: 12, collected: 12 },
               { label: "CC Europa",            total: 12, collected: 0 },
-              { label: "CC Rest of the World", total: 14, collected: 0 },
+              { label: "CC Internacional",     total: 14, collected: 0 },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "McDonald's", total: 28, collected: 28 },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 120, complete: true },
+              { label: "Actualización",    total: 120, complete: true },
+              { label: "España",           total: 6,   complete: false },
+              { label: "Posters (P1-P16)", total: 16,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG17 Standard",      complete: true },
@@ -630,10 +641,16 @@
 
       // state (optional) keeps only rows in that state; item dividers split the
       // list into sections and survive between sections that still have rows
+      // Otros-tab sets (Actualización / Coca Cola / Otros) sort their rows A-Z;
+      // postales grids and player tabs keep their fixed order. A set can opt out
+      // of the A-Z sort with keepOrder: true (e.g. to match the album's order).
+      const OTROS_IDS = new Set(["actualizacion", "coca-cola", "otros"]);
       const setRowsHtml = (s, state) => {
         if (Array.isArray(s.items) && s.items.length) {
+          let items = s.items;
+          if (OTROS_IDS.has(s.id) && !s.keepOrder) items = [...items].sort((a, b) => a.label.localeCompare(b.label, "es"));
           const sections = [[]];
-          s.items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
+          items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
           return sections
             .map(sec => (state ? sec.filter(it => setStatus(it).state === state) : sec)
               .map(it => ledgerRow(it.label, setStatus(it))).join(""))
