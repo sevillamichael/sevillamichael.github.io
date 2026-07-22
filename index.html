@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.2</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -453,13 +453,13 @@
                 "G El Bote",
                 "H El Rockero",
               ] },
-              { label: "M. Klose", total: 4, complete: false },
+              { label: "M. Klose", total: 4, coming: true },
               { label: "Trophy Tour", total: 1, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Jabulani (A-I)",              total: 9,  complete: false },
               { label: "VISA (A1-D1)",                total: 4,  complete: false },
-              { label: "Tournament Tracker", total: 24, complete: false, sub: [
+              { label: "Tournament Tracker", total: 24, coming: true, sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
                 "C Lionel Messi",
@@ -517,7 +517,7 @@
           editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "Austria", total: 6, complete: false, sub: [
+              { label: "Austria", total: 6, coming: true, sub: [
                 "A Javier Hernández",
                 "B Daniele De Rossi",
                 "C Javier Mascherano",
@@ -528,7 +528,7 @@
               { label: "México (CC1-CC8)", total: 8, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
-              { label: "Brasil", total: 9,  complete: false, sub: [
+              { label: "Brasil", total: 9,  coming: true, sub: [
                 "J1-J4",
                 "L1-L4",
                 "W1",
@@ -1198,7 +1198,16 @@
                 const headerMain = main && matching.indexOf(main) >= 0;
                 const panelItems = headerMain ? matching.filter(it => it !== main) : matching;
                 const headerSt = headerMain ? otrosStrip(setStatus(main)) : { state: "none", detail: "" };
-                if (!panelItems.length) return ledgerRow(s.label, headerSt);
+                if (!panelItems.length) {
+                  // Sole match is the main item. If it carries its own sub (e.g. 2006,
+                  // whose whole set is one item + name list), show that as the opened
+                  // panel; otherwise it's just a plain row.
+                  if (main && main.sub && main.sub.length) {
+                    const lines = main.sub.map(line => `<div class="exp-line">${line}</div>`).join("");
+                    return expBlock(s.label, headerSt, lines, true);
+                  }
+                  return ledgerRow(s.label, headerSt);
+                }
                 return expBlock(s.label, headerSt, panelItems.map(it => expItemHtml(it, true)).join(""), true);
               }
             }
