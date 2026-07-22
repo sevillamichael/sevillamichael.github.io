@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.1</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -330,11 +330,11 @@
           sets: [
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Brasil",        total: 5,  complete: false, sub: [
-                "#171-ex Marcos",
-                "#173-ex Juan",
-                "#177-ex Edmílson",
-                "#178-ex Belletti",
-                "#179-ex Ronaldinho",
+                "171-ex Marcos",
+                "173-ex Juan",
+                "177-ex Edmílson",
+                "178-ex Belletti",
+                "179-ex Ronaldinho",
               ] },
               { label: "México",        total: 12, complete: false, sub: [
                 "Jorge Campos",
@@ -356,15 +356,16 @@
         { year: 2006, host: "Germany",            postales: { total: 596, collected: 596 },
           sets: [
             { id: "actualizacion", label: "Actualización", keepOrder: true, items: [
-              { label: "Actualización", total: 8, complete: false },
-              { label: "Panini Calciatori",         complete: false },
-              { label: "Theo Walcott",              complete: false },
-              { label: "Michael Carrick",           complete: false },
-              { label: "Stewart Downing",           complete: false },
-              { label: "Owen Hargreaves",           complete: false },
-              { label: "Jens Lehmann",              complete: false },
-              { label: "Filippo Inzaghi",           complete: false },
-              { label: "Edgar Barreto",             complete: false },
+              { label: "Actualización", total: 8, complete: false, sub: [
+                "Panini Calciatori",
+                "Theo Walcott",
+                "Michael Carrick",
+                "Stewart Downing",
+                "Owen Hargreaves",
+                "Jens Lehmann",
+                "Filippo Inzaghi",
+                "Edgar Barreto",
+              ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", complete: false },
@@ -504,13 +505,11 @@
               { label: "122 Blue Back",  complete: true },
               { label: "Coca Cola",      complete: true },
               { label: "TT-C",           complete: false },
-              { divider: true },
               { label: "122 Swiss",      complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559 Black Back", coming: true },
               { label: "559 Blue Back",  complete: true },
-              { divider: true },
               { label: "559 Swiss",      complete: false },
             ] },
           ] },
@@ -612,16 +611,18 @@
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "430",          complete: true },
-              { label: "V9",           coming: true },
-              { divider: true },
-              { label: "430 Platinum", complete: false },
-              { label: "P1 Platinum",  coming: true },
+              { label: "430", complete: true },
+              { label: "V9",  coming: true },
+              { label: "Platinum", items: [
+                { label: "430", complete: false },
+                { label: "P1",  coming: true },
+              ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "523",          complete: true },
-              { divider: true },
-              { label: "523 Platinum", complete: true },
+              { label: "523", complete: true },
+              { label: "Platinum", items: [
+                { label: "523", complete: true },
+              ] },
             ] },
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
@@ -642,7 +643,7 @@
                 "CC8 Raúl Jiménez",
                 "CC9 Oribe Peralta",
               ] },
-              { label: "Legends", total: 12, complete: false, sub: [
+              { label: "Legends", total: 12, coming: true, sub: [
                 "CC1 Pelé",
                 "CC2 Franz Beckenbauer",
                 "CC3 Mario Kempes",
@@ -765,20 +766,17 @@
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "288 Black Back", complete: true },
               { label: "276 Pink Back",  complete: true },
-              { divider: true },
               { label: "288 Gold",       coming: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "130 Black Back", coming: true },
               { label: "MP6 McDonald's", complete: false },
               { label: "118 Pink Back",  complete: true },
-              { divider: true },
               { label: "130 Gold",       coming: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "209 Black Back", complete: true },
               { label: "197 Pink Back",  complete: true },
-              { divider: true },
               { label: "209 Gold",       complete: false },
             ] },
           ] },
@@ -806,22 +804,12 @@
                 "C13 Sergej Milinković-Savić",
                 "C14 Hirving Lozano",
               ] },
-              { label: "Team Believers", total: 8,  coming: true, sub: [
-                "C1 Emiliano Martínez",
-                "C2 Serge Gnabry",
-                "C3 Kevin De Bruyne",
-                "C4 Luka Modrić",
-                "C5 Declan Rice",
-                "C6 Gavi",
-                "C7 Hirving Lozano",
-                "C8 Heung-Min Son",
-              ] },
               { label: "Corea",  total: 14, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "Letras",     total: 22, complete: true },
-              { label: "McDonald's", total: 8,  complete: false, sub: [
+              { label: "McDonald's", total: 8,  coming: true, sub: [
                 "M1 Kevin De Bruyne",
                 "M2 Luka Modrić",
                 "M3 Heung-Min Son",
@@ -840,43 +828,49 @@
               { label: "ARG19 International", complete: true },
               { label: "ARG20 Oryx",          coming: true },
               { label: "ARG20 Standard",      complete: true },
-              { divider: true },
-              { label: "ARG20 USA",           coming: true },
-              { label: "ARG20 USA Blue",      coming: true },
-              { label: "ARG20 USA Red",       complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: false },
-              { label: "Extra Gold",          complete: false },
+              { label: "USA", items: [
+                { label: "ARG20",         coming: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: false },
+                { label: "Gold",   complete: false },
+              ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR17 International", complete: true },
               { label: "POR18 Oryx",          coming: true },
               { label: "POR18 Standard",      coming: true },
-              { divider: true },
-              { label: "POR18 USA",           coming: true },
-              { label: "POR18 USA Blue",      coming: true },
-              { label: "POR18 USA Red",       complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: false },
-              { label: "Extra Gold",          complete: true },
+              { label: "USA", items: [
+                { label: "POR18",         coming: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: false },
+                { label: "Gold",   complete: true },
+              ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA18 International", complete: true },
               { label: "FRA19 Oryx",          complete: false },
               { label: "FRA19 Standard",      coming: true },
-              { divider: true },
-              { label: "FRA19 USA",           coming: true },
-              { label: "FRA19 USA Blue",      coming: true },
-              { label: "FRA19 USA Red",       complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: true },
-              { label: "Extra Gold",          complete: true },
+              { label: "USA", items: [
+                { label: "FRA19",         coming: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: true },
+                { label: "Gold",   complete: true },
+              ] },
             ] },
           ] },
         { year: 2026, host: "World Cup 26",        postales: { items: [
@@ -972,47 +966,53 @@
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG17 Standard",      complete: true },
               { label: "ARG17 United",        complete: false },
-              { divider: true },
-              { label: "ARG17 USA/Canada",    complete: true },
-              { label: "ARG17 USA Blue",      coming: true },
-              { label: "ARG17 USA Red",       complete: false },
-              { label: "ARG17 Amazon",        complete: false },
-              { label: "ARG17 Gold Crumple",  complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: true },
-              { label: "Extra Gold",          complete: true },
+              { label: "USA", items: [
+                { label: "ARG17",         complete: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  complete: false },
+                { label: "Amazon",        complete: false },
+                { label: "Gold Crumple",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: true },
+                { label: "Gold",   complete: true },
+              ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR15 Standard",      complete: true },
               { label: "POR15 United",        complete: false },
-              { divider: true },
-              { label: "POR15 USA/Canada",    coming: true },
-              { label: "POR15 USA Blue",      coming: true },
-              { label: "POR15 USA Red",       complete: false },
-              { label: "POR15 Amazon",        complete: false },
-              { label: "POR15 Gold Crumple",  complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: true },
-              { label: "Extra Gold",          complete: false },
+              { label: "USA", items: [
+                { label: "POR15",         coming: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  complete: false },
+                { label: "Amazon",        complete: false },
+                { label: "Gold Crumple",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: true },
+                { label: "Gold",   complete: false },
+              ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA20 Standard",      complete: true },
               { label: "FRA20 United",        complete: false },
-              { divider: true },
-              { label: "FRA20 USA/Canada",    coming: true },
-              { label: "FRA20 USA Blue",      coming: true },
-              { label: "FRA20 USA Red",       complete: false },
-              { label: "FRA20 Amazon",        complete: false },
-              { label: "FRA20 Gold Crumple",  complete: false },
-              { divider: true },
-              { label: "Extra Base",          complete: true },
-              { label: "Extra Bronze",        complete: true },
-              { label: "Extra Silver",        complete: true },
-              { label: "Extra Gold",          complete: false },
+              { label: "USA", items: [
+                { label: "FRA20",         coming: true },
+                { label: "Blue Parallel", coming: true },
+                { label: "Red Parallel",  coming: true },
+                { label: "Amazon",        complete: false },
+                { label: "Gold Crumple",  complete: false },
+              ] },
+              { label: "Extras", items: [
+                { label: "Base",   complete: true },
+                { label: "Bronze", complete: true },
+                { label: "Silver", complete: true },
+                { label: "Gold",   complete: false },
+              ] },
             ] },
           ] },
       ];
@@ -1050,6 +1050,19 @@
         }
         if (Array.isArray(s.items) && s.items.length) {
           const real = s.items.filter(it => !it.divider);
+          // Icon inheritance: when every item shares one state, the parent shows it
+          // (e.g. an all-"De camino" McDonald's reads as ✈️, not the ✗ the have/total
+          // rollup would give). Actualización is excluded — its header uses its own
+          // "main" item instead.
+          if (s.id !== "actualizacion" && real.length) {
+            const states = new Set(real.map(it => setStatus(it).state));
+            if (states.size === 1) {
+              const only = [...states][0];
+              if (only === "complete") return { state: "complete", summary: "", detail: "" };
+              if (only === "coming")   return { state: "coming",   summary: "", detail: `${real.length}` };
+              if (only === "pending")  return { state: "pending",  summary: "", detail: `${real.length}` };
+            }
+          }
           const done = real.filter(it => setStatus(it).state === "complete").length;
           return done === real.length
             ? { state: "complete", summary: "", detail: "" }
@@ -1109,19 +1122,36 @@
       // An expandable block: a labeled/valued row with a caret that toggles an
       // inline panel below it (grows the card in-flow — no floating popup). The
       // panel holds any child HTML, so blocks nest freely (set → version → list).
-      function expBlock(label, st, innerHtml) {
-        return `<div class="exp">
+      function expBlock(label, st, innerHtml, open) {
+        return `<div class="exp${open ? " open" : ""}">
             <div class="card-count-row">
-              <span class="count-label"><span class="count-label-text">${label}</span><button type="button" class="exp-toggle" aria-expanded="false" aria-label="${label}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
+              <span class="count-label"><span class="count-label-text">${label}</span><button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${label}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
               <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
             </div>
             <div class="exp-panel">${innerHtml}</div>
           </div>`;
       }
 
-      // A row for an item inside a panel; if it carries sub: [...] (plain
-      // reference lines), it becomes its own nested expandable block.
-      function expItemHtml(it, stripFrac) {
+      // A row for an item inside a panel.
+      //  - items: [...] (stateful children, e.g. a player's "Extras"/"USA") → a block
+      //    whose children each keep their own icon. In a state subtab it shows ONLY the
+      //    children in that state (hidden if none), opens by default, and its header
+      //    carries no icon/number (the subtab already implies the state). Unfiltered it
+      //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
+      //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
+      function expItemHtml(it, stripFrac, state) {
+        if (Array.isArray(it.items) && it.items.length) {
+          let kids = it.items.filter(x => !x.divider);
+          let headerSt;
+          if (state) {
+            kids = kids.filter(x => setStatus(x).state === state);
+            if (!kids.length) return "";
+            headerSt = { state: "none", detail: "" };
+          } else {
+            headerSt = { state: setStatus(it).state, detail: "" }; // icon only, no counter
+          }
+          return expBlock(it.label, headerSt, kids.map(x => expItemHtml(x, stripFrac)).join(""), !!state);
+        }
         const st = stripFrac ? otrosStrip(setStatus(it)) : setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
         const lines = it.sub.map(line => `<div class="exp-line">${line}</div>`).join("");
@@ -1157,12 +1187,19 @@
                 const rest = items.filter(it => it !== main && !it.divider);
                 if (rest.length) return expBlock(s.label, otrosStrip(setDisplayStatus(s)), rest.map(it => expItemHtml(it, true)).join(""));
               } else {
-                // State subtabs: keep the section collapsed under one caret, but show no
-                // status icon — the subtab already implies the state, and the section's
-                // own rollup (e.g. Actualización's green ✓) would mislead under Falta.
+                // State subtabs: show the section's items in this state under one caret,
+                // opened by default so they're visible at a glance (nested lists stay
+                // collapsed). If the "main" item (same label as the section) is itself in
+                // this state, it becomes the header — not a duplicate row in the panel —
+                // and it carries its own icon (which matches the subtab, so never
+                // misleads); otherwise the header shows no icon.
                 const matching = items.filter(it => !it.divider && setStatus(it).state === state);
-                if (matching.length) return expBlock(s.label, { state: "none", detail: "" }, matching.map(it => expItemHtml(it, true)).join(""));
-                return "";
+                if (!matching.length) return "";
+                const headerMain = main && matching.indexOf(main) >= 0;
+                const panelItems = headerMain ? matching.filter(it => it !== main) : matching;
+                const headerSt = headerMain ? otrosStrip(setStatus(main)) : { state: "none", detail: "" };
+                if (!panelItems.length) return ledgerRow(s.label, headerSt);
+                return expBlock(s.label, headerSt, panelItems.map(it => expItemHtml(it, true)).join(""), true);
               }
             }
           }
@@ -1170,9 +1207,15 @@
           const otros = OTROS_IDS.has(s.id);
           const sections = [[]];
           items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
+          // Leaf/sub rows show only if their own state matches the subtab; nested carets
+          // (Extras/USA) filter their own children instead, so pass them through — they
+          // open by default and hide themselves when no child matches.
           return sections
-            .map(sec => (state ? sec.filter(it => setStatus(it).state === state) : sec)
-              .map(it => expItemHtml(it, otros)).join(""))
+            .map(sec => sec.map(it => {
+              const nested = Array.isArray(it.items) && it.items.length;
+              if (state && !nested && setStatus(it).state !== state) return "";
+              return expItemHtml(it, otros, state);
+            }).filter(Boolean).join(""))
             .filter(Boolean)
             .join('<div class="card-divider"></div>');
         }
@@ -1197,9 +1240,11 @@
           if (c.showWith === key) {
             const rows = setRowsHtml(c, state);
             if (!rows) return;
-            // The generic "Otros" catch-all stays expanded, set off by a divider
+            // The generic "Otros" catch-all stays expanded, set off by a divider —
+            // but only when something precedes it (else a state subtab that filters out
+            // the sections above would leave a stray divider at the top of the card)
             const genericOtros = c.id === "otros" && c.label === "Otros";
-            parts.push(genericOtros ? `<div class="card-divider"></div>${rows}` : rows);
+            parts.push(genericOtros && parts.length ? `<div class="card-divider"></div>${rows}` : rows);
           }
         });
         return parts.join("");
