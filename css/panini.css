@@ -144,6 +144,74 @@
   opacity: 1;
 }
 
+/* ── Inline expand/collapse (caret) blocks — set & version lists ────────── */
+
+/* Caret toggle button sitting next to a row's label */
+.exp-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: 0;
+  color: var(--subtle);
+  cursor: pointer;
+}
+
+.exp-toggle svg {
+  transform: rotate(-90deg); /* collapsed: points right */
+  transition: transform 0.15s ease;
+}
+
+.exp.open > .card-count-row .exp-toggle svg {
+  transform: rotate(0deg); /* open: points down */
+}
+
+.exp-toggle:hover {
+  color: var(--heading);
+}
+
+.exp-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Inline panel revealed below the row — indented, grows in card flow. No height
+   cap or inner scroll: the list expands fully and the card grows to fit, so there
+   are never scrollbars nested inside the card. */
+.exp-panel {
+  display: none;
+  margin: 2px 0 4px 4px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+
+.exp.open > .exp-panel {
+  display: block;
+}
+
+.exp-panel > .exp,
+.exp-panel > .card-count-row {
+  margin-top: 2px;
+}
+
+/* Plain reference line inside a panel (a version's own sticker list) */
+.exp-line {
+  padding: 2px 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* A blank entry ("") acts as a group separator between, e.g., national squads */
+.exp-line:empty {
+  height: 8px;
+  padding: 0;
+}
+
 /* ── View tabs ──────────────────────────────────────────────────────────── */
 
 .view-tabs {
@@ -369,8 +437,6 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
@@ -395,12 +461,14 @@
   pointer-events: none;
 }
 
-/* Logo area — covers everything above the divider */
+/* Logo area — covers everything above the divider; the only click target */
 .card-logo {
   flex: 0 0 170px;
   height: 170px;
   position: relative;
   overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  cursor: pointer;
   background: var(--surface-strong);
   display: flex;
   align-items: center;
@@ -430,6 +498,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .card-divider {
@@ -437,16 +506,29 @@
   margin: 3px 0;
 }
 
+/* Label wrapper: a flex row holding the label text and, when present, the
+   fixed-size expand caret (which never shrinks) */
 .count-label {
   font-size: 12px;
   font-weight: 600;
   color: var(--muted);
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.count-label-text {
+  min-width: 0;
+  white-space: nowrap; /* one line, never wraps to a 2nd row */
 }
 
 .count-val {
   font-size: 13px;
   font-weight: 700;
   color: var(--heading);
+  flex-shrink: 0;
   min-width: 18px;
   text-align: right;
 }

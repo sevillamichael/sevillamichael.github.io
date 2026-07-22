@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=6" />
+    <link rel="stylesheet" href="css/panini.css?v=7" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.7.8</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -94,7 +94,7 @@
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" tabindex="-1">
-      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-close" aria-label="Close">&times;</button>
       <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
       <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
       <span class="lightbox-counter" id="lightbox-counter"></span>
@@ -147,8 +147,10 @@
       // sets: secondary sticker sets — { id, label, total?, collected?, complete?, items? }
       //   id is the stable cross-year identity (never rename);
       //   label is the display name (rename freely).
-      //   items: [{ label, total?, collected?, complete? }] breaks a set into
+      //   items: [{ label, total?, collected?, complete?, sub? }] breaks a set into
       //   sub-items; the set only reads complete when every item is complete.
+      //   sub: ["plain text", ...] renders indented reference lines under an item
+      //   inside an Otros-tab tooltip (no status of their own).
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   showWith: "<id>" removes the set's own tab; its rows render under
@@ -304,8 +306,22 @@
           ] } },
         { year: 1998, host: "France",             postales: { total: 561, collected: 561 },
           sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", keepOrder: true, items: [
-            { label: "Irán",       total: 10, collected: 10 },
-            { label: "Inglaterra", total: 3,  collected: 3 },
+            { label: "Actualización", total: 13, collected: 13, sub: [
+              "417 Iran Badge",
+              "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
+              "419 Mohammad Ali Peiravani / Reza Shahroudi",
+              "420 Iran Team Photo",
+              "421 Mehdi Pashazadeh / Naeim Sadavi",
+              "422 Aliasghar Modirrousta / Daryoush Yazdani",
+              "423 Hamidreza Estili / Mehrdad Minavand",
+              "424 Karim Bagheri / Alireza Mansourian",
+              "425 Khodadad Azizi / Ali Daei",
+              "426 Mehdi Mahdavikia / Nima Nakissa",
+              "",
+              "467 Tony Adams",
+              "477 Robbie Fowler",
+              "478 Les Ferdinand",
+            ] },
           ] }] },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
             { label: "Set",    total: 576, collected: 576 },
@@ -313,13 +329,42 @@
           ] },
           sets: [
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Brasil", total: 5, complete: false },
+              { label: "Brasil",        total: 5,  complete: false, sub: [
+                "#171-ex Marcos",
+                "#173-ex Juan",
+                "#177-ex Edmílson",
+                "#178-ex Belletti",
+                "#179-ex Ronaldinho",
+              ] },
+              { label: "México",        total: 12, complete: false, sub: [
+                "Jorge Campos",
+                "Sigifredo Mercado",
+                "Salvador Carmona",
+                "Luis Hernández",
+                "Germán Villa",
+                "Braulio Luna",
+                "",
+                "Cristiano Zanetti",
+                "Marco Delvecchio",
+                "Gennaro Gattuso",
+                "Vincenzo Montella",
+                "Christian Panucci",
+                "Luigi Di Biagio",
+              ] },
             ] },
           ] },
         { year: 2006, host: "Germany",            postales: { total: 596, collected: 596 },
           sets: [
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 6, complete: false },
+            { id: "actualizacion", label: "Actualización", keepOrder: true, items: [
+              { label: "Actualización", total: 8, complete: false },
+              { label: "Panini Calciatori",         complete: false },
+              { label: "Theo Walcott",              complete: false },
+              { label: "Michael Carrick",           complete: false },
+              { label: "Stewart Downing",           complete: false },
+              { label: "Owen Hargreaves",           complete: false },
+              { label: "Jens Lehmann",              complete: false },
+              { label: "Filippo Inzaghi",           complete: false },
+              { label: "Edgar Barreto",             complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", complete: false },
@@ -335,18 +380,124 @@
           editions: [{ label: "Swiss", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Set",       total: 60, complete: true },
-              { label: "CC A-T",       total: 9,  complete: false },
-              { label: "CC Alemania",  total: 4,  complete: false },
+              { label: "Sin número", total: 60, complete: true, sub: [
+                "Benni McCarthy (South Africa)",
+                "Steven Pienaar (South Africa)",
+                "Diego Lugano (Uruguay)",
+                "Edinson Cavani (Uruguay)",
+                "Karim Ziani (Algeria)",
+                "Mathieu Valbuena (France)",
+                "Martín Demichelis (Argentina)",
+                "Javier Mascherano (Argentina)",
+                "Lionel Messi (Argentina)",
+                "Diego Milito (Argentina)",
+                "Sergio Agüero (Argentina)",
+                "Obafemi Martins (Nigeria)",
+                "Sotirios Kyrgiakos (Greece)",
+                "Theofanis Gekas (Greece)",
+                "John Terry (England)",
+                "Frank Lampard (England)",
+                "Theo Walcott (England)",
+                "David Beckham (England)",
+                "Dejan Stanković (Serbia)",
+                "Harry Kewell (Australia)",
+                "Daniel Agger (Denmark)",
+                "Nicklas Bendtner (Denmark)",
+                "Michael Essien (Ghana)",
+                "Sulley Muntari (Ghana)",
+                "Robin van Persie (Netherlands)",
+                "Wesley Sneijder (Netherlands)",
+                "Dirk Kuyt (Netherlands)",
+                "Samuel Eto'o (Cameroon)",
+                "Shunsuke Nakamura (Japan)",
+                "Marek Hamšík (Slovakia)",
+                "Gianluigi Buffon (Italy)",
+                "Fabio Cannavaro (Italy)",
+                "Giorgio Chiellini (Italy)",
+                "Daniele De Rossi (Italy)",
+                "Andrea Pirlo (Italy)",
+                "Alberto Gilardino (Italy)",
+                "Roque Santa Cruz (Paraguay)",
+                "Nelson Valdez (Paraguay)",
+                "René Krhin (Slovenia)",
+                "Lúcio (Brazil)",
+                "Daniel Alves (Brazil)",
+                "Elano (Brazil)",
+                "Kaká (Brazil)",
+                "Robinho (Brazil)",
+                "Didier Drogba (Ivory Coast)",
+                "Yaya Touré (Ivory Coast)",
+                "Ricardo Carvalho (Portugal)",
+                "Deco (Portugal)",
+                "Hugo Almeida (Portugal)",
+                "Iker Casillas (Spain)",
+                "Carles Puyol (Spain)",
+                "Xavi Hernández (Spain)",
+                "Xabi Alonso (Spain)",
+                "David Villa (Spain)",
+                "Alexis Sánchez (Chile)",
+                "Claudio Bravo (Chile)",
+                "Alexander Frei (Switzerland)",
+                "Tranquillo Barnetta (Switzerland)",
+                "Gökhan Inler (Switzerland)",
+                "Carlos Pavón (Honduras)",
+              ] },
+              { label: "Celebraciones", total: 8, complete: false, sub: [
+                "A Copa Mundial 2010",
+                "B Mascot",
+                "C El Aeroplano",
+                "D El Arquero",
+                "E La Mecedora",
+                "F El Robot",
+                "G El Bote",
+                "H El Rockero",
+              ] },
+              { label: "M. Klose", total: 4, complete: false },
+              { label: "Trophy Tour", total: 1, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
-              { label: "Chile (A-I)",                total: 9,  complete: false },
-              { label: "Extra (Brasil)",             total: 6,  complete: false },
-              { label: "Pop-up Chile",               total: 17, complete: false },
-              { label: "TT (A-X)",                   total: 24, complete: false },
+              { label: "Jabulani (A-I)",              total: 9,  complete: false },
+              { label: "VISA (A1-D1)",                total: 4,  complete: false },
+              { label: "Tournament Tracker", total: 24, complete: false, sub: [
+                "A John Terry",
+                "B Samuel Eto'o",
+                "C Lionel Messi",
+                "D Fabio Cannavaro",
+                "E Harry Kewell",
+                "F Michael Essien",
+                "G Thierry Henry",
+                "H Cristiano Ronaldo",
+                "I Gianluigi Buffon",
+                "J Kaká",
+                "K Deco",
+                "L Shunsuke Nakamura",
+                "M Steven Gerrard",
+                "N Xabi Alonso",
+                "O Miroslav Klose",
+                "P Robinho",
+                "Q David Villa",
+                "R Yaya Touré",
+                "S Frank Lampard",
+                "T Steven Pienaar",
+                "U Dejan Stanković",
+                "V Dirk Kuyt",
+                "W Franck Ribéry",
+                "X Rio Ferdinand",
+              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, coming: true },
+              { label: "Brasil", total: 9, complete: false, sub: [
+                "Doni",
+                "Gomes",
+                "Thiago Silva",
+                "Gilberto",
+                "Michel Bastos",
+                "Kléberson",
+                "Ramires",
+                "Júlio Baptista",
+                "Grafite",
+              ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "122 Black Back", complete: true },
@@ -367,23 +518,98 @@
           editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Austria", total: 6, complete: false },
-              { label: "CC México",  total: 8, complete: false },
+              { label: "Austria", total: 6, complete: false, sub: [
+                "A Javier Hernández",
+                "B Daniele De Rossi",
+                "C Javier Mascherano",
+                "D Edin Džeko",
+                "E Bruno Alves",
+                "F Axel Witsel",
+              ] },
+              { label: "México (CC1-CC8)", total: 8, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
-              { label: "Brasil (J1-W1)", total: 9,  complete: false },
-              { label: "Ecuador (V1-V11)",  total: 11, coming: true },
-              { label: "Suiza (P1-P20)",    total: 20, complete: false },
+              { label: "Brasil", total: 9,  complete: false, sub: [
+                "J1-J4",
+                "L1-L4",
+                "W1",
+              ] },
+              { label: "VISA", total: 11, coming: true, sub: [
+                "V1 Iker Casillas",
+                "V2 Thiago Silva",
+                "V3 Vincent Kompany",
+                "V4 Philipp Lahm",
+                "V5 Antonio Valencia",
+                "V6 Xavi Hernandez",
+                "V7 Andrea Pirlo",
+                "V8 Arturo Vidal",
+                "V9 Lionel Messi",
+                "V10 Edinson Cavani",
+                "V11 Neymar Jr",
+              ] },
+              { label: "USA", total: 3, coming: true, sub: [
+                "640 UNITY",
+                "641 FRIENDSHIP",
+                "642 FAIRPLAY",
+              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 72, complete: true },
-              { label: "Bélgica",  total: 6,  complete: false },
-              { label: "Brasil",   total: 6,  complete: false },
+              { label: "Bélgica",  total: 6,  complete: false, sub: [
+                "Divock Origi",
+                "Adnan Januzaj",
+                "Simon Mignolet",
+                "Sammy Bossut",
+                "Laurent Ciman",
+                "Anthony Vanden Borre",
+              ] },
+              { label: "Brasil",   total: 6,  complete: false, sub: [
+                "Jefferson",
+                "Victor",
+                "Henrique",
+                "Maicon",
+                "Maxwell",
+                "Fernandinho",
+              ] },
               { label: "Colombia", total: 1,  coming: true },
-              { label: "España",   total: 9,  complete: false },
-              { label: "Francia",  total: 9,  complete: false },
-              { label: "USA",      total: 3,  coming: true },
-              { label: "Portugal", total: 9,  complete: false },
+              { label: "Italia",   total: 4,  complete: false, sub: [
+                "Alberto Aquilani",
+                "Marco Verratti",
+                "Antonio Cassano",
+                "Ciro Immobile",
+              ] },
+              { label: "España",   total: 9,  complete: false, sub: [
+                "Pepe Reina",
+                "David De Gea",
+                "César Azpilicueta",
+                "Juanfran",
+                "Javi Martínez",
+                "Koke",
+                "Santi Cazorla",
+                "Fernando Torres",
+                "Diego Costa",
+              ] },
+              { label: "Francia",  total: 9,  complete: false, sub: [
+                "Steve Mandanda",
+                "Stéphane Ruffier",
+                "Lucas Digne",
+                "Eliaquim Mangala",
+                "Bacary Sagna",
+                "Clément Grenier",
+                "Josuha Guilavogui",
+                "Antoine Griezmann",
+                "Dimitri Payet",
+              ] },
+              { label: "Portugal", total: 9,  complete: false, sub: [
+                "Beto",
+                "Eduardo",
+                "André Almeida",
+                "Neto",
+                "Rúben Amorim",
+                "Rafa",
+                "Éder",
+                "Vieirinha",
+              ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430",          complete: true },
@@ -405,20 +631,135 @@
           editions: [{ label: "Gold", complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC México",  total: 9,  complete: false },
+              { label: "México",  total: 9,  complete: false, sub: [
+                "CC1 Jesús Corona",
+                "CC2 Diego Reyes",
+                "CC3 Héctor Moreno",
+                "CC4 Giovani dos Santos",
+                "CC5 Héctor Herrera",
+                "CC6 Javier Aquino",
+                "CC7 Carlos Vela",
+                "CC8 Raúl Jiménez",
+                "CC9 Oribe Peralta",
+              ] },
+              { label: "Legends", total: 12, complete: false, sub: [
+                "CC1 Pelé",
+                "CC2 Franz Beckenbauer",
+                "CC3 Mario Kempes",
+                "CC4 Karl-Heinz Rummenigge",
+                "CC5 Diego Armando Maradona",
+                "CC6 Paolo Maldini",
+                "CC7 Carlos Valderrama",
+                "CC8 Michael Owen",
+                "CC9 Rivaldo",
+                "CC10 Fabio Cannavaro",
+                "CC11 Carles Puyol",
+                "CC12 Miroslav Klose",
+              ] },
             ] },
-            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
-              { label: "Mc Dinamarca",    total: 8,  complete: false },
-              { label: "Mc Alemania",     total: 9,  coming: true },
-              { label: "Mc Alemania Set", total: 40, coming: true },
-              { label: "Mc Portugal",  total: 8, coming: true },
-              { label: "Mc Rusia",     total: 8, coming: true },
+            { id: "otros",         label: "McDonald's",    showWith: "actualizacion", items: [
+              { label: "Alemania",     total: 9,  coming: true, sub: [
+                "M1 Jérôme Boateng",
+                "M2 Manuel Neuer",
+                "M3 Mats Hummels",
+                "M4 Julian Draxler",
+                "M5 Mario Götze",
+                "M6 Toni Kroos",
+                "M7 Mesut Özil",
+                "M8 Timo Werner",
+                "M9 Thomas Müller",
+              ] },
+              { label: "Sin número", total: 40, coming: true, sub: [
+                "Igor Akinfeev",
+                "Viktor Vasin",
+                "Aleksei Miranchuk",
+                "Fedor Smolov",
+                "Aleksandr Kokorin",
+                "",
+                "Mitchell Langerak",
+                "Tom Rogic",
+                "Mathew Leckie",
+                "Robbie Kruse",
+                "",
+                "Christian Eriksen",
+                "Thomas Delaney",
+                "Nicolai Jørgensen",
+                "Pione Sisto",
+                "Simon Kjær",
+                "",
+                "Gylfi Sigurðsson",
+                "Aron Gunnarsson",
+                "Björn Sigurðarson",
+                "Hjörvar Sverrisson",
+                "",
+                "Christian Bolaños",
+                "Michael Umaña",
+                "Johnny Acosta",
+                "Bryan Ruiz",
+                "",
+                "Mats Hummels",
+                "Joshua Kimmich",
+                "Toni Kroos",
+                "Leroy Sané",
+                "Timo Werner",
+                "",
+                "Andrés Guardado",
+                "Héctor Herrera",
+                "Hirving Lozano",
+                "Javier Hernández",
+                "",
+                "Thibaut Courtois",
+                "Kevin De Bruyne",
+                "Youri Tielemans",
+                "Dries Mertens",
+                "Romelu Lukaku",
+                "",
+                "Álvaro Morata",
+                "Isco",
+                "Sergio Ramos",
+                "Gerard Piqué",
+              ] },
+              { label: "Portugal",  total: 8, coming: true, sub: [
+                "M1 Rui Patrício",
+                "M2 João Mário",
+                "M3 João Moutinho",
+                "M4 William Carvalho",
+                "M5 André Gomes",
+                "M6 Cristiano Ronaldo",
+                "M7 Bernardo Silva",
+                "M8 André Silva",
+              ] },
+              { label: "Rusia",     total: 8, coming: true, sub: [
+                "M1 Igor Akinfeev",
+                "M2 Igor Smolnikov",
+                "M3 Denis Glushakov",
+                "M4 Aleksandr Golovin",
+                "M5 Yuri Zhirkov",
+                "M6 Aleksandr Samedov",
+                "M7 Fedor Smolov",
+                "M8 Dmitri Poloz",
+              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 92, coming: true },
               { label: "Brasil",        total: 8,  coming: true },
-              { label: "España",        total: 7,  complete: false },
-              { label: "Francia",       total: 6,  complete: false },
+              { label: "España",        total: 7,  complete: false, sub: [
+                "Pepe Reina",
+                "Kepa Arrizabalaga",
+                "Álvaro Odriozola",
+                "César Azpilicueta",
+                "Lucas Vázquez",
+                "Iago Aspas",
+                "Rodrigo",
+              ] },
+              { label: "Francia",       total: 6,  complete: false, sub: [
+                "Steve Mandanda",
+                "Benjamin Pavard",
+                "Presnel Kimpembe",
+                "Corentin Tolisso",
+                "Nabil Fekir",
+                "Florian Thauvin",
+              ] },
               { label: "México",        total: 5,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -449,14 +790,47 @@
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Serbia", total: 14, complete: false },
-              { label: "CC Brasil", total: 8,  coming: true },
-              { label: "CC Corea",  total: 14, complete: false },
+              { label: "Team Believers", total: 14, complete: false, sub: [
+                "C1 Eden Hazard",
+                "C2 Serge Gnabry",
+                "C3 Ángel Di María",
+                "C4 Kevin De Bruyne",
+                "C5 Adrien Rabiot",
+                "C6 Emiliano Martínez",
+                "C7 Steven Bergwijn",
+                "C8 Gavi",
+                "C9 Declan Rice",
+                "C10 Raúl Jiménez",
+                "C11 Luka Modrić",
+                "C12 Heung-Min Son",
+                "C13 Sergej Milinković-Savić",
+                "C14 Hirving Lozano",
+              ] },
+              { label: "Team Believers", total: 8,  coming: true, sub: [
+                "C1 Emiliano Martínez",
+                "C2 Serge Gnabry",
+                "C3 Kevin De Bruyne",
+                "C4 Luka Modrić",
+                "C5 Declan Rice",
+                "C6 Gavi",
+                "C7 Hirving Lozano",
+                "C8 Heung-Min Son",
+              ] },
+              { label: "Corea",  total: 14, complete: false },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "Letras",     total: 22, complete: true },
-              { label: "McDonald's", total: 8,  complete: false },
+              { label: "McDonald's", total: 8,  complete: false, sub: [
+                "M1 Kevin De Bruyne",
+                "M2 Luka Modrić",
+                "M3 Heung-Min Son",
+                "M4 Ángel Di María",
+                "M5 Thiago Silva",
+                "M6 Sergej Milinković-Savić",
+                "M7 Declan Rice",
+                "M8 Hirving Lozano",
+              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización", total: 80, complete: true },
@@ -512,14 +886,83 @@
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
-              { label: "CC Latinoamérica",     total: 14, collected: 14 },
-              { label: "CC USA/Canadá",        total: 12, collected: 12 },
-              { label: "CC Europa",            total: 12, collected: 0 },
-              { label: "CC Internacional",     total: 14, collected: 0 },
+              { label: "Latinoamérica",     total: 14, collected: 14, sub: [
+                "CC1 Lamine Yamal",
+                "CC2 Joshua Kimmich",
+                "CC3 Harry Kane",
+                "CC4 Santiago Giménez",
+                "CC5 Joško Gvardiol",
+                "CC6 Federico Valverde",
+                "CC7 Jefferson Lerma",
+                "CC8 Enner Valencia",
+                "CC9 Gabriel Magalhães",
+                "CC10 Virgil van Dijk",
+                "CC11 Alphonso Davies",
+                "CC12 Emiliano Martínez",
+                "CC13 Raúl Jiménez",
+                "CC14 Lautaro Martínez",
+              ] },
+              { label: "USA/Canadá",        total: 12, collected: 12, sub: [
+                "CC1 Santiago Giménez",
+                "CC2 Joshua Kimmich",
+                "CC3 Lamine Yamal",
+                "CC4 Edson Álvarez",
+                "CC5 Antonee Robinson",
+                "CC6 Jefferson Lerma",
+                "CC7 Alphonso Davies",
+                "CC8 Gabriel Magalhães",
+                "CC9 Virgil van Dijk",
+                "CC10 Weston McKennie",
+                "CC11 Harry Kane",
+                "CC12 Lautaro Martínez",
+              ] },
+              { label: "Europa",            total: 12, collected: 0, sub: [
+                "CC1 Lamine Yamal",
+                "CC2 Joshua Kimmich",
+                "CC3 Eduardo Camavinga",
+                "CC4 Joško Gvardiol",
+                "CC5 Federico Valverde",
+                "CC6 Virgil van Dijk",
+                "CC7 Alphonso Davies",
+                "CC8 Raúl Jiménez",
+                "CC9 William Saliba",
+                "CC10 Lautaro Martínez",
+                "CC11 Harry Kane",
+                "CC12 Antonee Robinson",
+              ] },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
               { label: "Extras",     total: 80, collected: 80 },
-              { label: "McDonald's", total: 28, collected: 28 },
+              { label: "McDonald's", total: 28, collected: 28, sub: [
+                "CAN13 Canada",
+                "MEX13 Mexico",
+                "USA13 USA",
+                "QAT13 Qatar",
+                "ECU13 Ecuador",
+                "SEN13 Senegal",
+                "ENG13 England",
+                "IRN13 Iran",
+                "ARG13 Argentina",
+                "KSA13 Saudi Arabia",
+                "FRA13 France",
+                "AUS13 Australia",
+                "ESP13 Spain",
+                "GER13 Germany",
+                "JPN13 Japan",
+                "CIV13 Ivory Coast",
+                "BEL13 Belgium",
+                "MAR13 Morocco",
+                "CRO13 Croatia",
+                "BRA13 Brazil",
+                "GHA13 Ghana",
+                "URU13 Uruguay",
+                "KOR13 South Korea",
+                "POR13 Portugal",
+                "NGA13 Nigeria",
+                "NED13 Netherlands",
+                "EGY13 Egypt",
+                "COL13 Colombia",
+              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
               { label: "Actualización",    total: 120, complete: true },
@@ -634,12 +1077,55 @@
       // a simple set contributes itself — so partial variants aren't lost.
       const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
 
+      // Row status for an Otros-tab set: Actualización reflects its own "main" item
+      // (manual, not a rollup); every other section rolls up its items.
+      function setDisplayStatus(s) {
+        if (s.id === "actualizacion") {
+          const m = (s.items || []).find(it => it.label === "Actualización");
+          if (m) return setStatus(m);
+        }
+        return setStatus(s);
+      }
+
+      // In Otros we track completion, not partial progress: an incomplete row shows
+      // just its size + ✗ (e.g. "4 ✗", never "1/4 ✗"). Drop the "have/" numerator
+      // from a pending status. Only applied on the Otros render paths, so postales
+      // number-grids keep their owned/total fractions.
+      function otrosStrip(st) {
+        if (st.state === "pending" && typeof st.detail === "string" && st.detail.includes("/")) {
+          return { state: st.state, summary: st.summary, detail: st.detail.slice(st.detail.lastIndexOf("/") + 1) };
+        }
+        return st;
+      }
+
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       function ledgerRow(label, st) {
         return `<div class="card-count-row">
-            <span class="count-label">${label}</span>
+            <span class="count-label"><span class="count-label-text">${label}</span></span>
             <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
           </div>`;
+      }
+
+      // An expandable block: a labeled/valued row with a caret that toggles an
+      // inline panel below it (grows the card in-flow — no floating popup). The
+      // panel holds any child HTML, so blocks nest freely (set → version → list).
+      function expBlock(label, st, innerHtml) {
+        return `<div class="exp">
+            <div class="card-count-row">
+              <span class="count-label"><span class="count-label-text">${label}</span><button type="button" class="exp-toggle" aria-expanded="false" aria-label="${label}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
+              <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
+            </div>
+            <div class="exp-panel">${innerHtml}</div>
+          </div>`;
+      }
+
+      // A row for an item inside a panel; if it carries sub: [...] (plain
+      // reference lines), it becomes its own nested expandable block.
+      function expItemHtml(it, stripFrac) {
+        const st = stripFrac ? otrosStrip(setStatus(it)) : setStatus(it);
+        if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
+        const lines = it.sub.map(line => `<div class="exp-line">${line}</div>`).join("");
+        return expBlock(it.label, st, lines);
       }
 
       // state (optional) keeps only rows in that state; item dividers split the
@@ -652,16 +1138,46 @@
         if (Array.isArray(s.items) && s.items.length) {
           let items = s.items;
           if (OTROS_IDS.has(s.id) && !s.keepOrder) items = [...items].sort((a, b) => a.label.localeCompare(b.label, "es"));
+
+          // Otros-tab sections collapse under a single caret: one labeled row per
+          // section (Actualización / Coca Cola / named McDonald's) with the versions
+          // folded into the panel. The generic "Otros" catch-all stays expanded.
+          if (OTROS_IDS.has(s.id)) {
+            const genericOtros = s.id === "otros" && s.label === "Otros";
+            const main = items.find(it => it.label === s.label); // e.g. the "Actualización" item
+            // Every named section collapses under one caret. With a main item the
+            // header shows that item's status; without one (e.g. 2002 Actualización,
+            // which only has subsets) it falls back to the set's rollup — so an
+            // "owns 0 of 2 subsets" section reads as 0/2.
+            const collapse = !genericOtros;
+            if (collapse) {
+              if (!state) {
+                // Unfiltered: header shows the section's rollup (Actualización uses its
+                // own "main" item's state; the others roll up their items).
+                const rest = items.filter(it => it !== main && !it.divider);
+                if (rest.length) return expBlock(s.label, otrosStrip(setDisplayStatus(s)), rest.map(it => expItemHtml(it, true)).join(""));
+              } else {
+                // State subtabs: keep the section collapsed under one caret, but show no
+                // status icon — the subtab already implies the state, and the section's
+                // own rollup (e.g. Actualización's green ✓) would mislead under Falta.
+                const matching = items.filter(it => !it.divider && setStatus(it).state === state);
+                if (matching.length) return expBlock(s.label, { state: "none", detail: "" }, matching.map(it => expItemHtml(it, true)).join(""));
+                return "";
+              }
+            }
+          }
+
+          const otros = OTROS_IDS.has(s.id);
           const sections = [[]];
           items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
           return sections
             .map(sec => (state ? sec.filter(it => setStatus(it).state === state) : sec)
-              .map(it => ledgerRow(it.label, setStatus(it))).join(""))
+              .map(it => expItemHtml(it, otros)).join(""))
             .filter(Boolean)
             .join('<div class="card-divider"></div>');
         }
         if (state && setStatus(s).state !== state) return "";
-        return ledgerRow("Set", setStatus(s));
+        return ledgerRow("Set", OTROS_IDS.has(s.id) ? otrosStrip(setStatus(s)) : setStatus(s));
       };
 
       function setLedgerRows(album, key, state) {
@@ -676,14 +1192,17 @@
           }
           if (rows) parts.push(rows);
         }
-        // Sets shown under this tab (showWith) follow a subtle divider
+        // Sets shown under this tab (showWith) — each collapses to its own row
         (album.sets || []).forEach(c => {
           if (c.showWith === key) {
             const rows = setRowsHtml(c, state);
-            if (rows) parts.push(rows);
+            if (!rows) return;
+            // The generic "Otros" catch-all stays expanded, set off by a divider
+            const genericOtros = c.id === "otros" && c.label === "Otros";
+            parts.push(genericOtros ? `<div class="card-divider"></div>${rows}` : rows);
           }
         });
-        return parts.join('<div class="card-divider"></div>');
+        return parts.join("");
       }
 
       // ── Image discovery via GitHub API ─────────────────────────────────────
@@ -758,7 +1277,7 @@
               />
             </div>`;
           const setRow = s => {
-            const st = setStatus(s);
+            const st = setDisplayStatus(s);
             return `<div class="card-count-row">
                 <span class="count-label">${s.label}</span>
                 <span class="count-val ${stateClass(st.state)}">${st.summary}</span>
@@ -1187,11 +1706,15 @@
       }
 
       document.getElementById("albums-grid").addEventListener("click", e => {
-        openCard(e.target.closest(".album-card"));
+        // Only the logo/image area navigates, so the counts + tooltips stay clickable
+        const logo = e.target.closest(".card-logo");
+        if (!logo) return;
+        openCard(logo.closest(".album-card"));
       });
 
       document.getElementById("albums-grid").addEventListener("keydown", e => {
         if (e.key !== "Enter" && e.key !== " ") return;
+        if (e.target.closest(".exp-toggle")) return; // caret button, not the card
         const card = e.target.closest(".album-card");
         if (!card) return;
         e.preventDefault();
@@ -1413,7 +1936,7 @@
         }
       });
 
-      // ── Tooltip icons ──────────────────────────────────────────────────────
+      // ── Tooltip icons (header stats "Incluye" popups) ──────────────────────
       document.addEventListener("click", e => {
         const icon = e.target.closest(".inv-tooltip-icon");
         if (icon) {
@@ -1424,6 +1947,17 @@
         } else {
           document.querySelectorAll(".inv-tooltip-icon.is-active").forEach(el => el.classList.remove("is-active"));
         }
+      });
+
+      // ── Expand / collapse carets (inline set & version lists) ──────────────
+      document.addEventListener("click", e => {
+        const t = e.target.closest(".exp-toggle");
+        if (!t) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const exp = t.closest(".exp");
+        const open = exp.classList.toggle("open");
+        t.setAttribute("aria-expanded", String(open));
       });
 
       // ── Swipe navigation ───────────────────────────────────────────────────
