@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=7" />
+    <link rel="stylesheet" href="css/panini.css?v=8" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.8.4</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.9.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -905,18 +905,18 @@
                 "CC14 Lautaro Martínez",
               ] },
               { label: "USA/Canadá",        total: 12, collected: 12, sub: [
-                "CC1 Santiago Giménez",
+                "CC1 Lamine Yamal",
                 "CC2 Joshua Kimmich",
-                "CC3 Lamine Yamal",
-                "CC4 Edson Álvarez",
+                "CC3 Harry Kane",
+                "CC4 Santiago Giménez",
                 "CC5 Antonee Robinson",
                 "CC6 Jefferson Lerma",
-                "CC7 Alphonso Davies",
-                "CC8 Gabriel Magalhães",
-                "CC9 Virgil van Dijk",
+                "CC7 Edson Álvarez",
+                "CC8 Virgil van Dijk",
+                "CC9 Alphonso Davies",
                 "CC10 Weston McKennie",
-                "CC11 Harry Kane",
-                "CC12 Lautaro Martínez",
+                "CC11 Lautaro Martínez",
+                "CC12 Gabriel Magalhães",
               ] },
               { label: "Europa",            total: 12, collected: 0, sub: [
                 "CC1 Lamine Yamal",
@@ -934,6 +934,20 @@
               ] },
             ] },
             { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+              { label: "Trading Cards", total: 16, coming: true, sub: [
+                "No.1 Lamine Yamal",
+                "No.2 Joshua Kimmich",
+                "No.3 Harry Kane",
+                "No.4 Santiago Giménez",
+                "No.5 Antonee Robinson",
+                "No.6 Jefferson Lerma",
+                "No.7 Edson Álvarez",
+                "No.8 Virgil van Dijk",
+                "No.9 Alphonso Davies",
+                "No.10 Gabriel Magalhães",
+                "No.11 Lautaro Martínez",
+                "No.12 Weston McKennie",
+              ] },
               { label: "Extras",     total: 80, collected: 80 },
               { label: "McDonald's", total: 28, collected: 28, sub: [
                 "CAN13 Canada",
@@ -992,7 +1006,7 @@
               { label: "USA", items: [
                 { label: "POR15",         coming: true },
                 { label: "Blue Parallel", coming: true },
-                { label: "Red Parallel",  complete: false },
+                { label: "Red Parallel",  coming: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1088,6 +1102,12 @@
         st === "pending"  ? "is-pending"   :
         st === "coming"   ? "is-coming"    : "is-unknown";
 
+      // The ✓/✗/✈️ glyphs are CSS ::after content and the only other cue is colour,
+      // so name the state in screen-reader-only text alongside it. Keyed by the CSS
+      // class so both the ledger rows and the number-grid cells/chips can use it.
+      const STATE_NAME = { "is-confirmed": "Tengo", "is-pending": "Falta", "is-coming": "De camino" };
+      const srState = cls => (STATE_NAME[cls] ? `<span class="sr-only"> ${STATE_NAME[cls]}</span>` : "");
+
       // Stats count leaf items: a set with items contributes each item,
       // a simple set contributes itself — so partial variants aren't lost.
       const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
@@ -1117,7 +1137,7 @@
       function ledgerRow(label, st) {
         return `<div class="card-count-row">
             <span class="count-label"><span class="count-label-text">${label}</span></span>
-            <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
+            <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
           </div>`;
       }
 
@@ -1128,7 +1148,7 @@
         return `<div class="exp${open ? " open" : ""}">
             <div class="card-count-row">
               <span class="count-label"><span class="count-label-text">${label}</span><button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${label}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
-              <span class="count-val ${stateClass(st.state)}">${st.detail}</span>
+              <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
             </div>
             <div class="exp-panel">${innerHtml}</div>
           </div>`;
@@ -1336,7 +1356,7 @@
             const st = setDisplayStatus(s);
             return `<div class="card-count-row">
                 <span class="count-label">${s.label}</span>
-                <span class="count-val ${stateClass(st.state)}">${st.summary}</span>
+                <span class="count-val ${stateClass(st.state)}">${st.summary}${srState(stateClass(st.state))}</span>
               </div>`;
           };
           let countsHtml;
@@ -1359,7 +1379,7 @@
               </div>
               <div class="card-count-row">
                 <span class="count-label">Postales</span>
-                <span class="count-val${album.postales ? ' ' + stateClass(setStatus(album.postales).state) : ''}">${album.postales ? setStatus(album.postales).summary : "—"}</span>
+                <span class="count-val${album.postales ? ' ' + stateClass(setStatus(album.postales).state) : ''}">${album.postales ? setStatus(album.postales).summary + srState(stateClass(setStatus(album.postales).state)) : "—"}</span>
               </div>
               ${setRows ? `<div class="card-divider"></div>${setRows}` : ""}
             </div>`;
@@ -1469,7 +1489,7 @@
         if (gset.groups) {
           const chip = (num, nm) => {
             const st = stateOf(num);
-            return gridFilter && st !== gridFilter ? "" : `<span class="chip ${st}"><span class="chip-n">${num}</span> ${nm}</span>`;
+            return gridFilter && st !== gridFilter ? "" : `<span class="chip ${st}"><span class="chip-n">${num}</span> ${nm}${srState(st)}</span>`;
           };
           body = `<div class="sticker-rows">${gset.groups.map(g => {
             const chips = g.names.map(nm => chip(++n, nm)).join("");
@@ -1479,7 +1499,7 @@
           let cells = "";
           for (let i = 1; i <= tot; i++) {
             const st = stateOf(i);
-            if (!gridFilter || st === gridFilter) cells += `<div class="grid-cell ${st}">${i}</div>`;
+            if (!gridFilter || st === gridFilter) cells += `<div class="grid-cell ${st}">${i}${srState(st)}</div>`;
           }
           body = `<div class="sticker-grid">${cells}</div>`;
         }
@@ -1880,10 +1900,8 @@
         };
         const main    = [{ key: null, label: "Todo" }, { key: "postales", label: "Postales" }, ...cols.filter(c => !c.showWith).map(c => ({ key: c.key, label: c.tabLabel || combinedLabel(c) }))];
         const players = setColumns(true);
-        // The break forces player tabs onto their own row on mobile
         document.getElementById("view-tabs").innerHTML =
-          main.map(tabBtn).join("") +
-          (players.length ? `<span class="view-tabs-break" aria-hidden="true"></span>${players.map(tabBtn).join("")}` : "");
+          main.map(tabBtn).join("") + players.map(tabBtn).join("");
       }
 
       document.getElementById("view-tabs").addEventListener("click", e => {
@@ -2006,14 +2024,18 @@
       });
 
       // ── Expand / collapse carets (inline set & version lists) ──────────────
+      // The whole header row toggles, not just the caret — a 12px glyph is far too
+      // small to hit on touch. The child combinator keeps a nested row from also
+      // toggling its parent block.
       document.addEventListener("click", e => {
-        const t = e.target.closest(".exp-toggle");
-        if (!t) return;
+        const row = e.target.closest(".exp > .card-count-row");
+        if (!row) return;
         e.preventDefault();
         e.stopPropagation();
-        const exp = t.closest(".exp");
+        const exp = row.parentElement;
         const open = exp.classList.toggle("open");
-        t.setAttribute("aria-expanded", String(open));
+        const btn = row.querySelector(".exp-toggle");
+        if (btn) btn.setAttribute("aria-expanded", String(open));
       });
 
       // ── Swipe navigation ───────────────────────────────────────────────────

@@ -1,3 +1,18 @@
+/* Screen-reader-only text: names each item's state (Tengo / Falta / De camino), which
+   is otherwise conveyed only by colour and a CSS ::after glyph — neither of which is
+   reliably announced (WCAG 1.4.1) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── Header ─────────────────────────────────────────────────────────────── */
 
 .inv-header {
@@ -81,12 +96,15 @@
 
 /* ── Tooltip ────────────────────────────────────────────────────────────── */
 
+/* Padding grows the 10px glyph's hit area to 24px (WCAG 2.5.8); the negative margins
+   cancel it so layout is unchanged (outer box stays 10px tall, 3px from the label).
+   The ::after/::before offsets below are compensated for the taller padding box. */
 .inv-tooltip-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 3px;
-  padding: 0;
+  margin: -7px -7px -7px -4px;
+  padding: 7px;
   background: none;
   border: 0;
   font: inherit;
@@ -114,7 +132,7 @@
 
 .inv-tooltip-icon::after {
   content: attr(data-tooltip);
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 1px);
   transform: translateX(-50%);
   background: var(--surface-strong);
   color: var(--text);
@@ -133,7 +151,7 @@
 
 .inv-tooltip-icon::before {
   content: "";
-  bottom: calc(100% + 2px);
+  bottom: calc(100% - 5px);
   transform: translateX(-50%);
   border: 5px solid transparent;
   border-top-color: var(--border);
@@ -146,14 +164,22 @@
 
 /* ── Inline expand/collapse (caret) blocks — set & version lists ────────── */
 
-/* Caret toggle button sitting next to a row's label */
+/* An expandable row's whole header is the tap target — the 12px caret alone is far
+   too small on touch, and it is the only way to open the panel */
+.exp > .card-count-row {
+  cursor: pointer;
+}
+
+/* Caret toggle button sitting next to a row's label. Padding grows the hit area to
+   24px (WCAG 2.5.8) while the matching negative margin keeps the row's height and
+   the caret's visual size unchanged */
 .exp-toggle {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  margin: 0;
+  padding: 6px;
+  margin: -6px;
   background: none;
   border: 0;
   color: var(--subtle);
@@ -247,11 +273,6 @@
 .view-tab:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
-}
-
-/* Line break between main tabs and player tabs — active on mobile only */
-.view-tabs-break {
-  display: none;
 }
 
 /* ── Sub tabs (Upcoming / Missing / Ready) ──────────────────────────────── */
@@ -713,7 +734,7 @@
 .gallery-label {
   margin-top: 6px;
   font: 500 12px/1.3 "Fira Sans", sans-serif;
-  color: var(--text-secondary);
+  color: var(--muted);
   letter-spacing: 0.02em;
 }
 
@@ -934,10 +955,6 @@
     font-size: 11px;
     text-align: center;
     white-space: nowrap;
-  }
-
-  #view-tabs .view-tabs-break {
-    display: none;
   }
 
 }
