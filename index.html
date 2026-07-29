@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.9.2</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.10.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -300,43 +300,40 @@
         { year: "story", host: "World Cup Story", postales: { total: 262, collected: 262 } },
         { year: 1994, host: "USA",                postales: { items: [
             { label: "Set",          total: 444, collected: 444 },
-            { label: "German/Dutch", total: 345, complete: false },
             { label: "French",       total: 330, complete: false },
+            { label: "German/Dutch", total: 345, complete: false },
             { label: "UK and Eire",  total: 416, complete: false },
           ] } },
-        { year: 1998, host: "France",             postales: { total: 561, collected: 561 },
-          sets: [{ id: "actualizacion", label: "Actualización", tabLabel: "Otros", keepOrder: true, items: [
-            { label: "Actualización", total: 13, collected: 13, sub: [
-              "417 Iran Badge",
-              "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
-              "419 Mohammad Ali Peiravani / Reza Shahroudi",
-              "420 Iran Team Photo",
-              "421 Mehdi Pashazadeh / Naeim Sadavi",
-              "422 Aliasghar Modirrousta / Daryoush Yazdani",
-              "423 Hamidreza Estili / Mehrdad Minavand",
-              "424 Karim Bagheri / Alireza Mansourian",
-              "425 Khodadad Azizi / Ali Daei",
-              "426 Mehdi Mahdavikia / Nima Nakissa",
-              "",
-              "467 Tony Adams",
-              "477 Robbie Fowler",
-              "478 Les Ferdinand",
+        { year: 1998, host: "France",             postales: { items: [
+            { label: "Set", total: 561, collected: 561, items: [
+              { label: "Actualización", total: 13, collected: 13, sub: [
+                "417 Iran Badge",
+                "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
+                "419 Mohammad Ali Peiravani / Reza Shahroudi",
+                "420 Iran Team Photo",
+                "421 Mehdi Pashazadeh / Naeim Sadavi",
+                "422 Aliasghar Modirrousta / Daryoush Yazdani",
+                "423 Hamidreza Estili / Mehrdad Minavand",
+                "424 Karim Bagheri / Alireza Mansourian",
+                "425 Khodadad Azizi / Ali Daei",
+                "426 Mehdi Mahdavikia / Nima Nakissa",
+                "",
+                "467 Tony Adams",
+                "477 Robbie Fowler",
+                "478 Les Ferdinand",
+              ] },
             ] },
-          ] }] },
+          ] } },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
-            { label: "Set",    total: 576, collected: 576 },
-            { label: "Israel", total: 650, complete: false },
-          ] },
-          sets: [
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "Brasil",        total: 5,  complete: false, sub: [
+            { label: "Set", total: 576, collected: 576, items: [
+              { label: "Brasil", total: 5,  complete: false, sub: [
                 "171-ex Marcos",
                 "173-ex Juan",
                 "177-ex Edmílson",
                 "178-ex Belletti",
                 "179-ex Ronaldinho",
               ] },
-              { label: "México",        total: 12, complete: false, sub: [
+              { label: "México", total: 12, complete: false, sub: [
                 "Jorge Campos",
                 "Sigifredo Mercado",
                 "Salvador Carmona",
@@ -352,10 +349,9 @@
                 "Luigi Di Biagio",
               ] },
             ] },
-          ] },
-        { year: 2006, host: "Germany",            postales: { total: 596, collected: 596 },
-          sets: [
-            { id: "actualizacion", label: "Actualización", keepOrder: true, items: [
+          ] } },
+        { year: 2006, host: "Germany",            postales: { items: [
+            { label: "Set", total: 596, collected: 596, items: [
               { label: "Actualización", total: 8, complete: false, sub: [
                 "Panini Calciatori",
                 "Theo Walcott",
@@ -367,6 +363,8 @@
                 "Edgar Barreto",
               ] },
             ] },
+          ] },
+          sets: [
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", complete: false },
             ] },
@@ -375,7 +373,9 @@
             ] },
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
-            { label: "Black Back", total: 640, complete: true },
+            { label: "Black Back", total: 640, complete: true, items: [
+              { label: "Actualización", total: 80, coming: true },
+            ] },
             { label: "Blue Back",  total: 640, complete: false },
           ] },
           editions: [{ label: "Swiss", total: 660, complete: false }],
@@ -486,8 +486,7 @@
                 "X Rio Ferdinand",
               ] },
             ] },
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 80, coming: true },
+            { id: "actualizacion", label: "Actualización", tabLabel: "Otros", items: [
               { label: "Brasil", total: 9, complete: false, sub: [
                 "Doni",
                 "Gomes",
@@ -513,7 +512,16 @@
               { label: "559 Swiss",      complete: false },
             ] },
           ] },
-        { year: 2014, host: "Brazil",             postales: { total: 640, collected: 640 },
+        { year: 2014, host: "Brazil",             postales: { items: [
+            { label: "Set", total: 640, collected: 640, items: [
+              { label: "Actualización", total: 72, complete: true },
+              { label: "USA", total: 3, coming: true, sub: [
+                "640 UNITY",
+                "641 FRIENDSHIP",
+                "642 FAIRPLAY",
+              ] },
+            ] },
+          ] },
           editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
@@ -546,14 +554,8 @@
                 "V10 Edinson Cavani",
                 "V11 Neymar Jr",
               ] },
-              { label: "USA", total: 3, coming: true, sub: [
-                "640 UNITY",
-                "641 FRIENDSHIP",
-                "642 FAIRPLAY",
-              ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 72, complete: true },
               { label: "Bélgica",  total: 6,  complete: false, sub: [
                 "Divock Origi",
                 "Adnan Januzaj",
@@ -625,9 +627,26 @@
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
             { label: "Black Back", total: 682, complete: false },
-            { label: "Pink Back",  total: 670, complete: true },
+            { label: "Pink Back",  total: 670, complete: true, items: [
+              { label: "Actualización", total: 92, coming: true },
+            ] },
           ] },
-          editions: [{ label: "Gold", complete: false }],
+          editions: [{ label: "Gold", total: 694, complete: false, items: [
+            { label: "Coca Cola", total: 12, complete: false, sub: [
+              "C1 Pelé",
+              "C2 Franz Beckenbauer",
+              "C3 Mario Kempes",
+              "C4 Karl-Heinz Rummenigge",
+              "C5 Diego Armando Maradona",
+              "C6 Paolo Maldini",
+              "C7 Carlos Valderrama",
+              "C8 Michael Owen",
+              "C9 Rivaldo",
+              "C10 Fabio Cannavaro",
+              "C11 Carles Puyol",
+              "C12 Miroslav Klose",
+            ] },
+          ] }],
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
               { label: "México",  total: 9,  complete: false, sub: [
@@ -641,23 +660,23 @@
                 "CC8 Raúl Jiménez",
                 "CC9 Oribe Peralta",
               ] },
-              { label: "Legends", total: 12, coming: true, sub: [
-                "CC1 Pelé",
-                "CC2 Franz Beckenbauer",
-                "CC3 Mario Kempes",
-                "CC4 Karl-Heinz Rummenigge",
-                "CC5 Diego Armando Maradona",
-                "CC6 Paolo Maldini",
-                "CC7 Carlos Valderrama",
-                "CC8 Michael Owen",
-                "CC9 Rivaldo",
-                "CC10 Fabio Cannavaro",
-                "CC11 Carles Puyol",
-                "CC12 Miroslav Klose",
+              { label: "Austria", total: 12, coming: true, sub: [
+                "C1 Pelé",
+                "C2 Franz Beckenbauer",
+                "C3 Mario Kempes",
+                "C4 Karl-Heinz Rummenigge",
+                "C5 Diego Armando Maradona",
+                "C6 Paolo Maldini",
+                "C7 Carlos Valderrama",
+                "C8 Michael Owen",
+                "C9 Rivaldo",
+                "C10 Fabio Cannavaro",
+                "C11 Carles Puyol",
+                "C12 Miroslav Klose",
               ] },
             ] },
             { id: "otros",         label: "McDonald's",    showWith: "actualizacion", items: [
-              { label: "Alemania",     total: 9,  coming: true, sub: [
+              { label: "Alemania",     total: 9,  complete: true, sub: [
                 "M1 Jérôme Boateng",
                 "M2 Manuel Neuer",
                 "M3 Mats Hummels",
@@ -718,7 +737,7 @@
                 "Sergio Ramos",
                 "Gerard Piqué",
               ] },
-              { label: "Portugal",  total: 8, coming: true, sub: [
+              { label: "Portugal",  total: 8, complete: true, sub: [
                 "M1 Rui Patrício",
                 "M2 João Mário",
                 "M3 João Moutinho",
@@ -728,7 +747,7 @@
                 "M7 Bernardo Silva",
                 "M8 André Silva",
               ] },
-              { label: "Rusia",     total: 8, coming: true, sub: [
+              { label: "Rusia",     total: 8, complete: true, sub: [
                 "M1 Igor Akinfeev",
                 "M2 Igor Smolnikov",
                 "M3 Denis Glushakov",
@@ -740,7 +759,6 @@
               ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 92, coming: true },
               { label: "Brasil",        total: 8,  coming: true },
               { label: "España",        total: 7,  complete: false, sub: [
                 "Pepe Reina",
@@ -779,10 +797,19 @@
             ] },
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
-            { label: "International", total: 638, complete: true },
-            { label: "Standard",      total: 670, complete: false },
-            { label: "USA",           total: 670, complete: false },
-            { label: "Oryx",          total: 670, complete: true },
+            { label: "International", total: 638, complete: true, items: [
+              { label: "Actualización", total: 80, complete: true },
+            ] },
+            { label: "Oryx",          total: 670, complete: true, items: [
+              { label: "Actualización", total: 80, complete: false },
+            ] },
+            { label: "Standard",      total: 670, complete: false, items: [
+              { label: "Actualización", total: 80, complete: false },
+            ] },
+            { label: "USA",           total: 670, complete: false, items: [
+              { label: "Actualización", total: 80, complete: false },
+              { label: "Blue Parallel", complete: false },
+            ] },
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
@@ -829,7 +856,6 @@
               ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización", total: 80, complete: true },
               { label: "España",        total: 8,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -882,9 +908,19 @@
             ] },
           ] },
         { year: 2026, host: "World Cup 26",        postales: { items: [
-            { label: "Standard",       total: 980, complete: true },
-            { label: "USA/Canada",     total: 980, complete: false },
-            { label: "United", total: 980, complete: false },
+            { label: "Standard",       total: 980, complete: true, items: [
+              { label: "Actualización", total: 120, complete: true },
+            ] },
+            { label: "United",         total: 980, complete: false, items: [
+              { label: "Actualización", total: 120, complete: false },
+            ] },
+            { label: "USA",            total: 980, complete: false, items: [
+              { label: "Actualización", total: 120, complete: false },
+              { label: "Blue Parallel", complete: false },
+              { divider: true },
+              { label: "Gold Crumple",  complete: false },
+              { label: "PRIZM",         complete: false },
+            ] },
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
@@ -982,7 +1018,6 @@
               ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
-              { label: "Actualización",    total: 120, complete: true },
               { label: "España",           total: 6,   complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -1056,6 +1091,10 @@
       // Total sticker count for a grid set (from groups, or explicit total)
       const gridTotal = s => s.groups ? s.groups.reduce((a, g) => a + g.names.length, 0) : s.total;
 
+      // True when an entry declares its own state rather than deriving it from children
+      const hasOwnStatus = s => s.coming === true || s.complete !== undefined ||
+                                (s.total != null && s.collected != null);
+
       function setStatus(s) {
         // Number-range grid sets (impossible 1970-82 postales)
         if (s.owned !== undefined && (s.total != null || s.groups)) {
@@ -1064,7 +1103,10 @@
             ? { state: "complete", summary: "", detail: tot }
             : { state: "pending",  summary: "", detail: `${owned}/${tot}` };
         }
-        if (Array.isArray(s.items) && s.items.length) {
+        // An entry that states its own status is authoritative; any items it carries are
+        // reference detail, not the source of truth (e.g. 2014's complete Set holding the
+        // still-coming USA promo). Groups that omit a status still derive one below.
+        if (Array.isArray(s.items) && s.items.length && !hasOwnStatus(s)) {
           const real = s.items.filter(it => !it.divider);
           // Icon inheritance: when every item shares one state, the parent shows it
           // (e.g. an all-"De camino" McDonald's reads as ✈️, not the ✗ the have/total
@@ -1111,6 +1153,33 @@
       // Stats count leaf items: a set with items contributes each item,
       // a simple set contributes itself — so partial variants aren't lost.
       const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
+
+      // Otros counts every green check however deep — each owned set is its own +1,
+      // unlike Postales where only the top-level leaf counts. A group's own check is
+      // counted only when it declares its status; an inherited rollup is skipped so a
+      // block of greens isn't also counted as a green itself.
+      const kidsOf = n => (Array.isArray(n.items) ? n.items.filter(x => !x.divider) : []);
+      function deepGreens(node) {
+        const kids = kidsOf(node);
+        if (!kids.length) return setStatus(node).state === "complete" ? 1 : 0;
+        const own = hasOwnStatus(node) && setStatus(node).state === "complete" ? 1 : 0;
+        return own + kids.reduce((n, k) => n + deepGreens(k), 0);
+      }
+      // A set's greens: its items (recursively), or itself when it has none
+      const setGreens = s => {
+        const kids = kidsOf(s);
+        return kids.length ? kids.reduce((n, k) => n + deepGreens(k), 0)
+                           : (setStatus(s).state === "complete" ? 1 : 0);
+      };
+
+      // Header/gallery stat names for the Otros columns, in a fixed reading order (the
+      // "otros" catch-all is mostly McDonald's sets, which reads better than its generic
+      // label). Any future column falls back to its own label, appended in tab order.
+      const OTROS_STAT_ORDER = ["actualizacion", "coca-cola", "otros"];
+      const OTROS_STAT_LABEL = { actualizacion: "Actualización", "coca-cola": "Coca Cola", otros: "McDonald's" };
+      const otrosStatLines = greenKeys =>
+        OTROS_STAT_ORDER.filter(k => greenKeys.has(k)).map(k => OTROS_STAT_LABEL[k])
+          .concat(setColumns().filter(c => greenKeys.has(c.key) && !OTROS_STAT_LABEL[c.key]).map(c => c.label));
 
       // Row status for an Otros-tab set: Actualización reflects its own "main" item
       // (manual, not a rollup); every other section rolls up its items.
@@ -1163,16 +1232,31 @@
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
       function expItemHtml(it, stripFrac, state) {
         if (Array.isArray(it.items) && it.items.length) {
-          let kids = it.items.filter(x => !x.divider);
-          let headerSt;
-          if (state) {
-            kids = kids.filter(x => setStatus(x).state === state);
-            if (!kids.length) return "";
-            headerSt = { state: "none", detail: "" };
-          } else {
-            headerSt = { state: setStatus(it).state, detail: "" }; // icon only, no counter
-          }
-          return expBlock(it.label, headerSt, kids.map(x => expItemHtml(x, stripFrac)).join(""), !!state);
+          // A divider between children renders as the same blank gap a "" sub line gives
+          const GAP = '<div class="exp-line"></div>';
+          const panel = list => {
+            const out = [];
+            list.forEach(x => {
+              if (x.divider) { if (out.length && out[out.length - 1] !== GAP) out.push(GAP); return; }
+              out.push(expItemHtml(x, stripFrac));
+            });
+            while (out.length && out[out.length - 1] === GAP) out.pop();
+            return out.join("");
+          };
+          // A declared total (e.g. Gold's 694) is the set's real size, so show it — but
+          // never the computed x/y rollup, which is what the counter-free groups avoid.
+          const size = it.total ?? "";
+          const own = setStatus(it).state;
+          if (!state) return expBlock(it.label, { state: own, detail: size }, panel(it.items), false);
+          // In a state subtab: if the entry's own status matches, it belongs here in its
+          // own right — keep its icon and list everything it carries. Otherwise it only
+          // appears because a child matches, so drop the icon (the subtab implies the
+          // state) and show just those children.
+          if (hasOwnStatus(it) && own === state)
+            return expBlock(it.label, { state: own, detail: size }, panel(it.items), true);
+          const kids = it.items.filter(x => !x.divider && setStatus(x).state === state);
+          if (!kids.length) return "";
+          return expBlock(it.label, { state: "none", detail: size }, panel(kids), true);
         }
         const st = stripFrac ? otrosStrip(setStatus(it)) : setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
@@ -1262,7 +1346,9 @@
           // Album editions belong to the core set — list them with it by name
           if (key === "postales") {
             const eds = (album.editions || []).filter(e => !state || setStatus(e).state === state);
-            rows += eds.map(e => ledgerRow(e.label, setStatus(e))).join("");
+            // via expItemHtml so an edition carrying its own list (e.g. 2018 Gold)
+            // gets a caret; plain editions render as the same single row as before
+            rows += eds.map(e => expItemHtml(e)).join("");
           }
           if (rows) parts.push(rows);
         }
@@ -1417,16 +1503,15 @@
           });
           (a.sets || []).forEach(s => {
             if (s.afterPostales) return; // player sets don't count toward Otros
-            const leaves = setLeaves(s);
-            otrosTotal += leaves.length;
-            const greens = leaves.filter(l => setStatus(l).state === "complete").length;
+            otrosTotal += setLeaves(s).length;
+            const greens = setGreens(s);
             otrosConfirmed += greens;
             if (greens > 0) otrosGreenKeys.add(setKey(s));
           });
         });
 
         // Tooltip lists only sets with green checks, in tab order
-        const otrosLines = setColumns().filter(c => otrosGreenKeys.has(c.key)).map(c => c.label);
+        const otrosLines = otrosStatLines(otrosGreenKeys);
         const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
         const stat = (val, label, tooltip) =>
@@ -1643,13 +1728,13 @@
         const otrosGreenKeys = new Set();
         (album.sets || []).forEach(s => {
           if (s.afterPostales) return; // player sets don't count toward Otros
-          const greens = setLeaves(s).filter(l => setStatus(l).state === "complete").length;
+          const greens = setGreens(s);
           otrosConfirmed += greens;
           if (greens > 0) otrosGreenKeys.add(setKey(s));
         });
         if (otrosConfirmed > 0) {
           // Tooltip lists only this year's green sets, in tab order
-          const otrosLines = setColumns().filter(c => otrosGreenKeys.has(c.key)).map(c => c.label);
+          const otrosLines = otrosStatLines(otrosGreenKeys);
           setsItems.push(stat(otrosConfirmed, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
         }
         document.getElementById("inv-stats").innerHTML = `
