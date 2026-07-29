@@ -48,7 +48,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.10.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.10.1</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1139,10 +1139,13 @@
         }
         return { state: "unknown", summary: "—", detail: s.total ?? "—" };
       }
+      // "none" = deliberately no icon (a state subtab already implies the state), so it
+      // keeps the normal value styling; "unknown" is the dimmed "not tracked yet" look
       const stateClass = st =>
         st === "complete" ? "is-confirmed" :
         st === "pending"  ? "is-pending"   :
-        st === "coming"   ? "is-coming"    : "is-unknown";
+        st === "coming"   ? "is-coming"    :
+        st === "none"     ? ""             : "is-unknown";
 
       // The ✓/✗/✈️ glyphs are CSS ::after content and the only other cue is colour,
       // so name the state in screen-reader-only text alongside it. Keyed by the CSS
