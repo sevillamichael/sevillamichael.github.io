@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=8" />
+    <link rel="stylesheet" href="css/panini.css?v=9" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -27,11 +27,6 @@
       </symbol>
       <symbol id="icon-sun" viewBox="0 0 512 512">
         <path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/>
-      </symbol>
-      <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="12" y1="16" x2="12" y2="12"/>
-        <line x1="12" y1="8" x2="12.01" y2="8"/>
       </symbol>
     </svg>
 
@@ -48,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.10.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.11.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -143,19 +138,20 @@
       //   → renders a numbered sticker grid (owned ✓ / coming ✈️ / missing ✗)
       //   groups: [{ cat, names: [...] }] replaces total — numbers run 1..N in
       //   order across groups; the grid renders one labeled section per category
-      // editions: parallel album editions — { label, total?, complete }
       // sets: secondary sticker sets — { id, label, total?, collected?, complete?, items? }
       //   id is the stable cross-year identity (never rename);
       //   label is the display name (rename freely).
       //   items: [{ label, total?, collected?, complete?, sub? }] breaks a set into
-      //   sub-items; the set only reads complete when every item is complete.
+      //   sub-items; the set only reads complete when every item is complete. An item may
+      //   carry its own items to nest a group; countNested: true makes that group's value
+      //   the number of entries it holds instead of a declared total, and plural: "<name>"
+      //   is the label to use when that count isn't 1.
       //   sub: ["plain text", ...] renders indented reference lines under an item
       //   inside an Otros-tab tooltip (no status of their own).
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
-      //   showWith: "<id>" removes the set's own tab; its rows render under
-      //   that tab after a subtle divider (stats still count it as itself).
-      //   tabLabel: "<name>" renames the tab a set hosts (e.g. "Otros").
+      //   Sets without afterPostales have no tab of their own: they are the source
+      //   the Postales tab's Actualización and Otros rows are derived from.
       //   { divider: true } inside items draws a subtle divider between rows.
       const ALBUMS = [
         { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
@@ -262,7 +258,7 @@
               { cat: "Uruguay", names: ["Uruguay Federation", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Wales", names: ["Wales Federation", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "Spain",              postales: { owned: "50", coming: "7-8, 13, 22, 28-29, 33-34, 55, 59-60, 63, 65, 68, 73, 80, 88, 92, 96, 102, 105, 109, 131-132, 138-142, 144, 149, 155, 161, 183-184, 188-190, 194-197, 205, 209, 211, 215, 217, 226, 236, 242-244, 249, 251, 255, 260, 263, 266, 269, 272, 276-277, 282, 287, 290, 294, 299, 315-316, 318-321, 324, 326, 329, 333-334, 336, 338, 340-341, 347, 349, 352-355, 383, 386, 389, 391-392, 395-397, 399, 402, 404-405, 407, 409, 411, 419-420, 422-424, 426", groups: [
+        { year: 1982, host: "Spain",              postales: { owned: "36, 50", coming: "7-8, 13, 22, 28-29, 33-34, 55, 59-60, 63, 65, 68, 73, 80, 88, 92, 96, 102, 105, 109, 131-132, 138-142, 144, 149, 155, 161, 183-184, 188-190, 194-197, 205, 209, 211, 215, 217, 226, 236, 242-244, 249, 251, 255, 260, 263, 266, 269, 272, 276-277, 282, 287, 290, 294, 299, 315-316, 318-321, 324, 326, 329, 333-334, 336, 338, 340-341, 347, 349, 352-355, 383, 386, 389, 391-392, 395-397, 399, 402, 404-405, 407, 409, 411, 419-420, 422-424, 426", groups: [
               { cat: "Special", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "poster", names: ["Madrid (poster)", "Barcelona (poster)", "Sevilla (poster)", "Vigo (poster)", "La Coruna (poster)", "Gijon (poster)"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -299,33 +295,30 @@
         { year: 1990, host: "Italy",              postales: { total: 448, collected: 448 } },
         { year: "story", host: "World Cup Story", postales: { total: 262, collected: 262 } },
         { year: 1994, host: "USA",                postales: { items: [
-            { label: "Set",          total: 444, collected: 444 },
-            { label: "French",       total: 330, complete: false },
-            { label: "German/Dutch", total: 345, complete: false },
-            { label: "UK and Eire",  total: 416, complete: false },
+            { label: "Set", total: 444, collected: 444 },
           ] } },
         { year: 1998, host: "France",             postales: { items: [
-            { label: "Set", total: 561, collected: 561, items: [
-              { label: "Actualización", total: 13, collected: 13, sub: [
-                "417 Iran Badge",
-                "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
-                "419 Mohammad Ali Peiravani / Reza Shahroudi",
-                "420 Iran Team Photo",
-                "421 Mehdi Pashazadeh / Naeim Sadavi",
-                "422 Aliasghar Modirrousta / Daryoush Yazdani",
-                "423 Hamidreza Estili / Mehrdad Minavand",
-                "424 Karim Bagheri / Alireza Mansourian",
-                "425 Khodadad Azizi / Ali Daei",
-                "426 Mehdi Mahdavikia / Nima Nakissa",
-                "",
-                "467 Tony Adams",
-                "477 Robbie Fowler",
-                "478 Les Ferdinand",
-              ] },
+            { label: "Set", total: 561, collected: 561 },
+            { label: "Actualización", total: 13, collected: 13, sub: [
+              "417 Iran Badge",
+              "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
+              "419 Mohammad Ali Peiravani / Reza Shahroudi",
+              "420 Iran Team Photo",
+              "421 Mehdi Pashazadeh / Naeim Sadavi",
+              "422 Aliasghar Modirrousta / Daryoush Yazdani",
+              "423 Hamidreza Estili / Mehrdad Minavand",
+              "424 Karim Bagheri / Alireza Mansourian",
+              "425 Khodadad Azizi / Ali Daei",
+              "426 Mehdi Mahdavikia / Nima Nakissa",
+              "",
+              "467 Tony Adams",
+              "477 Robbie Fowler",
+              "478 Les Ferdinand",
             ] },
           ] } },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
-            { label: "Set", total: 576, collected: 576, items: [
+            { label: "Set", total: 576, collected: 576 },
+            { label: "Actualización", countNested: true, items: [
               { label: "Brasil", total: 5,  complete: false, sub: [
                 "171-ex Marcos",
                 "173-ex Juan",
@@ -351,17 +344,16 @@
             ] },
           ] } },
         { year: 2006, host: "Germany",            postales: { items: [
-            { label: "Set", total: 596, collected: 596, items: [
-              { label: "Actualización", total: 8, complete: false, sub: [
-                "Panini Calciatori",
-                "Theo Walcott",
-                "Michael Carrick",
-                "Stewart Downing",
-                "Owen Hargreaves",
-                "Jens Lehmann",
-                "Filippo Inzaghi",
-                "Edgar Barreto",
-              ] },
+            { label: "Set", total: 596, collected: 596 },
+            { label: "Actualización", total: 8, complete: false, sub: [
+              "Panini Calciatori",
+              "Theo Walcott",
+              "Michael Carrick",
+              "Stewart Downing",
+              "Owen Hargreaves",
+              "Jens Lehmann",
+              "Filippo Inzaghi",
+              "Edgar Barreto",
             ] },
           ] },
           sets: [
@@ -373,14 +365,16 @@
             ] },
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
-            { label: "Black Back", total: 640, complete: true, items: [
-              { label: "Actualización", total: 80, coming: true },
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Black Back", total: 640, complete: true },
+              { label: "Blue Back",  total: 640, complete: false },
+              { divider: true },
+              { label: "Swiss",      total: 660, complete: false },
             ] },
-            { label: "Blue Back",  total: 640, complete: false },
+            { label: "Actualización", total: 80, coming: true },
           ] },
-          editions: [{ label: "Swiss", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+            { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Sin número", total: 60, complete: true, sub: [
                 "Benni McCarthy (South Africa)",
                 "Steven Pienaar (South Africa)",
@@ -456,7 +450,7 @@
               { label: "M. Klose", total: 4, coming: true },
               { label: "Trophy Tour", total: 1, complete: false },
             ] },
-            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+            { id: "otros",         label: "Otros", items: [
               { label: "Jabulani (A-I)",              total: 9,  complete: false },
               { label: "VISA (A1-D1)",                total: 4,  complete: false },
               { label: "Tournament Tracker", total: 24, coming: true, sub: [
@@ -486,7 +480,7 @@
                 "X Rio Ferdinand",
               ] },
             ] },
-            { id: "actualizacion", label: "Actualización", tabLabel: "Otros", items: [
+            { id: "actualizacion", label: "Actualización", items: [
               { label: "Brasil", total: 9, complete: false, sub: [
                 "Doni",
                 "Gomes",
@@ -513,18 +507,21 @@
             ] },
           ] },
         { year: 2014, host: "Brazil",             postales: { items: [
-            { label: "Set", total: 640, collected: 640, items: [
-              { label: "Actualización", total: 72, complete: true },
-              { label: "USA", total: 3, coming: true, sub: [
-                "640 UNITY",
-                "641 FRIENDSHIP",
-                "642 FAIRPLAY",
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Principal", total: 640, collected: 640, items: [
+                { label: "USA", total: 3, coming: true, sub: [
+                  "640 UNITY",
+                  "641 FRIENDSHIP",
+                  "642 FAIRPLAY",
+                ] },
               ] },
+              { divider: true },
+              { label: "Platinum", total: 660, complete: false },
             ] },
+            { label: "Actualización", total: 72, complete: true },
           ] },
-          editions: [{ label: "Platinum", total: 660, complete: false }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+            { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Austria", total: 6, coming: true, sub: [
                 "A Javier Hernández",
                 "B Daniele De Rossi",
@@ -535,7 +532,7 @@
               ] },
               { label: "México (CC1-CC8)", total: 8, complete: false },
             ] },
-            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+            { id: "otros",         label: "Otros", items: [
               { label: "Brasil", total: 9,  coming: true, sub: [
                 "J1-J4",
                 "L1-L4",
@@ -626,29 +623,31 @@
             ] },
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
-            { label: "Black Back", total: 682, complete: false },
-            { label: "Pink Back",  total: 670, complete: true, items: [
-              { label: "Actualización", total: 92, coming: true },
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Black Back", total: 682, complete: false },
+              { label: "Pink Back",  total: 670, complete: true },
+              { divider: true },
+              { label: "Gold", total: 694, complete: false, items: [
+                { label: "Coca Cola", total: 12, complete: false, sub: [
+                  "C1 Pelé",
+                  "C2 Franz Beckenbauer",
+                  "C3 Mario Kempes",
+                  "C4 Karl-Heinz Rummenigge",
+                  "C5 Diego Armando Maradona",
+                  "C6 Paolo Maldini",
+                  "C7 Carlos Valderrama",
+                  "C8 Michael Owen",
+                  "C9 Rivaldo",
+                  "C10 Fabio Cannavaro",
+                  "C11 Carles Puyol",
+                  "C12 Miroslav Klose",
+                ] },
+              ] },
             ] },
+            { label: "Actualización", total: 92, coming: true },
           ] },
-          editions: [{ label: "Gold", total: 694, complete: false, items: [
-            { label: "Coca Cola", total: 12, complete: false, sub: [
-              "C1 Pelé",
-              "C2 Franz Beckenbauer",
-              "C3 Mario Kempes",
-              "C4 Karl-Heinz Rummenigge",
-              "C5 Diego Armando Maradona",
-              "C6 Paolo Maldini",
-              "C7 Carlos Valderrama",
-              "C8 Michael Owen",
-              "C9 Rivaldo",
-              "C10 Fabio Cannavaro",
-              "C11 Carles Puyol",
-              "C12 Miroslav Klose",
-            ] },
-          ] }],
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+            { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "México",  total: 9,  complete: false, sub: [
                 "CC1 Jesús Corona",
                 "CC2 Diego Reyes",
@@ -675,7 +674,7 @@
                 "C12 Miroslav Klose",
               ] },
             ] },
-            { id: "otros",         label: "McDonald's",    showWith: "actualizacion", items: [
+            { id: "otros",         label: "McDonald's", items: [
               { label: "Alemania",     total: 9,  complete: true, sub: [
                 "M1 Jérôme Boateng",
                 "M2 Manuel Neuer",
@@ -782,13 +781,13 @@
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "288 Black Back", complete: true },
               { label: "276 Pink Back",  complete: true },
-              { label: "288 Gold",       coming: true },
+              { label: "288 Gold",       complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "130 Black Back", complete: true },
               { label: "MP6 McDonald's", complete: false },
               { label: "118 Pink Back",  complete: true },
-              { label: "130 Gold",       coming: true },
+              { label: "130 Gold",       complete: false },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "209 Black Back", complete: true },
@@ -797,22 +796,19 @@
             ] },
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
-            { label: "International", total: 638, complete: true, items: [
-              { label: "Actualización", total: 80, complete: true },
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "International", total: 638, complete: true },
+              { label: "Standard",      total: 670, complete: false },
+              { label: "USA",           total: 670, complete: false, items: [
+                { label: "Blue Parallel", complete: false },
+              ] },
+              { divider: true },
+              { label: "Oryx",          total: 670, complete: true },
             ] },
-            { label: "Oryx",          total: 670, complete: true, items: [
-              { label: "Actualización", total: 80, complete: false },
-            ] },
-            { label: "Standard",      total: 670, complete: false, items: [
-              { label: "Actualización", total: 80, complete: false },
-            ] },
-            { label: "USA",           total: 670, complete: false, items: [
-              { label: "Actualización", total: 80, complete: false },
-              { label: "Blue Parallel", complete: false },
-            ] },
+            { label: "Actualización", total: 80, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+            { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Team Believers", total: 14, complete: false, sub: [
                 "C1 Eden Hazard",
                 "C2 Serge Gnabry",
@@ -841,7 +837,7 @@
                 "C8 Heung-Min Son",
               ] },
             ] },
-            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+            { id: "otros",         label: "Otros", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "Letras",     total: 22, complete: true },
               { label: "McDonald's", total: 8,  coming: true, sub: [
@@ -860,7 +856,7 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG19 International", complete: true },
-              { label: "ARG20 Oryx",          coming: true },
+              { label: "ARG20 Oryx",          complete: false },
               { label: "ARG20 Standard",      complete: true },
               { label: "USA", items: [
                 { label: "ARG20",         coming: true },
@@ -908,22 +904,18 @@
             ] },
           ] },
         { year: 2026, host: "World Cup 26",        postales: { items: [
-            { label: "Standard",       total: 980, complete: true, items: [
-              { label: "Actualización", total: 120, complete: true },
-            ] },
-            { label: "United",         total: 980, complete: false, items: [
-              { label: "Actualización", total: 120, complete: false },
-            ] },
-            { label: "USA",            total: 980, complete: false, items: [
-              { label: "Actualización", total: 120, complete: false },
-              { label: "Blue Parallel", complete: false },
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Standard",       total: 980, complete: true },
+              { label: "USA",            total: 980, complete: false, items: [
+                { label: "Blue Parallel", complete: false },
+              ] },
               { divider: true },
-              { label: "Gold Crumple",  complete: false },
-              { label: "PRIZM",         complete: false },
+              { label: "United",         total: 980, complete: false },
             ] },
+            { label: "Actualización", total: 120, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola",     showWith: "actualizacion", items: [
+            { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Latinoamérica",     total: 14, collected: 14, sub: [
                 "CC1 Lamine Yamal",
                 "CC2 Joshua Kimmich",
@@ -969,7 +961,7 @@
                 "CC12 Antonee Robinson",
               ] },
             ] },
-            { id: "otros",         label: "Otros",         showWith: "actualizacion", items: [
+            { id: "otros",         label: "Otros", items: [
               { label: "Posters (P1-P16)", total: 16, coming: true },
               { label: "Trading Cards", total: 16, complete: false, sub: [
                 "No.1 Lamine Yamal",
@@ -1091,13 +1083,24 @@
       // Total sticker count for a grid set (from groups, or explicit total)
       const gridTotal = s => s.groups ? s.groups.reduce((a, g) => a + g.names.length, 0) : s.total;
 
+      // A set tracked as a numbered checklist rather than a single owned/not flag
+      const isGridSet = s => s.owned !== undefined && (s.total != null || s.groups);
+
+      // How many of a grid set's stickers are in a given state. Tengo and De camino are
+      // the owned and in-transit ranges; Falta is everything not yet in hand, so it
+      // covers the in-transit ones too.
+      const gridStateCount = (s, state) =>
+        state === "complete" ? parseRanges(s.owned).size :
+        state === "coming"   ? parseRanges(s.coming).size :
+        gridTotal(s) - parseRanges(s.owned).size;
+
       // True when an entry declares its own state rather than deriving it from children
       const hasOwnStatus = s => s.coming === true || s.complete !== undefined ||
                                 (s.total != null && s.collected != null);
 
       function setStatus(s) {
         // Number-range grid sets (impossible 1970-82 postales)
-        if (s.owned !== undefined && (s.total != null || s.groups)) {
+        if (isGridSet(s)) {
           const tot = gridTotal(s), owned = parseRanges(s.owned).size;
           return owned >= tot
             ? { state: "complete", summary: "", detail: tot }
@@ -1157,10 +1160,9 @@
       // a simple set contributes itself — so partial variants aren't lost.
       const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
 
-      // Otros counts every green check however deep — each owned set is its own +1,
-      // unlike Postales where only the top-level leaf counts. A group's own check is
-      // counted only when it declares its status; an inherited rollup is skipped so a
-      // block of greens isn't also counted as a green itself.
+      // Every green check counts however deep — each owned set is its own +1. A group's
+      // own check is counted only when it declares its status; an inherited rollup is
+      // skipped so a block of greens isn't also counted as a green itself.
       const kidsOf = n => (Array.isArray(n.items) ? n.items.filter(x => !x.divider) : []);
       function deepGreens(node) {
         const kids = kidsOf(node);
@@ -1175,36 +1177,34 @@
                            : (setStatus(s).state === "complete" ? 1 : 0);
       };
 
-      // Header/gallery stat names for the Otros columns, in a fixed reading order (the
-      // "otros" catch-all is mostly McDonald's sets, which reads better than its generic
-      // label). Any future column falls back to its own label, appended in tab order.
-      const OTROS_STAT_ORDER = ["actualizacion", "coca-cola", "otros"];
-      const OTROS_STAT_LABEL = { actualizacion: "Actualización", "coca-cola": "Coca Cola", otros: "McDonald's" };
-      const otrosStatLines = greenKeys =>
-        OTROS_STAT_ORDER.filter(k => greenKeys.has(k)).map(k => OTROS_STAT_LABEL[k])
-          .concat(setColumns().filter(c => greenKeys.has(c.key) && !OTROS_STAT_LABEL[c.key]).map(c => c.label));
+      // ── Todo card figures ──────────────────────────────────────────────────
+      // Every figure on a Todo card is a count of green checks in the Postales tab, so the
+      // grid reads as numbers rather than icons. Each maps to one row of that tab.
+      // Postales: the album sets, which live inside the "Set(s)" row — Actualización sits
+      // outside it and is counted on its own line.
+      const postalesSetGreens = p => {
+        if (!p) return 0;
+        const first = kidsOf(p)[0];
+        return first ? deepGreens(first) : (setStatus(p).state === "complete" ? 1 : 0);
+      };
+      // The year's update set as tracked in Postales, rather than the Otros section that
+      // used to host it
+      const postalesActualizacion = p =>
+        (p && kidsOf(p).find(it => it.label === ACTUALIZACION)) || null;
+      // Actualización: its own green plus any nested one — including the entries the Otros
+      // tab contributes, which is why this works off the album, not the raw row
+      const actualizacionGreens = album => {
+        const raw = postalesActualizacion(album.postales);
+        return raw ? deepGreens(withOtrosActualizacion(raw, album)) : 0;
+      };
+      // Otros: every green inside the Postales "Otros" row, i.e. the mirrored sections.
+      // Actualización is excluded — the row above already accounts for it.
+      const otrosGreens = album =>
+        (album.sets || []).reduce((n, s) =>
+          n + (s.afterPostales || s.id === "actualizacion" ? 0 : setGreens(s)), 0);
 
       // Row status for an Otros-tab set: Actualización reflects its own "main" item
       // (manual, not a rollup); every other section rolls up its items.
-      function setDisplayStatus(s) {
-        if (s.id === "actualizacion") {
-          const m = (s.items || []).find(it => it.label === "Actualización");
-          if (m) return setStatus(m);
-        }
-        return setStatus(s);
-      }
-
-      // In Otros we track completion, not partial progress: an incomplete row shows
-      // just its size + ✗ (e.g. "4 ✗", never "1/4 ✗"). Drop the "have/" numerator
-      // from a pending status. Only applied on the Otros render paths, so postales
-      // number-grids keep their owned/total fractions.
-      function otrosStrip(st) {
-        if (st.state === "pending" && typeof st.detail === "string" && st.detail.includes("/")) {
-          return { state: st.state, summary: st.summary, detail: st.detail.slice(st.detail.lastIndexOf("/") + 1) };
-        }
-        return st;
-      }
-
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       function ledgerRow(label, st) {
         return `<div class="card-count-row">
@@ -1233,35 +1233,38 @@
       //    carries no icon/number (the subtab already implies the state). Unfiltered it
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
-      function expItemHtml(it, stripFrac, state) {
-        if (Array.isArray(it.items) && it.items.length) {
-          // A divider between children renders as the same blank gap a "" sub line gives
+      function expItemHtml(it, state) {
+        if (kidsOf(it).length) {
+          // Children filter themselves, so a state subtab is exactly the Todo tree with
+          // the non-matching rows dropped — however deep they sit. A divider between
+          // children renders as the same blank gap a "" sub line gives.
           const GAP = '<div class="exp-line"></div>';
-          const panel = list => {
-            const out = [];
-            list.forEach(x => {
-              if (x.divider) { if (out.length && out[out.length - 1] !== GAP) out.push(GAP); return; }
-              out.push(expItemHtml(x, stripFrac));
-            });
-            while (out.length && out[out.length - 1] === GAP) out.pop();
-            return out.join("");
-          };
-          // A declared total (e.g. Gold's 694) is the set's real size, so show it — but
-          // never the computed x/y rollup, which is what the counter-free groups avoid.
-          const size = it.total ?? "";
-          const own = setStatus(it).state;
-          if (!state) return expBlock(it.label, { state: own, detail: size }, panel(it.items), false);
-          // In a state subtab: if the entry's own status matches, it belongs here in its
-          // own right — keep its icon and list everything it carries. Otherwise it only
-          // appears because a child matches, so drop the icon (the subtab implies the
-          // state) and show just those children.
-          if (hasOwnStatus(it) && own === state)
-            return expBlock(it.label, { state: own, detail: size }, panel(it.items), true);
-          const kids = it.items.filter(x => !x.divider && setStatus(x).state === state);
-          if (!kids.length) return "";
-          return expBlock(it.label, { state: "none", detail: size }, panel(kids), true);
+          const out = [];
+          let shown = 0;
+          it.items.forEach(x => {
+            if (x.divider) { if (out.length && out[out.length - 1] !== GAP) out.push(GAP); return; }
+            const html = expItemHtml(x, state);
+            if (!html) return;
+            out.push(html);
+            shown++;
+          });
+          while (out.length && out[out.length - 1] === GAP) out.pop();
+          const inner = out.join("");
+          // A counted section reports what it is actually showing; otherwise its declared
+          // total (e.g. Gold's 694), else nothing — the counter-free variant groups. Never
+          // an x/y rollup. A plural label follows that same count.
+          const detail = it.countNested ? String(shown) : (it.total ?? "");
+          const label  = it.plural && shown !== 1 ? it.plural : it.label;
+          if (!state) return expBlock(label, { state: setStatus(it).state, detail }, inner, false);
+          // Filtered: keep the icon when the group itself is in this state, else drop it
+          // (the subtab implies it). Nothing left inside means a plain row, not a caret
+          // that opens onto emptiness.
+          const ownMatches = hasOwnStatus(it) && setStatus(it).state === state;
+          if (!inner) return ownMatches ? ledgerRow(label, { state, detail }) : "";
+          return expBlock(label, { state: ownMatches ? state : "none", detail }, inner, true);
         }
-        const st = stripFrac ? otrosStrip(setStatus(it)) : setStatus(it);
+        if (state && setStatus(it).state !== state) return "";
+        const st = setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
         const lines = it.sub.map(line => `<div class="exp-line">${line}</div>`).join("");
         return expBlock(it.label, st, lines);
@@ -1269,104 +1272,76 @@
 
       // state (optional) keeps only rows in that state; item dividers split the
       // list into sections and survive between sections that still have rows
-      // Otros-tab sets (Actualización / Coca Cola / Otros) sort their rows A-Z;
-      // postales grids and player tabs keep their fixed order. A set can opt out
-      // of the A-Z sort with keepOrder: true (e.g. to match the album's order).
-      const OTROS_IDS = new Set(["actualizacion", "coca-cola", "otros"]);
       const setRowsHtml = (s, state) => {
         if (Array.isArray(s.items) && s.items.length) {
-          let items = s.items;
-          if (OTROS_IDS.has(s.id) && !s.keepOrder) items = [...items].sort((a, b) => a.label.localeCompare(b.label, "es"));
-
-          // Otros-tab sections collapse under a single caret: one labeled row per
-          // section (Actualización / Coca Cola / named McDonald's) with the versions
-          // folded into the panel. The generic "Otros" catch-all stays expanded.
-          if (OTROS_IDS.has(s.id)) {
-            const genericOtros = s.id === "otros" && s.label === "Otros";
-            const main = items.find(it => it.label === s.label); // e.g. the "Actualización" item
-            // Every named section collapses under one caret. With a main item the
-            // header shows that item's status; without one (e.g. 2002 Actualización,
-            // which only has subsets) it falls back to the set's rollup — so an
-            // "owns 0 of 2 subsets" section reads as 0/2.
-            const collapse = !genericOtros;
-            if (collapse) {
-              if (!state) {
-                // Unfiltered: header shows the section's rollup (Actualización uses its
-                // own "main" item's state; the others roll up their items).
-                const rest = items.filter(it => it !== main && !it.divider);
-                if (rest.length) return expBlock(s.label, otrosStrip(setDisplayStatus(s)), rest.map(it => expItemHtml(it, true)).join(""));
-              } else {
-                // State subtabs: show the section's items in this state under one caret,
-                // opened by default so they're visible at a glance (nested lists stay
-                // collapsed). If the "main" item (same label as the section) is itself in
-                // this state, it becomes the header — not a duplicate row in the panel —
-                // and it carries its own icon (which matches the subtab, so never
-                // misleads); otherwise the header shows no icon.
-                const matching = items.filter(it => !it.divider && setStatus(it).state === state);
-                if (!matching.length) return "";
-                const headerMain = main && matching.indexOf(main) >= 0;
-                const panelItems = headerMain ? matching.filter(it => it !== main) : matching;
-                const headerSt = headerMain ? otrosStrip(setStatus(main)) : { state: "none", detail: "" };
-                if (!panelItems.length) {
-                  // Sole match is the main item. If it carries its own sub (e.g. 2006,
-                  // whose whole set is one item + name list), show that as the opened
-                  // panel; otherwise it's just a plain row.
-                  if (main && main.sub && main.sub.length) {
-                    const lines = main.sub.map(line => `<div class="exp-line">${line}</div>`).join("");
-                    return expBlock(s.label, headerSt, lines, true);
-                  }
-                  return ledgerRow(s.label, headerSt);
-                }
-                return expBlock(s.label, headerSt, panelItems.map(it => expItemHtml(it, true)).join(""), true);
-              }
-            }
-          }
-
-          const otros = OTROS_IDS.has(s.id);
           const sections = [[]];
-          items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
-          // Leaf/sub rows show only if their own state matches the subtab; nested carets
-          // (Extras/USA) filter their own children instead, so pass them through — they
-          // open by default and hide themselves when no child matches.
+          s.items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
+          // Every row filters itself (recursively), so a subtab mirrors Todo minus the
+          // rows that don't match
           return sections
-            .map(sec => sec.map(it => {
-              const nested = Array.isArray(it.items) && it.items.length;
-              if (state && !nested && setStatus(it).state !== state) return "";
-              return expItemHtml(it, otros, state);
-            }).filter(Boolean).join(""))
+            .map(sec => sec.map(it => expItemHtml(it, state)).filter(Boolean).join(""))
             .filter(Boolean)
             .join('<div class="card-divider"></div>');
         }
+        // A number-grid set (the 1970-82 postales) tracks stickers, not rows, so in a
+        // state subtab it reports how many of them are in that state rather than showing
+        // the whole set once. Falta means "not in hand", so stickers already bought and
+        // still in transit are counted there as well as under De camino.
+        if (state && isGridSet(s)) {
+          const n = gridStateCount(s, state);
+          return n ? ledgerRow("Set", { state, detail: n }) : "";
+        }
         if (state && setStatus(s).state !== state) return "";
-        return ledgerRow("Set", OTROS_IDS.has(s.id) ? otrosStrip(setStatus(s)) : setStatus(s));
+        return ledgerRow("Set", setStatus(s));
+      };
+
+      // The Otros-tab sets are being transitioned into Postales, and both tabs run in
+      // parallel while that's verified. Rather than copy ~340 lines of nested data (which
+      // would then have to be edited twice and could drift), Postales derives these rows
+      // from the very same sets — so what it shows is the Otros tab by construction.
+      const ACTUALIZACION = "Actualización";
+      const otrosSortedEntries = c =>
+        c.keepOrder ? (c.items || []) : [...(c.items || [])].sort((a, b) => a.label.localeCompare(b.label, "es"));
+
+      // The Otros tab's Actualización entries hang off the Postales Actualización row.
+      // That row keeps the number and status it declares — the nested entries are detail,
+      // never a rollup (hasOwnStatus already makes a declared status win).
+      const withOtrosActualizacion = (item, album) => {
+        const act = (album.sets || []).find(c => !c.afterPostales && c.id === "actualizacion");
+        const entries = act ? otrosSortedEntries(act) : [];
+        return entries.length ? { ...item, items: [...(item.items || []), ...entries] } : item;
+      };
+
+      const OTROS_MIRROR_LABEL = "Otros";
+      const otrosMirror = album => {
+        const items = [];
+        (album.sets || [])
+          .filter(c => !c.afterPostales && c.id !== "actualizacion")
+          .forEach(c => {
+            // Match the Otros tab, which lists each section's entries A-Z
+            const entries = otrosSortedEntries(c);
+            // A catch-all named like the row itself would read "Otros › Otros", so its
+            // entries sit straight in the row — as the Otros tab already lists them inline
+            if (c.label === OTROS_MIRROR_LABEL) items.push(...entries);
+            else items.push({ label: c.label, countNested: true, items: entries });
+          });
+        return items.length ? { label: OTROS_MIRROR_LABEL, countNested: true, items } : null;
       };
 
       function setLedgerRows(album, key, state) {
         const parts = [];
         const s = setForFilter(album, key);
         if (s) {
-          let rows = setRowsHtml(s, state);
-          // Album editions belong to the core set — list them with it by name
-          if (key === "postales") {
-            const eds = (album.editions || []).filter(e => !state || setStatus(e).state === state);
-            // via expItemHtml so an edition carrying its own list (e.g. 2018 Gold)
-            // gets a caret; plain editions render as the same single row as before
-            rows += eds.map(e => expItemHtml(e)).join("");
+          let target = s;
+          if (key === "postales" && Array.isArray(s.items)) {
+            let items = s.items.map(it => it.label === ACTUALIZACION ? withOtrosActualizacion(it, album) : it);
+            const mirror = otrosMirror(album);
+            if (mirror) items = [...items, mirror];
+            if (items !== s.items) target = { ...s, items };
           }
+          const rows = setRowsHtml(target, state);
           if (rows) parts.push(rows);
         }
-        // Sets shown under this tab (showWith) — each collapses to its own row
-        (album.sets || []).forEach(c => {
-          if (c.showWith === key) {
-            const rows = setRowsHtml(c, state);
-            if (!rows) return;
-            // The generic "Otros" catch-all stays expanded, set off by a divider —
-            // but only when something precedes it (else a state subtab that filters out
-            // the sections above would leave a stray divider at the top of the card)
-            const genericOtros = c.id === "otros" && c.label === "Otros";
-            parts.push(genericOtros && parts.length ? `<div class="card-divider"></div>${rows}` : rows);
-          }
-        });
         return parts.join("");
       }
 
@@ -1430,33 +1405,39 @@
         let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
         // Under a sub tab, only years with at least one row in that state
         if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
-        // Canonical order, same as the tab bar; player sets (afterPostales)
-        // live only in their own tabs — no rows on the Todo cards
-        const setOrder = setColumns();
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
-          const logoHtml = `<div class="card-logo">
+          const cardLabel = album.year === "story" ? album.host : `${album.host} ${album.year}`;
+          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${cardLabel}">
               <img
                 src="assets/logos/${album.year}.png"
                 alt="${album.year} logo"
                 onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none'}"
               />
             </div>`;
-          const setRow = s => {
-            const st = setDisplayStatus(s);
-            return `<div class="card-count-row">
-                <span class="count-label">${s.label}</span>
-                <span class="count-val ${stateClass(st.state)}">${st.summary}${srState(stateClass(st.state))}</span>
-              </div>`;
-          };
           let countsHtml;
           if (filterKey) {
             // Set tab: the tab already names the set. With items, one row per
             // item; otherwise a single row labeled by year. Always the full ledger.
             countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey, subState)}</div>`;
           } else {
-            // Set rows in canonical (tab) order, split from the core rows by a divider
-            // (editions like Swiss/Platinum live in the Postales tab, not here)
-            const setRows = setOrder.map(c => findSet(album, c.key)).filter(Boolean).map(s => setRow(s)).join("");
+            // Todo is a tally, not a ledger: Álbumes and Sobres (both filled in by
+            // applyCount, untouched), then one green-check count per row of the Postales
+            // tab. No icons beyond a bare ✗ when a count is zero. Actualización nests under
+            // Postales, mirroring where it lives in that tab.
+            const countVal = n =>
+              `<span class="count-val ${n ? "" : stateClass("pending")}">${n || ""}${n ? "" : srState(stateClass("pending"))}</span>`;
+            const countRow = (label, n) => `<div class="card-count-row">
+                <span class="count-label">${label}</span>
+                ${countVal(n)}
+              </div>`;
+            const hasAct   = !!postalesActualizacion(album.postales);
+            const hasOtros = (album.sets || []).some(s => !s.afterPostales && s.id !== "actualizacion");
+            const postalesRow = !album.postales
+              ? `<div class="card-count-row"><span class="count-label">Postales</span><span class="count-val">—</span></div>`
+              : hasAct
+                ? (n => expBlock("Postales", { state: n ? "none" : "pending", detail: n || "" },
+                                 countRow(ACTUALIZACION, actualizacionGreens(album))))(postalesSetGreens(album.postales))
+                : countRow("Postales", postalesSetGreens(album.postales));
             countsHtml = `<div class="card-counts">
               <div class="card-count-row">
                 <span class="count-label" data-label="albums" data-year="${album.year}">Álbumes</span>
@@ -1466,15 +1447,11 @@
                 <span class="count-label" data-label="sobres" data-year="${album.year}">Sobres</span>
                 <span class="count-val" data-type="sobres" data-year="${album.year}">—</span>
               </div>
-              <div class="card-count-row">
-                <span class="count-label">Postales</span>
-                <span class="count-val${album.postales ? ' ' + stateClass(setStatus(album.postales).state) : ''}">${album.postales ? setStatus(album.postales).summary + srState(stateClass(setStatus(album.postales).state)) : "—"}</span>
-              </div>
-              ${setRows ? `<div class="card-divider"></div>${setRows}` : ""}
+              ${postalesRow}
+              ${hasOtros ? countRow("Otros", otrosGreens(album)) : ""}
             </div>`;
           }
-          const cardLabel = album.year === "story" ? album.host : `${album.host} ${album.year}`;
-          return `<article class="album-card" data-year="${album.year}" role="button" tabindex="0" aria-label="${cardLabel}">
+          return `<article class="album-card" data-year="${album.year}">
             ${logoHtml}
             ${countsHtml}
           </article>`;
@@ -1490,7 +1467,6 @@
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
         let otrosConfirmed = 0, otrosTotal = 0;
-        const otrosGreenKeys = new Set();
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -1498,31 +1474,21 @@
             totalAlbums += c.albumPaths.length;
             totalSobres += c.sobrePaths.length;
           }
-          // Count complete postales leaves, so a year's collected variants
-          // still count while its other variants are pending
-          if (a.postales) totalSets += setLeaves(a.postales).filter(l => setStatus(l).state === "complete").length;
-          (a.editions || []).forEach(e => {
-            if (setStatus(e).state === "complete") totalSets++;
-          });
+          // The two header figures are the sums of the matching Todo-card rows, so the
+          // header and the grid always agree
+          totalSets += postalesSetGreens(a.postales);
+          otrosConfirmed += otrosGreens(a);
           (a.sets || []).forEach(s => {
-            if (s.afterPostales) return; // player sets don't count toward Otros
-            otrosTotal += setLeaves(s).length;
-            const greens = setGreens(s);
-            otrosConfirmed += greens;
-            if (greens > 0) otrosGreenKeys.add(setKey(s));
+            if (s.afterPostales || s.id === "actualizacion") return;
+            otrosTotal += setLeaves(s).length; // just gates whether the stat shows
           });
         });
 
-        // Tooltip lists only sets with green checks, in tab order
-        const otrosLines = otrosStatLines(otrosGreenKeys);
-        const otrosTooltip = otrosLines.length ? `Incluye:&#10;&#10;${otrosLines.join("&#10;")}` : null;
 
-        const stat = (val, label, tooltip) =>
+        const stat = (val, label) =>
           `<div class="inv-stat">
             <span class="inv-stat-value">${val}</span>
-            <span class="inv-stat-label">
-              ${label}${tooltip ? `<button type="button" class="inv-tooltip-icon" data-tooltip="${tooltip}" aria-label="${tooltip}"><svg width="10" height="10" aria-hidden="true"><use href="#icon-info"></use></svg></button>` : ""}
-            </span>
+            <span class="inv-stat-label">${label}</span>
           </div>`;
 
         document.getElementById("inv-stats").innerHTML = `
@@ -1534,7 +1500,7 @@
               <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
                 ${stat(totalSets, "Postales")}
-                ${otrosTotal ? stat(otrosConfirmed, "Otros", otrosTooltip) : ""}
+                ${otrosTotal ? stat(otrosConfirmed, "Otros") : ""}
               </div>
             </div>
           </div>`;
@@ -1609,14 +1575,6 @@
         if (album.postales) {
           tabs.push({ key: "postales", label: "Postales" });
         }
-        setColumns().forEach(c => {
-          if (c.showWith) return; // rendered under its partner tab
-          if (matchesFilter(album, c.key) && setPlaceholderEntries(album, c.key).length) {
-            // Combined name only when this year actually has the partner set
-            const partners = (album.sets || []).filter(s => s.showWith === c.key).map(s => s.label);
-            tabs.push({ key: c.key, label: c.tabLabel || (partners.length ? `${c.label} / ${partners.join(" / ")}` : c.label) });
-          }
-        });
         return tabs;
       }
 
@@ -1635,16 +1593,22 @@
         const push = (label, st) => {
           if (st.state === "complete") entries.push({ label, value: st.detail });
         };
-        const addSet = s => {
-          if (Array.isArray(s.items) && s.items.length) s.items.forEach(it => { if (!it.divider) push(it.label, setStatus(it)); });
-          else push("Set", setStatus(s));
+        // Walks nested groups so a collected variant still lists itself once the year's
+        // sets are folded under a "Sets" row. maxDepth mirrors how each tab counts its
+        // greens: Postales stops at the sets directly inside a row, Otros goes all the way.
+        const addSet = (s, maxDepth) => {
+          const kids = kidsOf(s);
+          if (!kids.length) { push("Set", setStatus(s)); return; }
+          const walk = (n, depth) => {
+            const inner = kidsOf(n);
+            if (!inner.length) { push(n.label, setStatus(n)); return; }
+            if (hasOwnStatus(n)) push(n.label, setStatus(n));
+            if (depth < maxDepth) inner.forEach(k => walk(k, depth + 1));
+          };
+          kids.forEach(k => walk(k, 1));
         };
         const s = setForFilter(album, key);
-        if (s) addSet(s);
-        if (key === "postales") {
-          (album.editions || []).forEach(e => push(e.label, setStatus(e)));
-        }
-        (album.sets || []).forEach(c => { if (c.showWith === key) addSet(c); });
+        if (s) addSet(s, key === "postales" ? 2 : Infinity);
         return entries;
       }
 
@@ -1711,35 +1675,19 @@
         const counts = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
         const albumsLabel = counts.albumPaths.length === 1 ? "Álbum" : "Álbumes";
         const sobresLabel = counts.sobrePaths.length === 1 ? "Sobre" : "Sobres";
-        const stat = (val, label, tooltip) =>
+        const stat = (val, label) =>
           `<div class="inv-stat">
             <span class="inv-stat-value">${val}</span>
-            <span class="inv-stat-label">${label}${tooltip ? `<button type="button" class="inv-tooltip-icon" data-tooltip="${tooltip}" aria-label="${tooltip}"><svg width="10" height="10" aria-hidden="true"><use href="#icon-info"></use></svg></button>` : ""}</span>
+            <span class="inv-stat-label">${label}</span>
           </div>`;
-        // Same rule as the main stats: count the green leaves, don't show
-        // what's missing — a count of 0 hides the stat entirely
+        // The same three figures as the year's Todo card, so the grid and this header
+        // always agree. A count of 0 hides its stat entirely.
         const setsItems = [];
-        if (album.postales) {
-          let postalesGreens = setLeaves(album.postales).filter(l => setStatus(l).state === "complete").length;
-          (album.editions || []).forEach(e => {
-            if (setStatus(e).state === "complete") postalesGreens++;
-          });
-          if (postalesGreens > 0) setsItems.push(stat(postalesGreens, "Postales"));
-        }
-
-        let otrosConfirmed = 0;
-        const otrosGreenKeys = new Set();
-        (album.sets || []).forEach(s => {
-          if (s.afterPostales) return; // player sets don't count toward Otros
-          const greens = setGreens(s);
-          otrosConfirmed += greens;
-          if (greens > 0) otrosGreenKeys.add(setKey(s));
+        [["Postales", postalesSetGreens(album.postales)],
+         [ACTUALIZACION, actualizacionGreens(album)],
+         ["Otros", otrosGreens(album)]].forEach(pair => {
+          if (pair[1] > 0) setsItems.push(stat(pair[1], pair[0]));
         });
-        if (otrosConfirmed > 0) {
-          // Tooltip lists only this year's green sets, in tab order
-          const otrosLines = otrosStatLines(otrosGreenKeys);
-          setsItems.push(stat(otrosConfirmed, "Otros", `Incluye:&#10;&#10;${otrosLines.join("&#10;")}`));
-        }
         document.getElementById("inv-stats").innerHTML = `
           <div class="inv-stats-row">
             <div class="inv-stat">
@@ -1878,11 +1826,10 @@
 
       document.getElementById("albums-grid").addEventListener("keydown", e => {
         if (e.key !== "Enter" && e.key !== " ") return;
-        if (e.target.closest(".exp-toggle")) return; // caret button, not the card
-        const card = e.target.closest(".album-card");
-        if (!card) return;
+        const logo = e.target.closest(".card-logo");
+        if (!logo) return;
         e.preventDefault();
-        openCard(card);
+        openCard(logo.closest(".album-card"));
       });
 
       document.getElementById("gallery-back").addEventListener("click", hideGallery);
@@ -1903,19 +1850,13 @@
       // ── View tabs: Todo + one tab per sticker set ──────────────────────────
       const setKey = s => s.id || s.label;
 
-      // Union of set identities across all years, in first-appearance order.
-      // Sets flagged afterPostales: true form a second group placed after the
-      // Postales tab (e.g. player collections).
-      function setColumns(afterPostales = false) {
+      // The player collections are the only sets with their own tab, listed after
+      // Postales in first-appearance order. Everything else feeds the Postales rows.
+      function playerColumns() {
         const cols = [];
         ALBUMS.forEach(a => (a.sets || []).forEach(s => {
-          if (!!s.afterPostales !== afterPostales) return;
-          const existing = cols.find(c => c.key === setKey(s));
-          if (existing) {
-            if (s.tabLabel) existing.tabLabel = s.tabLabel;
-            return;
-          }
-          cols.push({ key: setKey(s), label: s.label, showWith: s.showWith, tabLabel: s.tabLabel });
+          if (!s.afterPostales) return;
+          if (!cols.some(c => c.key === setKey(s))) cols.push({ key: setKey(s), label: s.label });
         }));
         return cols;
       }
@@ -1927,9 +1868,7 @@
       const setForFilter = (album, key) =>
         key === "postales" ? album.postales : findSet(album, key);
 
-      // A year matches a tab if it has the set itself or one shown with it
-      const matchesFilter = (album, key) =>
-        !!setForFilter(album, key) || (album.sets || []).some(s => s.showWith === key);
+      const matchesFilter = (album, key) => !!setForFilter(album, key);
 
       let currentFilter    = null; // null = Todo (source of truth)
       let currentSubFilter = null; // coming | pending | complete | null
@@ -1944,16 +1883,13 @@
       // Sub tabs apply to every set tab, Postales included
       const hasSubTabs = key => !!key;
 
-      // Which states exist anywhere in a tab (host set + its showWith partners)
+      // Which states exist anywhere in a tab
       function tabStates(key) {
         const states = new Set();
         ALBUMS.forEach(a => {
           if (!matchesFilter(a, key)) return;
-          const sets = [];
           const s = setForFilter(a, key);
-          if (s) sets.push(s);
-          (a.sets || []).forEach(c => { if (c.showWith === key) sets.push(c); });
-          sets.forEach(x => setLeaves(x).forEach(l => states.add(setStatus(l).state)));
+          if (s) setLeaves(s).forEach(l => states.add(setStatus(l).state));
         });
         return states;
       }
@@ -1980,16 +1916,9 @@
           const active = t.key === currentFilter;
           return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
         };
-        const cols = setColumns();
-        // Tabs hosting another set (showWith) carry a combined name
-        const combinedLabel = c => {
-          const partners = cols.filter(p => p.showWith === c.key).map(p => p.label);
-          return partners.length ? `${c.label} / ${partners.join(" / ")}` : c.label;
-        };
-        const main    = [{ key: null, label: "Todo" }, { key: "postales", label: "Postales" }, ...cols.filter(c => !c.showWith).map(c => ({ key: c.key, label: c.tabLabel || combinedLabel(c) }))];
-        const players = setColumns(true);
+        const main = [{ key: null, label: "Todo" }, { key: "postales", label: "Postales" }];
         document.getElementById("view-tabs").innerHTML =
-          main.map(tabBtn).join("") + players.map(tabBtn).join("");
+          main.concat(playerColumns()).map(tabBtn).join("");
       }
 
       document.getElementById("view-tabs").addEventListener("click", e => {
@@ -2098,18 +2027,6 @@
         }
       });
 
-      // ── Tooltip icons (header stats "Incluye" popups) ──────────────────────
-      document.addEventListener("click", e => {
-        const icon = e.target.closest(".inv-tooltip-icon");
-        if (icon) {
-          e.stopPropagation();
-          const wasActive = icon.classList.contains("is-active");
-          document.querySelectorAll(".inv-tooltip-icon.is-active").forEach(el => el.classList.remove("is-active"));
-          if (!wasActive) icon.classList.add("is-active");
-        } else {
-          document.querySelectorAll(".inv-tooltip-icon.is-active").forEach(el => el.classList.remove("is-active"));
-        }
-      });
 
       // ── Expand / collapse carets (inline set & version lists) ──────────────
       // The whole header row toggles, not just the caret — a 12px glyph is far too

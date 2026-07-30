@@ -94,74 +94,6 @@
   letter-spacing: 0.05em;
 }
 
-/* ── Tooltip ────────────────────────────────────────────────────────────── */
-
-/* Padding grows the 10px glyph's hit area to 24px (WCAG 2.5.8); the negative margins
-   cancel it so layout is unchanged (outer box stays 10px tall, 3px from the label).
-   The ::after/::before offsets below are compensated for the taller padding box. */
-.inv-tooltip-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: -7px -7px -7px -4px;
-  padding: 7px;
-  background: none;
-  border: 0;
-  font: inherit;
-  color: var(--subtle);
-  cursor: pointer;
-  position: relative;
-  vertical-align: middle;
-  line-height: 1;
-}
-
-.inv-tooltip-icon:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-.inv-tooltip-icon::before,
-.inv-tooltip-icon::after {
-  position: absolute;
-  left: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s;
-  z-index: 10;
-}
-
-.inv-tooltip-icon::after {
-  content: attr(data-tooltip);
-  bottom: calc(100% + 1px);
-  transform: translateX(-50%);
-  background: var(--surface-strong);
-  color: var(--text);
-  font: 500 12px/1.5 "Fira Sans", sans-serif;
-  text-align: left;
-  white-space: pre-wrap;
-  max-width: 240px;
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  text-transform: none;
-  letter-spacing: normal;
-  width: max-content;
-}
-
-.inv-tooltip-icon::before {
-  content: "";
-  bottom: calc(100% - 5px);
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: var(--border);
-}
-
-.inv-tooltip-icon.is-active::before,
-.inv-tooltip-icon.is-active::after {
-  opacity: 1;
-}
-
 /* ── Inline expand/collapse (caret) blocks — set & version lists ────────── */
 
 /* An expandable row's whole header is the tap target — the 12px caret alone is far
@@ -471,9 +403,9 @@
   transform: translateY(-1px);
 }
 
-.album-card:focus-visible {
+.card-logo:focus-visible {
   outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 .album-card.is-empty {
