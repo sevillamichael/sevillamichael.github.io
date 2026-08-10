@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.12.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.13.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -258,7 +258,7 @@
               { cat: "Uruguay", names: ["Uruguay Federation", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Wales", names: ["Wales Federation", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "Spain",              postales: { owned: "36, 50", coming: "7-8, 13, 22, 28-29, 33-34, 55, 59-60, 63, 65, 68, 73, 80, 88, 92, 96, 102, 105, 109, 131-132, 138-142, 144, 149, 155, 161, 183-184, 188-190, 194-197, 205, 209, 211, 215, 217, 226, 236, 242-244, 249, 251, 255, 260, 263, 266, 269, 272, 276-277, 282, 287, 290, 294, 299, 315-316, 318-321, 324, 326, 329, 333-334, 336, 338, 340-341, 347, 349, 352-355, 383, 386, 389, 391-392, 395-397, 399, 402, 404-405, 407, 409, 411, 419-420, 422-424, 426", groups: [
+        { year: 1982, host: "Spain",              postales: { owned: "7-8, 13, 22, 28-29, 33-34, 36, 50, 55, 59-60, 63, 65, 68, 73, 80, 88, 92, 96, 102, 105, 109, 131-132, 138-142, 144, 149, 155, 161, 183-184, 188-190, 194-197, 205, 209, 211, 215, 217, 226, 236, 242-244, 249, 251, 255, 260, 263, 266, 269, 272, 276-277, 282, 287, 290, 294, 299, 315-316, 318-321, 324, 326, 329, 333-334, 336, 338, 340-341, 347, 349, 352-355, 383, 386, 389, 391-392, 395-397, 399, 402, 404-405, 407, 409, 411, 419-420, 422-424, 426", coming: "", groups: [
               { cat: "Special", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "poster", names: ["Madrid (poster)", "Barcelona (poster)", "Sevilla (poster)", "Vigo (poster)", "La Coruna (poster)", "Gijon (poster)"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -644,7 +644,7 @@
                 ] },
               ] },
             ] },
-            { label: "Actualización", total: 92, coming: true },
+            { label: "Actualización", total: 92, complete: true },
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
@@ -841,7 +841,7 @@
                 "C13 Sergej Milinković-Savić",
                 "C14 Hirving Lozano",
               ] },
-              { label: "América", total: 8,  coming: true, sub: [
+              { label: "América", total: 8,  complete: true, sub: [
                 "C1 Serge Gnabry",
                 "C2 Emiliano Martínez",
                 "C3 Kevin De Bruyne",
@@ -855,7 +855,7 @@
             { id: "otros",         label: "Otros", items: [
               { label: "Extras",     total: 80, collected: 80 },
               { label: "Letras",     total: 22, complete: true },
-              { label: "McDonald's", total: 8,  coming: true, sub: [
+              { label: "McDonald's", total: 8,  complete: true, sub: [
                 "M1 Kevin De Bruyne",
                 "M2 Luka Modrić",
                 "M3 Heung-Min Son",
@@ -887,12 +887,12 @@
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR17 International", complete: true },
-              { label: "POR18 Oryx",          coming: true },
-              { label: "POR18 Standard",      coming: true },
+              { label: "POR18 Oryx",          complete: true },
+              { label: "POR18 Standard",      complete: true },
               { label: "USA", items: [
-                { label: "POR18",         coming: true },
+                { label: "POR18",         complete: true },
                 { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  coming: true },
+                { label: "Red Parallel",  complete: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1048,7 +1048,7 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG17 Standard",      complete: true },
-              { label: "ARG17 United",        complete: false },
+              { label: "ARG17 United",        coming: true },
               { label: "USA", items: [
                 { label: "ARG17",         complete: true },
                 { label: "Blue Parallel", complete: true },
@@ -1063,9 +1063,9 @@
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR15 Standard",      complete: true },
-              { label: "POR15 United",        complete: false },
+              { label: "POR15 United",        coming: true },
               { label: "USA", items: [
-                { label: "POR15",         coming: true },
+                { label: "POR15",         complete: true },
                 { label: "Blue Parallel", complete: true },
                 { label: "Red Parallel",  coming: true },
               ] },
@@ -1078,7 +1078,7 @@
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA20 Standard",      complete: true },
-              { label: "FRA20 United",        complete: false },
+              { label: "FRA20 United",        coming: true },
               { label: "USA", items: [
                 { label: "FRA20",         complete: true },
                 { label: "Blue Parallel", complete: true },
@@ -1088,7 +1088,7 @@
                 { label: "Base",   complete: true },
                 { label: "Bronze", complete: true },
                 { label: "Silver", complete: true },
-                { label: "Gold",   complete: false },
+                { label: "Gold",   complete: true },
               ] },
             ] },
           ] },
@@ -1977,12 +1977,14 @@
       const hasSubTabs = key => !!key;
 
       // Which states exist anywhere in a tab
+      // Offer exactly the subtabs that have something to show. Asking the renderer is the
+      // only reliable test: rows nest, and Postales also derives rows that the raw set
+      // doesn't contain, so inspecting top-level items alone would hide a subtab whose
+      // only content sits deeper.
       function tabStates(key) {
         const states = new Set();
-        ALBUMS.forEach(a => {
-          if (!matchesFilter(a, key)) return;
-          const s = setForFilter(a, key);
-          if (s) setLeaves(s).forEach(l => states.add(setStatus(l).state));
+        ["complete", "pending", "coming"].forEach(state => {
+          if (ALBUMS.some(a => matchesFilter(a, key) && setLedgerRows(a, key, state))) states.add(state);
         });
         return states;
       }
