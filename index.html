@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=9" />
+    <link rel="stylesheet" href="css/panini.css?v=10" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.14.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.15.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -147,12 +147,12 @@
       //   the number of entries it holds instead of a declared total, and plural: "<name>"
       //   is the label to use when that count isn't 1.
       //   sub: ["plain text", ...] renders indented reference lines under an item
-      //   inside an Otros-tab tooltip (no status of their own).
+      //   inside the row's expandable panel (no status of their own).
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
       //   the Postales tab's Actualización and Otros rows are derived from.
-      //   { divider: true } inside items draws a subtle divider between rows.
+      //   A blank "" entry inside sub renders as a gap between groups of lines.
       const ALBUMS = [
         { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
               { cat: "Mexico 70", names: ["Rimet Cup", "F.I.F.A.", "Mexican Map", "Juanito (Mascot)", "Mexican Poster"] },
@@ -974,39 +974,39 @@
               ] },
             ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Host City Posters", total: 16, complete: true, plain: true, sub: [
-                "Toronto",
-                "Vancouver",
-                "",
-                "Guadalajara",
-                "Mexico City",
-                "Monterrey",
-                "",
-                "Atlanta",
-                "Boston",
-                "Dallas",
-                "Houston",
-                "Kansas City",
-                "Los Angeles",
-                "Miami",
-                "New York",
-                "Philadelphia",
-                "San Francisco",
-                "Seattle",
-              ] },
-              { label: "Trading Cards", total: 12, complete: false, sub: [
-                "No.1 Lamine Yamal",
-                "No.2 Joshua Kimmich",
-                "No.3 Harry Kane",
-                "No.4 Santiago Giménez",
-                "No.5 Antonee Robinson",
-                "No.6 Virgil van Dijk",
-                "No.7 Lautaro Martínez",
-                "No.8 Jefferson Lerma",
-                "No.9 Alphonso Davies",
-                "No.10 Gabriel Magalhães",
-                "No.11 Edson Álvarez",
-                "No.12 Weston McKennie",
+              { label: "Trading Cards", countNested: true, items: [
+                { label: "Set",         total: 12, complete: false, sub: [
+                  "No.1 Lamine Yamal",
+                  "No.2 Joshua Kimmich",
+                  "No.3 Harry Kane",
+                  "No.4 Santiago Giménez",
+                  "No.5 Antonee Robinson",
+                  "No.6 Virgil van Dijk",
+                  "No.7 Lautaro Martínez",
+                  "No.8 Jefferson Lerma",
+                  "No.9 Alphonso Davies",
+                  "No.10 Gabriel Magalhães",
+                  "No.11 Edson Álvarez",
+                  "No.12 Weston McKennie",
+                ] },
+                { label: "Host Cities", total: 16, complete: true, plain: true, sub: [
+                  "Toronto",
+                  "Vancouver",
+                  "Guadalajara",
+                  "Mexico City",
+                  "Monterrey",
+                  "Atlanta",
+                  "Boston",
+                  "Dallas",
+                  "Houston",
+                  "Kansas City",
+                  "Los Angeles",
+                  "Miami",
+                  "New York",
+                  "Philadelphia",
+                  "San Francisco",
+                  "Seattle",
+                ] },
               ] },
               { label: "Extras",     total: 80, collected: 80 },
               { label: "McDonald's", total: 28, collected: 28, sub: [
@@ -1141,7 +1141,7 @@
         // reference detail, not the source of truth (e.g. 2014's complete Set holding the
         // still-coming USA promo). Groups that omit a status still derive one below.
         if (Array.isArray(s.items) && s.items.length && !hasOwnStatus(s)) {
-          const real = s.items.filter(it => !it.divider);
+          const real = s.items;
           // Icon inheritance: when every item shares one state, the parent shows it
           // (e.g. an all-"De camino" McDonald's reads as ✈️, not the ✗ the have/total
           // rollup would give). Actualización is excluded — its header uses its own
@@ -1189,12 +1189,12 @@
 
       // Stats count leaf items: a set with items contributes each item,
       // a simple set contributes itself — so partial variants aren't lost.
-      const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items.filter(it => !it.divider) : [s]);
+      const setLeaves = s => (Array.isArray(s.items) && s.items.length ? s.items : [s]);
 
       // Every green check counts however deep — each owned set is its own +1. A group's
       // own check is counted only when it declares its status; an inherited rollup is
       // skipped so a block of greens isn't also counted as a green itself.
-      const kidsOf = n => (Array.isArray(n.items) ? n.items.filter(x => !x.divider) : []);
+      const kidsOf = n => (Array.isArray(n.items) ? n.items : []);
       function deepGreens(node) {
         const kids = kidsOf(node);
         if (!kids.length) return setStatus(node).state === "complete" ? 1 : 0;
@@ -1234,7 +1234,7 @@
         (album.sets || []).reduce((n, s) =>
           n + (s.afterPostales || s.id === "actualizacion" ? 0 : setGreens(s)), 0);
 
-      // Row status for an Otros-tab set: Actualización reflects its own "main" item
+      // Row status for a secondary set: Actualización reflects its own "main" item
       // (manual, not a rollup); every other section rolls up its items.
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       function ledgerRow(label, st) {
@@ -1323,19 +1323,9 @@
       function expItemHtml(it, state) {
         if (kidsOf(it).length) {
           // Children filter themselves, so a state subtab is exactly the Todo tree with
-          // the non-matching rows dropped — however deep they sit. A divider between
-          // children renders as the same blank gap a "" sub line gives.
-          const GAP = '<div class="exp-line"></div>';
-          const out = [];
-          let shown = 0;
-          it.items.forEach(x => {
-            if (x.divider) { if (out.length && out[out.length - 1] !== GAP) out.push(GAP); return; }
-            const html = expItemHtml(x, state);
-            if (!html) return;
-            out.push(html);
-            shown++;
-          });
-          while (out.length && out[out.length - 1] === GAP) out.pop();
+          // the non-matching rows dropped — however deep they sit
+          const out = it.items.map(x => expItemHtml(x, state)).filter(Boolean);
+          const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
           // total (e.g. Gold's 694), else nothing — the counter-free variant groups. Never
@@ -1360,18 +1350,11 @@
         return expBlock(it.label, st, lines);
       }
 
-      // state (optional) keeps only rows in that state; item dividers split the
-      // list into sections and survive between sections that still have rows
+      // state (optional) keeps only rows in that state; every row filters itself
+      // (recursively), so a subtab mirrors Todo minus the rows that do not match
       const setRowsHtml = (s, state) => {
         if (Array.isArray(s.items) && s.items.length) {
-          const sections = [[]];
-          s.items.forEach(it => it.divider ? sections.push([]) : sections[sections.length - 1].push(it));
-          // Every row filters itself (recursively), so a subtab mirrors Todo minus the
-          // rows that don't match
-          return sections
-            .map(sec => sec.map(it => expItemHtml(it, state)).filter(Boolean).join(""))
-            .filter(Boolean)
-            .join('<div class="card-divider"></div>');
+          return s.items.map(it => expItemHtml(it, state)).filter(Boolean).join("");
         }
         // A number-grid set (the 1970-82 postales) tracks stickers, not rows, so in a
         // state subtab it reports how many of them are in that state rather than showing
@@ -1385,15 +1368,14 @@
         return ledgerRow("Set", setStatus(s));
       };
 
-      // The Otros-tab sets are being transitioned into Postales, and both tabs run in
-      // parallel while that's verified. Rather than copy ~340 lines of nested data (which
-      // would then have to be edited twice and could drift), Postales derives these rows
-      // from the very same sets — so what it shows is the Otros tab by construction.
+      // The secondary sets (Coca Cola, McDonald's, Actualización, ...) have no tab of their
+      // own: Postales derives its Actualización and Otros rows from them. Deriving rather
+      // than copying ~340 lines of nested data means the two can never drift apart.
       const ACTUALIZACION = "Actualización";
       const otrosSortedEntries = c =>
         c.keepOrder ? (c.items || []) : [...(c.items || [])].sort((a, b) => a.label.localeCompare(b.label, "es"));
 
-      // The Otros tab's Actualización entries hang off the Postales Actualización row.
+      // The secondary Actualización set's entries hang off the Postales Actualización row.
       // That row keeps the number and status it declares — the nested entries are detail,
       // never a rollup (hasOwnStatus already makes a declared status win).
       const withOtrosActualizacion = (item, album) => {
@@ -1408,10 +1390,10 @@
         (album.sets || [])
           .filter(c => !c.afterPostales && c.id !== "actualizacion")
           .forEach(c => {
-            // Match the Otros tab, which lists each section's entries A-Z
+            // List each section's entries A-Z
             const entries = otrosSortedEntries(c);
             // A catch-all named like the row itself would read "Otros › Otros", so its
-            // entries sit straight in the row — as the Otros tab already lists them inline
+            // entries sit straight in the row, listed inline
             if (c.label === OTROS_MIRROR_LABEL) items.push(...entries);
             else items.push({ label: c.label, countNested: true, items: entries });
           });
@@ -1634,7 +1616,7 @@
         // size of their own filtered view
         headEl.textContent = `Postales: ${gridFilter ? tally[gridFilter] : tally["is-confirmed"]}/${tot}`;
         const bar = FILTERS.map(f =>
-          `<button class="view-tab grid-filter-btn${f.key === gridFilter ? " is-active" : ""}" data-gf="${f.key ?? ""}" type="button">${f.label}</button>`).join("");
+          `<button class="view-tab grid-filter-btn${f.key === gridFilter ? " is-active" : ""}" data-gf="${f.key ?? ""}" type="button" aria-pressed="${f.key === gridFilter}">${f.label}</button>`).join("");
 
         let n = 0;
         let body;
@@ -1932,7 +1914,7 @@
       }
 
       document.getElementById("albums-grid").addEventListener("click", e => {
-        // Only the logo/image area navigates, so the counts + tooltips stay clickable
+        // Only the logo/image area navigates, so the count rows stay clickable
         const logo = e.target.closest(".card-logo");
         if (!logo) return;
         openCard(logo.closest(".album-card"));

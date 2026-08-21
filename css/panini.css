@@ -454,11 +454,6 @@
   gap: 8px;
 }
 
-.card-divider {
-  border-top: 1px solid var(--border);
-  margin: 3px 0;
-}
-
 /* Label wrapper: a flex row holding the label text and, when present, the
    fixed-size expand caret (which never shrinks) */
 .count-label {
