@@ -469,7 +469,10 @@
 
 .count-label-text {
   min-width: 0;
-  white-space: nowrap; /* one line, never wraps to a 2nd row */
+  /* Wraps to a 2nd line rather than clipping or painting over the value, so a long
+     label ("276 Internacional (Rosado)") stays fully readable. overflow-wrap covers
+     the pathological case of one unbreakable word. */
+  overflow-wrap: anywhere;
 }
 
 .count-val {
