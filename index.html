@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.18.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.19.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -363,7 +363,7 @@
               { label: "185", complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "298", coming: true },
+              { label: "298", complete: true },
             ] },
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
@@ -454,7 +454,7 @@
             { id: "otros",         label: "Otros", items: [
               { label: "Jabulani (A-I)",              total: 9,  complete: false },
               { label: "VISA (A1-D1)",                total: 4,  complete: false },
-              { label: "Tournament Tracker", total: 24, complete: true, sub: [
+              { label: "Tourn. Tracker", total: 24, complete: true, sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
                 "C Lionel Messi",
@@ -498,7 +498,7 @@
               { label: "122 Italia (Negro)", complete: true },
               { label: "122 Brasil (Azul)", complete: true },
               { label: "Sin número",    complete: true },
-              { label: "Tournament Tracker C", complete: false },
+              { label: "Tourn. Tracker C", complete: false },
               { label: "122 Swiss",      complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
@@ -895,7 +895,7 @@
               ] },
             ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Extras",     total: 80, collected: 80, detailOnly: true, items: [
+              { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
                 { label: "Base",    total: 20, complete: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
@@ -1194,8 +1194,14 @@
                   "San Francisco",
                   "Seattle",
                 ] },
+                { label: "China",       total: 4, complete: false, sub: [
+                  "Lamine Yamal",
+                  "Harry Kane",
+                  "Virgil Van Dijk",
+                  "Lautaro Martinez",
+                ] },
               ] },
-              { label: "Extras",     total: 80, collected: 80, detailOnly: true, items: [
+              { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
                 { label: "Base",   total: 20, complete: true },
                 { label: "Bronce", total: 20, complete: true },
                 { label: "Plata",  total: 20, complete: true },
@@ -1237,7 +1243,7 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG17 Estándar",      complete: true },
-              { label: "ARG17 United",        coming: true },
+              { label: "ARG17 United",        complete: true },
               { label: "USA", items: [
                 { label: "ARG17",         complete: true },
                 { label: "Blue Parallel", complete: true },
@@ -1252,7 +1258,7 @@
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR15 Estándar",      complete: true },
-              { label: "POR15 United",        coming: true },
+              { label: "POR15 United",        complete: true },
               { label: "USA", items: [
                 { label: "POR15",         complete: true },
                 { label: "Blue Parallel", complete: true },
@@ -1267,7 +1273,7 @@
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA20 Estándar",      complete: true },
-              { label: "FRA20 United",        coming: true },
+              { label: "FRA20 United",        complete: true },
               { label: "USA", items: [
                 { label: "FRA20",         complete: true },
                 { label: "Blue Parallel", complete: true },
@@ -1574,8 +1580,14 @@
       // own: Postales derives its Actualización and Otros rows from them. Deriving rather
       // than copying ~340 lines of nested data means the two can never drift apart.
       const ACTUALIZACION = "Actualización";
-      const otrosSortedEntries = c =>
-        c.keepOrder ? (c.items || []) : [...(c.items || [])].sort((a, b) => a.label.localeCompare(b.label, "es"));
+      // Sections and their subsets alike read A-Z. keepOrder: true opts one level out,
+      // for a list whose sequence carries meaning rather than being alphabetical.
+      const otrosSortedEntries = c => {
+        const kids = c.items || [];
+        const sorted = c.keepOrder ? kids
+                                   : [...kids].sort((a, b) => a.label.localeCompare(b.label, "es"));
+        return sorted.map(k => (k.items ? { ...k, items: otrosSortedEntries(k) } : k));
+      };
 
       // The secondary Actualización set's entries hang off the Postales Actualización row.
       // That row keeps the number and status it declares — the nested entries are detail,
