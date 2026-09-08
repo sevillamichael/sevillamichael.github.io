@@ -827,6 +827,20 @@
     gap: 10px;
   }
 
+  /* Two columns leaves a ~150px card, ~27px narrower than the desktop six-column
+     layout. Claw that back from the horizontal padding and the nesting indent so a
+     deeply nested label ("Otros > Coca Cola > Europa > Numerada") still fits one
+     line. The border-left still marks each level. */
+  .card-counts {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .exp-panel {
+    margin-left: 1px;
+    padding-left: 4px;
+  }
+
   .card-logo {
     flex: 0 0 140px;
     height: 140px;

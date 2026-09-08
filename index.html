@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=11" />
+    <link rel="stylesheet" href="css/panini.css?v=12" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.17.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.18.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -146,6 +146,8 @@
       //   carry its own items to nest a group; countNested: true makes that group's value
       //   the number of entries it holds instead of a declared total, and plural: "<name>"
       //   is the label to use when that count isn't 1.
+      //   detailOnly: true means the items only break the entry down (Extras 80 =
+      //   Base/Bronce/Plata/Oro x 20), so it counts as one green, not one per child.
       //   sub: ["plain text", ...] renders indented reference lines under an item
       //   inside the row's expandable panel (no status of their own).
       //   afterPostales: true places the set's tab after Postales (player sets).
@@ -166,7 +168,7 @@
               { cat: "England 1966", names: ["Poster England 1966", "Winners - England", "Albrecht (Argentina)", "Eusebio (Portugal)", "Hunt (England)"] },
               { cat: "Programma Mexico 70", names: ["Azteca Stadium"] },
               { cat: "Mexico", names: ["Flag", "Emblem", "Team", "Ignacio Calderon", "Juan Manuel Alejandrez", "Gustavo Pena", "Gabriel Nunez", "Mario Perez", "Sabas Ponce", "Alberto Onofre", "Isidoro Diaz", "Juan Alvarado", "Vicente Pereda", "Aaron Padilla", "Javier Fragoso", "Enrique Borja", "Francisco Castrejon"] },
-              { cat: "Belgique-Belgie", names: ["Flag", "Emblem", "Jean Trappeniers", "Team", "Georges Heylens", "Nicolas Dewalque", "Leon Jeck", "Jean Thissen", "Wilfried van Moer", "Odilon Polleunis", "Leon Semmeling", "Johan Devrindt", "Paul van Himst", "Wilfried Puis"] },
+              { cat: "Belgique-Belgie", names: ["Flag", "Emblem", "Jean Trappeniers", "Team", "Georges Heylens", "Nicolas Dewalque", "Leon Jeck", "Jean Thissen", "Wilfried Van Moer", "Odilon Polleunis", "Leon Semmeling", "Johan Devrindt", "Paul Van Himst", "Wilfried Puis"] },
               { cat: "El Salvador", names: ["Flag", "Emblem", "Juan Gualberto Fernandez", "Team", "Roberto Rivas", "Salvador Mariona", "Mauricio Manzano", "Jorge Alfredo Vazquez", "Jose Antonio Quintanilla", "Mauricio Rodriguez", "Juan Ramon Martinez", "Salvador Flamenco", "Mario Monje", "Elmer Acevedo"] },
               { cat: "U.S.S.R.", names: ["Flag", "Emblem", "Team", "Eugene Roudakov", "Revaz Dzodzuashvili", "Albert Chesternev", "Mourtaz Khourtzilava", "Eugene Zovtchev", "Vladimir Kaplitchnyi", "Victor Serebzianikov", "Vladimir Mountian", "Kakhi Asatiani", "Anatole Bichevetz", "Anatole Pouzatch", "Guivi Nodia", "Vitali Khmelnitzki", "Anzor Kavazachvili"] },
               { cat: "Italia", names: ["Flag", "Emblem", "Team", "Dino Zoff", "Tarcisio Burgnich", "Giacinto Facchetti", "Mario Bertini", "Giorgio Puia", "Sandro Salvadore", "Angelo Domenghini", "Gianni Rivera", "Sandro Mazzola", "Giancarlo De Sisti", "Luigi Riva", "Pietro Anastasi", "Antonio Juliano", "Enrico Albertosi"] },
@@ -178,7 +180,7 @@
               { cat: "Ceskoslovensko", names: ["Flag", "Emblem", "Ivo Viktor", "Team", "Jan Pivarnik", "Vladimir Hagara", "Alexander Horvath", "Vaclav Migas", "Andrej Kvasnak", "Ladislav Kuna", "Bohumil Vesely", "Karel Jokl", "Josef Adamec", "Jan Capkovic"] },
               { cat: "Romania", names: ["Flag", "Emblem", "Necula Raducanu", "Team", "Ludovic Satmareanu", "Bujor Halmageanu", "Coe Dan", "Augustin Deleanu", "Cornel Dinu", "Flaviu Domide", "Emerich Dembrovschi", "Nicolae Dobrin", "Florea Dumitrache", "Mircea Lucescu"] },
               { cat: "Bulgaria", names: ["Flag", "Emblem", "Simeon Simeonov", "Team", "Alexander Scialamanov", "Ivan Dimitrov", "Boris Gaganelov", "Dobromir Zhecev", "Dimiter Penev", "Dinco Dermengiiev", "Hristo Bonev", "Gheorghi Asparuhov", "Dimiter Jakimov", "Peter Zhecov"] },
-              { cat: "Peru", names: ["Flag", "Emblem", "Luis Rubinos", "Team", "Angel Eloy Campos", "Orlando de la Torre", "Hector Chumpitaz", "Luis Pafael Risco", "Roberto Mifflin", "Roberto Challe", "Julio Baylon", "Pedro Pablo Leon", "Teofilo Cubillas", "Alberto Gallardo"] },
+              { cat: "Peru", names: ["Flag", "Emblem", "Luis Rubinos", "Team", "Angel Eloy Campos", "Orlando De La Torre", "Hector Chumpitaz", "Luis Pafael Risco", "Roberto Mifflin", "Roberto Challe", "Julio Baylon", "Pedro Pablo Leon", "Teofilo Cubillas", "Alberto Gallardo"] },
               { cat: "Maroc", names: ["Flag", "Emblem", "Kassou Allal", "Team", "Mohamed Abdallah", "Benkrif Boujemaa", "Alaoui Moulay Idriss", "Kacem Slimani", "Mohamed Maaroufi", "Ghandi Said", "Mohamed Filali", "Ahmed Faras", "Driss Bamouss", "Mahjoub Ghazouani"] },
               { cat: "Deutschland", names: ["Flag", "Emblem", "Team", "Sepp Maier", "Hubert Vogts", "Willi Schulz", "Franz Beckenbauer", "Karl Heinz Schnellinger", "Horst-Dieter Hottges", "Klaus Fichtel", "Helmut Haller", "Wolfgang Overath", "Bernd Dorfel", "Uwe Seeler", "Gerd Muller", "Siegfried Held", "Horst Wolter"] },
             ] } },
@@ -239,11 +241,11 @@
               { cat: "Spain", names: ["Spain Federation", "Spain Team", "Miguel Angel Gonzalez", "Marcelino Perez", "Miguel Banquetti «Migueli»", "Jose Martinez «Pirri»", "Antonio Olmo", "Jose Antonio Camacho", "Isidoro San Jose", "Eugenio Leal", "Angel Villar", "Juan Manuel Asensi", "Julio Cardenosa", "Ignacio Churruca", "Juan Gomez «Juanito»", "Daniel Ruiz «Dani»", "Ruben Cano Martinez", "Luis Arconada"] },
               { cat: "Sweden", names: ["Sweden Federation", "Sweden Team", "Ronnie Hellstrom", "Hasse Borg", "Bjorn Andersson", "Kent Karlsson", "Bjorn Nordqvist", "Roy Andersson", "Bo Borjesson", "Anders Linderoth", "Staffan Tapper", "Tommy Larsson", "Conny Torstensson", "Ralf Edstrom", "Benny Wendt", "Thomas Sjoberg", "Olle Nordin", "Goran Hagberg"] },
               { cat: "Brasil", names: ["Brasil Federation", "Brasil Team", "Leao", "Ze Maria", "Nelinho", "Luis Pereira", "Amaral", "Edinho", "Rodrigues Neto", "Toninho Cereso", "Rivelino", "Dirceu", "Gil", "Zico", "Roberto", "Reinaldo", "Paulo Cesar", "Raul"] },
-              { cat: "Netherlands", names: ["Netherlands Federation", "Netherlands Team", "Piet Schrijvers", "Wim Suurbier", "Wim Rijsbergen", "Johnny Dusbaba", "Ruud Krol", "Hugo Hovenkamp", "Wim Jansen", "Johan Neeskens", "Wim van Hanegem", "Willy van der Kerkhoff", "Jan Peters", "Johnny Rep", "Kees Kist", "Rob Rensenbrink", "Rene van der Kerkhoff", "Jan Jongbloed"] },
+              { cat: "Netherlands", names: ["Netherlands Federation", "Netherlands Team", "Piet Schrijvers", "Wim Suurbier", "Wim Rijsbergen", "Johnny Dusbaba", "Ruud Krol", "Hugo Hovenkamp", "Wim Jansen", "Johan Neeskens", "Wim Van Hanegem", "Willy Van Der Kerkhoff", "Jan Peters", "Johnny Rep", "Kees Kist", "Rob Rensenbrink", "Rene Van Der Kerkhoff", "Jan Jongbloed"] },
               { cat: "Iran", names: ["Iran Federation", "Iran Team", "Mansour Rashidi", "Hassan Nazari", "Nasrullah Abdollahi", "Hossein Kazerani", "Andranik Eskandarian", "Hassan Nayebagha", "Ebrahim Ghassempour", "Ali Parvin", "Mohamed Sadeghi", "Iradj Danaefar", "Hassan Rowshan", "Ali Reza Khorshidi", "Ghafour Djahani", "Mohamed Reza Adelkani", "Gholam Mazloumi", "Baharam Mavedat"] },
               { cat: "Peru", names: ["Peru Federation", "Peru Team", "Ramon Quiroga", "Jose Navarro", "Hector Chumpitaz", "Julio Melendez", "Ruben Toribio Diaz", "Eleazar Soria", "Alfredo Quesada", "Jose Manuel Velasquez", "Teofilo Cubillas", "Julio Aparicio", "Percy Rojas", "Juan Jose Munante", "Hugo Sotil", "Juan Carlos Oblitas", "Alejandro Luces", "Horacio Ballesteros"] },
               { cat: "Scotland", names: ["Scotland Federation", "Scotland team", "Alan Rough", "Willie Donachie", "Gordon McQueen", "Martin Buchan", "Tom Forsyth", "Danny McGrain", "Bruce Rioch", "Don Masson", "Archie Gemmill", "Asa Hartford", "Lou Macari", "Kenny Dalglish", "Andy Gray", "Joe Jordan", "Willie Johnston", "David Stewart"] },
-              { cat: "Belgium", names: ["Belgium Federation", "Christian Piot", "Ludo Coeck", "Julien Cools", "Frans van der Elst"] },
+              { cat: "Belgium", names: ["Belgium Federation", "Christian Piot", "Ludo Coeck", "Julien Cools", "Frans Van Der Elst"] },
               { cat: "Bulgaria", names: ["Bulgaria Federation", "Kiril Ivkov", "Zonio Vassiliev", "Hristo Bonev", "Pavel Panov"] },
               { cat: "CSSR", names: ["CSSR Federation", "Anton Ondrus", "Koloman Gogh", "Karol Dobias", "Zdenek Nehoda"] },
               { cat: "Denmark", names: ["Denmark Federation", "Per Roentved", "Allan Simonsen", "Henning Jensen", "Jorgen Kristensen"] },
@@ -399,7 +401,7 @@
                 "Nicklas Bendtner",
                 "Michael Essien",
                 "Sulley Muntari",
-                "Robin van Persie",
+                "Robin Van Persie",
                 "Wesley Sneijder",
                 "Dirk Kuyt",
                 "Samuel Eto'o",
@@ -528,7 +530,7 @@
                 "E Bruno Alves",
                 "F Axel Witsel",
               ] },
-              { label: "México (1-8)", total: 8, complete: false },
+              { label: "México", total: 8, coming: true },
             ] },
             { id: "otros",         label: "Otros", items: [
               { label: "Brasil", total: 9,  complete: true, sub: [
@@ -645,16 +647,29 @@
           ] },
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "México",  total: 9,  complete: false, sub: [
-                "CC1 Jesús Corona",
-                "CC2 Diego Reyes",
-                "CC3 Héctor Moreno",
-                "CC4 Giovani dos Santos",
-                "CC5 Héctor Herrera",
-                "CC6 Javier Aquino",
-                "CC7 Carlos Vela",
-                "CC8 Raúl Jiménez",
-                "CC9 Oribe Peralta",
+              { label: "México",  countNested: true, items: [
+                { label: "Botella",  total: 9, complete: false, sub: [
+                  "CC1 Jesús Corona",
+                  "CC2 Diego Reyes",
+                  "CC3 Héctor Moreno",
+                  "CC4 Giovani Dos Santos",
+                  "CC5 Héctor Herrera",
+                  "CC6 Javier Aquino",
+                  "CC7 Carlos Vela",
+                  "CC8 Raúl Jiménez",
+                  "CC9 Oribe Peralta",
+                ] },
+                { label: "Numerada", total: 9, complete: false, sub: [
+                  "CC1 Jesús Corona",
+                  "CC2 Diego Reyes",
+                  "CC3 Héctor Moreno",
+                  "CC4 Giovani Dos Santos",
+                  "CC5 Héctor Herrera",
+                  "CC6 Javier Aquino",
+                  "CC7 Carlos Vela",
+                  "CC8 Raúl Jiménez",
+                  "CC9 Oribe Peralta",
+                ] },
               ] },
               { label: "Austria", total: 12, complete: false, sub: [
                 "C1 Pelé",
@@ -857,7 +872,7 @@
                 "C14 Hirving Lozano",
               ] },
               { label: "América", countNested: true, items: [
-                { label: "Botella",  total: 8, complete: true, sub: [
+                { label: "Botella",  total: 8, complete: false, sub: [
                   "C1 Serge Gnabry",
                   "C2 Emiliano Martínez",
                   "C3 Kevin De Bruyne",
@@ -880,7 +895,7 @@
               ] },
             ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Extras",     total: 80, collected: 80, items: [
+              { label: "Extras",     total: 80, collected: 80, detailOnly: true, items: [
                 { label: "Base",    total: 20, complete: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
@@ -1058,7 +1073,7 @@
                   "CC7 Jefferson Lerma",
                   "CC8 Enner Valencia",
                   "CC9 Gabriel Magalhães",
-                  "CC10 Virgil van Dijk",
+                  "CC10 Virgil Van Dijk",
                   "CC11 Alphonso Davies",
                   "CC12 Emiliano Martínez",
                   "CC13 Raúl Jiménez",
@@ -1074,7 +1089,7 @@
                   "CC7 Jefferson Lerma",
                   "CC8 Enner Valencia",
                   "CC9 Gabriel Magalhães",
-                  "CC10 Virgil van Dijk",
+                  "CC10 Virgil Van Dijk",
                   "CC11 Alphonso Davies",
                   "CC12 Emiliano Martínez",
                   "CC13 Raúl Jiménez",
@@ -1090,7 +1105,7 @@
                   "CC5 Antonee Robinson",
                   "CC6 Jefferson Lerma",
                   "CC7 Edson Álvarez",
-                  "CC8 Virgil van Dijk",
+                  "CC8 Virgil Van Dijk",
                   "CC9 Alphonso Davies",
                   "CC10 Weston McKennie",
                   "CC11 Lautaro Martínez",
@@ -1104,11 +1119,14 @@
                   "CC5 Antonee Robinson",
                   "CC6 Jefferson Lerma",
                   "CC7 Edson Álvarez",
-                  "CC8 Virgil van Dijk",
+                  "CC8 Virgil Van Dijk",
                   "CC9 Alphonso Davies",
                   "CC10 Weston McKennie",
                   "CC11 Lautaro Martínez",
                   "CC12 Gabriel Magalhães",
+                ] },
+                { label: "Error",    total: 1, coming: true, sub: [
+                  "CC 12 Thibaut Courtois",
                 ] },
               ] },
               { label: "Europa",             countNested: true, items: [
@@ -1118,7 +1136,7 @@
                   "CC3 Eduardo Camavinga",
                   "CC4 Joško Gvardiol",
                   "CC5 Federico Valverde",
-                  "CC6 Virgil van Dijk",
+                  "CC6 Virgil Van Dijk",
                   "CC7 Alphonso Davies",
                   "CC8 Raúl Jiménez",
                   "CC9 William Saliba",
@@ -1132,7 +1150,7 @@
                   "CC3 Eduardo Camavinga",
                   "CC4 Joško Gvardiol",
                   "CC5 Federico Valverde",
-                  "CC6 Virgil van Dijk",
+                  "CC6 Virgil Van Dijk",
                   "CC7 Alphonso Davies",
                   "CC8 Raúl Jiménez",
                   "CC9 William Saliba",
@@ -1150,7 +1168,7 @@
                   "No.3 Harry Kane",
                   "No.4 Santiago Giménez",
                   "No.5 Antonee Robinson",
-                  "No.6 Virgil van Dijk",
+                  "No.6 Virgil Van Dijk",
                   "No.7 Lautaro Martínez",
                   "No.8 Jefferson Lerma",
                   "No.9 Alphonso Davies",
@@ -1177,7 +1195,7 @@
                   "Seattle",
                 ] },
               ] },
-              { label: "Extras",     total: 80, collected: 80, items: [
+              { label: "Extras",     total: 80, collected: 80, detailOnly: true, items: [
                 { label: "Base",   total: 20, complete: true },
                 { label: "Bronce", total: 20, complete: true },
                 { label: "Plata",  total: 20, complete: true },
@@ -1372,6 +1390,9 @@
       function deepGreens(node) {
         const kids = kidsOf(node);
         if (!kids.length) return setStatus(node).state === "complete" ? 1 : 0;
+        // detailOnly: the children break the set down rather than being separate
+        // collectibles (Extras 80 = Base/Bronce/Plata/Oro x 20), so it counts once
+        if (node.detailOnly) return setStatus(node).state === "complete" ? 1 : 0;
         const own = hasOwnStatus(node) && setStatus(node).state === "complete" ? 1 : 0;
         return own + kids.reduce((n, k) => n + deepGreens(k), 0);
       }
@@ -1444,7 +1465,9 @@
                                       "du","la","le","el","den","der","bin","ibn","al","st.",
                                       "santa","vanden","vander","vande","ten","ter"]);
       // A leading code such as CC6, No.10, 417, TT-A, Ö1 or a bare letter is kept verbatim
-      const isCode = w => /\d/.test(w) || /^[A-ZÀ-Ý]$/.test(w);
+      // A leading code is anything with a digit ("CC12", "MP6") or a short all-caps
+      // token — including one written apart from its number, as in "CC 12 ...".
+      const isCode = w => /\d/.test(w) || /^[A-ZÀ-Ý]{1,3}$/.test(w);
       function shortenPart(part) {
         const m = part.match(/^(.*?)(\s*\([^)]*\))?$/);
         const words = m[1].trim().split(/\s+/), tail = m[2] || "";
@@ -1480,9 +1503,14 @@
         if (c >= "A" && c <= "Z")      return w + 0.68;
         return w + 0.55;
       }, 0);
-      const LINE_FITS_EM = 9.0;
-      const shortenLine = line => {
-        if (textEm(line) <= LINE_FITS_EM) return line;
+      // How much room a reference line actually has: the card body is ~147px wide, each
+      // nesting level indents the panel 13px (.exp-panel = 4px margin + 8px padding +
+      // 1px border) and the line is 12px text. A line nested one level deeper has ~1.08em
+      // less to work with, so the budget has to follow the depth rather than be fixed.
+      const CARD_TEXT_PX = 147, PANEL_INDENT_PX = 13, LINE_FONT_PX = 12;
+      const lineFitsEm = depth => (CARD_TEXT_PX - depth * PANEL_INDENT_PX) / LINE_FONT_PX;
+      const shortenLine = (line, depth = 3) => {
+        if (textEm(line) <= lineFitsEm(depth)) return line;
         const short = line.split(" / ").map(shortenPart).join(" / ");
         return short.length < line.length ? short : line;
       };
@@ -1494,11 +1522,11 @@
       //    carries no icon/number (the subtab already implies the state). Unfiltered it
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
-      function expItemHtml(it, state) {
+      function expItemHtml(it, state, depth = 1) {
         if (kidsOf(it).length) {
           // Children filter themselves, so a state subtab is exactly the Todo tree with
           // the non-matching rows dropped — however deep they sit
-          const out = it.items.map(x => expItemHtml(x, state)).filter(Boolean);
+          const out = it.items.map(x => expItemHtml(x, state, depth + 1)).filter(Boolean);
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
@@ -1518,7 +1546,7 @@
         const st = setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
         const lines = it.sub.map(line => {
-          const shown = it.plain ? line : shortenLine(line);
+          const shown = it.plain ? line : shortenLine(line, depth + 1);
           return `<div class="exp-line"${shown !== line ? ` title="${line}"` : ""}>${shown}</div>`;
         }).join("");
         return expBlock(it.label, st, lines);
