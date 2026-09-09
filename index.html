@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=12" />
+    <link rel="stylesheet" href="css/panini.css?v=13" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.19.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.20.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -146,6 +146,8 @@
       //   carry its own items to nest a group; countNested: true makes that group's value
       //   the number of entries it holds instead of a declared total, and plural: "<name>"
       //   is the label to use when that count isn't 1.
+      //   noIcon: true shows a row's value without a status icon — for a child whose
+      //   parent already carries the status.
       //   detailOnly: true means the items only break the entry down (Extras 80 =
       //   Base/Bronce/Plata/Oro x 20), so it counts as one green, not one per child.
       //   sub: ["plain text", ...] renders indented reference lines under an item
@@ -347,15 +349,19 @@
           ] } },
         { year: 2006, host: "Germany",            postales: { items: [
             { label: "Set", total: 596, collected: 596 },
-            { label: "Actualización", total: 8, complete: true, sub: [
+            { label: "Actualización", total: 9, complete: true, sub: [
               "Panini Calciatori",
+              "",
+              "121 Edgard Barreto",
+              "379 Escudo con \"BRASIL\"",
+              "",
               "Theo Walcott",
               "Michael Carrick",
               "Stewart Downing",
               "Owen Hargreaves",
+              "",
               "Jens Lehmann",
               "Filippo Inzaghi",
-              "Edgar Barreto",
             ] },
           ] },
           sets: [
@@ -368,7 +374,7 @@
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Italia (Negro)", total: 640, complete: true },
+              { label: "Italia (Negra)", total: 640, complete: true },
               { label: "Brasil (Azul)",  total: 640, complete: false },
               { label: "Swiss",      total: 660, complete: false },
             ] },
@@ -438,7 +444,7 @@
                 "Gökhan Inler",
                 "Carlos Pavón",
               ] },
-              { label: "Celebraciones", total: 8, complete: true, plain: true, sub: [
+              { label: "Latam", total: 8, complete: true, plain: true, sub: [
                 "A Copa Mundial 2010",
                 "B Mascot",
                 "C El Aeroplano",
@@ -448,12 +454,26 @@
                 "G El Bote",
                 "H El Rockero",
               ] },
-              { label: "M. Klose", total: 4, complete: true },
+              { label: "Alemania", total: 4, complete: true, sub: [
+                "M. Klose 1/4",
+                "M. Klose 2/4",
+                "M. Klose 3/4",
+                "M. Klose 4/4",
+              ] },
               { label: "Trophy Tour", total: 1, complete: false },
             ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Jabulani (A-I)",              total: 9,  complete: false },
-              { label: "VISA (A1-D1)",                total: 4,  complete: false },
+              { label: "Jabulani",                    total: 9,  complete: false, sub: [
+                "A-D",
+                "E (Imposible)",
+                "F-I",
+              ] },
+              { label: "Visa Ourocard",               total: 4,  complete: false, sub: [
+                "A1",
+                "B1",
+                "C1",
+                "D1",
+              ] },
               { label: "Tourn. Tracker", total: 24, complete: true, sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
@@ -495,27 +515,21 @@
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "122 Italia (Negro)", complete: true },
+              { label: "122 Italia (Negra)", complete: true },
               { label: "122 Brasil (Azul)", complete: true },
               { label: "Sin número",    complete: true },
               { label: "Tourn. Tracker C", complete: false },
               { label: "122 Swiss",      complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "559 Italia (Negro)", complete: true },
+              { label: "559 Italia (Negra)", complete: true },
               { label: "559 Brasil (Azul)", complete: true },
               { label: "559 Swiss",      complete: false },
             ] },
           ] },
         { year: 2014, host: "Brazil",             postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Principal", total: 640, collected: 640, items: [
-                { label: "USA", total: 3, complete: true, sub: [
-                  "640 UNITY",
-                  "641 FRIENDSHIP",
-                  "642 FAIRPLAY",
-                ] },
-              ] },
+              { label: "Principal", total: 640, collected: 640 },
               { label: "Platinum", total: 660, complete: false },
             ] },
             { label: "Actualización", total: 72, complete: true },
@@ -523,22 +537,27 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Austria", total: 6, complete: true, sub: [
-                "A Javier Hernández",
-                "B Daniele De Rossi",
-                "C Javier Mascherano",
-                "D Edin Džeko",
-                "E Bruno Alves",
+                "A Bruno Alves",
+                "B D. De Rossi",
+                "C Edin Džeko",
+                "D J. Hernández",
+                "E J. Mascherano",
                 "F Axel Witsel",
               ] },
               { label: "México", total: 8, coming: true },
             ] },
             { id: "otros",         label: "Otros", items: [
+              { label: "USA", total: 3, complete: true, sub: [
+                "640 UNITY",
+                "641 FRIENDSHIP",
+                "642 FAIRPLAY",
+              ] },
               { label: "Brasil", total: 9,  complete: true, sub: [
                 "J1-J4",
                 "L1-L4",
                 "W1",
               ] },
-              { label: "VISA", total: 11, complete: true, sub: [
+              { label: "Ecuador", total: 11, complete: true, sub: [
                 "V1 Iker Casillas",
                 "V2 Thiago Silva",
                 "V3 Vincent Kompany",
@@ -624,24 +643,9 @@
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "NA (Negro)", total: 682, complete: false },
-              { label: "Int. (Rosado)",  total: 670, complete: true },
-              { label: "Gold", total: 694, complete: false, items: [
-                { label: "Coca Cola", total: 12, complete: true, sub: [
-                  "C1 Pelé",
-                  "C2 Franz Beckenbauer",
-                  "C3 Mario Kempes",
-                  "C4 Karl-Heinz Rummenigge",
-                  "C5 Diego Armando Maradona",
-                  "C6 Paolo Maldini",
-                  "C7 Carlos Valderrama",
-                  "C8 Michael Owen",
-                  "C9 Rivaldo",
-                  "C10 Fabio Cannavaro",
-                  "C11 Carles Puyol",
-                  "C12 Miroslav Klose",
-                ] },
-              ] },
+              { label: "NA (Negra)", total: 682, complete: false },
+              { label: "Int. (Rosada)",  total: 670, complete: true },
+              { label: "Gold", total: 694, complete: false },
             ] },
             { label: "Actualización", total: 92, complete: true },
           ] },
@@ -671,19 +675,35 @@
                   "CC9 Oribe Peralta",
                 ] },
               ] },
-              { label: "Austria", total: 12, complete: false, sub: [
-                "C1 Pelé",
-                "C2 Franz Beckenbauer",
-                "C3 Mario Kempes",
-                "C4 Karl-Heinz Rummenigge",
-                "C5 Diego Armando Maradona",
-                "C6 Paolo Maldini",
-                "C7 Carlos Valderrama",
-                "C8 Michael Owen",
-                "C9 Rivaldo",
-                "C10 Fabio Cannavaro",
-                "C11 Carles Puyol",
-                "C12 Miroslav Klose",
+              { label: "Austria", countNested: true, items: [
+                { label: "Botella",  total: 12, complete: true, sub: [
+                  "C1 Pelé",
+                  "C2 Franz Beckenbauer",
+                  "C3 Mario Kempes",
+                  "C4 Karl-Heinz Rummenigge",
+                  "C5 Diego Armando Maradona",
+                  "C6 Paolo Maldini",
+                  "C7 Carlos Valderrama",
+                  "C8 Michael Owen",
+                  "C9 Rivaldo",
+                  "C10 Fabio Cannavaro",
+                  "C11 Carles Puyol",
+                  "C12 Miroslav Klose",
+                ] },
+                { label: "Numerada", total: 12, complete: false, sub: [
+                  "C1 Pelé",
+                  "C2 Franz Beckenbauer",
+                  "C3 Mario Kempes",
+                  "C4 Karl-Heinz Rummenigge",
+                  "C5 Diego Armando Maradona",
+                  "C6 Paolo Maldini",
+                  "C7 Carlos Valderrama",
+                  "C8 Michael Owen",
+                  "C9 Rivaldo",
+                  "C10 Fabio Cannavaro",
+                  "C11 Carles Puyol",
+                  "C12 Miroslav Klose",
+                ] },
               ] },
             ] },
             { id: "otros",         label: "McDonald's", items: [
@@ -791,19 +811,19 @@
               { label: "México",        total: 5,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "288 NA (Negro)", complete: true },
-              { label: "276 Int. (Rosado)", complete: true },
+              { label: "288 NA (Negra)", complete: true },
+              { label: "276 Int. (Rosada)", complete: true },
               { label: "288 Gold",       complete: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "130 NA (Negro)", complete: true },
+              { label: "130 NA (Negra)", complete: true },
               { label: "MP6 McDonald's", complete: false },
-              { label: "118 Int. (Rosado)", complete: true },
+              { label: "118 Int. (Rosada)", complete: true },
               { label: "130 Gold",       complete: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
-              { label: "209 NA (Negro)", complete: true },
-              { label: "197 Int. (Rosado)", complete: true },
+              { label: "209 NA (Negra)", complete: true },
+              { label: "197 Int. (Rosada)", complete: true },
               { label: "209 Gold",       complete: false },
             ] },
           ] },
@@ -896,7 +916,7 @@
             ] },
             { id: "otros",         label: "Otros", items: [
               { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
-                { label: "Base",    total: 20, complete: true, sub: [
+                { label: "Base",    total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -918,7 +938,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Bronce",  total: 20, complete: true, sub: [
+                { label: "Bronce",  total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -940,7 +960,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Plata",   total: 20, complete: true, sub: [
+                { label: "Plata",   total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -962,7 +982,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Oro",     total: 20, complete: true, sub: [
+                { label: "Oro",     total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -1202,10 +1222,10 @@
                 ] },
               ] },
               { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
-                { label: "Base",   total: 20, complete: true },
-                { label: "Bronce", total: 20, complete: true },
-                { label: "Plata",  total: 20, complete: true },
-                { label: "Oro",    total: 20, complete: true },
+                { label: "Base",   total: 20, noIcon: true },
+                { label: "Bronce", total: 20, noIcon: true },
+                { label: "Plata",  total: 20, noIcon: true },
+                { label: "Oro",    total: 20, noIcon: true },
               ] },
               { label: "McDonald's", total: 28, collected: 28, sub: [
                 "CAN13 Canada",
@@ -1358,6 +1378,9 @@
             ? { state: "complete", summary: "", detail: "" }
             : { state: "pending",  summary: "", detail: `${done}/${real.length}` };
         }
+        // noIcon: the row is reference detail under a parent that already carries the
+        // status, so it shows its value with normal styling and no ✓/✗/✈️.
+        if (s.noIcon)             return { state: "none",     summary: "", detail: s.total ?? "" };
         if (s.coming)             return { state: "coming",   summary: "", detail: s.total ?? "" };
         if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
         if (s.complete === false) return { state: "pending",  summary: "", detail: s.total ?? "" };
@@ -1464,7 +1487,7 @@
       // Only person names are touched: an entry needs at least two name words, a list can
       // opt out entirely with plain: true (cities, celebrations), and these words mark a
       // line as describing a thing rather than a person.
-      const NOT_A_NAME = /^(badge|team|photo|emblem|flag|mascot|poster|champions|city|copa|mundial|cup)$/i;
+      const NOT_A_NAME = /^(badge|team|photo|emblem|escudo|flag|mascot|poster|champions|city|copa|mundial|cup)$/i;
       // Particles belong to the surname, so they are never reduced to an initial
       // ("santa" guards compound surnames such as Santa Cruz)
       const NAME_PARTICLES = new Set(["van","von","de","del","della","di","da","dos","das",
@@ -1473,6 +1496,10 @@
       // A leading code such as CC6, No.10, 417, TT-A, Ö1 or a bare letter is kept verbatim
       // A leading code is anything with a digit ("CC12", "MP6") or a short all-caps
       // token — including one written apart from its number, as in "CC 12 ...".
+      // Data goes into title="..." verbatim, so a name carrying a quote or an
+      // ampersand has to be escaped or it breaks out of the attribute.
+      const esc = t => String(t).replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+                                .replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const isCode = w => /\d/.test(w) || /^[A-ZÀ-Ý]{1,3}$/.test(w);
       function shortenPart(part) {
         const m = part.match(/^(.*?)(\s*\([^)]*\))?$/);
@@ -1515,6 +1542,13 @@
       // less to work with, so the budget has to follow the depth rather than be fixed.
       const CARD_TEXT_PX = 147, PANEL_INDENT_PX = 13, LINE_FONT_PX = 12;
       const lineFitsEm = depth => (CARD_TEXT_PX - depth * PANEL_INDENT_PX) / LINE_FONT_PX;
+      // One name measured against the room it actually has (used by the pair layout,
+      // where each name owns a full line rather than sharing one).
+      const shortenName = (name, em) => {
+        if (textEm(name) <= em) return name;
+        const short = shortenPart(name);
+        return short.length < name.length ? short : name;
+      };
       const shortenLine = (line, depth = 3) => {
         if (textEm(line) <= lineFitsEm(depth)) return line;
         const short = line.split(" / ").map(shortenPart).join(" / ");
@@ -1552,8 +1586,19 @@
         const st = setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
         const lines = it.sub.map(line => {
+          // "419 A / B" is two players on one sticker. Rather than let it wrap mid-name,
+          // give each name its own line and align the second under the first — so each
+          // name is measured against the line's room less the number in front of it.
+          const pair = it.plain ? null : line.match(/^(\d+)\s+(.+?) \/ (.+)$/);
+          if (pair) {
+            const em = lineFitsEm(depth + 1) - textEm(pair[1] + " ");
+            const a = shortenName(pair[2], em), b = shortenName(pair[3], em);
+            const cut = a !== pair[2] || b !== pair[3];
+            return `<div class="exp-line exp-pair"${cut ? ` title="${esc(line)}"` : ""}>` +
+                   `<span>${pair[1]}</span><span>${a}<br />${b}</span></div>`;
+          }
           const shown = it.plain ? line : shortenLine(line, depth + 1);
-          return `<div class="exp-line"${shown !== line ? ` title="${line}"` : ""}>${shown}</div>`;
+          return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${shown}</div>`;
         }).join("");
         return expBlock(it.label, st, lines);
       }
@@ -1599,20 +1644,40 @@
       };
 
       const OTROS_MIRROR_LABEL = "Otros";
-      const otrosMirror = album => {
-        const items = [];
+      const COCA_COLA_ID = "coca-cola";
+      // Coca Cola carries enough of its own to read as a row in its own right, so it
+      // sits above Otros rather than as one more section inside it. Everything else
+      // still gathers under Otros.
+      const otrosMirrorRows = album => {
+        const rows = [], otros = [];
         (album.sets || [])
           .filter(c => !c.afterPostales && c.id !== "actualizacion")
           .forEach(c => {
             // List each section's entries A-Z
             const entries = otrosSortedEntries(c);
+            if (c.id === COCA_COLA_ID) rows.push({ label: c.label, countNested: true, items: entries });
             // A catch-all named like the row itself would read "Otros › Otros", so its
             // entries sit straight in the row, listed inline
-            if (c.label === OTROS_MIRROR_LABEL) items.push(...entries);
-            else items.push({ label: c.label, countNested: true, items: entries });
+            else if (c.label === OTROS_MIRROR_LABEL) otros.push(...entries);
+            else otros.push({ label: c.label, countNested: true, items: entries });
           });
-        return items.length ? { label: OTROS_MIRROR_LABEL, countNested: true, items } : null;
+        if (otros.length) rows.push({ label: OTROS_MIRROR_LABEL, countNested: true, items: otros });
+        return rows;
       };
+
+      // Set rows and player rows read A-Z, except the premium/parallel variants, which
+      // trail the base sets in this order however they are numbered ("122 Swiss",
+      // "523 Platinum", "ARG17 United"). Only the top level is reordered — a curated
+      // inner list (a USA caret, an Extras tier) keeps the order it was written in.
+      const VARIANT_LAST = ["Swiss", "Platinum", "Gold", "Oryx", "United", "USA", "Extras"];
+      const variantRank = label => VARIANT_LAST.findIndex(v => new RegExp(`\\b${v}\\b`).test(label));
+      const orderedItems = items => [...items].sort((a, b) => {
+        const ra = variantRank(a.label), rb = variantRank(b.label);
+        if (ra < 0 && rb < 0) return a.label.localeCompare(b.label, "es");
+        if (ra < 0) return -1;
+        if (rb < 0) return 1;
+        return ra - rb;
+      });
 
       function setLedgerRows(album, key, state) {
         const parts = [];
@@ -1620,10 +1685,15 @@
         if (s) {
           let target = s;
           if (key === "postales" && Array.isArray(s.items)) {
-            let items = s.items.map(it => it.label === ACTUALIZACION ? withOtrosActualizacion(it, album) : it);
-            const mirror = otrosMirror(album);
-            if (mirror) items = [...items, mirror];
-            if (items !== s.items) target = { ...s, items };
+            let items = s.items.map(it =>
+              it.label === ACTUALIZACION ? withOtrosActualizacion(it, album)
+              : Array.isArray(it.items) && it.items.length ? { ...it, items: orderedItems(it.items) }
+              : it);
+            items = [...items, ...otrosMirrorRows(album)];
+            target = { ...s, items };
+          } else if (Array.isArray(s.items) && s.items.length) {
+            // A player set: order its top-level rows the same way
+            target = { ...s, items: orderedItems(s.items) };
           }
           const rows = setRowsHtml(target, state);
           if (rows) parts.push(rows);

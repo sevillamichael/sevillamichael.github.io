@@ -164,6 +164,17 @@
   line-height: 1.4;
 }
 
+/* A pair sticker ("419 A / B") lists one name per line, the second aligned under
+   the first instead of under the number, so the two names read as a block. */
+.exp-pair {
+  display: flex;
+  gap: 0.35em;
+}
+
+.exp-pair > span:last-child {
+  min-width: 0;
+}
+
 /* A blank entry ("") acts as a group separator between, e.g., national squads */
 .exp-line:empty {
   height: 8px;
