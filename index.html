@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.20.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.21.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1214,7 +1214,7 @@
                   "San Francisco",
                   "Seattle",
                 ] },
-                { label: "China",       total: 4, complete: false, sub: [
+                { label: "China",       total: 4, coming: true, sub: [
                   "Lamine Yamal",
                   "Harry Kane",
                   "Virgil Van Dijk",
@@ -1701,50 +1701,48 @@
         return parts.join("");
       }
 
-      // ── Image discovery via GitHub API ─────────────────────────────────────
-      const REPO          = "sevillamichael/sevillamichael.github.io";
-      const BRANCH        = "main";
-      const IMG_CACHE_KEY = "panini-images-v1";
+      // ── Image manifest ────────────────────────────────────────────
+      // The album and sobre photos are static files in this repo, so their names are
+      // listed here rather than discovered at runtime. This used to call the GitHub
+      // contents API twice per load: 135KB of JSON for ~2KB of filenames, capped at 60
+      // requests an hour per IP, and on a 403 every card silently became unopenable.
+      // Regenerate this list whenever a photo is added or renamed.
+      const IMAGE_LISTS = {
+        1970: { albumPaths: [],
+               sobrePaths: ["assets/sobres/1970_0.jpg"] },
+        1974: { albumPaths: [],
+               sobrePaths: ["assets/sobres/1974_0.jpg"] },
+        1978: { albumPaths: [],
+               sobrePaths: ["assets/sobres/1978_0.jpg"] },
+        1982: { albumPaths: ["assets/albums/1982_0_Europa.jpg"],
+               sobrePaths: ["assets/sobres/1982_0.jpg"] },
+        1986: { albumPaths: ["assets/albums/1986_0_Europa.jpg"],
+               sobrePaths: ["assets/sobres/1986_0.jpg", "assets/sobres/1986_1.jpg"] },
+        1990: { albumPaths: ["assets/albums/1990_0_Europa.jpg"],
+               sobrePaths: ["assets/sobres/1990_0.jpg"] },
+        1994: { albumPaths: ["assets/albums/1994_0_Europa.jpg"],
+               sobrePaths: ["assets/sobres/1994_0.jpg", "assets/sobres/1994_1.jpg", "assets/sobres/1994_2.jpg", "assets/sobres/1994_3_Alemania.jpg", "assets/sobres/1994_4_Holanda.jpg"] },
+        1998: { albumPaths: ["assets/albums/1998_0_America.jpg"],
+               sobrePaths: ["assets/sobres/1998_0_1-Punto.jpg", "assets/sobres/1998_2_3-Puntos.jpg", "assets/sobres/1998_3_Transparente.jpg", "assets/sobres/1998_4_Total.jpg"] },
+        2002: { albumPaths: ["assets/albums/2002_0_America.jpg"],
+               sobrePaths: ["assets/sobres/2002_0.jpg", "assets/sobres/2002_1.jpg", "assets/sobres/2002_2.jpg"] },
+        2006: { albumPaths: ["assets/albums/2006_0_Internacional.jpg"],
+               sobrePaths: ["assets/sobres/2006_0_Mate-Horizontal.jpg", "assets/sobres/2006_1_Mate-Vertical-1.jpg", "assets/sobres/2006_2_Mate-Vertical-2.jpg", "assets/sobres/2006_3_Brillante.jpg"] },
+        2010: { albumPaths: ["assets/albums/2010_0_Sudafrica.jpg"],
+               sobrePaths: ["assets/sobres/2010_0.jpg", "assets/sobres/2010_1.jpg", "assets/sobres/2010_2.jpg", "assets/sobres/2010_3.jpg", "assets/sobres/2010_4.jpg", "assets/sobres/2010_5.jpg", "assets/sobres/2010_6.jpg", "assets/sobres/2010_7.jpg", "assets/sobres/2010_8.jpg", "assets/sobres/2010_9.jpg", "assets/sobres/2010_10.jpg", "assets/sobres/2010_11.jpg"] },
+        2014: { albumPaths: ["assets/albums/2014_0_Europa.jpg", "assets/albums/2014_1_USA-Tapa-Dura.jpg"],
+               sobrePaths: ["assets/sobres/2014_0.jpg", "assets/sobres/2014_1.jpg", "assets/sobres/2014_2.jpg", "assets/sobres/2014_3.jpg", "assets/sobres/2014_4.jpg", "assets/sobres/2014_5.jpg", "assets/sobres/2014_6.jpg", "assets/sobres/2014_7.jpg", "assets/sobres/2014_8.jpg", "assets/sobres/2014_9.jpg", "assets/sobres/2014_10.jpg", "assets/sobres/2014_11_Gratis-1.jpg", "assets/sobres/2014_12.jpg", "assets/sobres/2014_15.jpg", "assets/sobres/2014_16.jpg", "assets/sobres/2014_17_Coca-Cola-1.jpg", "assets/sobres/2014_18_Coca-Cola-2.jpg"] },
+        2018: { albumPaths: ["assets/albums/2018_0_Colombia.jpg", "assets/albums/2018_1_Colombia-Tapa-Dura.jpg", "assets/albums/2018_2_Mexico-Tapa-Dura.jpg", "assets/albums/2018_3_Francia-Tapa-Dura.jpg"],
+               sobrePaths: ["assets/sobres/2018_0.jpg", "assets/sobres/2018_1.jpg", "assets/sobres/2018_2_Gold-Edition.jpg", "assets/sobres/2018_3_Gold-Edition-Gratis.jpg", "assets/sobres/2018_4_Alemania-Horizontal.jpg", "assets/sobres/2018_5_Alemania-Vertical.jpg", "assets/sobres/2018_6.jpg", "assets/sobres/2018_7.jpg", "assets/sobres/2018_8.jpg", "assets/sobres/2018_9.jpg", "assets/sobres/2018_10.jpg", "assets/sobres/2018_11.jpg", "assets/sobres/2018_12.jpg", "assets/sobres/2018_13.jpg", "assets/sobres/2018_14_Coca-Cola.jpg", "assets/sobres/2018_15.jpg", "assets/sobres/2018_16.jpg", "assets/sobres/2018_17.jpg", "assets/sobres/2018_18.jpg"] },
+        2022: { albumPaths: ["assets/albums/2022_0_Costa-Rica.jpg", "assets/albums/2022_1_Costa-Rica-Tapa-Dura.jpg", "assets/albums/2022_3_Colombia-Tapa-Dura.jpg", "assets/albums/2022_4_Oryx.jpg", "assets/albums/2022_5_Oryx-Tapa-Dura.jpg", "assets/albums/2022_6_Brasil.jpg", "assets/albums/2022_7_Brasil-Plateado-Tapa-Dura.jpg", "assets/albums/2022_8_Brasil-Dorado-Tapa-Dura.jpg"],
+               sobrePaths: ["assets/sobres/2022_0.jpg", "assets/sobres/2022_1.jpg", "assets/sobres/2022_2.jpg", "assets/sobres/2022_3.jpg", "assets/sobres/2022_4.jpg", "assets/sobres/2022_5.jpg", "assets/sobres/2022_6.jpg", "assets/sobres/2022_7.jpg", "assets/sobres/2022_8.jpg", "assets/sobres/2022_9.jpg", "assets/sobres/2022_10.jpg", "assets/sobres/2022_11.jpg", "assets/sobres/2022_12_Coca-Cola.jpg"] },
+        2026: { albumPaths: ["assets/albums/2026_0_Costa-Rica.jpg", "assets/albums/2026_1_Costa-Rica-Tapa-Dura.jpg", "assets/albums/2026_2_Costa-Rica-Dorado-Tapa-Dura.jpg", "assets/albums/2026_5_United_Edition.jpg", "assets/albums/2026_7_USA.jpg", "assets/albums/2026_9_Mexico.jpg", "assets/albums/2026_10_Mexico-Tapa-Dura.jpg", "assets/albums/2026_13_Brasil-Plateado-Tapa-Dura.jpg"],
+               sobrePaths: ["assets/sobres/2026_0_Costa-Rica.jpg", "assets/sobres/2026_4_Brasil.jpg", "assets/sobres/2026_7_Coca-Cola.jpg", "assets/sobres/2026_8_McDonald's.jpg"] },
+        "story": { albumPaths: ["assets/albums/story_0.jpg"],
+               sobrePaths: ["assets/sobres/story_0_World-Cup-Story.jpg", "assets/sobres/story_1_sonric's.jpg"] },
+      };
 
       const imageCounts = {};
-
-      async function fetchImageLists() {
-        const cached = sessionStorage.getItem(IMG_CACHE_KEY);
-        if (cached) return JSON.parse(cached);
-
-        const [albumsRes, sobresRes] = await Promise.all([
-          fetch(`https://api.github.com/repos/${REPO}/contents/assets/albums?ref=${BRANCH}`),
-          fetch(`https://api.github.com/repos/${REPO}/contents/assets/sobres?ref=${BRANCH}`)
-        ]);
-
-        const map = {};
-
-        function processDir(files, type) {
-          if (!Array.isArray(files)) return;
-          files.forEach(f => {
-            if (f.type !== "file") return;
-            const base = f.name.replace(/\.[^.]+$/, "");
-            const raw  = base.split("_")[0];
-            const year = /^\d+$/.test(raw) ? Number(raw) : raw;
-            if (!map[year]) map[year] = { albumPaths: [], sobrePaths: [] };
-            const path = `assets/${type}/${f.name}`;
-            if (type === "albums") map[year].albumPaths.push(path);
-            else map[year].sobrePaths.push(path);
-          });
-        }
-
-        if (albumsRes.ok) processDir(await albumsRes.json(), "albums");
-        if (sobresRes.ok) processDir(await sobresRes.json(), "sobres");
-
-        const byIndex = (a, b) => {
-          const idx = p => { const m = p.match(/_(\d+)/); return m ? parseInt(m[1]) : 0; };
-          return idx(a) - idx(b);
-        };
-        Object.values(map).forEach(v => { v.albumPaths.sort(byIndex); v.sobrePaths.sort(byIndex); });
-
-        sessionStorage.setItem(IMG_CACHE_KEY, JSON.stringify(map));
-        return map;
-      }
 
       function getVersionLabel(path) {
         const base = path.replace(/\.[^.]+$/, "").split("/").pop();
@@ -2459,12 +2457,13 @@
         }
       }
 
-      async function init() {
+      // Nothing here awaits the network any more, so the grid, the counts and the
+      // header all render in one pass on first paint.
+      function init() {
         renderGrid();
         renderTabs();
-        const imageLists = await fetchImageLists();
         ALBUMS.forEach(album => {
-          const lists = imageLists[album.year] || { albumPaths: [], sobrePaths: [] };
+          const lists = IMAGE_LISTS[album.year] || { albumPaths: [], sobrePaths: [] };
           applyCount(album, lists.albumPaths, lists.sobrePaths);
         });
         updateStats();
