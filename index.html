@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.21.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.21.1</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -366,7 +366,7 @@
           ] },
           sets: [
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "185", complete: false },
+              { label: "185", complete: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "298", complete: true },
@@ -468,7 +468,7 @@
                 "E (Imposible)",
                 "F-I",
               ] },
-              { label: "Visa Ourocard",               total: 4,  complete: false, sub: [
+              { label: "Visa Ourocard",               total: 4,  coming: true, sub: [
                 "A1",
                 "B1",
                 "C1",
@@ -519,12 +519,12 @@
               { label: "122 Brasil (Azul)", complete: true },
               { label: "Sin número",    complete: true },
               { label: "Tourn. Tracker C", complete: false },
-              { label: "122 Swiss",      complete: false },
+              { label: "122 Swiss",      coming: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559 Italia (Negra)", complete: true },
               { label: "559 Brasil (Azul)", complete: true },
-              { label: "559 Swiss",      complete: false },
+              { label: "559 Swiss",      coming: true },
             ] },
           ] },
         { year: 2014, host: "Brazil",             postales: { items: [
@@ -652,7 +652,7 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "México",  countNested: true, items: [
-                { label: "Botella",  total: 9, complete: false, sub: [
+                { label: "Botella",  total: 9, coming: true, sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
@@ -663,7 +663,7 @@
                   "CC8 Raúl Jiménez",
                   "CC9 Oribe Peralta",
                 ] },
-                { label: "Numerada", total: 9, complete: false, sub: [
+                { label: "Numerada", total: 9, coming: true, sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
@@ -690,7 +690,7 @@
                   "C11 Carles Puyol",
                   "C12 Miroslav Klose",
                 ] },
-                { label: "Numerada", total: 12, complete: false, sub: [
+                { label: "Numerada", total: 12, coming: true, sub: [
                   "C1 Pelé",
                   "C2 Franz Beckenbauer",
                   "C3 Mario Kempes",
@@ -1064,8 +1064,8 @@
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
                 { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: true },
+                { label: "Plata",  complete: false },
+                { label: "Oro",    complete: false },
               ] },
             ] },
           ] },
