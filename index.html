@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.21.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.22.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1562,11 +1562,11 @@
       //    carries no icon/number (the subtab already implies the state). Unfiltered it
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
-      function expItemHtml(it, state, depth = 1) {
+      function expItemHtml(it, state, depth = 1, openAll = false) {
         if (kidsOf(it).length) {
           // Children filter themselves, so a state subtab is exactly the Todo tree with
           // the non-matching rows dropped — however deep they sit
-          const out = it.items.map(x => expItemHtml(x, state, depth + 1)).filter(Boolean);
+          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll)).filter(Boolean);
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
@@ -1574,7 +1574,9 @@
           // an x/y rollup. A plural label follows that same count.
           const detail = it.countNested ? String(shown) : (it.total ?? "");
           const label  = it.plural && shown !== 1 ? it.plural : it.label;
-          if (!state) return expBlock(label, { state: setStatus(it).state, detail }, inner, false);
+          // A player tab holds few enough rows to show everything at once, so its groups
+          // open in every subtab, Todo included. Elsewhere Todo starts collapsed.
+          if (!state) return expBlock(label, { state: setStatus(it).state, detail }, inner, openAll);
           // Filtered: keep the icon when the group itself is in this state, else drop it
           // (the subtab implies it). Nothing left inside means a plain row, not a caret
           // that opens onto emptiness.
@@ -1600,14 +1602,14 @@
           const shown = it.plain ? line : shortenLine(line, depth + 1);
           return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${shown}</div>`;
         }).join("");
-        return expBlock(it.label, st, lines);
+        return expBlock(it.label, st, lines, openAll || !!state);
       }
 
       // state (optional) keeps only rows in that state; every row filters itself
       // (recursively), so a subtab mirrors Todo minus the rows that do not match
-      const setRowsHtml = (s, state) => {
+      const setRowsHtml = (s, state, openAll = false) => {
         if (Array.isArray(s.items) && s.items.length) {
-          return s.items.map(it => expItemHtml(it, state)).filter(Boolean).join("");
+          return s.items.map(it => expItemHtml(it, state, 1, openAll)).filter(Boolean).join("");
         }
         // A number-grid set (the 1970-82 postales) tracks stickers, not rows, so in a
         // state subtab it reports how many of them are in that state rather than showing
@@ -1695,7 +1697,8 @@
             // A player set: order its top-level rows the same way
             target = { ...s, items: orderedItems(s.items) };
           }
-          const rows = setRowsHtml(target, state);
+          // Player sets are short, so they render fully expanded in every subtab
+          const rows = setRowsHtml(target, state, !!s.afterPostales);
           if (rows) parts.push(rows);
         }
         return parts.join("");
@@ -2305,7 +2308,11 @@
         const btn = e.target.closest(".view-tab");
         if (!btn) return;
         currentFilter = btn.dataset.set || null;
-        currentSubFilter = null; // default to the "All" sub tab
+        // Carry the state subtab across tabs: Postales/De camino -> Messi lands on
+        // Messi/De camino. Only fall back to Todo when the tab being opened has
+        // nothing in that state, which is exactly when it offers no such subtab.
+        if (currentSubFilter && hasSubTabs(currentFilter) &&
+            !tabStates(currentFilter).has(currentSubFilter)) currentSubFilter = null;
         renderTabs();
         renderSubTabs();
         renderGrid(currentFilter);
