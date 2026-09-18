@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.22.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.23.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -349,9 +349,7 @@
           ] } },
         { year: 2006, host: "Germany",            postales: { items: [
             { label: "Set", total: 596, collected: 596 },
-            { label: "Actualización", total: 9, complete: true, sub: [
-              "Panini Calciatori",
-              "",
+            { label: "Actualización", total: 8, complete: true, sub: [
               "121 Edgard Barreto",
               "379 Escudo con \"BRASIL\"",
               "",
@@ -460,7 +458,7 @@
                 "M. Klose 3/4",
                 "M. Klose 4/4",
               ] },
-              { label: "Trophy Tour", total: 1, complete: false },
+              { label: "Trophy Tour", total: 1, coming: true },
             ] },
             { id: "otros",         label: "Otros", items: [
               { label: "Jabulani",                    total: 9,  complete: false, sub: [
@@ -858,7 +856,7 @@
                   "C13 Sergej Milinković-Savić",
                   "C14 Hirving Lozano",
                 ] },
-                { label: "Numerada", total: 14, complete: false, sub: [
+                { label: "Numerada", total: 14, coming: true, sub: [
                   "C1 Eden Hazard",
                   "C2 Serge Gnabry",
                   "C3 Ángel Di María",
@@ -1562,11 +1560,15 @@
       //    carries no icon/number (the subtab already implies the state). Unfiltered it
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
-      function expItemHtml(it, state, depth = 1, openAll = false) {
+      function expItemHtml(it, state, depth = 1, openAll = false, inAct = false) {
         if (kidsOf(it).length) {
+          // A state subtab opens what it shows, but Actualización holds a lot of names.
+          // Its own row still opens — you see which updates you are missing — while the
+          // sections inside it stay shut rather than dumping every name on screen.
+          const actInside = inAct || it.label === ACTUALIZACION;
           // Children filter themselves, so a state subtab is exactly the Todo tree with
           // the non-matching rows dropped — however deep they sit
-          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll)).filter(Boolean);
+          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll, actInside)).filter(Boolean);
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
@@ -1582,7 +1584,7 @@
           // that opens onto emptiness.
           const ownMatches = hasOwnStatus(it) && setStatus(it).state === state;
           if (!inner) return ownMatches ? ledgerRow(label, { state, detail }) : "";
-          return expBlock(label, { state: ownMatches ? state : "none", detail }, inner, true);
+          return expBlock(label, { state: ownMatches ? state : "none", detail }, inner, !inAct);
         }
         if (state && setStatus(it).state !== state) return "";
         const st = setStatus(it);
@@ -1602,7 +1604,7 @@
           const shown = it.plain ? line : shortenLine(line, depth + 1);
           return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${shown}</div>`;
         }).join("");
-        return expBlock(it.label, st, lines, openAll || !!state);
+        return expBlock(it.label, st, lines, (openAll || !!state) && !inAct);
       }
 
       // state (optional) keeps only rows in that state; every row filters itself
