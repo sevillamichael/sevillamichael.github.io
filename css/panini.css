@@ -218,7 +218,7 @@
   outline-offset: 2px;
 }
 
-/* ── Sub tabs (Upcoming / Missing / Ready) ──────────────────────────────── */
+/* ── Sub tabs (Todo / De camino / Tengo / Falta) ────────────────────────── */
 
 .sub-tabs {
   margin-top: 10px;
@@ -228,6 +228,8 @@
   padding: 6px 14px;
   font-size: 13px;
 }
+
+/* ── Set checklist (a set tab with no photos yet) ───────────────────────── */
 
 .gallery-checklist {
   max-width: 420px;
@@ -245,9 +247,9 @@
   font-size: 14px;
 }
 
-/* ── Impossible-set checklist ───────────────────────────────────────────── */
+/* ── Numbered sticker checklist (1970-82 grids) ─────────────────────────── */
 
-/* State filter above the grid (Todas / Upcoming / Ready / Missing) */
+/* State filter above the grid (Todo / De camino / Tengo / Falta) */
 .grid-filter {
   display: flex;
   flex-wrap: wrap;
@@ -407,12 +409,6 @@
   margin: 10px 0 6px;
 }
 
-
-.count-val.is-unknown {
-  color: var(--subtle);
-  font-weight: 600;
-}
-
 /* ── Grid ───────────────────────────────────────────────────────────────── */
 
 .albums-grid {
@@ -545,6 +541,12 @@
   content: "✈️";
   margin-left: 4px;
   font-size: 11px;
+}
+
+/* A set with no status recorded yet */
+.count-val.is-unknown {
+  color: var(--subtle);
+  font-weight: 600;
 }
 
 /* ── Gallery view ───────────────────────────────────────────────────────── */
@@ -941,5 +943,4 @@
     text-align: center;
     white-space: nowrap;
   }
-
 }

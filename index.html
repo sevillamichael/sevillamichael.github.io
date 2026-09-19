@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=14" />
+    <link rel="stylesheet" href="css/panini.css?v=15" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -37,13 +37,13 @@
           class="theme-toggle"
           id="theme-toggle"
           type="button"
-          aria-label="Toggle dark mode"
+          aria-label="Cambiar tema claro/oscuro"
           title="Toggle dark mode"
         >
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.26.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.27.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -89,9 +89,9 @@
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" tabindex="-1">
-      <button class="lightbox-close" aria-label="Close">&times;</button>
-      <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
-      <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+      <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+      <button class="lightbox-prev" id="lightbox-prev" aria-label="Anterior">&#8249;</button>
+      <button class="lightbox-next" id="lightbox-next" aria-label="Siguiente">&#8250;</button>
       <span class="lightbox-counter" id="lightbox-counter"></span>
       <div class="lightbox-content">
         <span class="lightbox-label" id="lightbox-label"></span>
@@ -133,6 +133,8 @@
       })();
 
       // ── Album data ─────────────────────────────────────────────────────────
+      // An album is { year, host, postales, sets? }. year is the stable identity;
+      // host names the card and the gallery title ("Spain 1982").
       // postales: the core sticker set — { total, collected, items? }
       //   or number-grid mode { total, owned: "1-150, 200-288", coming?: "151" }
       //   → renders a numbered sticker grid (owned ✓ / coming ✈️ / missing ✗)
@@ -152,6 +154,9 @@
       //   Base/Bronce/Plata/Oro x 20), so it counts as one green, not one per child.
       //   sub: ["plain text", ...] renders indented reference lines under an item
       //   inside the row's expandable panel (no status of their own).
+      //   plain: true keeps those lines verbatim — no shortening, and no splitting
+      //   a "N A / B" line into two names.
+      //   keepOrder: true opts a group out of the A-Z ordering its siblings get.
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
@@ -1461,7 +1466,7 @@
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       function ledgerRow(label, st) {
         return `<div class="card-count-row">
-            <span class="count-label"><span class="count-label-text">${label}</span></span>
+            <span class="count-label"><span class="count-label-text">${esc(label)}</span></span>
             <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
           </div>`;
       }
@@ -1472,7 +1477,7 @@
       function expBlock(label, st, innerHtml, open) {
         return `<div class="exp${open ? " open" : ""}">
             <div class="card-count-row">
-              <span class="count-label"><span class="count-label-text">${label}</span><button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${label}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
+              <span class="count-label"><span class="count-label-text">${esc(label)}</span><button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${esc(label)}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
               <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
             </div>
             <div class="exp-panel">${innerHtml}</div>
@@ -1600,10 +1605,10 @@
             const a = shortenName(pair[2], em), b = shortenName(pair[3], em);
             const cut = a !== pair[2] || b !== pair[3];
             return `<div class="exp-line exp-pair"${cut ? ` title="${esc(line)}"` : ""}>` +
-                   `<span>${pair[1]}</span><span>${a}<br />${b}</span></div>`;
+                   `<span>${pair[1]}</span><span>${esc(a)}<br />${esc(b)}</span></div>`;
           }
           const shown = it.plain ? line : shortenLine(line, depth + 1);
-          return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${shown}</div>`;
+          return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${esc(shown)}</div>`;
         }).join("");
         // A state subtab opens containers so you can walk down to the rows that
         // match, but it stops at a row that reports its own number and state: that
@@ -1711,7 +1716,7 @@
         return parts.join("");
       }
 
-      // ── Image manifest ────────────────────────────────────────────
+      // ── Image manifest ─────────────────────────────────────────────────────
       // The album and sobre photos are static files in this repo, so their names are
       // listed here rather than discovered at runtime. This used to call the GitHub
       // contents API twice per load: 135KB of JSON for ~2KB of filenames, capped at 60
@@ -1771,7 +1776,7 @@
         if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const cardLabel = album.year === "story" ? album.host : `${album.host} ${album.year}`;
-          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${cardLabel}">
+          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(cardLabel)}">
               <img
                 src="assets/logos/${album.year}.png"
                 alt="${album.year} logo"
@@ -1900,19 +1905,23 @@
       };
       const catEn = cat => CAT_EN[cat] || cat.replace(/^Historia: Mundial /, "History: World Cup ");
 
-      // 1982 is the album actually being traded, and sellers read it in this shape: the
-      // loose stickers that open the album, then the teams worth asking about by name,
-      // then everything else. Other albums just list their categories in album order.
-      const FALTA_LEAD  = { 1982: { label: "First 2 pages", cats: ["Especial", "Estadio", "Póster"] } };
-      const FALTA_FIRST = { 1982: ["Italia", "Brasil", "Argentina"] };
-      // Named in the list so a seller can price them without looking the number up
-      const FALTA_NOTES = { 1982: { 176: "Maradona" } };
+      // How an album's copy list is laid out. lead merges the loose categories that
+      // open the album into one line, first pulls the teams worth asking about ahead of
+      // the rest, and notes names a sticker so a seller can price it without looking the
+      // number up. An album with no entry here just lists its categories in album order.
+      const FALTA_SHAPE = {
+        1982: {
+          lead:  { label: "First 2 pages", cats: ["Especial", "Estadio", "Póster"] },
+          first: ["Italia", "Brasil", "Argentina"],
+          notes: { 176: "Maradona" },
+        },
+      };
 
-      // The Falta list as text, grouped the way the grid groups its rows: one line per
-      // category in album order, categories merged when they are split across the album.
+      // The Falta list as text: one line per category, in album order and merged when a
+      // category is split across the album, reshaped by FALTA_SHAPE where one applies.
       function faltaText(gset, year) {
         const owned = parseRanges(gset.owned), coming = parseRanges(gset.coming);
-        const notes = FALTA_NOTES[year] || {};
+        const shape = FALTA_SHAPE[year] || {}, notes = shape.notes || {};
         const by = new Map();
         let n = 0, total = 0;
         (gset.groups || []).forEach(g => g.names.forEach(() => {
@@ -1927,13 +1936,13 @@
         const line = (label, nums) => `${label}: ${nums.join(", ")}`;
         const blocks = [];
 
-        const lead = FALTA_LEAD[year];
+        const lead = shape.lead;
         if (lead) {
           // These categories alternate through the opening pages, so they re-sort
           const nums = lead.cats.flatMap(c => take(c) || []).sort((a, b) => parseInt(a) - parseInt(b));
           if (nums.length) blocks.push([line(lead.label, nums)]);
         }
-        const first = (FALTA_FIRST[year] || []).map(c => [c, take(c)]).filter(([, nums]) => nums);
+        const first = (shape.first || []).map(c => [c, take(c)]).filter(([, nums]) => nums);
         if (first.length) blocks.push(first.map(([cat, nums]) => line(catEn(cat), nums)));
         const rest = [...by].map(([cat, nums]) => line(catEn(cat), nums));
         if (rest.length) blocks.push(rest);
@@ -1998,7 +2007,7 @@
         if (gset.groups) {
           const chip = (num, nm) => {
             const st = stateOf(num);
-            return gridFilter && st !== gridFilter ? "" : `<span class="chip ${st}"><span class="chip-n">${num}</span> ${nm}${srState(st)}</span>`;
+            return gridFilter && st !== gridFilter ? "" : `<span class="chip ${st}"><span class="chip-n">${num}</span> ${esc(nm)}${srState(st)}</span>`;
           };
           // Numbers stay positional across groups, but groups sharing a category
           // render as one row — a category split across the album (1982's posters
@@ -2011,7 +2020,7 @@
             row.chips += chips;
           });
           body = `<div class="sticker-rows">${rows.filter(r => r.chips).map(r =>
-            `<div class="sticker-row"><div class="sticker-cat">${r.cat}</div><div class="sticker-chips">${r.chips}</div></div>`
+            `<div class="sticker-row"><div class="sticker-cat">${esc(r.cat)}</div><div class="sticker-chips">${r.chips}</div></div>`
           ).join("")}</div>`;
         } else {
           let cells = "";
@@ -2028,7 +2037,7 @@
             `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" ` +
             `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
             `<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>` +
-            `<span class="sr-only">Copiar los que faltan</span></button>`
+            `</button>`
           : "";
         panel.innerHTML = `<div class="grid-filter">${bar}${copyBtn}</div>${body}`;
       }
@@ -2213,7 +2222,6 @@
         const soloTitle = isStory || year === 2026; // host already reads as a full name
         document.getElementById("inv-title-text").textContent = soloTitle ? album.host : `${album.host} ${album.year}`;
         document.querySelector(".inv-version").hidden = true;
-        titleEl.style.fontSize = ""; // names are short now — use the default responsive size
 
         const albumsSection = document.getElementById("gallery-albums-section");
         if (counts.albumPaths.length) {
@@ -2285,7 +2293,6 @@
         titleEl2.classList.remove("is-gallery");
         document.getElementById("inv-title-text").textContent = "Colección Panini";
         document.querySelector(".inv-version").hidden = false;
-        titleEl2.style.fontSize = "";
         updateStats();
       }
 
