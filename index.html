@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.24.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.25.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1869,23 +1869,71 @@
       let currentGalleryYear = null;
       let currentGalleryTab  = null;
       let currentGridSet     = null;
+      let currentGridYear    = null; // the album the grid belongs to, for the copy list
       let gridFilter         = null; // null = all; else "is-confirmed" | "is-pending" | "is-coming"
+
+      // The copy list goes to sellers, who never see the Spanish labels on screen, so
+      // it is emitted in English. Only the categories whose name actually changes are
+      // listed; anything missing falls through unchanged.
+      const CAT_EN = {
+        "Alemania 1954": "Germany 1954", "Alemania Democrática": "East Germany",
+        "Alemania Federal": "West Germany", "Argelia": "Algeria", "Bélgica": "Belgium",
+        "Brasil": "Brazil", "Brasil 1958": "Brazil 1958", "Brasil 1962": "Brazil 1962",
+        "Camerún": "Cameroon", "Checoslovaquia": "Czechoslovakia",
+        "Ciudades y Estadios": "Cities and Stadiums", "Dinamarca": "Denmark",
+        "Escocia": "Scotland", "España": "Spain", "Especial": "Special",
+        "Estadio": "Stadium", "Estadios": "Stadiums", "Francia": "France",
+        "Gales": "Wales", "Haití": "Haiti", "Historia": "History",
+        "Holanda": "Netherlands", "Hungría": "Hungary", "Inglaterra": "England",
+        "Inglaterra 1966": "England 1966", "Irlanda del Norte": "Northern Ireland",
+        "Irán": "Iran", "Italia": "Italy", "Italia 1934": "Italy 1934",
+        "Italia 1938": "Italy 1938", "Marruecos": "Morocco", "México": "Mexico",
+        "México 70": "Mexico 70", "Noruega": "Norway", "Nueva Zelanda": "New Zealand",
+        "Perú": "Peru", "Polonia": "Poland", "Programa México 70": "Mexico 70 Programme",
+        "Póster": "Poster", "Rumania": "Romania", "Suecia": "Sweden",
+        "Suiza": "Switzerland", "Túnez": "Tunisia", "URSS": "Soviet Union",
+      };
+      const catEn = cat => CAT_EN[cat] || cat.replace(/^Historia: Mundial /, "History: World Cup ");
+
+      // 1982 is the album actually being traded, and sellers read it in this shape: the
+      // loose stickers that open the album, then the teams worth asking about by name,
+      // then everything else. Other albums just list their categories in album order.
+      const FALTA_LEAD  = { 1982: { label: "First 2 pages", cats: ["Especial", "Estadio", "Póster"] } };
+      const FALTA_FIRST = { 1982: ["Italia", "Brasil", "Argentina"] };
+      // Named in the list so a seller can price them without looking the number up
+      const FALTA_NOTES = { 1982: { 176: "Maradona" } };
 
       // The Falta list as text, grouped the way the grid groups its rows: one line per
       // category in album order, categories merged when they are split across the album.
-      function faltaText(gset) {
+      function faltaText(gset, year) {
         const owned = parseRanges(gset.owned), coming = parseRanges(gset.coming);
+        const notes = FALTA_NOTES[year] || {};
         const by = new Map();
         let n = 0, total = 0;
         (gset.groups || []).forEach(g => g.names.forEach(() => {
           n++;
           if (owned.has(n) || coming.has(n)) return;
           if (!by.has(g.cat)) by.set(g.cat, []);
-          by.get(g.cat).push(n);
+          by.get(g.cat).push(notes[n] ? `${n} (${notes[n]})` : String(n));
           total++;
         }));
-        const lines = [...by].map(([cat, nums]) => `${cat}: ${nums.join(", ")}`);
-        return `${lines.join("\n")}\n\nTOTAL: ${total}`;
+        // Pulling a category out of the map leaves the remainder to list itself
+        const take = cat => { const nums = by.get(cat); by.delete(cat); return nums; };
+        const line = (label, nums) => `${label}: ${nums.join(", ")}`;
+        const blocks = [];
+
+        const lead = FALTA_LEAD[year];
+        if (lead) {
+          // These categories alternate through the opening pages, so they re-sort
+          const nums = lead.cats.flatMap(c => take(c) || []).sort((a, b) => parseInt(a) - parseInt(b));
+          if (nums.length) blocks.push([line(lead.label, nums)]);
+        }
+        const first = (FALTA_FIRST[year] || []).map(c => [c, take(c)]).filter(([, nums]) => nums);
+        if (first.length) blocks.push(first.map(([cat, nums]) => line(catEn(cat), nums)));
+        const rest = [...by].map(([cat, nums]) => line(catEn(cat), nums));
+        if (rest.length) blocks.push(rest);
+
+        return `${blocks.map(b => b.join("\n")).join("\n\n")}\n\nTOTAL: ${total}`;
       }
 
       // navigator.clipboard needs a secure context, which file:// is not in every
@@ -2063,6 +2111,7 @@
           if (key === "postales" && gset && gset.owned !== undefined) {
             // Numbered sticker grid with a state filter (all / ready / missing / upcoming)
             currentGridSet = gset;
+            currentGridYear = album.year;
             gridFilter = null; // reset the filter each time the tab is opened
             renderStickerGrid();
             renderGalleryTabs(tabs);
@@ -2264,7 +2313,7 @@
       document.getElementById("gallery-set-panel").addEventListener("click", e => {
         const copy = e.target.closest(".grid-copy");
         if (copy && currentGridSet) {
-          copyText(faltaText(currentGridSet)).then(() => {
+          copyText(faltaText(currentGridSet, currentGridYear)).then(() => {
             copy.classList.add("is-done");
             setTimeout(() => copy.classList.remove("is-done"), 1200);
           }).catch(() => {});
