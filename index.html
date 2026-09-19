@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.25.0</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.26.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1559,7 +1559,8 @@
       //    children in that state (hidden if none), opens by default, and its header
       //    carries no icon/number (the subtab already implies the state). Unfiltered it
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
-      //  - sub: [...] (plain reference lines) → a nested block that starts collapsed.
+      //  - sub: [...] (plain reference lines) → a nested block that starts collapsed,
+      //    in a state subtab too: the row already shows its number and state.
       function expItemHtml(it, state, depth = 1, openAll = false, inAct = false) {
         if (kidsOf(it).length) {
           // A state subtab opens what it shows, but Actualización holds a lot of names.
@@ -1604,7 +1605,11 @@
           const shown = it.plain ? line : shortenLine(line, depth + 1);
           return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${shown}</div>`;
         }).join("");
-        return expBlock(it.label, st, lines, (openAll || !!state) && !inAct);
+        // A state subtab opens containers so you can walk down to the rows that
+        // match, but it stops at a row that reports its own number and state: that
+        // row answers the question, and its reference lines are detail you asked
+        // for by opening it. A player tab is small enough to show those too.
+        return expBlock(it.label, st, lines, openAll && !inAct);
       }
 
       // state (optional) keeps only rows in that state; every row filters itself
