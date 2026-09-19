@@ -255,6 +255,36 @@
   margin-bottom: 18px;
 }
 
+/* Copies the Falta list; sits with the filter buttons and matches their height */
+.grid-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.grid-copy:hover {
+  color: var(--heading);
+  border-color: var(--muted);
+}
+
+.grid-copy:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Brief acknowledgement that the list reached the clipboard */
+.grid-copy.is-done {
+  color: #4ade80;
+  border-color: #4ade80;
+}
+
 .view-tab.grid-filter-btn {
   padding: 6px 14px;
   font-size: 13px;
