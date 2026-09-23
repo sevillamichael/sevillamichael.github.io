@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.28.2</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.29.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1440,6 +1440,22 @@
         const own = hasOwnStatus(node) && setStatus(node).state === "complete" ? 1 : 0;
         return own + kids.reduce((n, k) => n + deepGreens(k), 0);
       }
+      // The Sets row is the one place the number reads as a score: these are album
+      // variants you either own or do not. Count the leaves — a variant group such as
+      // 2022's USA is not itself a set, the Base and Blue Parallel inside it are — and
+      // how many of those leaves are green.
+      const SETS_PLURAL = "Sets";
+      const leafCount  = n => { const k = kidsOf(n);
+        return k.length ? k.reduce((s, x) => s + leafCount(x), 0) : 1; };
+      const leafGreens = n => { const k = kidsOf(n);
+        return k.length ? k.reduce((s, x) => s + leafGreens(x), 0)
+                        : (setStatus(n).state === "complete" ? 1 : 0); };
+      // null when there is only one set to own — "1/1" says less than a plain check
+      const setsScore = it => {
+        const y = leafCount(it);
+        return y > 1 ? `${leafGreens(it)}/${y}` : null;
+      };
+
       // A set's greens: its items (recursively), or itself when it has none
       const setGreens = s => {
         const kids = kidsOf(s);
@@ -1590,13 +1606,18 @@
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
-          // total (e.g. Gold's 694), else nothing — the counter-free variant groups. Never
-          // an x/y rollup. A plural label follows that same count.
+          // total (e.g. Gold's 694), else nothing — the counter-free variant groups. A
+          // plural label follows that same count.
           const detail = it.countNested ? String(shown) : (it.total ?? "");
           const label  = it.plural && shown !== 1 ? it.plural : it.label;
           // A player tab holds few enough rows to show everything at once, so its groups
           // open in every subtab, Todo included. Elsewhere Todo starts collapsed.
-          if (!state) return expBlock(label, { state: setStatus(it).state, detail }, inner, openAll);
+          if (!state) {
+            // Sets alone shows x/y here. Everywhere else an entry count is the right
+            // answer, and in a state subtab the count already means one clear thing.
+            const score = it.plural === SETS_PLURAL ? setsScore(it) : null;
+            return expBlock(label, { state: setStatus(it).state, detail: score ?? detail }, inner, openAll);
+          }
           // Filtered: keep the icon when the group itself is in this state, else drop it
           // (the subtab implies it). Nothing left inside means a plain row, not a caret
           // that opens onto emptiness.
