@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.27.1</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.28.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -137,6 +137,8 @@
       // host names the card and the gallery title ("Spain 1982").
       // postales: the core sticker set — { total, collected, items? }
       //   or number-grid mode { total, owned: "1-150, 200-288", coming?: "151" }
+      //   comingLots?: { "<seller>": "1-4, 9" } are batches agreed but not yet certain;
+      //   they count as De camino, and deleting one entry undoes that whole deal
       //   → renders a numbered sticker grid (owned ✓ / coming ✈️ / missing ✗)
       //   groups: [{ cat, names: [...] }] replaces total — numbers run 1..N in
       //   order across groups; the grid renders one labeled section per category
@@ -267,7 +269,7 @@
               { cat: "Uruguay", names: ["Escudo Uruguay", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Gales", names: ["Escudo Gales", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "Spain",              postales: { owned: "5-9, 11-13, 15-26, 28-37, 49-55, 57-65, 67-76, 78-84, 86-88, 91-107, 109-112, 114-116, 118-120, 123, 126, 128, 130-139, 141-145, 147-165, 167-168, 171, 173-175, 177-179, 181, 183-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-273, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-368, 370-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "2-3, 10, 41, 46-48, 77, 90, 108, 129, 146, 166, 182, 274, 286, 369, 388, 418", groups: [
+        { year: 1982, host: "Spain",              postales: { owned: "5-9, 11-13, 15-26, 28-37, 49-55, 57-65, 67-76, 78-84, 86-88, 91-107, 109-112, 114-116, 118-120, 123, 126, 128, 130-139, 141-145, 147-165, 167-168, 171, 173-175, 177-179, 181, 183-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-273, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-368, 370-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "2-3, 10, 41, 46-48, 77, 90, 108, 129, 146, 166, 182, 274, 286, 369, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
               { cat: "Especial", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "Póster", names: ["Madrid", "Barcelona", "Sevilla", "Vigo", "La Coruna", "Gijon"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -1341,9 +1343,19 @@
       // How many of a grid set's stickers are in a given state. Tengo and De camino are
       // the owned and in-transit ranges; Falta is everything not yet in hand, so it
       // covers the in-transit ones too.
+      // Stickers in transit: the declared coming range, plus any comingLots. A lot is
+      // an agreed but not yet certain batch kept under the seller's name, so it can be
+      // dropped in a single edit if the deal falls through. It reads as De camino
+      // everywhere — nothing downstream needs to know a sticker came from a lot.
+      const comingOf = s => {
+        const set = parseRanges(s.coming);
+        Object.values(s.comingLots || {}).forEach(r => parseRanges(r).forEach(n => set.add(n)));
+        return set;
+      };
+
       const gridStateCount = (s, state) =>
         state === "complete" ? parseRanges(s.owned).size :
-        state === "coming"   ? parseRanges(s.coming).size :
+        state === "coming"   ? comingOf(s).size :
         gridTotal(s) - parseRanges(s.owned).size;
 
       // True when an entry declares its own state rather than deriving it from children
@@ -1920,7 +1932,7 @@
       // The Falta list as text: one line per category, in album order and merged when a
       // category is split across the album, reshaped by FALTA_SHAPE where one applies.
       function faltaText(gset, year) {
-        const owned = parseRanges(gset.owned), coming = parseRanges(gset.coming);
+        const owned = parseRanges(gset.owned), coming = comingOf(gset);
         const shape = FALTA_SHAPE[year] || {}, notes = shape.notes || {};
         const by = new Map();
         let n = 0, total = 0;
@@ -1974,7 +1986,7 @@
         const panel  = document.getElementById("gallery-set-panel");
         const headEl = document.getElementById("gallery-set-label");
         const owned  = parseRanges(gset.owned);
-        const coming = parseRanges(gset.coming);
+        const coming = comingOf(gset);
         const tot    = gridTotal(gset);
         const stateOf = num => owned.has(num) ? "is-confirmed" : coming.has(num) ? "is-coming" : "is-pending";
         headEl.hidden = false;
