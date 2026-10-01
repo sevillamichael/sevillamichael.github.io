@@ -13,6 +13,12 @@
   border: 0;
 }
 
+/* Every view shares one centred container, so a scrollbar that only some pages need
+   used to shift the layout sideways between them. Reserve its space everywhere. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* ── Header ─────────────────────────────────────────────────────────────── */
 
 .inv-header {
@@ -28,6 +34,12 @@
   line-height: 1.05;
   font-weight: 800;
   letter-spacing: -0.03em;
+}
+
+/* Focus lands on the title when a year opens, for the keyboard; it is not a control,
+   so it gets no focus ring */
+.inv-title:focus {
+  outline: none;
 }
 
 .inv-version {
@@ -254,7 +266,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 /* Copies the Falta list; sits with the filter buttons and matches their height */
@@ -492,7 +504,7 @@
 }
 
 /* Label wrapper: a flex row holding the label text and, when present, the
-   fixed-size expand caret (which never shrinks) */
+   fixed-size expand caret or back-colour dot (neither shrinks) */
 .count-label {
   font-size: 12px;
   font-weight: 600;
@@ -511,6 +523,26 @@
      the pathological case of one unbreakable word. */
   overflow-wrap: anywhere;
 }
+
+/* A colour dot after a variant's name (a back, or a parallel's finish). It sits in
+   the label wrapper beside the text, so the wrapper's gap spaces it and its
+   align-items centres it on the line. Inline, vertical-align: middle centred it on
+   the lowercase letters instead, which reads low next to a capital. */
+.color-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.color-dot.dot-azul   { background: #3b82f6; border-color: #3b82f6; }
+.color-dot.dot-roja   { background: #dc2626; border-color: #dc2626; }
+.color-dot.dot-rosada { background: #ec4899; border-color: #ec4899; }
+
+/* Black vanishes on the dark theme and white on the light one without a ring */
+.color-dot.dot-negra  { background: #000; border-color: var(--subtle); }
+.color-dot.dot-blanca { background: #fff; border-color: var(--subtle); }
 
 .count-val {
   font-size: 13px;
@@ -635,6 +667,16 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* A player tab's count line, 14px under the subtabs and 14px over the cards. A 1970-82
+   grid gets the same rhythm from .grid-filter's margin above its own count line. */
+.gallery-section-label.tab-count {
+  margin-top: 14px;
+}
+
+.tab-count:not([hidden]) + .albums-grid {
+  margin-top: 0;
 }
 
 /* 1–2 images: natural size, flex wrap */

@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=15" />
+    <link rel="stylesheet" href="css/panini.css?v=24" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.31.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.32.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -52,6 +52,9 @@
 
       <!-- ── Sub tabs: filter a set tab's rows by state ──────────────────── -->
       <nav class="view-tabs sub-tabs" id="sub-tabs" aria-label="Estado" hidden></nav>
+
+      <!-- ── Player tab count, under the subtabs like the 1970-82 grid's ──── -->
+      <p class="gallery-section-label tab-count" id="tab-count" role="status" hidden></p>
 
       <!-- ── Card grid ───────────────────────────────────────────────────── -->
       <div class="albums-grid" id="albums-grid"></div>
@@ -159,6 +162,8 @@
       //   plain: true keeps those lines verbatim — no shortening, and no splitting
       //   a "N A / B" line into two names.
       //   keepOrder: true opts a group out of the A-Z ordering its siblings get.
+      //   dot: "blanca" | "azul" | "roja" | "rosada" | "negra" tells variants of one
+      //   sticker apart by colour (a back, or a parallel's finish), drawn after the name.
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
@@ -521,21 +526,24 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "122", items: [
-                { label: "Made in Brazil",      complete: true },
-                { label: "Made in Italy",       complete: true },
-                { label: "Industria Argentina", complete: false },
+                { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Italy",       dot: "negra",  complete: true },
+                { label: "Ind. Argentina",      dot: "negra",  complete: false },
                 { label: "Swiss",               coming: true },
               ] },
               { label: "Sin número", items: [
-                { label: "Made in Brazil", complete: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Italy", dot: "azul",   complete: false },
+                { label: "Made in Italy", dot: "negra",  complete: true },
               ] },
               { label: "Tourn. Tracker C", complete: false },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "559 Italia (Negra)", complete: true },
-              { label: "559 Brasil (Azul)", complete: true },
-              { label: "559 Swiss",      coming: true },
+              { label: "559", items: [
+                { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Italy",       dot: "negra",  complete: true },
+                { label: "Ind. Argentina",      dot: "negra",  complete: false },
+                { label: "Swiss",               coming: true },
+              ] },
             ] },
           ] },
         { year: 2014, host: "Brazil",             postales: { items: [
@@ -640,16 +648,20 @@
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "430", complete: true },
-              { label: "V9",  complete: true },
-              { label: "Platinum", items: [
-                { label: "430", complete: false },
-                { label: "P1",  complete: true },
+              { label: "430", items: [
+                { label: "Made in Brazil", complete: false },
+                { label: "Made in Italy",  complete: true },
+                { label: "Platinum",       complete: false },
               ] },
+              { label: "V9", complete: true },
+              { label: "P1", complete: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "523", complete: true },
-              { label: "523 Platinum", complete: true },
+              { label: "523", items: [
+                { label: "Made in Brazil", complete: true },
+                { label: "Made in Italy",  complete: true },
+                { label: "Platinum",       complete: true },
+              ] },
             ] },
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
@@ -822,20 +834,26 @@
               { label: "México",        total: 5,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "288 NA (Negra)", complete: true },
-              { label: "276 Int. (Rosada)", complete: true },
-              { label: "288 Gold",       complete: true },
+              { label: "276 Made in Italy", dot: "rosada", complete: true },
+              { label: "288", items: [
+                { label: "Made in Italy", dot: "negra", complete: true },
+                { label: "Gold",                        complete: true },
+              ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "130 NA (Negra)", complete: true },
-              { label: "MP6 McDonald's", coming: true },
-              { label: "118 Int. (Rosada)", complete: true },
-              { label: "130 Gold",       complete: true },
+              { label: "118 Made in Italy", dot: "rosada", complete: true },
+              { label: "130", items: [
+                { label: "Made in Italy", dot: "negra", complete: true },
+                { label: "Gold",                        complete: true },
+              ] },
+              { label: "MP6 McDonald's", complete: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
-              { label: "209 NA (Negra)", complete: true },
-              { label: "197 Int. (Rosada)", complete: true },
-              { label: "209 Gold",       complete: false },
+              { label: "197 Made in Italy", dot: "rosada", complete: true },
+              { label: "209", items: [
+                { label: "Made in Italy", dot: "negra", complete: true },
+                { label: "Gold",                        complete: false },
+              ] },
             ] },
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
@@ -869,7 +887,7 @@
                   "C13 Sergej Milinković-Savić",
                   "C14 Hirving Lozano",
                 ] },
-                { label: "Numerada", total: 14, coming: true, sub: [
+                { label: "Numerada", total: 14, complete: true, sub: [
                   "C1 Eden Hazard",
                   "C2 Serge Gnabry",
                   "C3 Ángel Di María",
@@ -1032,13 +1050,16 @@
               { label: "España",        total: 8,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "ARG19 Internacional", complete: true },
-              { label: "ARG20 Oryx",          complete: false },
-              { label: "ARG20 Estándar",      complete: true },
-              { label: "ARG20 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: false },
+              { label: "ARG 19", items: [
+                { label: "Made in Brazil", complete: true },
+                { label: "Made in Italy",  complete: true },
+              ] },
+              { label: "ARG 20", items: [
+                { label: "Estándar",           complete: true },
+                { label: "Oryx",               complete: false },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1048,13 +1069,16 @@
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "POR17 Internacional", complete: true },
-              { label: "POR18 Oryx",          complete: true },
-              { label: "POR18 Estándar",      complete: true },
-              { label: "POR18 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: true },
+              { label: "POR 17", items: [
+                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Italy",      complete: false },
+              ] },
+              { label: "POR 18", items: [
+                { label: "Estándar",           complete: true },
+                { label: "Oryx",               complete: true },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1064,13 +1088,16 @@
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
-              { label: "FRA18 Internacional", complete: true },
-              { label: "FRA19 Oryx",          complete: true },
-              { label: "FRA19 Estándar",      complete: true },
-              { label: "FRA19 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: false },
+              { label: "FRA 18", items: [
+                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Italy",      complete: false },
+              ] },
+              { label: "FRA 19", items: [
+                { label: "Estándar",           complete: true },
+                { label: "Oryx",               complete: true },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1273,12 +1300,12 @@
               { label: "España",           total: 12,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "ARG17 Estándar",      complete: true },
-              { label: "ARG17 United",        complete: true },
-              { label: "ARG17 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: false },
+              { label: "ARG 17", items: [
+                { label: "Estándar",           complete: true },
+                { label: "United",             complete: true },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1288,12 +1315,12 @@
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "POR15 Estándar",      complete: true },
-              { label: "POR15 United",        complete: true },
-              { label: "POR15 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: true },
+              { label: "POR 15", items: [
+                { label: "Estándar",           complete: true },
+                { label: "United",             complete: true },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1303,12 +1330,12 @@
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
-              { label: "FRA20 Estándar",      complete: true },
-              { label: "FRA20 United",        complete: true },
-              { label: "FRA20 USA", items: [
-                { label: "Base",          complete: true },
-                { label: "Blue Parallel", complete: true },
-                { label: "Red Parallel",  complete: true },
+              { label: "FRA 20", items: [
+                { label: "Estándar",           complete: true },
+                { label: "United",             complete: true },
+                { label: "USA", dot: "blanca", complete: true },
+                { label: "USA", dot: "azul",   complete: true },
+                { label: "USA", dot: "roja",   complete: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1437,6 +1464,8 @@
       // own check is counted only when it declares its status; an inherited rollup is
       // skipped so a block of greens isn't also counted as a green itself.
       const kidsOf = n => (Array.isArray(n.items) ? n.items : []);
+      // Every leaf under a node: the stickers and sets themselves, never the groups
+      const leavesOf = n => { const k = kidsOf(n); return k.length ? k.flatMap(leavesOf) : [n]; };
       function deepGreens(node) {
         const kids = kidsOf(node);
         if (!kids.length) return setStatus(node).state === "complete" ? 1 : 0;
@@ -1451,15 +1480,11 @@
       // 2022's USA is not itself a set, the Base and Blue Parallel inside it are — and
       // how many of those leaves are green.
       const SETS_PLURAL = "Sets";
-      const leafCount  = n => { const k = kidsOf(n);
-        return k.length ? k.reduce((s, x) => s + leafCount(x), 0) : 1; };
-      const leafGreens = n => { const k = kidsOf(n);
-        return k.length ? k.reduce((s, x) => s + leafGreens(x), 0)
-                        : (setStatus(n).state === "complete" ? 1 : 0); };
       // null when there is only one set to own — "1/1" says less than a plain check
       const setsScore = it => {
-        const y = leafCount(it);
-        return y > 1 ? `${leafGreens(it)}/${y}` : null;
+        const leaves = leavesOf(it);
+        const green  = leaves.filter(l => setStatus(l).state === "complete").length;
+        return leaves.length > 1 ? `${green}/${leaves.length}` : null;
       };
 
       // A set's greens: its items (recursively), or itself when it has none
@@ -1498,9 +1523,18 @@
       // Row status for a secondary set: Actualización reflects its own "main" item
       // (manual, not a rollup); every other section rolls up its items.
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
-      function ledgerRow(label, st) {
+      // A colour dot after a variant's name, telling variants of one sticker apart: the
+      // back a print run used, or a parallel's finish. Spelling the colour out would push
+      // the name onto a second line in a narrow card. Screen readers get it as text.
+      const DOT_NAME = { blanca: "Blanca", azul: "Azul", roja: "Roja", rosada: "Rosada", negra: "Negra" };
+      const colorDot = dot => DOT_NAME[dot]
+        ? `<span class="color-dot dot-${dot}" title="${DOT_NAME[dot]}" aria-hidden="true"></span>` +
+          `<span class="sr-only"> (${DOT_NAME[dot]})</span>`
+        : "";
+
+      function ledgerRow(label, st, dot) {
         return `<div class="card-count-row">
-            <span class="count-label"><span class="count-label-text">${esc(label)}</span></span>
+            <span class="count-label"><span class="count-label-text">${esc(label)}</span>${colorDot(dot)}</span>
             <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
           </div>`;
       }
@@ -1633,7 +1667,7 @@
         }
         if (state && setStatus(it).state !== state) return "";
         const st = setStatus(it);
-        if (!it.sub || !it.sub.length) return ledgerRow(it.label, st);
+        if (!it.sub || !it.sub.length) return ledgerRow(it.label, st, it.dot);
         const lines = it.sub.map(line => {
           // "419 A / B" is two players on one sticker. Rather than let it wrap mid-name,
           // give each name its own line and align the second under the first — so each
@@ -1719,9 +1753,9 @@
       };
 
       // Set rows and player rows read A-Z, except the premium/parallel variants, which
-      // trail the base sets in this order however they are numbered ("559 Swiss",
-      // "523 Platinum", "ARG17 United"). Only the top level is reordered — a curated
-      // inner list (a USA caret, an Extras tier) keeps the order it was written in.
+      // trail the base sets in this order wherever the word sits in the label, so a
+      // numbered row sorts with its variant. Only the top level is reordered — a curated
+      // inner list (a sticker's prints and finishes, an Extras tier) keeps its written order.
       const VARIANT_LAST = ["Swiss", "Platinum", "Gold", "Oryx", "United", "USA", "Extras"];
       const variantRank = label => VARIANT_LAST.findIndex(v => new RegExp(`\\b${v}\\b`).test(label));
       const orderedItems = items => [...items].sort((a, b) => {
@@ -1808,8 +1842,25 @@
       // ── Card rendering ─────────────────────────────────────────────────────
       // filterKey: null renders every album (Todo); a set key renders only the
       // albums where that set applies.
+      // A player tab carries the 1982 count above its cards, over every year at once:
+      // Todo and Tengo count what is in hand, De camino and Falta the size of their own
+      // view, always out of every variant the player has. A group such as 122 or ARG 20
+      // is not a variant itself, so only the leaves count.
+      function renderTabCount(filterKey, subState) {
+        const el = document.getElementById("tab-count");
+        const sets = filterKey
+          ? ALBUMS.map(a => setForFilter(a, filterKey)).filter(s => s && s.afterPostales)
+          : [];
+        el.hidden = !sets.length;
+        if (!sets.length) return;
+        const want   = subState || "complete";
+        const leaves = sets.flatMap(leavesOf);
+        el.textContent = `Total: ${leaves.filter(l => setStatus(l).state === want).length}/${leaves.length}`;
+      }
+
       function renderGrid(filterKey) {
         const subState = hasSubTabs(filterKey) ? currentSubFilter : null;
+        renderTabCount(filterKey, subState);
         let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
         // Under a sub tab, only years with at least one row in that state
         if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
@@ -2016,7 +2067,9 @@
         const coming = comingOf(gset);
         const tot    = gridTotal(gset);
         const stateOf = num => owned.has(num) ? "is-confirmed" : coming.has(num) ? "is-coming" : "is-pending";
-        headEl.hidden = false;
+        // The count sits under the filter inside the panel, the way the player tabs carry
+        // theirs under the subtabs, so the heading above the panel stays empty here
+        headEl.hidden = true;
 
         // Walk every sticker once: which states exist (→ which filter buttons) and how
         // many of each (→ the header numerator)
@@ -2037,7 +2090,7 @@
         if (gridFilter && !FILTERS.some(f => f.key === gridFilter)) gridFilter = null;
         // Todo and Tengo both report what is in hand; De camino and Falta report the
         // size of their own filtered view
-        headEl.textContent = `Postales: ${gridFilter ? tally[gridFilter] : tally["is-confirmed"]}/${tot}`;
+        const count = `Total: ${gridFilter ? tally[gridFilter] : tally["is-confirmed"]}/${tot}`;
         const bar = FILTERS.map(f =>
           `<button class="view-tab grid-filter-btn${f.key === gridFilter ? " is-active" : ""}" data-gf="${f.key ?? ""}" type="button" aria-pressed="${f.key === gridFilter}">${f.label}</button>`).join("");
 
@@ -2069,7 +2122,7 @@
           }
           body = `<div class="sticker-grid">${cells}</div>`;
         }
-        panel.className = "grid-wrap";
+        panel.className = "";
         // Offered only when something is actually missing
         const copyBtn = present.has("is-pending")
           ? `<button class="grid-copy" type="button" title="Copiar los que faltan" aria-label="Copiar la lista de los que faltan">` +
@@ -2078,7 +2131,8 @@
             `<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>` +
             `</button>`
           : "";
-        panel.innerHTML = `<div class="grid-filter">${bar}${copyBtn}</div>${body}`;
+        panel.innerHTML = `<div class="grid-filter">${bar}${copyBtn}</div>` +
+          `<p class="gallery-section-label">${count}</p>${body}`;
       }
 
       // Tabs for one year: photos first, then sticker sets — a set gets a tab
@@ -2162,7 +2216,7 @@
           const panel   = document.getElementById("gallery-set-panel");
           const gset    = setForFilter(album, key);
           if (key === "postales" && gset && gset.owned !== undefined) {
-            // Numbered sticker grid with a state filter (all / ready / missing / upcoming)
+            // Numbered sticker grid with a state filter (Todo / De camino / Tengo / Falta)
             currentGridSet = gset;
             currentGridYear = album.year;
             gridFilter = null; // reset the filter each time the tab is opened
@@ -2243,6 +2297,7 @@
         const idx = nav.findIndex(a => a.year === currentGalleryYear);
         if (idx === -1) return;
         showGallery(nav[(idx + dir + nav.length) % nav.length].year);
+        window.scrollTo(0, 0); // another year is another page: start at its top
       }
 
       function showGallery(year, initialTab) {
@@ -2323,6 +2378,7 @@
       }
 
       function hideGallery() {
+        const year = currentGalleryYear;
         currentGalleryTab = null;
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("view-tabs").hidden    = false;
@@ -2333,14 +2389,32 @@
         document.getElementById("inv-title-text").textContent = "Colección Panini";
         document.querySelector(".inv-version").hidden = false;
         updateStats();
+        // Back to that year's card, where a keyboard user left the grid. Paging through
+        // years can end on one this tab has no card for; the active tab is next best.
+        (document.querySelector(`.album-card[data-year="${CSS.escape(String(year))}"] .card-logo`) ||
+         document.querySelector("#view-tabs .is-active"))?.focus();
       }
 
       // ── Events ─────────────────────────────────────────────────────────────
+      // A click that redraws its own row of buttons replaces the button holding focus,
+      // which drops a keyboard user back at the top of the page. Note which button had
+      // focus before the redraw and hand focus to its replacement after.
+      const keepFocusIn = (bar, attr) => {
+        const el  = document.activeElement;
+        const key = el && bar.contains(el) ? el.getAttribute(attr) : null;
+        return () => {
+          if (key !== null) bar.querySelector(`[${attr}="${CSS.escape(key)}"]`)?.focus();
+        };
+      };
+
       function openCard(card) {
         if (!card || card.classList.contains("is-empty")) return;
         const raw = card.dataset.year;
         // From a set tab, land on that same set inside the year
         showGallery(/^\d+$/.test(raw) ? Number(raw) : raw, currentFilter);
+        // The card is hidden now. Start at the year's title: a keyboard user is not left
+        // on nothing, and a page opened from far down the grid opens at its top.
+        document.querySelector(".inv-title").focus();
       }
 
       document.getElementById("albums-grid").addEventListener("click", e => {
@@ -2372,13 +2446,18 @@
         }
         const btn = e.target.closest(".grid-filter-btn");
         if (!btn) return;
+        const refocus = keepFocusIn(e.currentTarget, "data-gf");
         gridFilter = btn.dataset.gf || null;
         renderStickerGrid();
+        refocus();
       });
 
       document.getElementById("gallery-tabs").addEventListener("click", e => {
         const btn = e.target.closest(".view-tab");
-        if (btn) showGalleryTab(btn.dataset.tab);
+        if (!btn) return;
+        const refocus = keepFocusIn(e.currentTarget, "data-tab");
+        showGalleryTab(btn.dataset.tab);
+        refocus();
       });
 
       // ── View tabs: Todo + one tab per sticker set ──────────────────────────
@@ -2460,6 +2539,7 @@
       document.getElementById("view-tabs").addEventListener("click", e => {
         const btn = e.target.closest(".view-tab");
         if (!btn) return;
+        const refocus = keepFocusIn(e.currentTarget, "data-set");
         currentFilter = btn.dataset.set || null;
         // Carry the state subtab across tabs: Postales/De camino -> Messi lands on
         // Messi/De camino. Only fall back to Todo when the tab being opened has
@@ -2470,14 +2550,17 @@
         renderSubTabs();
         renderGrid(currentFilter);
         updateStats();
+        refocus();
       });
 
       document.getElementById("sub-tabs").addEventListener("click", e => {
         const btn = e.target.closest(".sub-tab");
         if (!btn) return;
+        const refocus = keepFocusIn(e.currentTarget, "data-state");
         currentSubFilter = btn.dataset.state || null;
         renderSubTabs();
         renderGrid(currentFilter);
+        refocus();
       });
 
       // ── Lightbox ───────────────────────────────────────────────────────────
@@ -2562,6 +2645,7 @@
           if (e.key === "ArrowLeft")  lightboxNav(-1);
           if (e.key === "ArrowRight") lightboxNav(1);
         } else if (!document.getElementById("gallery-view").hidden) {
+          if (e.key === "Escape")     hideGallery();
           if (e.key === "ArrowLeft")  navigateGallery(-1);
           if (e.key === "ArrowRight") navigateGallery(1);
         }
@@ -2584,13 +2668,17 @@
       });
 
       // ── Swipe navigation ───────────────────────────────────────────────────
-      let swipeTouchStartX = 0;
+      let swipeTouchStartX = 0, swipeTouchStartY = 0;
       document.addEventListener("touchstart", e => {
         swipeTouchStartX = e.changedTouches[0].clientX;
+        swipeTouchStartY = e.changedTouches[0].clientY;
       }, { passive: true });
       document.addEventListener("touchend", e => {
         const dx = e.changedTouches[0].clientX - swipeTouchStartX;
-        if (Math.abs(dx) < 40) return;
+        const dy = e.changedTouches[0].clientY - swipeTouchStartY;
+        // Mostly sideways only: scrolling a long page drifts left or right too, and that
+        // drift used to flip to another year mid-scroll
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
         const dir = dx < 0 ? 1 : -1;
         if (lightbox.classList.contains("is-open")) {
           lightboxNav(dir);
