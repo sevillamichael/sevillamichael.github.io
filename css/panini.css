@@ -544,6 +544,9 @@ html {
 .color-dot.dot-negra  { background: #000; border-color: var(--subtle); }
 .color-dot.dot-blanca { background: #fff; border-color: var(--subtle); }
 
+/* Silver reads as metal rather than flat grey, and takes the same ring on light */
+.color-dot.dot-plateada { background: linear-gradient(135deg, #f3f4f6, #9ca3af); border-color: var(--subtle); }
+
 .count-val {
   font-size: 13px;
   font-weight: 700;

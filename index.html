@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=24" />
+    <link rel="stylesheet" href="css/panini.css?v=25" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.32.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -162,8 +162,9 @@
       //   plain: true keeps those lines verbatim — no shortening, and no splitting
       //   a "N A / B" line into two names.
       //   keepOrder: true opts a group out of the A-Z ordering its siblings get.
-      //   dot: "blanca" | "azul" | "roja" | "rosada" | "negra" tells variants of one
-      //   sticker apart by colour (a back, or a parallel's finish), drawn after the name.
+      //   dot: "blanca" | "plateada" | "azul" | "roja" | "rosada" | "negra" tells
+      //   variants of one sticker apart by colour (a back, or a parallel's finish),
+      //   drawn after the name.
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
@@ -1301,11 +1302,12 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 17", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Italy",      coming: true },
                 { label: "United",             complete: true },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
-                { label: "USA", dot: "roja",   complete: false },
+                { label: "USA", dot: "roja",   coming: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   complete: true },
@@ -1316,7 +1318,8 @@
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 15", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Italy",      coming: true },
                 { label: "United",             complete: true },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
@@ -1331,7 +1334,9 @@
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 20", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Italy",      coming: true },
+                { label: "Silver Parallel", dot: "plateada", complete: false },
                 { label: "United",             complete: true },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
@@ -1526,7 +1531,7 @@
       // A colour dot after a variant's name, telling variants of one sticker apart: the
       // back a print run used, or a parallel's finish. Spelling the colour out would push
       // the name onto a second line in a narrow card. Screen readers get it as text.
-      const DOT_NAME = { blanca: "Blanca", azul: "Azul", roja: "Roja", rosada: "Rosada", negra: "Negra" };
+      const DOT_NAME = { blanca: "Blanca", plateada: "Plateada", azul: "Azul", roja: "Roja", rosada: "Rosada", negra: "Negra" };
       const colorDot = dot => DOT_NAME[dot]
         ? `<span class="color-dot dot-${dot}" title="${DOT_NAME[dot]}" aria-hidden="true"></span>` +
           `<span class="sr-only"> (${DOT_NAME[dot]})</span>`
