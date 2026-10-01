@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.30.2</span></h1>
+        <h1 class="inv-title"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.31.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -520,11 +520,17 @@
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "122 Italia (Negra)", complete: true },
-              { label: "122 Brasil (Azul)", complete: true },
-              { label: "Sin número",    complete: true },
+              { label: "122", items: [
+                { label: "Made in Brazil",      complete: true },
+                { label: "Made in Italy",       complete: true },
+                { label: "Industria Argentina", complete: false },
+                { label: "Swiss",               coming: true },
+              ] },
+              { label: "Sin número", items: [
+                { label: "Made in Brazil", complete: true },
+                { label: "Made in Italy",  complete: true },
+              ] },
               { label: "Tourn. Tracker C", complete: false },
-              { label: "122 Swiss",      coming: true },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559 Italia (Negra)", complete: true },
@@ -1713,7 +1719,7 @@
       };
 
       // Set rows and player rows read A-Z, except the premium/parallel variants, which
-      // trail the base sets in this order however they are numbered ("122 Swiss",
+      // trail the base sets in this order however they are numbered ("559 Swiss",
       // "523 Platinum", "ARG17 United"). Only the top level is reordered — a curated
       // inner list (a USA caret, an Extras tier) keeps the order it was written in.
       const VARIANT_LAST = ["Swiss", "Platinum", "Gold", "Oryx", "United", "USA", "Extras"];
