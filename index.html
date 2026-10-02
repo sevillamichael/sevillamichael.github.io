@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.1</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -835,14 +835,20 @@
               { label: "México",        total: 5,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "276 Made in Italy", dot: "rosada", complete: true },
+              { label: "276", items: [
+                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Italy",  dot: "rosada", complete: true },
+              ] },
               { label: "288", items: [
                 { label: "Made in Italy", dot: "negra", complete: true },
                 { label: "Gold",                        complete: true },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "118 Made in Italy", dot: "rosada", complete: true },
+              { label: "118", items: [
+                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Italy",  dot: "rosada", complete: true },
+              ] },
               { label: "130", items: [
                 { label: "Made in Italy", dot: "negra", complete: true },
                 { label: "Gold",                        complete: true },
@@ -850,7 +856,10 @@
               { label: "MP6 McDonald's", complete: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
-              { label: "197 Made in Italy", dot: "rosada", complete: true },
+              { label: "197", items: [
+                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Italy",  dot: "rosada", complete: true },
+              ] },
               { label: "209", items: [
                 { label: "Made in Italy", dot: "negra", complete: true },
                 { label: "Gold",                        complete: false },
@@ -1072,7 +1081,7 @@
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 17", items: [
                 { label: "Made in Brazil",     complete: true },
-                { label: "Made in Italy",      complete: false },
+                { label: "Made in Italy",      complete: true },
               ] },
               { label: "POR 18", items: [
                 { label: "Estándar",           complete: true },
@@ -1091,7 +1100,7 @@
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 18", items: [
                 { label: "Made in Brazil",     complete: true },
-                { label: "Made in Italy",      complete: false },
+                { label: "Made in Italy",      complete: true },
               ] },
               { label: "FRA 19", items: [
                 { label: "Estándar",           complete: true },
