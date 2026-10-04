@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.1</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.2</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -377,10 +377,16 @@
           ] },
           sets: [
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
-              { label: "185", complete: true },
+              { label: "185", items: [
+                { label: "Made in Brazil", complete: false },
+                { label: "Made in Italy",  complete: true },
+              ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
-              { label: "298", complete: true },
+              { label: "298", items: [
+                { label: "Made in Brazil", complete: false },
+                { label: "Made in Italy",  complete: true },
+              ] },
             ] },
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
@@ -528,12 +534,13 @@
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "122", items: [
                 { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Italy",       dot: "azul",   complete: false },
                 { label: "Made in Italy",       dot: "negra",  complete: true },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
                 { label: "Swiss",               coming: true },
               ] },
               { label: "Sin número", items: [
-                { label: "Made in Italy", dot: "azul",   complete: false },
+                { label: "Made in Italy", dot: "azul",   coming: true },
                 { label: "Made in Italy", dot: "negra",  complete: true },
               ] },
               { label: "Tourn. Tracker C", complete: false },
@@ -541,6 +548,7 @@
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559", items: [
                 { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Italy",       dot: "azul",   complete: false },
                 { label: "Made in Italy",       dot: "negra",  complete: true },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
                 { label: "Swiss",               coming: true },
@@ -650,8 +658,9 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430", items: [
-                { label: "Made in Brazil", complete: false },
+                { label: "Made in Brazil", coming: true },
                 { label: "Made in Italy",  complete: true },
+                { label: "Ind. Argentina", complete: false },
                 { label: "Platinum",       complete: false },
               ] },
               { label: "V9", complete: true },
@@ -661,6 +670,7 @@
               { label: "523", items: [
                 { label: "Made in Brazil", complete: true },
                 { label: "Made in Italy",  complete: true },
+                { label: "Ind. Argentina", complete: false },
                 { label: "Platinum",       complete: true },
               ] },
             ] },
@@ -836,33 +846,39 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "276", items: [
-                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Brazil", dot: "rosada", coming: true },
                 { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "288", items: [
-                { label: "Made in Italy", dot: "negra", complete: true },
-                { label: "Gold",                        complete: true },
+                { label: "Made in Brazil", dot: "negra", complete: false },
+                { label: "Made in Italy",  dot: "negra", complete: true },
+                { label: "Gold",                         complete: true },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "118", items: [
-                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Brazil", dot: "rosada", coming: true },
                 { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "130", items: [
-                { label: "Made in Italy", dot: "negra", complete: true },
-                { label: "Gold",                        complete: true },
+                { label: "Made in Brazil", dot: "negra", complete: false },
+                { label: "Made in Italy",  dot: "negra", complete: true },
+                { label: "Gold",                         complete: true },
               ] },
               { label: "MP6 McDonald's", complete: true },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "197", items: [
-                { label: "Made in Brazil", dot: "rosada", complete: false },
+                { label: "Made in Brazil", dot: "rosada", coming: true },
                 { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "209", items: [
-                { label: "Made in Italy", dot: "negra", complete: true },
-                { label: "Gold",                        complete: false },
+                { label: "Made in Brazil", dot: "negra", complete: false },
+                { label: "Made in Italy",  dot: "negra", complete: true },
+                { label: "Gold",                         complete: false },
               ] },
             ] },
           ] },
@@ -1063,9 +1079,11 @@
               { label: "ARG 19", items: [
                 { label: "Made in Brazil", complete: true },
                 { label: "Made in Italy",  complete: true },
+                { label: "Ind. Argentina", complete: false },
               ] },
               { label: "ARG 20", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: false },
+                { label: "Made in Italy",      complete: true },
                 { label: "Oryx",               complete: false },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
@@ -1082,9 +1100,11 @@
               { label: "POR 17", items: [
                 { label: "Made in Brazil",     complete: true },
                 { label: "Made in Italy",      complete: true },
+                { label: "Ind. Argentina",     complete: false },
               ] },
               { label: "POR 18", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: false },
+                { label: "Made in Italy",      complete: true },
                 { label: "Oryx",               complete: true },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
@@ -1101,9 +1121,11 @@
               { label: "FRA 18", items: [
                 { label: "Made in Brazil",     complete: true },
                 { label: "Made in Italy",      complete: true },
+                { label: "Ind. Argentina",     complete: false },
               ] },
               { label: "FRA 19", items: [
-                { label: "Estándar",           complete: true },
+                { label: "Made in Brazil",     complete: false },
+                { label: "Made in Italy",      complete: true },
                 { label: "Oryx",               complete: true },
                 { label: "USA", dot: "blanca", complete: true },
                 { label: "USA", dot: "azul",   complete: true },
