@@ -43,7 +43,7 @@
           <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
           <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.33.2</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.34.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -316,52 +316,42 @@
           ] } },
         { year: 1998, host: "France",             postales: { items: [
             { label: "Set", total: 561, collected: 561 },
-            { label: "Actualización", total: 13, collected: 13, sub: [
-              "417 Iran Badge",
-              "418 Ahmadreza Abedzadeh / Mohammad Khakpour",
-              "419 Mohammad Ali Peiravani / Reza Shahroudi",
-              "420 Iran Team Photo",
-              "421 Mehdi Pashazadeh / Naeim Sadavi",
-              "422 Aliasghar Modirrousta / Daryoush Yazdani",
-              "423 Hamidreza Estili / Mehrdad Minavand",
-              "424 Karim Bagheri / Alireza Mansourian",
-              "425 Khodadad Azizi / Ali Daei",
-              "426 Mehdi Mahdavikia / Nima Nakissa",
-              "",
-              "467 Tony Adams",
-              "477 Robbie Fowler",
-              "478 Les Ferdinand",
-            ] },
           ] } },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
-            { label: "Set", total: 576, collected: 576 },
-            { label: "Actualización", countNested: true, items: [
-              { label: "Brasil", total: 5,  complete: false, sub: [
-                "171-ex Marcos",
-                "173-ex Juan",
-                "177-ex Edmílson",
-                "178-ex Belletti",
-                "179-ex Ronaldinho",
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Made in Italy", dot: "negra", total: 576, collected: 576 },
+            ] },
+          ] },
+          sets: [
+            { id: "otros",         label: "Otros", items: [
+              { label: "Made in Brazil", total: 5,  complete: false, sub: [
+                "171 Marcos",
+                "173 Juan",
+                "177 Edmílson",
+                "178 Belletti",
+                "179 Ronaldinho",
               ] },
               { label: "México", total: 12, complete: false, sub: [
-                "Jorge Campos",
-                "Sigifredo Mercado",
-                "Salvador Carmona",
-                "Luis Hernández",
-                "Germán Villa",
-                "Braulio Luna",
-                "",
                 "Cristiano Zanetti",
                 "Marco Delvecchio",
                 "Gennaro Gattuso",
+                "Jorge Campos",
+                "Sigifredo Mercado",
+                "Salvador Carmona",
+                "",
                 "Vincenzo Montella",
                 "Christian Panucci",
                 "Luigi Di Biagio",
+                "Luis Hernández",
+                "Germán Villa",
+                "Braulio Luna",
               ] },
             ] },
-          ] } },
+          ] },
         { year: 2006, host: "Germany",            postales: { items: [
-            { label: "Set", total: 596, collected: 596 },
+            { label: "Set", plural: "Sets", countNested: true, items: [
+              { label: "Made in Italy", total: 596, collected: 596 },
+            ] },
             { label: "Actualización", total: 8, complete: true, sub: [
               "121 Edgard Barreto",
               "379 Escudo con \"BRASIL\"",
@@ -391,8 +381,7 @@
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Italia (Negra)", total: 640, complete: true },
-              { label: "Brasil (Azul)",  total: 640, complete: false },
+              { label: "Made in Italy",  dot: "negra", total: 640, complete: true },
               { label: "Swiss",      total: 660, complete: false },
             ] },
             { label: "Actualización", total: 80, complete: true },
@@ -557,7 +546,7 @@
           ] },
         { year: 2014, host: "Brazil",             postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Principal", total: 640, collected: 640 },
+              { label: "Made in Brazil", total: 640, collected: 640 },
               { label: "Platinum", total: 660, complete: false },
             ] },
             { label: "Actualización", total: 72, complete: true },
@@ -677,8 +666,8 @@
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "NA (Negra)", total: 682, complete: false },
-              { label: "Int. (Rosada)",  total: 670, complete: true },
+              { label: "Made in Italy", dot: "rosada", total: 670, complete: true },
+              { label: "Made in Italy", dot: "negra",  total: 682, complete: false },
               { label: "Gold", total: 694, complete: false },
             ] },
             { label: "Actualización", total: 92, complete: true },
@@ -887,10 +876,8 @@
               { label: "Internacional", total: 638, complete: true },
               { label: "Estándar",      total: 670, complete: false },
               { label: "Oryx",          total: 670, complete: true },
-              { label: "USA",           countNested: true, complete: false, items: [
-                { label: "Base",  total: 670, complete: true },
-                { label: "Blue Parallel", total: 670, complete: false },
-              ] },
+              { label: "USA",           dot: "blanca", total: 670, complete: true },
+              { label: "USA",           dot: "azul",   total: 670, complete: false },
             ] },
             { label: "Actualización", total: 80, complete: true },
           ] },
@@ -1143,10 +1130,8 @@
             { label: "Set", plural: "Sets", countNested: true, items: [
               { label: "Estándar",       total: 980, complete: true },
               { label: "United",         total: 980, complete: false },
-              { label: "USA",            countNested: true, complete: false, items: [
-                { label: "Base",  total: 980, complete: true },
-                { label: "Blue Parallel", total: 980, complete: false },
-              ] },
+              { label: "USA",            dot: "blanca", total: 980, complete: true },
+              { label: "USA",            dot: "azul",   total: 980, complete: false },
             ] },
             { label: "Actualización", total: 120, complete: true },
           ] },
@@ -1512,9 +1497,9 @@
         return own + kids.reduce((n, k) => n + deepGreens(k), 0);
       }
       // The Sets row is the one place the number reads as a score: these are album
-      // variants you either own or do not. Count the leaves — a variant group such as
-      // 2022's USA is not itself a set, the Base and Blue Parallel inside it are — and
-      // how many of those leaves are green.
+      // variants you either own or do not. Count the leaves — a group nested inside
+      // Sets is not itself a set, the sets inside it are — and how many of those
+      // leaves are green.
       const SETS_PLURAL = "Sets";
       // null when there is only one set to own — "1/1" says less than a plain check
       const setsScore = it => {
