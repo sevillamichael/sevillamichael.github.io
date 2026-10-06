@@ -3,6 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      // On the live site every view has its own address (/messi/fotos, /2010/postales).
+      // Anchor relative paths at the site root so assets load from there at any depth;
+      // opened as a local file the page keeps resolving them from its folder.
+      if (location.protocol.startsWith("http")) {
+        const base = document.createElement("base");
+        base.href = "/";
+        document.head.prepend(base);
+      }
+    </script>
     <title>Colección Panini</title>
     <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
@@ -13,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=25" />
+    <link rel="stylesheet" href="css/panini.css?v=26" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -21,15 +31,6 @@
     <link rel="apple-touch-icon" href="assets/icons/icon.png" />
   </head>
   <body>
-    <svg aria-hidden="true" class="icon-sprite">
-      <symbol id="icon-moon" viewBox="0 0 512 512">
-        <path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/>
-      </symbol>
-      <symbol id="icon-sun" viewBox="0 0 512 512">
-        <path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/>
-      </symbol>
-    </svg>
-
     <main class="page">
       <!-- ── Page header ──────────────────────────────────────────────────── -->
       <section class="inv-header">
@@ -40,10 +41,10 @@
           aria-label="Cambiar tema claro/oscuro"
           title="Toggle dark mode"
         >
-          <svg class="theme-icon theme-icon-moon"><use href="#icon-moon"></use></svg>
-          <svg class="theme-icon theme-icon-sun"><use href="#icon-sun"></use></svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.34.1</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.35.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -58,6 +59,9 @@
 
       <!-- ── Card grid ───────────────────────────────────────────────────── -->
       <div class="albums-grid" id="albums-grid"></div>
+
+      <!-- ── Player photo wall (the Fotos subtab) ───────────────────────── -->
+      <div class="photo-wall" id="photo-wall" hidden></div>
 
       <!-- ── Gallery view (shown when a year is selected) ───────────────── -->
       <div class="gallery-view" id="gallery-view" hidden>
@@ -165,6 +169,10 @@
       //   dot: "blanca" | "plateada" | "azul" | "roja" | "rosada" | "negra" tells
       //   variants of one sticker apart by colour (a back, or a parallel's finish),
       //   drawn after the name.
+      //   photo: "<file>.jpg" is a photo of the fronts and backs. On a player set's row it
+      //   is that sticker, kept in assets/players/<set id>/ and shown in the Fotos subtab;
+      //   on a Postales row (a Coca Cola section, an Otros entry...) it is that set, kept
+      //   in assets/sets/<year>/ and shown in the year's Postales tab.
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
@@ -199,7 +207,7 @@
               { cat: "Marruecos", names: ["Bandera Marruecos", "Escudo Marruecos", "Kassou Allal", "Equipo Marruecos", "Mohamed Abdallah", "Benkrif Boujemaa", "Alaoui Moulay Idriss", "Kacem Slimani", "Mohamed Maaroufi", "Ghandi Said", "Mohamed Filali", "Ahmed Faras", "Driss Bamouss", "Mahjoub Ghazouani"] },
               { cat: "Alemania Federal", names: ["Bandera Alemania Federal", "Escudo Alemania Federal", "Equipo Alemania Federal", "Sepp Maier", "Hubert Vogts", "Willi Schulz", "Franz Beckenbauer", "Karl Heinz Schnellinger", "Horst-Dieter Hottges", "Klaus Fichtel", "Helmut Haller", "Wolfgang Overath", "Bernd Dorfel", "Uwe Seeler", "Gerd Muller", "Siegfried Held", "Horst Wolter"] },
             ] } },
-        { year: 1974, host: "Germany",            postales: { owned: "", groups: [
+        { year: 1974, host: "München",            postales: { owned: "", groups: [
               { cat: "Especial", names: ["Escudo FIFA", "World Cup 74 Poster", "World Cup 74 Symbol", "FIFA Trophy", "Mascote", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Cupa Rimet", "Jules Rimet"] },
               { cat: "Historia", names: ["World Cup 30 Poster", "Uruguay 1930", "Nasazzi (uruguay) And Ferreira (argentina)", "Uruguay – Argentina: 4-2", "World Cup 34 Poster", "Italia 1934", "Italia – Cehoslovacia 2-1", "Italia The Champions", "World Cup 38 Poster", "Italia 1938", "Meazza (italia) And Sarosi (ungaria)", "Italia – Ungaria 4-2", "World Cup 50 Poster", "Uruguay 1950", "Uruguay-brazilia 2-1", "Varela And The Trophy", "World Cup 54 Poster", "Germania 54", "Hidegkuti, Lorant, Grosics, Puskas (ungaria)", "Germania – Ungaria 3-2", "World Cup 58 Poster", "Brazil 58", "Just Fontaine (franta)", "Sweden Federation Monument", "World Cup 62 Poster", "Brazil 62", "Brazil – Cehoslovacia", "Mauro (brazilia) And Trophy", "World Cup 66 Poster", "Anglia 66", "Bobby Charlton (anglia)", "Uwe Seeler (germania)", "World Cup 70 Poster", "Brazilia 70", "Brazilia – Italy 4-1", "Pele (brazilia)", "Stanley Rous", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "FIFA Cup", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "Mascots", "West Germany Harta"] },
               { cat: "Estadios", names: ["Olympia Stadion - Berlin", "Olympiastadion - Munchen", "Waldstadion - Frankfurt", "Volksparkstadion – Hamburg", "Rheinstadion – Dusseldorf", "Neckarstadion - Stuttgart", "Parkstadion - Gelsenkirchen", "Westfalenstadion - Dortmund", "Niedersachsenstadion – Hannover"] },
@@ -275,7 +283,7 @@
               { cat: "Uruguay", names: ["Escudo Uruguay", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Gales", names: ["Escudo Gales", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "Spain",              postales: { owned: "5-9, 11-13, 15-26, 28-37, 49-55, 57-65, 67-76, 78-84, 86-88, 91-107, 109-112, 114-116, 118-120, 123, 126, 128, 130-139, 141-145, 147-165, 167-168, 171, 173-175, 177-179, 181, 183-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-273, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-368, 370-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "2-3, 10, 41, 46-48, 77, 90, 108, 129, 146, 166, 182, 274, 286, 369, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
+        { year: 1982, host: "España",             postales: { owned: "5-9, 11-13, 15-26, 28-37, 49-55, 57-65, 67-76, 78-84, 86-88, 91-107, 109-112, 114-116, 118-120, 123, 126, 128, 130-139, 141-145, 147-165, 167-168, 171, 173-175, 177-179, 181, 183-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-273, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-368, 370-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "2-3, 10, 41, 46-48, 77, 90, 108, 129, 146, 166, 182, 274, 286, 369, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
               { cat: "Especial", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "Póster", names: ["Madrid", "Barcelona", "Sevilla", "Vigo", "La Coruna", "Gijon"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -309,7 +317,7 @@
               { cat: "Nueva Zelanda", names: ["Escudo Nueva Zelanda", "Equipo Nueva Zelanda", "Richard Wilson & Glen Dods", "Bobby Almond & Ricky Herbert", "Glen Adam & Adrian Elrick", "Keith Mackay & Duncan Cole", "Alan Boath & Peter Simonsen", "Grant Turner & Steve Sumner", "Brian Turner & Wynton Rufer", "Steve Wooddin & Frank Van Hattum"] },
             ] } },
         { year: 1986, host: "Mexico",             postales: { total: 427, collected: 427 } },
-        { year: 1990, host: "Italy",              postales: { total: 448, collected: 448 } },
+        { year: 1990, host: "Italia",             postales: { total: 448, collected: 448 } },
         { year: "story", host: "World Cup Story", postales: { total: 262, collected: 262 } },
         { year: 1994, host: "USA",                postales: { items: [
             { label: "Set", total: 444, collected: 444 },
@@ -365,13 +373,13 @@
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", items: [
                 { label: "Made in Brazil", coming: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Italy",  complete: true, photo: "Messi_2006_185_MadeInItaly.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "298", items: [
                 { label: "Made in Brazil", coming: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Italy",  complete: true, photo: "Ronaldo_2006_298_MadeInItaly.jpg" },
               ] },
             ] },
           ] },
@@ -446,7 +454,7 @@
                 "Gökhan Inler",
                 "Carlos Pavón",
               ] },
-              { label: "Latam", total: 8, complete: true, plain: true, sub: [
+              { label: "Latam", total: 8, complete: true, plain: true, photo: "CocaCola_2010_Latam.jpg", sub: [
                 "A Copa Mundial 2010",
                 "B Mascot",
                 "C El Aeroplano",
@@ -456,7 +464,7 @@
                 "G El Bote",
                 "H El Rockero",
               ] },
-              { label: "Alemania", total: 4, complete: true, sub: [
+              { label: "Alemania", total: 4, complete: true, photo: "CocaCola_2010_Alemania.jpg", sub: [
                 "M. Klose 1/4",
                 "M. Klose 2/4",
                 "M. Klose 3/4",
@@ -518,29 +526,29 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "122", items: [
-                { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Brazil",      dot: "azul",   complete: true, photo: "Messi_2010_122_MadeInBrazil.jpg" },
                 { label: "Made in Italy",       dot: "azul",   coming: true },
-                { label: "Made in Italy",       dot: "negra",  complete: true },
+                { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Messi_2010_122_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
                 { label: "Swiss",               coming: true },
               ] },
               { label: "Sin número", items: [
                 { label: "Made in Italy", dot: "azul",   coming: true },
-                { label: "Made in Italy", dot: "negra",  complete: true },
+                { label: "Made in Italy", dot: "negra",  complete: true, photo: "Messi_2010_SinNumero_MadeInItaly_Negra.jpg" },
               ] },
-              { label: "Tourn. Tracker C", complete: false },
+              { label: "Tourn. Tracker C", complete: false, photo: "Messi_2010_TrackerC_MadeInItaly.jpg" },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559", items: [
-                { label: "Made in Brazil",      dot: "azul",   complete: true },
+                { label: "Made in Brazil",      dot: "azul",   complete: true, photo: "Ronaldo_2010_559_MadeInBrazil.jpg" },
                 { label: "Made in Italy",       dot: "azul",   coming: true },
-                { label: "Made in Italy",       dot: "negra",  complete: true },
+                { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Ronaldo_2010_559_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
                 { label: "Swiss",               coming: true },
               ] },
             ] },
           ] },
-        { year: 2014, host: "Brazil",             postales: { items: [
+        { year: 2014, host: "Brasil",             postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
               { label: "Made in Brazil", total: 640, collected: 640 },
               { label: "Platinum", total: 660, complete: false },
@@ -643,20 +651,20 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430", items: [
-                { label: "Made in Brazil", coming: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Brazil", coming: true, photo: "Messi_2014_430_MadeInBrazil.jpg" },
+                { label: "Made in Italy",  complete: true, photo: "Messi_2014_430_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", complete: false },
                 { label: "Platinum",       complete: false },
               ] },
-              { label: "V9", complete: true },
-              { label: "P1", complete: true },
+              { label: "V9", complete: true, photo: "Messi_2014_V9_MadeInBrazil.jpg" },
+              { label: "P1", complete: true, photo: "Messi_2014_P1_MadeInItaly.jpg" },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "523", items: [
-                { label: "Made in Brazil", complete: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Brazil", complete: true, photo: "Ronaldo_2014_523_MadeInBrazil.jpg" },
+                { label: "Made in Italy",  complete: true, photo: "Ronaldo_2014_523_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", complete: false },
-                { label: "Platinum",       complete: true },
+                { label: "Platinum",       complete: true, photo: "Ronaldo_2014_523_Platinum.jpg" },
               ] },
             ] },
           ] },
@@ -831,38 +839,38 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "276", items: [
-                { label: "Made in Brazil", dot: "rosada", coming: true },
-                { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Made in Brazil", dot: "rosada", coming: true, photo: "Messi_2018_276_MadeInBrazil.jpg" },
+                { label: "Made in Italy",  dot: "rosada", complete: true, photo: "Messi_2018_276_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "288", items: [
                 { label: "Made in Brazil", dot: "negra", coming: true },
-                { label: "Made in Italy",  dot: "negra", complete: true },
-                { label: "Gold",                         complete: true },
+                { label: "Made in Italy",  dot: "negra", complete: true, photo: "Messi_2018_288_MadeInItaly.jpg" },
+                { label: "Gold",                         complete: true, photo: "Messi_2018_288_Gold.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "118", items: [
                 { label: "Made in Brazil", dot: "rosada", coming: true },
-                { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Made in Italy",  dot: "rosada", complete: true, photo: "Ronaldo_2018_118_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "130", items: [
                 { label: "Made in Brazil", dot: "negra", coming: true },
-                { label: "Made in Italy",  dot: "negra", complete: true },
-                { label: "Gold",                         complete: true },
+                { label: "Made in Italy",  dot: "negra", complete: true, photo: "Ronaldo_2018_130_MadeInItaly.jpg" },
+                { label: "Gold",                         complete: true, photo: "Ronaldo_2018_130_Gold.jpg" },
               ] },
-              { label: "MP6 McDonald's", complete: true },
+              { label: "MP6 McDonald's", complete: true, photo: "Ronaldo_2018_M6_McDonalds.jpg" },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "197", items: [
                 { label: "Made in Brazil", dot: "rosada", coming: true },
-                { label: "Made in Italy",  dot: "rosada", complete: true },
+                { label: "Made in Italy",  dot: "rosada", complete: true, photo: "Mbappe_2018_197_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", dot: "rosada", complete: false },
               ] },
               { label: "209", items: [
                 { label: "Made in Brazil", dot: "negra", coming: true },
-                { label: "Made in Italy",  dot: "negra", complete: true },
+                { label: "Made in Italy",  dot: "negra", complete: true, photo: "Mbappe_2018_209_MadeInItaly.jpg" },
                 { label: "Gold",                         complete: false },
               ] },
             ] },
@@ -1060,69 +1068,69 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 19", items: [
-                { label: "Made in Brazil", complete: true },
-                { label: "Made in Italy",  complete: true },
+                { label: "Made in Brazil", complete: true, photo: "Messi_2022_ARG19_MadeInBrazil.jpg" },
+                { label: "Made in Italy",  complete: true, photo: "Messi_2022_ARG19_MadeInItaly.jpg" },
                 { label: "Ind. Argentina", complete: false },
               ] },
               { label: "ARG 20", items: [
                 { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true },
-                { label: "Oryx",               complete: false },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
+                { label: "Made in Italy",      complete: true, photo: "Messi_2022_ARG20_MadeInItaly.jpg" },
+                { label: "Oryx",               complete: false, photo: "Messi_2022_ARG20_Oryx.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Messi_2022_ARG20_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Messi_2022_ARG20_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: true },
+                { label: "Base",   complete: true, photo: "Messi_2022_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Messi_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Messi_2022_Extra_Plata.jpg" },
+                { label: "Oro",    complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 17", items: [
-                { label: "Made in Brazil",     complete: true },
-                { label: "Made in Italy",      complete: true },
+                { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2022_POR17_MadeInBrazil.jpg" },
+                { label: "Made in Italy",      complete: true, photo: "Ronaldo_2022_POR17_MadeInItaly.jpg" },
                 { label: "Ind. Argentina",     complete: false },
               ] },
               { label: "POR 18", items: [
                 { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true },
-                { label: "Oryx",               complete: true },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
-                { label: "USA", dot: "roja",   complete: true },
+                { label: "Made in Italy",      complete: true, photo: "Ronaldo_2022_POR18_MadeInItaly.jpg" },
+                { label: "Oryx",               complete: true, photo: "Ronaldo_2022_POR18_Oryx.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2022_POR18_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Ronaldo_2022_POR18_USA_Azul.jpg" },
+                { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2022_POR18_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: true },
+                { label: "Base",   complete: true, photo: "Ronaldo_2022_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Ronaldo_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Ronaldo_2022_Extra_Plata.jpg" },
+                { label: "Oro",    complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 18", items: [
-                { label: "Made in Brazil",     complete: true },
-                { label: "Made in Italy",      complete: true },
+                { label: "Made in Brazil",     complete: true, photo: "Mbappe_2022_FRA18_MadeInBrazil.jpg" },
+                { label: "Made in Italy",      complete: true, photo: "Mbappe_2022_FRA18_MadeInItaly.jpg" },
                 { label: "Ind. Argentina",     complete: false },
               ] },
               { label: "FRA 19", items: [
                 { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true },
-                { label: "Oryx",               complete: true },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
+                { label: "Made in Italy",      complete: true, photo: "Mbappe_2022_FRA19_MadeInItaly.jpg" },
+                { label: "Oryx",               complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: false },
+                { label: "Base",   complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
+                { label: "Oro",    complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
               ] },
             ] },
           ] },
-        { year: 2026, host: "World Cup 26",        postales: { items: [
+        { year: 2026, host: "World Cup 2026",     postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
               { label: "Estándar",       total: 980, complete: true },
               { label: "United",         total: 980, complete: false },
@@ -1314,51 +1322,51 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 17", items: [
-                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Brazil",     complete: true, photo: "Messi_2026_ARG17_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
-                { label: "United",             complete: true },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
+                { label: "United",             complete: true, photo: "Messi_2026_ARG17_United.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   coming: true },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: true },
+                { label: "Base",   complete: true, photo: "Messi_2026_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Messi_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Messi_2026_Extra_Plata.jpg" },
+                { label: "Oro",    complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 15", items: [
-                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2026_POR15_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
-                { label: "United",             complete: true },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
-                { label: "USA", dot: "roja",   complete: true },
+                { label: "United",             complete: true, photo: "Ronaldo_2026_POR15_United.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2026_POR15_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Ronaldo_2026_POR15_USA_Azul.jpg" },
+                { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2026_POR15_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: false },
+                { label: "Base",   complete: true, photo: "Ronaldo_2026_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Ronaldo_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Ronaldo_2026_Extra_Plata.jpg" },
+                { label: "Oro",    complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 20", items: [
-                { label: "Made in Brazil",     complete: true },
+                { label: "Made in Brazil",     complete: true, photo: "Mbappe_2026_FRA20_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
                 { label: "Silver Parallel", dot: "plateada", complete: false },
-                { label: "United",             complete: true },
-                { label: "USA", dot: "blanca", complete: true },
-                { label: "USA", dot: "azul",   complete: true },
-                { label: "USA", dot: "roja",   complete: true },
+                { label: "United",             complete: true, photo: "Mbappe_2026_FRA20_United.jpg" },
+                { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2026_FRA20_USA_Blanca.jpg" },
+                { label: "USA", dot: "azul",   complete: true, photo: "Mbappe_2026_FRA20_USA_Azul.jpg" },
+                { label: "USA", dot: "roja",   complete: true, photo: "Mbappe_2026_FRA20_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true },
-                { label: "Bronce", complete: true },
-                { label: "Plata",  complete: true },
-                { label: "Oro",    complete: true },
+                { label: "Base",   complete: true, photo: "Mbappe_2026_Extra_Base.jpg" },
+                { label: "Bronce", complete: true, photo: "Mbappe_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  complete: true, photo: "Mbappe_2026_Extra_Plata.jpg" },
+                { label: "Oro",    complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
               ] },
             ] },
           ] },
@@ -1783,18 +1791,23 @@
         return ra - rb;
       });
 
+      // The rows of a year's Postales tab: its own items (Actualización with the entries
+      // the secondary set adds, each group A-Z), then the Coca Cola and Otros rows
+      const postalesRows = (album, p) => [
+        ...p.items.map(it =>
+          it.label === ACTUALIZACION ? withOtrosActualizacion(it, album)
+          : Array.isArray(it.items) && it.items.length ? { ...it, items: orderedItems(it.items) }
+          : it),
+        ...otrosMirrorRows(album),
+      ];
+
       function setLedgerRows(album, key, state) {
         const parts = [];
         const s = setForFilter(album, key);
         if (s) {
           let target = s;
           if (key === "postales" && Array.isArray(s.items)) {
-            let items = s.items.map(it =>
-              it.label === ACTUALIZACION ? withOtrosActualizacion(it, album)
-              : Array.isArray(it.items) && it.items.length ? { ...it, items: orderedItems(it.items) }
-              : it);
-            items = [...items, ...otrosMirrorRows(album)];
-            target = { ...s, items };
+            target = { ...s, items: postalesRows(album, s) };
           } else if (Array.isArray(s.items) && s.items.length) {
             // A player set: order its top-level rows the same way
             target = { ...s, items: orderedItems(s.items) };
@@ -1868,22 +1881,81 @@
         const sets = filterKey
           ? ALBUMS.map(a => setForFilter(a, filterKey)).filter(s => s && s.afterPostales)
           : [];
-        el.hidden = !sets.length;
-        if (!sets.length) return;
-        const want   = subState || "complete";
+        // The Fotos wall goes without a count line
+        el.hidden = !sets.length || subState === PHOTOS;
+        if (el.hidden) return;
+        // Todo counts the whole list and De camino what is on its way; Tengo and Falta
+        // read as part of the whole ("8 de 45")
         const leaves = sets.flatMap(leavesOf);
-        el.textContent = `Total: ${leaves.filter(l => setStatus(l).state === want).length}/${leaves.length}`;
+        const n = subState ? leaves.filter(l => setStatus(l).state === subState).length : leaves.length;
+        el.textContent = subState === "complete" || subState === "pending"
+          ? `Total: ${n} de ${leaves.length}`
+          : `Total: ${n}`;
       }
+
+      // ── Player photos (the Fotos subtab) ──────────────────────────────────
+      // Every sticker row with a photo, year by year in checklist order, captioned
+      // by its place in the checklist ("ARG 20 · Made in Italy")
+      function playerPhotos(key) {
+        const out = [];
+        ALBUMS.forEach(album => {
+          const s = setForFilter(album, key);
+          if (!s || !s.afterPostales) return;
+          const walk = (n, path) => kidsOf(n).length
+            ? kidsOf(n).forEach(k => walk(k, [...path, n.label]))
+            : n.photo && out.push({ year: album.year, player: s.label, dot: n.dot,
+                                    src: `assets/players/${s.id}/${n.photo}`,
+                                    name: [...path, n.label].join(" · ") });
+          orderedItems(kidsOf(s)).forEach(top => walk(top, []));
+        });
+        return out;
+      }
+
+      // One heading per year, up to four photos per row (two on phones); a year with fewer
+      // spreads them over the row, as Álbumes and Sobres do. The images use the year
+      // page's gallery classes, so they open in the same lightbox.
+      function photoWallHtml(key) {
+        const photos = playerPhotos(key);
+        return [...new Set(photos.map(p => p.year))].map(year => {
+          const yearPhotos = photos.filter(p => p.year === year);
+          const figs = yearPhotos.map(p => {
+            const label = `${year} · ${p.name}${p.dot ? ` (${DOT_NAME[p.dot]})` : ""}`;
+            return `<figure class="gallery-figure">
+                <img class="gallery-img" src="${p.src}" alt="${esc(`${p.player} ${label}`)}" data-label="${esc(label)}"
+                     width="1200" height="790" loading="lazy" decoding="async" role="button" tabindex="0" />
+                <figcaption class="gallery-label">${esc(p.name)}${colorDot(p.dot)}</figcaption>
+              </figure>`;
+          }).join("");
+          return `<section class="gallery-section">
+              <h2 class="gallery-section-label" id="fotos-${year}" tabindex="-1">${year}</h2>
+              <div class="${gridClass(yearPhotos.length)}">${figs}</div>
+            </section>`;
+        }).join("");
+      }
+
+      // A year's name: "España 1982", or the host alone when it already reads as a full
+      // name ("World Cup Story", "World Cup 2026")
+      const albumTitle = album =>
+        album.year === "story" || album.year === 2026 ? album.host : `${album.host} ${album.year}`;
 
       function renderGrid(filterKey) {
         const subState = hasSubTabs(filterKey) ? currentSubFilter : null;
         renderTabCount(filterKey, subState);
+        // Fotos swaps the year cards for the player's photo wall
+        const photos = subState === PHOTOS;
+        const wall   = document.getElementById("photo-wall");
+        wall.hidden    = !photos;
+        wall.innerHTML = photos ? photoWallHtml(filterKey) : "";
+        document.getElementById("albums-grid").hidden = photos;
+        if (photos) return;
+        // On a player's Todo each year's logo links to that year in Fotos
+        const photoYears = new Set(subState === null ? playerPhotos(filterKey).map(p => p.year) : []);
         let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
         // Under a sub tab, only years with at least one row in that state
         if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
-          const cardLabel = album.year === "story" ? album.host : `${album.host} ${album.year}`;
-          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(cardLabel)}">
+          const cardLabel = albumTitle(album);
+          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(photoYears.has(album.year) ? `Fotos ${album.year}` : cardLabel)}">
               <img
                 src="assets/logos/${album.year}.png"
                 alt="${album.year} logo"
@@ -2159,48 +2231,27 @@
         const tabs = [];
         if (counts.albumPaths.length) tabs.push({ key: "albumes", label: counts.albumPaths.length === 1 ? "Álbum" : "Álbumes" });
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
-        // Set tabs in the same canonical order as the main grid's tab bar.
-        // Player sets (afterPostales) have their own tabs and never appear here.
-        // Postales tab is always available so you can open it even with nothing
-        // collected yet (impossible-set lot tracking)
-        if (album.postales) {
+        // Postales holds the year's set photos, or the 1970-82 numbered checklist; a
+        // year with neither has no Postales tab. Player sets have their own tabs.
+        if (album.postales && (isGridSet(album.postales) || setPhotos(album).length)) {
           tabs.push({ key: "postales", label: "Postales" });
         }
         return tabs;
       }
 
-      // Placeholder image (SVG) standing in for a scan — a real gallery image,
-      // so set tabs behave exactly like Álbumes/Sobres (lightbox, hover, alt)
-      const PLACEHOLDER_SRC = "data:image/svg+xml," + encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">' +
-        '<rect x="6" y="6" width="288" height="388" rx="12" fill="none" stroke="#8a94a0" stroke-width="3" stroke-dasharray="10 8"/>' +
-        '<text x="150" y="206" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="18" font-weight="600" letter-spacing="1.5" fill="#8a94a0">SIN ESCANEAR</text>' +
-        '</svg>'
-      );
-
-      // One scan placeholder per green row of the set (scans pending)
-      function setPlaceholderEntries(album, key) {
-        const entries = [];
-        const push = (label, st) => {
-          if (st.state === "complete") entries.push({ label, value: st.detail });
+      // A year's set photos, in the order its Postales tab lists them, each captioned by
+      // its place there ("Coca Cola · Alemania")
+      function setPhotos(album) {
+        const p = album.postales;
+        if (!p || !Array.isArray(p.items)) return [];
+        const out = [];
+        const walk = (n, path) => {
+          const here = [...path, n.label];
+          if (n.photo) out.push({ src: `assets/sets/${album.year}/${n.photo}`, name: here.join(" · ") });
+          kidsOf(n).forEach(k => walk(k, here));
         };
-        // Walks nested groups so a collected variant still lists itself once the year's
-        // sets are folded under a "Sets" row. maxDepth mirrors how each tab counts its
-        // greens: Postales stops at the sets directly inside a row, Otros goes all the way.
-        const addSet = (s, maxDepth) => {
-          const kids = kidsOf(s);
-          if (!kids.length) { push("Set", setStatus(s)); return; }
-          const walk = (n, depth) => {
-            const inner = kidsOf(n);
-            if (!inner.length) { push(n.label, setStatus(n)); return; }
-            if (hasOwnStatus(n)) push(n.label, setStatus(n));
-            if (depth < maxDepth) inner.forEach(k => walk(k, depth + 1));
-          };
-          kids.forEach(k => walk(k, 1));
-        };
-        const s = setForFilter(album, key);
-        if (s) addSet(s, key === "postales" ? 2 : Infinity);
-        return entries;
+        postalesRows(album, p).forEach(row => walk(row, []));
+        return out;
       }
 
       function renderGalleryTabs(tabs) {
@@ -2208,6 +2259,15 @@
           const active = t.key === currentGalleryTab;
           return `<button class="view-tab${active ? " is-active" : ""}" data-tab="${t.key}" type="button" aria-pressed="${active}">${t.label}</button>`;
         }).join("");
+      }
+
+      // A year page tab's count line. With a single photo there is nothing worth reading,
+      // but the line keeps its place (invisible), so the photos start at the same height
+      // in every tab and switching tabs does not make them jump.
+      function showCountLine(el, n) {
+        el.hidden = false;
+        el.textContent = `Total: ${n}`;
+        el.style.visibility = n === 1 ? "hidden" : "";
       }
 
       function gridClass(n) {
@@ -2241,23 +2301,14 @@
             renderGalleryTabs(tabs);
             return;
           }
-          const entries = setPlaceholderEntries(album, key);
-          if (!entries.length) {
-            // No scans yet — show the lot checklist (✓ / ✗ / ✈️) instead of images
-            headEl.hidden = true;
-            panel.className = "gallery-checklist";
-            panel.innerHTML = setLedgerRows(album, key);
-          } else {
-            // Same heading rule as Álbumes/Sobres: hidden when there's only one
-            headEl.hidden = entries.length === 1;
-            headEl.textContent = `${label}: ${entries.length}`;
-            // Natural-size flex layout (no cols-N): placeholders stay tile-sized
-            panel.className = "gallery-images";
-            panel.innerHTML = entries.map(en => `<figure class="gallery-figure is-placeholder">
-                <img class="gallery-img" src="${PLACEHOLDER_SRC}" alt="${label} ${en.label} — sin escanear" role="button" tabindex="0" />
-                <figcaption class="gallery-label">${en.label}${en.value !== "" ? ` · ${en.value}` : ""}</figcaption>
-              </figure>`).join("");
-          }
+          const photos = setPhotos(album);
+          showCountLine(headEl, photos.length);
+          // Up to four per row (two on phones), fewer spread over the row, like Fotos
+          panel.className = gridClass(photos.length);
+          panel.innerHTML = photos.map(ph => `<figure class="gallery-figure">
+              <img class="gallery-img" src="${ph.src}" alt="${esc(`${label} ${album.year} · ${ph.name}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
+              <figcaption class="gallery-label">${esc(ph.name)}</figcaption>
+            </figure>`).join("");
         }
         renderGalleryTabs(tabs);
       }
@@ -2314,6 +2365,8 @@
         const idx = nav.findIndex(a => a.year === currentGalleryYear);
         if (idx === -1) return;
         showGallery(nav[(idx + dir + nav.length) % nav.length].year);
+        // Paging through years swaps the address, so Back still returns to the list
+        setAddress(viewRoute(), "replace");
         window.scrollTo(0, 0); // another year is another page: start at its top
       }
 
@@ -2326,12 +2379,10 @@
 
         const album    = ALBUMS.find(a => a.year === year);
         const counts   = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
-        const isStory  = year === "story";
 
         const titleEl = document.querySelector(".inv-title");
         titleEl.classList.add("is-gallery");
-        const soloTitle = isStory || year === 2026; // host already reads as a full name
-        document.getElementById("inv-title-text").textContent = soloTitle ? album.host : `${album.host} ${album.year}`;
+        document.getElementById("inv-title-text").textContent = albumTitle(album);
         document.querySelector(".inv-version").hidden = true;
 
         const albumsSection = document.getElementById("gallery-albums-section");
@@ -2339,8 +2390,7 @@
           const an = counts.albumPaths.length;
           // One image: the tab already says Álbumes — skip the redundant heading
           const albumsLabelEl = albumsSection.querySelector(".gallery-section-label");
-          albumsLabelEl.hidden = an === 1;
-          albumsLabelEl.textContent = an === 1 ? "Álbum" : `Álbumes: ${an}`;
+          showCountLine(albumsLabelEl, an);
           const el = document.getElementById("gallery-albums");
           el.className = gridClass(counts.albumPaths.length);
           el.innerHTML = counts.albumPaths.map(src => {
@@ -2358,8 +2408,7 @@
         if (counts.sobrePaths.length) {
           const sn = counts.sobrePaths.length;
           const sobresLabelEl = sobresSection.querySelector(".gallery-section-label");
-          sobresLabelEl.hidden = sn === 1;
-          sobresLabelEl.textContent = sn === 1 ? "Sobre" : `Sobres: ${sn}`;
+          showCountLine(sobresLabelEl, sn);
           const el = document.getElementById("gallery-sobres");
           el.className = gridClass(counts.sobrePaths.length);
           el.innerHTML = counts.sobrePaths.map(src => {
@@ -2376,20 +2425,16 @@
         // Land on the requested tab only if it has something to show; otherwise
         // fall back to the first available tab
         const tabs = galleryTabsFor(album, counts);
-        // A numbered grid (1970-1982) draws itself from its owned/coming ranges, so it
-        // counts as content even though it has no scan placeholders to list
-        const tabHasContent = k => {
-          const g = setForFilter(album, k);
-          if (k === "postales" && g && g.owned !== undefined) return true;
-          return setPlaceholderEntries(album, k).length > 0;
-        };
-        const canLand = initialTab && tabs.some(t => t.key === initialTab) && tabHasContent(initialTab);
+        // Every tab in the bar has something to show, so a requested one only has to exist
+        const canLand = initialTab && tabs.some(t => t.key === initialTab);
         const start = canLand ? initialTab : tabs.length ? tabs[0].key : null;
         if (start) showGalleryTab(start);
 
         document.getElementById("view-tabs").hidden    = true;
         document.getElementById("sub-tabs").hidden     = true;
+        document.getElementById("tab-count").hidden    = true;
         document.getElementById("albums-grid").hidden  = true;
+        document.getElementById("photo-wall").hidden   = true;
         document.getElementById("gallery-view").hidden = false;
         updateGalleryStats(year);
       }
@@ -2400,6 +2445,7 @@
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("view-tabs").hidden    = false;
         renderSubTabs();
+        renderTabCount(currentFilter, hasSubTabs(currentFilter) ? currentSubFilter : null);
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
         titleEl2.classList.remove("is-gallery");
@@ -2424,11 +2470,32 @@
         };
       };
 
+      // On a player's Todo a year card links to that year in Fotos, when it has photos
+      const photoLinked = year =>
+        hasSubTabs(currentFilter) && currentSubFilter === null &&
+        playerPhotos(currentFilter).some(p => p.year === year);
+
+      function showPhotosYear(year) {
+        currentSubFilter = PHOTOS;
+        renderSubTabs();
+        renderGrid(currentFilter);
+        const heading = document.getElementById(`fotos-${year}`);
+        heading.focus({ preventScroll: true });
+        heading.scrollIntoView({ block: "start" });
+      }
+
       function openCard(card) {
         if (!card || card.classList.contains("is-empty")) return;
-        const raw = card.dataset.year;
+        const raw  = card.dataset.year;
+        const year = /^\d+$/.test(raw) ? Number(raw) : raw;
+        if (photoLinked(year)) {
+          showPhotosYear(year);
+          setAddress(`${viewRoute()}/${year}`);
+          return;
+        }
         // From a set tab, land on that same set inside the year
-        showGallery(/^\d+$/.test(raw) ? Number(raw) : raw, currentFilter);
+        showGallery(year, currentFilter);
+        setAddress(viewRoute());
         // The card is hidden now. Start at the year's title: a keyboard user is not left
         // on nothing, and a page opened from far down the grid opens at its top.
         document.querySelector(".inv-title").focus();
@@ -2449,7 +2516,13 @@
         openCard(logo.closest(".album-card"));
       });
 
-      document.getElementById("gallery-back").addEventListener("click", hideGallery);
+      // Back to the list from a year page, as a new step in the browser's history
+      function leaveGallery() {
+        hideGallery();
+        setAddress(viewRoute());
+      }
+
+      document.getElementById("gallery-back").addEventListener("click", leaveGallery);
       document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
       document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
       document.getElementById("gallery-set-panel").addEventListener("click", e => {
@@ -2474,6 +2547,7 @@
         if (!btn) return;
         const refocus = keepFocusIn(e.currentTarget, "data-tab");
         showGalleryTab(btn.dataset.tab);
+        setAddress(viewRoute(), "replace");
         refocus();
       });
 
@@ -2501,14 +2575,20 @@
       const matchesFilter = (album, key) => !!setForFilter(album, key);
 
       let currentFilter    = null; // null = Todo (source of truth)
-      let currentSubFilter = null; // coming | pending | complete | null
+      let currentSubFilter = null; // coming | pending | complete | fotos | null
 
+      // Not a state: the subtab that shows a player's photos instead of the checklist
+      const PHOTOS = "fotos";
       const SUB_TABS = [
         { state: null,       label: "Todo" },
         { state: "coming",   label: "De camino" },
         { state: "complete", label: "Tengo" },
         { state: "pending",  label: "Falta" },
+        { state: PHOTOS,     label: "Fotos" },
       ];
+      // A player tab leads with its photos, then what you have and what you miss, then
+      // what is on the way. Todo stays the subtab a tab opens on.
+      const PLAYER_SUB_ORDER = [PHOTOS, null, "complete", "pending", "coming"];
 
       // Sub tabs apply to every set tab, Postales included
       const hasSubTabs = key => !!key;
@@ -2526,6 +2606,13 @@
         return states;
       }
 
+      // Which subtabs a tab offers: its states, plus Fotos when it has photos
+      function subTabsFor(key) {
+        const avail = tabStates(key);
+        if (playerPhotos(key).length) avail.add(PHOTOS);
+        return avail;
+      }
+
       function renderSubTabs() {
         const nav = document.getElementById("sub-tabs");
         if (!hasSubTabs(currentFilter)) {
@@ -2533,9 +2620,12 @@
           nav.innerHTML = "";
           return;
         }
-        const avail = tabStates(currentFilter);
+        const avail = subTabsFor(currentFilter);
+        const order = playerColumns().some(c => c.key === currentFilter)
+          ? PLAYER_SUB_ORDER.map(st => SUB_TABS.find(t => t.state === st))
+          : SUB_TABS;
         // "All" (state null) is always present; then only the states that exist
-        const tabs = SUB_TABS.filter(t => t.state === null || avail.has(t.state));
+        const tabs = order.filter(t => t.state === null || avail.has(t.state));
         nav.hidden = avail.size === 0;
         nav.innerHTML = tabs.map(t => {
           const active = t.state === currentSubFilter;
@@ -2548,7 +2638,7 @@
           const active = t.key === currentFilter;
           return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
         };
-        const main = [{ key: null, label: "Todo" }, { key: "postales", label: "Postales" }];
+        const main = [{ key: null, label: "Todo" }, { key: "postales", label: "Sets" }];
         document.getElementById("view-tabs").innerHTML =
           main.concat(playerColumns()).map(tabBtn).join("");
       }
@@ -2562,11 +2652,12 @@
         // Messi/De camino. Only fall back to Todo when the tab being opened has
         // nothing in that state, which is exactly when it offers no such subtab.
         if (currentSubFilter && hasSubTabs(currentFilter) &&
-            !tabStates(currentFilter).has(currentSubFilter)) currentSubFilter = null;
+            !subTabsFor(currentFilter).has(currentSubFilter)) currentSubFilter = null;
         renderTabs();
         renderSubTabs();
         renderGrid(currentFilter);
         updateStats();
+        setAddress(viewRoute());
         refocus();
       });
 
@@ -2577,6 +2668,7 @@
         currentSubFilter = btn.dataset.state || null;
         renderSubTabs();
         renderGrid(currentFilter);
+        setAddress(viewRoute());
         refocus();
       });
 
@@ -2628,28 +2720,31 @@
       }
 
       function openLightboxFromImg(img) {
-        const section = img.closest("#gallery-albums, #gallery-sobres, #gallery-set-panel");
+        const section = img.closest("#gallery-albums, #gallery-sobres, #gallery-set-panel, #photo-wall");
         const scope   = section || document.getElementById("gallery-view");
         const all     = [...scope.querySelectorAll(".gallery-img")];
         const images  = all.map(el => {
           const fig = el.closest(".gallery-figure");
           const cap = fig ? fig.querySelector(".gallery-label") : null;
-          return { src: el.src, alt: el.alt, label: cap ? cap.textContent : null };
+          return { src: el.src, alt: el.alt, label: el.dataset.label || (cap ? cap.textContent : null) };
         });
         openLightbox(images, all.indexOf(img));
       }
 
-      document.getElementById("gallery-view").addEventListener("click", e => {
-        const img = e.target.closest(".gallery-img");
-        if (img) openLightboxFromImg(img);
-      });
-
-      document.getElementById("gallery-view").addEventListener("keydown", e => {
-        if (e.key !== "Enter" && e.key !== " ") return;
-        const img = e.target.closest(".gallery-img");
-        if (!img) return;
-        e.preventDefault();
-        openLightboxFromImg(img);
+      // The year page and the Fotos wall both open their photos in the lightbox
+      ["gallery-view", "photo-wall"].forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("click", e => {
+          const img = e.target.closest(".gallery-img");
+          if (img) openLightboxFromImg(img);
+        });
+        el.addEventListener("keydown", e => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          const img = e.target.closest(".gallery-img");
+          if (!img) return;
+          e.preventDefault();
+          openLightboxFromImg(img);
+        });
       });
 
       lightbox.addEventListener("click", closeLightbox);
@@ -2662,7 +2757,7 @@
           if (e.key === "ArrowLeft")  lightboxNav(-1);
           if (e.key === "ArrowRight") lightboxNav(1);
         } else if (!document.getElementById("gallery-view").hidden) {
-          if (e.key === "Escape")     hideGallery();
+          if (e.key === "Escape")     leaveGallery();
           if (e.key === "ArrowLeft")  navigateGallery(-1);
           if (e.key === "ArrowRight") navigateGallery(1);
         }
@@ -2734,7 +2829,108 @@
         updateStats();
       }
 
+      // ── Addresses ──────────────────────────────────────────────────────────
+      // Every view has an address: /messi, /messi/fotos, /messi/fotos/2010, /sets/falta,
+      // /2010, /2010/postales. GitHub Pages has no file at those paths, so its 404.html
+      // hands the path back here as /?p=messi/fotos and the clean address returns to the
+      // bar. A local file cannot change its path, so there the route rides in the hash
+      // (index.html#messi/fotos).
+      const CLEAN_PATHS = location.protocol.startsWith("http");
+      const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "fotos" };
+      // "Mbappé" -> "mbappe"
+      const slugOf = label => label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                                   .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const tabSlug = key => key === null ? "" : key === "postales" ? "sets"
+        : slugOf((playerColumns().find(c => c.key === key) || { label: key }).label);
+
+      // The address of what is on screen. A year page leaves out its first tab.
+      function viewRoute() {
+        const album = !document.getElementById("gallery-view").hidden &&
+                      ALBUMS.find(a => a.year === currentGalleryYear);
+        if (album) {
+          const counts = imageCounts[currentGalleryYear] || { albumPaths: [], sobrePaths: [] };
+          const first  = (galleryTabsFor(album, counts)[0] || {}).key;
+          return currentGalleryTab && currentGalleryTab !== first
+            ? `${currentGalleryYear}/${currentGalleryTab}` : String(currentGalleryYear);
+        }
+        // A tab without subtabs keeps the last subtab in mind for the next tab, but it is
+        // not part of this tab's address
+        const sub = hasSubTabs(currentFilter) ? currentSubFilter : null;
+        return [tabSlug(currentFilter), SUB_SLUG[sub]].filter(Boolean).join("/");
+      }
+
+      const addressRoute = () => CLEAN_PATHS
+        ? decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, "").replace(/^index\.html$/, "")
+        : decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+
+      // Put a route in the address bar: "push" adds a step to Back, "replace" does not
+      function setAddress(route, mode = "push") {
+        const leftover = CLEAN_PATHS && location.search; // the 404 page's ?p= hand-off
+        if (route === addressRoute() && !leftover) return;
+        const url = CLEAN_PATHS ? `/${route}` : route ? `#${route}` : location.pathname;
+        history[mode === "replace" ? "replaceState" : "pushState"](null, "", url);
+      }
+
+      // Show the view an address names; false when it names none
+      function applyRoute(route) {
+        const [first = "", second = "", third = ""] = route.split("/");
+        const album = ALBUMS.find(a => String(a.year) === first);
+        if (album) {
+          showGallery(album.year, second || null);
+          return true;
+        }
+        const key = first === "" ? null : first === "sets" ? "postales"
+          : (playerColumns().find(c => slugOf(c.label) === first) || {}).key;
+        if (key === undefined) return false;
+        const sub = Object.keys(SUB_SLUG).find(st => SUB_SLUG[st] === second) || null;
+        currentFilter    = key;
+        currentSubFilter = sub && hasSubTabs(key) && subTabsFor(key).has(sub) ? sub : null;
+        if (!document.getElementById("gallery-view").hidden) hideGallery();
+        renderTabs();
+        updateStats();
+        if (currentSubFilter === PHOTOS && playerPhotos(key).some(ph => String(ph.year) === third)) {
+          showPhotosYear(Number(third));
+        } else {
+          renderSubTabs();
+          renderGrid(currentFilter);
+        }
+        return true;
+      }
+
+      // Back and Forward walk the views
+      const followAddress = () => {
+        const route = addressRoute();
+        if (route !== viewRoute() && !applyRoute(route)) applyRoute("");
+      };
+      window.addEventListener("popstate", followAddress);
+      window.addEventListener("hashchange", followAddress);
+
+      // Open at the address the page was loaded with (or handed by 404.html), then
+      // settle the bar on that view's clean address
+      function openAddress() {
+        const handed = CLEAN_PATHS ? new URLSearchParams(location.search).get("p") : null;
+        const route  = (handed ?? addressRoute()).replace(/^\/+|\/+$/g, "");
+        if (route && !applyRoute(route)) applyRoute("");
+        const shown  = viewRoute();
+        const year   = route.split("/")[2];
+        const atYear = currentSubFilter === PHOTOS && year && route === `${shown}/${year}`;
+        // A player's photos opened at one year keep that year in the address
+        setAddress(atYear ? route : shown, "replace");
+        // and land on it once the page has its fonts and layout, without the smooth scroll
+        // a click gets (a scroll started while the page is still loading gets lost)
+        if (atYear) {
+          const land = () => {
+            const html = document.documentElement;
+            html.style.scrollBehavior = "auto";
+            document.getElementById(`fotos-${year}`)?.scrollIntoView({ block: "start" });
+            html.style.scrollBehavior = "";
+          };
+          window.addEventListener("load", () => document.fonts.ready.then(land), { once: true });
+        }
+      }
+
       init();
+      openAddress();
 
       // PWA: only register when served over http(s); skipped on file://
       if (location.protocol.startsWith("http")) {

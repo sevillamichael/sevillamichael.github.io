@@ -241,24 +241,6 @@ html {
   font-size: 13px;
 }
 
-/* ── Set checklist (a set tab with no photos yet) ───────────────────────── */
-
-.gallery-checklist {
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 18px;
-}
-
-.gallery-checklist .count-label,
-.gallery-checklist .count-val {
-  font-size: 14px;
-}
-
 /* ── Numbered sticker checklist (1970-82 grids) ─────────────────────────── */
 
 /* State filter above the grid (Todo / De camino / Tengo / Falta) */
@@ -756,16 +738,38 @@ html {
   letter-spacing: 0.02em;
 }
 
-/* Scan placeholders: fixed tile size, never stretched by grid columns */
-.gallery-figure.is-placeholder {
-  flex: 0 0 auto;
-  width: 240px;
+/* ── Player photo wall (the Fotos subtab) ──────────────────────────────── */
+
+/* Each year under its own heading, up to four photos per row (two on phones). The first
+   heading sits 14px under the subtabs, like a tab's count line. */
+.photo-wall {
+  padding-bottom: 48px;
 }
 
-.gallery-figure.is-placeholder .gallery-img {
-  width: 100%;
-  height: auto;
-  max-height: none;
+.photo-wall .gallery-section {
+  margin-top: 14px;
+}
+
+.photo-wall .gallery-section + .gallery-section {
+  margin-top: 28px;
+}
+
+/* A year card on a player's Todo links to its heading here: land it just below the
+   top of the screen. It takes focus for keyboard users but is not a control. */
+.photo-wall .gallery-section-label {
+  scroll-margin-top: 16px;
+}
+
+.photo-wall .gallery-section-label:focus {
+  outline: none;
+}
+
+/* In a caption the colour dot sits inline after the text (a ledger row lays it out
+   as a flex item instead) */
+.gallery-label .color-dot {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -2px 0 0 5px;
 }
 
 /* ── Lightbox ───────────────────────────────────────────────────────────── */
@@ -938,14 +942,24 @@ html {
     max-height: 220px;
   }
 
-  /* Two placeholder tiles per row (14px gap), like the photo grids */
-  .gallery-figure.is-placeholder {
-    width: calc(50% - 7px);
-  }
-
   .gallery-images.cols-3,
   .gallery-images.cols-4 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Two photos per row leave ~165px a caption: "Sin número · Made in Italy" plus its
+     dot needs 11px type to stay on one line */
+  .photo-wall .gallery-label {
+    font-size: 11px;
+  }
+
+  /* A player tab's five subtabs (with Fotos) fit one line on a 375px phone */
+  .sub-tabs {
+    gap: 6px;
+  }
+
+  .view-tab.sub-tab {
+    padding: 6px 10px;
   }
 
   .gallery-nav {
