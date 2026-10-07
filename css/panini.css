@@ -518,16 +518,43 @@ html {
   border-radius: 50%;
 }
 
-.color-dot.dot-azul   { background: #3b82f6; border-color: #3b82f6; }
-.color-dot.dot-roja   { background: #dc2626; border-color: #dc2626; }
-.color-dot.dot-rosada { background: #ec4899; border-color: #ec4899; }
+/* Centring on the line box leaves the dot 0.75px below the middle of the capitals beside it
+   (Fira Sans sits a little high in its line); lift it to meet them */
+.count-label .color-dot {
+  transform: translateY(-0.75px);
+}
+
+/* Each colour is measured on the sticker photos: a back's print or a front's frame */
+/* 2010's blue backs */
+.color-dot.dot-azul    { background: #0387b5; border-color: #0387b5; }
+/* The USA parallels' frames (2022, 2026) */
+.color-dot.dot-azulrey { background: #0351ca; border-color: #0351ca; }
+.color-dot.dot-roja    { background: #f63128; border-color: #f63128; }
+/* 2018's pink backs */
+.color-dot.dot-rosada  { background: #d65684; border-color: #d65684; }
+/* The 2022 fronts: orange for ARG 19 / POR 17 / FRA 18, violet for ARG 20 / POR 18 /
+   FRA 19; and lime from the 2026 United fronts, with a darker edge for the light theme */
+.color-dot.dot-naranja { background: #fa5b27; border-color: #fa5b27; }
+.color-dot.dot-violeta { background: #6d56a2; border-color: #6d56a2; }
+.color-dot.dot-lima    { background: #dce74c; border-color: #a9b52c; }
 
 /* Black vanishes on the dark theme and white on the light one without a ring */
 .color-dot.dot-negra  { background: #000; border-color: var(--subtle); }
-.color-dot.dot-blanca { background: #fff; border-color: var(--subtle); }
+/* The USA base frame is a warm off-white rather than pure white (measured on the photos) */
+.color-dot.dot-blanca { background: #f3f4e9; border-color: var(--subtle); }
+/* Oryx's burgundy front (measured on the photos); dark enough to need the ring too */
+.color-dot.dot-granate { background: #793645; border-color: var(--subtle); }
 
-/* Silver reads as metal rather than flat grey, and takes the same ring on light */
-.color-dot.dot-plateada { background: linear-gradient(135deg, #f3f4f6, #9ca3af); border-color: var(--subtle); }
+/* The Extras tiers, measured on the 2022 and 2026 fronts of all three players. The two
+   Base colours differ by year; the metals are shared, drawn from their highlight to their
+   middle tone so they read as metal rather than flat, with the ring on light. Gold comes
+   from the panel's bottom right, where the foil reads gold rather than olive. Silver is
+   also the Silver Parallel's. */
+.color-dot.dot-carmesi  { background: #9c2130; border-color: #9c2130; }
+.color-dot.dot-lila     { background: #b97fb6; border-color: #b97fb6; }
+.color-dot.dot-bronce   { background: linear-gradient(135deg, #b29175, #946a48); border-color: var(--subtle); }
+.color-dot.dot-plateada { background: linear-gradient(135deg, #989d96, #848982); border-color: var(--subtle); }
+.color-dot.dot-oro      { background: linear-gradient(135deg, #c6ae6a, #ad9653); border-color: var(--subtle); }
 
 .count-val {
   font-size: 13px;
@@ -740,32 +767,34 @@ html {
 
 /* ── Player photo wall (the Fotos subtab) ──────────────────────────────── */
 
-/* Each year under its own heading, up to four photos per row (two on phones). The first
-   heading sits 14px under the subtabs, like a tab's count line. */
+/* All of a player's photos in one run, four per row (two on phones), starting 14px under
+   the subtabs like a tab's count line */
 .photo-wall {
   padding-bottom: 48px;
 }
 
-.photo-wall .gallery-section {
+.photo-wall > .gallery-images {
   margin-top: 14px;
 }
 
-.photo-wall .gallery-section + .gallery-section {
-  margin-top: 28px;
-}
-
-/* A year card on a player's Todo links to its heading here: land it just below the
-   top of the screen. It takes focus for keyboard users but is not a control. */
-.photo-wall .gallery-section-label {
+/* A year card on a player's Todo links to that year's first photo: land it just below
+   the top of the screen. It takes focus for keyboard users but is not a control. */
+.photo-wall .gallery-figure[id] {
   scroll-margin-top: 16px;
 }
 
-.photo-wall .gallery-section-label:focus {
+.photo-wall .gallery-figure[id]:focus {
   outline: none;
 }
 
-/* In a caption the colour dot sits inline after the text (a ledger row lays it out
-   as a flex item instead) */
+/* In a caption (and the viewer's label) the colour dot sits inline after the text (a
+   ledger row lays it out as a flex item instead) */
+.lightbox-label .color-dot {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -2px 0 0 7px;
+}
+
 .gallery-label .color-dot {
   display: inline-block;
   vertical-align: middle;
@@ -947,10 +976,15 @@ html {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Two photos per row leave ~165px a caption: "Sin número · Made in Italy" plus its
-     dot needs 11px type to stay on one line */
+  /* Two photos per row leave a caption ~155-190px. "2010 · Sin número Made in Italy"
+     plus its dot needs slightly smaller, untracked type to stay on one line */
   .photo-wall .gallery-label {
-    font-size: 11px;
+    font-size: 10.5px;
+    letter-spacing: 0;
+  }
+
+  .photo-wall .gallery-label .color-dot {
+    margin-left: 4px;
   }
 
   /* A player tab's five subtabs (with Fotos) fit one line on a 375px phone */
@@ -960,22 +994,32 @@ html {
 
   .view-tab.sub-tab {
     padding: 6px 10px;
+    font-size: 12px;
   }
 
   .gallery-nav {
     display: none;
   }
 
+  /* A year page's figures (Álbumes · Sobres | Sets: Postales · Actualización · Otros)
+     must hold one line down to a 360px phone: tighter gaps and slightly smaller,
+     less tracked labels than on desktop */
   .inv-stats-row {
-    gap: 14px;
+    gap: 10px;
   }
 
   .inv-stat-value {
     font-size: 1.3rem;
   }
 
+  .inv-stat-label,
+  .inv-postales-label {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
   .inv-stats-subgroup .inv-stats-row {
-    gap: 14px;
+    gap: 10px;
     flex-wrap: wrap;
   }
 
@@ -998,7 +1042,7 @@ html {
 
   #view-tabs .view-tab {
     padding: 9px 2px;
-    font-size: 11px;
+    font-size: 13px;
     text-align: center;
     white-space: nowrap;
   }

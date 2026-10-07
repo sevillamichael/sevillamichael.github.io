@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=26" />
+    <link rel="stylesheet" href="css/panini.css?v=27" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -44,7 +44,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.35.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.36.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -166,7 +166,8 @@
       //   plain: true keeps those lines verbatim — no shortening, and no splitting
       //   a "N A / B" line into two names.
       //   keepOrder: true opts a group out of the A-Z ordering its siblings get.
-      //   dot: "blanca" | "plateada" | "azul" | "roja" | "rosada" | "negra" tells
+      //   dot: "blanca" | "plateada" | "azul" | "azulrey" | "roja" | "rosada" | "naranja" | "violeta" |
+      //   "lima" | "granate" | "carmesi" | "lila" | "bronce" | "oro" | "negra" tells
       //   variants of one sticker apart by colour (a back, or a parallel's finish),
       //   drawn after the name.
       //   photo: "<file>.jpg" is a photo of the fronts and backs. On a player set's row it
@@ -283,7 +284,7 @@
               { cat: "Uruguay", names: ["Escudo Uruguay", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Gales", names: ["Escudo Gales", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "España",             postales: { owned: "5-9, 11-13, 15-26, 28-37, 49-55, 57-65, 67-76, 78-84, 86-88, 91-107, 109-112, 114-116, 118-120, 123, 126, 128, 130-139, 141-145, 147-165, 167-168, 171, 173-175, 177-179, 181, 183-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-273, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-368, 370-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "2-3, 10, 41, 46-48, 77, 90, 108, 129, 146, 166, 182, 274, 286, 369, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
+        { year: 1982, host: "España",             postales: { owned: "2-3, 5-13, 15-26, 28-37, 41, 46-55, 57-65, 67-76, 78-84, 86-88, 91-112, 114-116, 118-120, 123, 126, 128-139, 141-145, 147-168, 171, 173-175, 177-179, 181-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-274, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "77, 90, 146, 286, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
               { cat: "Especial", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "Póster", names: ["Madrid", "Barcelona", "Sevilla", "Vigo", "La Coruna", "Gijon"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -337,7 +338,7 @@
                 "178 Belletti",
                 "179 Ronaldinho",
               ] },
-              { label: "México", total: 12, complete: false, sub: [
+              { label: "México", total: 2, complete: false, sub: [
                 "Cristiano Zanetti",
                 "Marco Delvecchio",
                 "Gennaro Gattuso",
@@ -836,6 +837,12 @@
                 "Florian Thauvin",
               ] },
               { label: "México",        total: 5,  complete: false },
+              { label: "Firminho", items: [
+                { label: "357 Brazil", dot: "rosada", complete: false },
+                { label: "357 Italy",  dot: "negra",  complete: true },
+                { label: "369 Brazil", dot: "rosada", complete: false },
+                { label: "369 Italy",  dot: "negra",  complete: false },
+              ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "276", items: [
@@ -877,11 +884,11 @@
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Internacional", total: 638, complete: true },
-              { label: "Estándar",      total: 670, complete: false },
-              { label: "Oryx",          total: 670, complete: true },
-              { label: "USA",           dot: "blanca", total: 670, complete: true },
-              { label: "USA",           dot: "azul",   total: 670, complete: false },
+              { label: "Made in Brazil", dot: "naranja", total: 638, complete: true },
+              { label: "Made in Italy",  dot: "violeta", total: 670, complete: false },
+              { label: "Oryx",           dot: "granate", total: 670, complete: true },
+              { label: "USA",            dot: "blanca",  total: 670, complete: true },
+              { label: "USA",            dot: "azulrey", total: 670, complete: false },
             ] },
             { label: "Actualización", total: 80, complete: true },
           ] },
@@ -962,7 +969,7 @@
             ] },
             { id: "otros",         label: "Otros", items: [
               { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
-                { label: "Base",    total: 20, noIcon: true, sub: [
+                { label: "Base",    dot: "carmesi", total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -984,7 +991,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Bronce",  total: 20, noIcon: true, sub: [
+                { label: "Bronce",  dot: "bronce", total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -1006,7 +1013,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Plata",   total: 20, noIcon: true, sub: [
+                { label: "Plata",   dot: "plateada", total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -1028,7 +1035,7 @@
                   "Alphonso Davies",
                   "Dušan Vlahović",
                 ] },
-                { label: "Oro",     total: 20, noIcon: true, sub: [
+                { label: "Oro",     dot: "oro", total: 20, noIcon: true, sub: [
                   "Lionel Messi",
                   "Cristiano Ronaldo",
                   "Kylian Mbappé",
@@ -1068,74 +1075,74 @@
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 19", items: [
-                { label: "Made in Brazil", complete: true, photo: "Messi_2022_ARG19_MadeInBrazil.jpg" },
-                { label: "Made in Italy",  complete: true, photo: "Messi_2022_ARG19_MadeInItaly.jpg" },
-                { label: "Ind. Argentina", complete: false },
+                { label: "Made in Brazil", dot: "naranja", complete: true, photo: "Messi_2022_ARG19_MadeInBrazil.jpg" },
+                { label: "Made in Italy", dot: "naranja", complete: true, photo: "Messi_2022_ARG19_MadeInItaly.jpg" },
+                { label: "Ind. Argentina", dot: "naranja", complete: false },
               ] },
               { label: "ARG 20", items: [
-                { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true, photo: "Messi_2022_ARG20_MadeInItaly.jpg" },
-                { label: "Oryx",               complete: false, photo: "Messi_2022_ARG20_Oryx.jpg" },
+                { label: "Made in Brazil", dot: "violeta", coming: true },
+                { label: "Made in Italy", dot: "violeta", complete: true, photo: "Messi_2022_ARG20_MadeInItaly.jpg" },
+                { label: "Oryx", dot: "granate", complete: false, photo: "Messi_2022_ARG20_Oryx.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2022_ARG20_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Messi_2022_ARG20_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2022_ARG20_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Messi_2022_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Messi_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Messi_2022_Extra_Plata.jpg" },
-                { label: "Oro",    complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
+                { label: "Base",   dot: "carmesi", complete: true, photo: "Messi_2022_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2022_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 17", items: [
-                { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2022_POR17_MadeInBrazil.jpg" },
-                { label: "Made in Italy",      complete: true, photo: "Ronaldo_2022_POR17_MadeInItaly.jpg" },
-                { label: "Ind. Argentina",     complete: false },
+                { label: "Made in Brazil", dot: "naranja", complete: true, photo: "Ronaldo_2022_POR17_MadeInBrazil.jpg" },
+                { label: "Made in Italy", dot: "naranja", complete: true, photo: "Ronaldo_2022_POR17_MadeInItaly.jpg" },
+                { label: "Ind. Argentina", dot: "naranja", complete: false },
               ] },
               { label: "POR 18", items: [
-                { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true, photo: "Ronaldo_2022_POR18_MadeInItaly.jpg" },
-                { label: "Oryx",               complete: true, photo: "Ronaldo_2022_POR18_Oryx.jpg" },
+                { label: "Made in Brazil", dot: "violeta", coming: true },
+                { label: "Made in Italy", dot: "violeta", complete: true, photo: "Ronaldo_2022_POR18_MadeInItaly.jpg" },
+                { label: "Oryx", dot: "granate", complete: true, photo: "Ronaldo_2022_POR18_Oryx.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2022_POR18_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Ronaldo_2022_POR18_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Ronaldo_2022_POR18_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2022_POR18_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Ronaldo_2022_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Ronaldo_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Ronaldo_2022_Extra_Plata.jpg" },
-                { label: "Oro",    complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
+                { label: "Base",   dot: "carmesi", complete: true, photo: "Ronaldo_2022_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2022_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 18", items: [
-                { label: "Made in Brazil",     complete: true, photo: "Mbappe_2022_FRA18_MadeInBrazil.jpg" },
-                { label: "Made in Italy",      complete: true, photo: "Mbappe_2022_FRA18_MadeInItaly.jpg" },
-                { label: "Ind. Argentina",     complete: false },
+                { label: "Made in Brazil", dot: "naranja", complete: true, photo: "Mbappe_2022_FRA18_MadeInBrazil.jpg" },
+                { label: "Made in Italy", dot: "naranja", complete: true, photo: "Mbappe_2022_FRA18_MadeInItaly.jpg" },
+                { label: "Ind. Argentina", dot: "naranja", complete: false },
               ] },
               { label: "FRA 19", items: [
-                { label: "Made in Brazil",     coming: true },
-                { label: "Made in Italy",      complete: true, photo: "Mbappe_2022_FRA19_MadeInItaly.jpg" },
-                { label: "Oryx",               complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
+                { label: "Made in Brazil", dot: "violeta", coming: true },
+                { label: "Made in Italy", dot: "violeta", complete: true, photo: "Mbappe_2022_FRA19_MadeInItaly.jpg" },
+                { label: "Oryx", dot: "granate", complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
-                { label: "Oro",    complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
+                { label: "Base",   dot: "carmesi", complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
               ] },
             ] },
           ] },
         { year: 2026, host: "World Cup 2026",     postales: { items: [
             { label: "Set", plural: "Sets", countNested: true, items: [
-              { label: "Estándar",       total: 980, complete: true },
-              { label: "United",         total: 980, complete: false },
+              { label: "Made in Brazil", total: 980, complete: true },
+              { label: "United",         dot: "lima",   total: 980, complete: false },
               { label: "USA",            dot: "blanca", total: 980, complete: true },
-              { label: "USA",            dot: "azul",   total: 980, complete: false },
+              { label: "USA",            dot: "azulrey", total: 980, complete: false },
             ] },
             { label: "Actualización", total: 120, complete: true },
           ] },
@@ -1204,7 +1211,7 @@
                   "CC11 Lautaro Martínez",
                   "CC12 Gabriel Magalhães",
                 ] },
-                { label: "Error",    total: 1, coming: true, sub: [
+                { label: "Error",    total: 1, complete: true, sub: [
                   "CC 12 Thibaut Courtois",
                 ] },
               ] },
@@ -1273,7 +1280,7 @@
                   "San Francisco",
                   "Seattle",
                 ] },
-                { label: "China",       total: 4, coming: true, sub: [
+                { label: "China",       total: 4, complete: true, sub: [
                   "Lamine Yamal",
                   "Harry Kane",
                   "Virgil Van Dijk",
@@ -1281,10 +1288,10 @@
                 ] },
               ] },
               { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
-                { label: "Base",   total: 20, noIcon: true },
-                { label: "Bronce", total: 20, noIcon: true },
-                { label: "Plata",  total: 20, noIcon: true },
-                { label: "Oro",    total: 20, noIcon: true },
+                { label: "Base",   dot: "lila", total: 20, noIcon: true },
+                { label: "Bronce", dot: "bronce", total: 20, noIcon: true },
+                { label: "Plata",  dot: "plateada", total: 20, noIcon: true },
+                { label: "Oro",    dot: "oro", total: 20, noIcon: true },
               ] },
               { label: "McDonald's", total: 28, collected: 28, sub: [
                 "CAN13 Canada",
@@ -1324,32 +1331,32 @@
               { label: "ARG 17", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Messi_2026_ARG17_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
-                { label: "United",             complete: true, photo: "Messi_2026_ARG17_United.jpg" },
+                { label: "United", dot: "lima",   complete: true, photo: "Messi_2026_ARG17_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   coming: true },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Messi_2026_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Messi_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Messi_2026_Extra_Plata.jpg" },
-                { label: "Oro",    complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
+                { label: "Base",   dot: "lila", complete: true, photo: "Messi_2026_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2026_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 15", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2026_POR15_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
-                { label: "United",             complete: true, photo: "Ronaldo_2026_POR15_United.jpg" },
+                { label: "United", dot: "lima",   complete: true, photo: "Ronaldo_2026_POR15_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2026_POR15_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Ronaldo_2026_POR15_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Ronaldo_2026_POR15_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2026_POR15_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Ronaldo_2026_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Ronaldo_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Ronaldo_2026_Extra_Plata.jpg" },
-                { label: "Oro",    complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
+                { label: "Base",   dot: "lila", complete: true, photo: "Ronaldo_2026_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2026_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
@@ -1357,16 +1364,16 @@
                 { label: "Made in Brazil",     complete: true, photo: "Mbappe_2026_FRA20_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      coming: true },
                 { label: "Silver Parallel", dot: "plateada", complete: false },
-                { label: "United",             complete: true, photo: "Mbappe_2026_FRA20_United.jpg" },
+                { label: "United", dot: "lima",   complete: true, photo: "Mbappe_2026_FRA20_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2026_FRA20_USA_Blanca.jpg" },
-                { label: "USA", dot: "azul",   complete: true, photo: "Mbappe_2026_FRA20_USA_Azul.jpg" },
+                { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2026_FRA20_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Mbappe_2026_FRA20_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   complete: true, photo: "Mbappe_2026_Extra_Base.jpg" },
-                { label: "Bronce", complete: true, photo: "Mbappe_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  complete: true, photo: "Mbappe_2026_Extra_Plata.jpg" },
-                { label: "Oro",    complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
+                { label: "Base",   dot: "lila", complete: true, photo: "Mbappe_2026_Extra_Base.jpg" },
+                { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2026_Extra_Bronce.jpg" },
+                { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2026_Extra_Plata.jpg" },
+                { label: "Oro",    dot: "oro", complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
               ] },
             ] },
           ] },
@@ -1551,7 +1558,9 @@
       // A colour dot after a variant's name, telling variants of one sticker apart: the
       // back a print run used, or a parallel's finish. Spelling the colour out would push
       // the name onto a second line in a narrow card. Screen readers get it as text.
-      const DOT_NAME = { blanca: "Blanca", plateada: "Plateada", azul: "Azul", roja: "Roja", rosada: "Rosada", negra: "Negra" };
+      const DOT_NAME = { blanca: "Blanca", plateada: "Plateada", azul: "Azul", azulrey: "Azul rey", roja: "Roja", rosada: "Rosada",
+                         naranja: "Naranja", violeta: "Violeta", lima: "Verde lima", granate: "Granate",
+                         carmesi: "Carmesí", lila: "Lila", bronce: "Bronce", oro: "Oro", negra: "Negra" };
       const colorDot = dot => DOT_NAME[dot]
         ? `<span class="color-dot dot-${dot}" title="${DOT_NAME[dot]}" aria-hidden="true"></span>` +
           `<span class="sr-only"> (${DOT_NAME[dot]})</span>`
@@ -1567,10 +1576,10 @@
       // An expandable block: a labeled/valued row with a caret that toggles an
       // inline panel below it (grows the card in-flow — no floating popup). The
       // panel holds any child HTML, so blocks nest freely (set → version → list).
-      function expBlock(label, st, innerHtml, open) {
+      function expBlock(label, st, innerHtml, open, dot) {
         return `<div class="exp${open ? " open" : ""}">
             <div class="card-count-row">
-              <span class="count-label"><span class="count-label-text">${esc(label)}</span><button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${esc(label)}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
+              <span class="count-label"><span class="count-label-text">${esc(label)}</span>${colorDot(dot)}<button type="button" class="exp-toggle" aria-expanded="${open ? "true" : "false"}" aria-label="${esc(label)}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span>
               <span class="count-val ${stateClass(st.state)}">${st.detail}${srState(stateClass(st.state))}</span>
             </div>
             <div class="exp-panel">${innerHtml}</div>
@@ -1659,15 +1668,22 @@
       //    shows the group's inherited icon (never a x/y counter) and starts collapsed.
       //  - sub: [...] (plain reference lines) → a nested block that starts collapsed,
       //    in a state subtab too: the row already shows its number and state.
-      function expItemHtml(it, state, depth = 1, openAll = false, inAct = false) {
+      // A group whose every entry is in hand carries the one ✓; the rows inside it still
+      // list (and count) but show no ✓ of their own. noIcon rows are detail, not entries.
+      const allInHand = n => setStatus(n).state === "complete" &&
+        kidsOf(n).every(k => k.noIcon || (kidsOf(k).length ? allInHand(k) : setStatus(k).state === "complete"));
+
+      // quiet: a group above already shows the ✓ for this row
+      function expItemHtml(it, state, depth = 1, openAll = false, inAct = false, quiet = false) {
         if (kidsOf(it).length) {
+          const allIn = !quiet && allInHand(it);
           // A state subtab opens what it shows, but Actualización holds a lot of names.
           // Its own row still opens — you see which updates you are missing — while the
           // sections inside it stay shut rather than dumping every name on screen.
           const actInside = inAct || it.label === ACTUALIZACION;
           // Children filter themselves, so a state subtab is exactly the Todo tree with
           // the non-matching rows dropped — however deep they sit
-          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll, actInside)).filter(Boolean);
+          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll, actInside, quiet || allIn)).filter(Boolean);
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
@@ -1681,17 +1697,20 @@
             // Sets alone shows x/y here. Everywhere else an entry count is the right
             // answer, and in a state subtab the count already means one clear thing.
             const score = it.plural === SETS_PLURAL ? setsScore(it) : null;
-            return expBlock(label, { state: setStatus(it).state, detail: score ?? detail }, inner, openAll);
+            return expBlock(label, { state: quiet ? "none" : setStatus(it).state, detail: score ?? detail }, inner, openAll);
           }
-          // Filtered: keep the icon when the group itself is in this state, else drop it
-          // (the subtab implies it). Nothing left inside means a plain row, not a caret
-          // that opens onto emptiness.
-          const ownMatches = hasOwnStatus(it) && setStatus(it).state === state;
-          if (!inner) return ownMatches ? ledgerRow(label, { state, detail }) : "";
-          return expBlock(label, { state: ownMatches ? state : "none", detail }, inner, !inAct);
+          // Filtered: the group belongs here when it is in this state itself (or, in Tengo,
+          // holds nothing but what is in hand); it shows the icon unless a group above
+          // already does. Otherwise it drops the icon (the subtab implies it). Nothing left
+          // inside means a plain row, not a caret that opens onto emptiness.
+          const inState  = (hasOwnStatus(it) && setStatus(it).state === state) ||
+                           (state === "complete" && allInHand(it));
+          const icon     = inState && !quiet ? state : "none";
+          if (!inner) return inState ? ledgerRow(label, { state: icon, detail }) : "";
+          return expBlock(label, { state: icon, detail }, inner, !inAct);
         }
         if (state && setStatus(it).state !== state) return "";
-        const st = setStatus(it);
+        const st = quiet ? { ...setStatus(it), state: "none" } : setStatus(it);
         if (!it.sub || !it.sub.length) return ledgerRow(it.label, st, it.dot);
         const lines = it.sub.map(line => {
           // "419 A / B" is two players on one sticker. Rather than let it wrap mid-name,
@@ -1712,7 +1731,7 @@
         // match, but it stops at a row that reports its own number and state: that
         // row answers the question, and its reference lines are detail you asked
         // for by opening it. A player tab is small enough to show those too.
-        return expBlock(it.label, st, lines, openAll && !inAct);
+        return expBlock(it.label, st, lines, openAll && !inAct, it.dot);
       }
 
       // state (optional) keeps only rows in that state; every row filters itself
@@ -1895,7 +1914,9 @@
 
       // ── Player photos (the Fotos subtab) ──────────────────────────────────
       // Every sticker row with a photo, year by year in checklist order, captioned
-      // by its place in the checklist ("ARG 20 · Made in Italy")
+      // by its place in the checklist ("ARG 20 Made in Italy"). A photo is one sticker,
+      // so a group named in the plural reads singular ("Extra Base").
+      const PHOTO_WORD = { Extras: "Extra" };
       function playerPhotos(key) {
         const out = [];
         ALBUMS.forEach(album => {
@@ -1905,32 +1926,31 @@
             ? kidsOf(n).forEach(k => walk(k, [...path, n.label]))
             : n.photo && out.push({ year: album.year, player: s.label, dot: n.dot,
                                     src: `assets/players/${s.id}/${n.photo}`,
-                                    name: [...path, n.label].join(" · ") });
+                                    name: [...path, n.label].map(w => PHOTO_WORD[w] || w).join(" ") });
           orderedItems(kidsOf(s)).forEach(top => walk(top, []));
         });
         return out;
       }
 
-      // One heading per year, up to four photos per row (two on phones); a year with fewer
-      // spreads them over the row, as Álbumes and Sobres do. The images use the year
-      // page's gallery classes, so they open in the same lightbox.
+      // A player's photos in one run, oldest first, four per row (two on phones). Each
+      // caption starts with its year, and a year's first photo carries the id that the
+      // year links jump to. The images use the year page's gallery classes, so they open
+      // in the same lightbox.
       function photoWallHtml(key) {
         const photos = playerPhotos(key);
-        return [...new Set(photos.map(p => p.year))].map(year => {
-          const yearPhotos = photos.filter(p => p.year === year);
-          const figs = yearPhotos.map(p => {
-            const label = `${year} · ${p.name}${p.dot ? ` (${DOT_NAME[p.dot]})` : ""}`;
-            return `<figure class="gallery-figure">
-                <img class="gallery-img" src="${p.src}" alt="${esc(`${p.player} ${label}`)}" data-label="${esc(label)}"
-                     width="1200" height="790" loading="lazy" decoding="async" role="button" tabindex="0" />
-                <figcaption class="gallery-label">${esc(p.name)}${colorDot(p.dot)}</figcaption>
-              </figure>`;
-          }).join("");
-          return `<section class="gallery-section">
-              <h2 class="gallery-section-label" id="fotos-${year}" tabindex="-1">${year}</h2>
-              <div class="${gridClass(yearPhotos.length)}">${figs}</div>
-            </section>`;
+        const firstOfYear = new Set();
+        const figs = photos.map(p => {
+          const first = !firstOfYear.has(p.year);
+          firstOfYear.add(p.year);
+          const caption = `${p.year} · ${p.name}`;
+          const named   = `${caption}${p.dot ? ` (${DOT_NAME[p.dot]})` : ""}`;
+          return `<figure class="gallery-figure"${first ? ` id="fotos-${p.year}" tabindex="-1"` : ""}>
+              <img class="gallery-img" src="${p.src}" alt="${esc(`${p.player} ${named}`)}" data-label="${esc(caption)}"${p.dot ? ` data-dot="${p.dot}"` : ""}
+                   width="1200" height="790" loading="lazy" decoding="async" role="button" tabindex="0" />
+              <figcaption class="gallery-label">${esc(caption)}${colorDot(p.dot)}</figcaption>
+            </figure>`;
         }).join("");
+        return figs ? `<div class="${gridClass(photos.length)}">${figs}</div>` : "";
       }
 
       // A year's name: "España 1982", or the host alone when it already reads as a full
@@ -2702,6 +2722,8 @@
         if (lbLabel) {
           const l = lbImages[lbIndex].label;
           lbLabel.textContent = l || "";
+          // The caption's colour dot comes along (its name stays in the image's alt text)
+          if (l && lbImages[lbIndex].dot) lbLabel.insertAdjacentHTML("beforeend", colorDot(lbImages[lbIndex].dot));
           lbLabel.hidden = !l;
         }
       }
@@ -2726,7 +2748,7 @@
         const images  = all.map(el => {
           const fig = el.closest(".gallery-figure");
           const cap = fig ? fig.querySelector(".gallery-label") : null;
-          return { src: el.src, alt: el.alt, label: el.dataset.label || (cap ? cap.textContent : null) };
+          return { src: el.src, alt: el.alt, label: el.dataset.label || (cap ? cap.textContent : null), dot: el.dataset.dot };
         });
         openLightbox(images, all.indexOf(img));
       }
