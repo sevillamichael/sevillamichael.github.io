@@ -567,11 +567,9 @@ html {
 
 /* On the Sets and player tabs the ✓, ✗ and ✈️ share one fixed-width column, and a row
    without an icon keeps that column empty, so every number in a card lines up. The
-   glyphs differ in width, which used to shift the numbers. The column is the ✓'s width,
-   and a card holding a ✈️ widens it to 11px. The ✈️ itself is 14px: centred on that
-   column it reaches 1.5px past each side, which spares the labels the room a full 14px
-   column would take (2010's "Tourn. Tracker" wrapped on phones). :where() keeps the
-   base rule below the state rules, which supply the glyph. */
+   glyphs differ in width, which used to shift the numbers. The column is the ✓'s width:
+   any wider and 2022's "Made in Brazil" wraps on a 360px phone. :where() keeps the base
+   rule below the state rules, which supply the glyph. */
 :where(.ledger) .count-val::after {
   content: "";
   display: inline-block;
@@ -579,7 +577,6 @@ html {
   margin-left: 4px;
   text-align: center;
 }
-:where(.ledger:has(.is-coming)) .count-val::after { width: 11px; }
 
 .count-val.is-confirmed::after {
   content: "✓";
@@ -602,7 +599,9 @@ html {
   margin-left: 4px;
   font-size: 11px;
 }
-.ledger .count-val.is-coming::after { width: 14px; margin: 0 -1.5px 0 2.5px; }
+/* The ✈️ is 14px, wider than the column: it starts 2px after the number and reaches
+   3.5px past the column's right edge, so its row takes the same room as the others */
+.ledger .count-val.is-coming::after { width: 14px; margin: 0 -3.5px 0 2px; }
 
 /* A set with no status recorded yet */
 .count-val.is-unknown {
