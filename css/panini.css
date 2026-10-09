@@ -565,6 +565,22 @@ html {
   text-align: right;
 }
 
+/* On the Sets and player tabs the ✓, ✗ and ✈️ share one fixed-width column, and a row
+   without an icon keeps that column empty, so every number in a card lines up. The
+   glyphs differ in width, which used to shift the numbers. The column is the ✓'s width,
+   and a card holding a ✈️ widens it to 11px. The ✈️ itself is 14px: centred on that
+   column it reaches 1.5px past each side, which spares the labels the room a full 14px
+   column would take (2010's "Tourn. Tracker" wrapped on phones). :where() keeps the
+   base rule below the state rules, which supply the glyph. */
+:where(.ledger) .count-val::after {
+  content: "";
+  display: inline-block;
+  width: 8.5px;
+  margin-left: 4px;
+  text-align: center;
+}
+:where(.ledger:has(.is-coming)) .count-val::after { width: 11px; }
+
 .count-val.is-confirmed::after {
   content: "✓";
   margin-left: 4px;
@@ -586,6 +602,7 @@ html {
   margin-left: 4px;
   font-size: 11px;
 }
+.ledger .count-val.is-coming::after { width: 14px; margin: 0 -1.5px 0 2.5px; }
 
 /* A set with no status recorded yet */
 .count-val.is-unknown {
@@ -825,9 +842,13 @@ html {
   to   { opacity: 1; }
 }
 
+/* The height cap is the screen less the viewer's padding (2 x 24px) and the caption above
+   the photo (26px tall, 10px below it). A plain 100% has no fixed height to resolve
+   against, so a photo taller than the screen (the 4x4 2022 Europa sheet) ran off the bottom. */
 .lightbox-img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: calc(100vh - 84px);
+  max-height: calc(100dvh - 84px);
   border-radius: 10px;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
   object-fit: contain;

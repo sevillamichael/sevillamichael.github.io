@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=27" />
+    <link rel="stylesheet" href="css/panini.css?v=28" />
     <meta name="theme-color" content="#121416" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -44,7 +44,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.36.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.0</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -155,8 +155,7 @@
       //   items: [{ label, total?, collected?, complete?, sub? }] breaks a set into
       //   sub-items; the set only reads complete when every item is complete. An item may
       //   carry its own items to nest a group; countNested: true makes that group's value
-      //   the number of entries it holds instead of a declared total, and plural: "<name>"
-      //   is the label to use when that count isn't 1.
+      //   the number of entries it holds instead of a declared total.
       //   noIcon: true shows a row's value without a status icon — for a child whose
       //   parent already carries the status.
       //   detailOnly: true means the items only break the entry down (Extras 80 =
@@ -284,7 +283,7 @@
               { cat: "Uruguay", names: ["Escudo Uruguay", "Raul Moller", "Alfonso Dario Pereyra", "Alberto Santelli", "Fernando Morena"] },
               { cat: "Gales", names: ["Escudo Gales", "Joey Jones", "Terry Yorath", "Leighton James", "John Toshack"] },
             ] } },
-        { year: 1982, host: "España",             postales: { owned: "2-3, 5-13, 15-26, 28-37, 41, 46-55, 57-65, 67-76, 78-84, 86-88, 91-112, 114-116, 118-120, 123, 126, 128-139, 141-145, 147-168, 171, 173-175, 177-179, 181-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-274, 276-282, 284-285, 287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-371, 373, 376, 378, 382-387, 389-414, 417, 419-424, 426-427", coming: "77, 90, 146, 286, 388, 418", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
+        { year: 1982, host: "España",             postales: { owned: "2-3, 5-13, 15-26, 28-37, 41, 46-55, 57-65, 67-84, 86-88, 90-112, 114-116, 118-120, 123, 126, 128-139, 141-168, 171, 173-175, 177-179, 181-202, 204-218, 220, 223-224, 226-233, 235-245, 247-249, 251-252, 255-266, 268-274, 276-282, 284-287, 289-294, 299-300, 302-303, 305-306, 308-326, 328-345, 347-362, 364-371, 373, 376, 378, 382-414, 417-424, 426-427", comingLots: { "Daniele": "56, 89, 122, 125, 140, 203, 283, 296-298, 301, 304, 363, 415" }, groups: [
               { cat: "Especial", names: ["1982 Fifa World Cup", "FIFA Weltpokal", "Naranjito", "Espana 82"] },
               { cat: "Póster", names: ["Madrid", "Barcelona", "Sevilla", "Vigo", "La Coruna", "Gijon"] },
               { cat: "Estadio", names: ["Madrid - Estadio Santiago Bernabeu", "Madrid - Estadio Vicente Calderon", "Barcelona - Estadio Nou Camp", "Barcelona - Estadio Sarria", "Sevilla - Estadio Sanchez Pizjuan", "Sevilla - Estadio Benito Villamarin"] },
@@ -321,10 +320,10 @@
         { year: 1990, host: "Italia",             postales: { total: 448, collected: 448 } },
         { year: "story", host: "World Cup Story", postales: { total: 262, collected: 262 } },
         { year: 1994, host: "USA",                postales: { items: [
-            { label: "Set", total: 444, collected: 444 },
+            { label: "Postales", total: 444, collected: 444 },
           ] } },
         { year: 1998, host: "France",             postales: { items: [
-            { label: "Set", total: 561, collected: 561 },
+            { label: "Postales", total: 561, collected: 561 },
           ] } },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
             { label: "Made in Italy", dot: "negra", total: 576, collected: 576 },
@@ -385,7 +384,7 @@
             ] },
           ] },
         { year: 2010, host: "South Africa",       postales: { items: [
-            { label: "Set", plural: "Sets", countNested: true, items: [
+            { label: "Postales", countNested: true, items: [
               { label: "Made in Italy",  dot: "negra", total: 640, complete: true },
               { label: "Swiss",      total: 660, complete: false },
             ] },
@@ -531,7 +530,7 @@
                 { label: "Made in Italy",       dot: "azul",   coming: true },
                 { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Messi_2010_122_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
-                { label: "Swiss",               coming: true },
+                { label: "Swiss",               complete: true, photo: "Messi_2010_122_Swiss.jpg" },
               ] },
               { label: "Sin número", items: [
                 { label: "Made in Italy", dot: "azul",   coming: true },
@@ -545,12 +544,12 @@
                 { label: "Made in Italy",       dot: "azul",   coming: true },
                 { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Ronaldo_2010_559_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
-                { label: "Swiss",               coming: true },
+                { label: "Swiss",               complete: true, photo: "Ronaldo_2010_559_Swiss.jpg" },
               ] },
             ] },
           ] },
         { year: 2014, host: "Brasil",             postales: { items: [
-            { label: "Set", plural: "Sets", countNested: true, items: [
+            { label: "Postales", countNested: true, items: [
               { label: "Made in Brazil", total: 640, collected: 640 },
               { label: "Platinum", total: 660, complete: false },
             ] },
@@ -670,7 +669,7 @@
             ] },
           ] },
         { year: 2018, host: "Russia",             postales: { items: [
-            { label: "Set", plural: "Sets", countNested: true, items: [
+            { label: "Postales", countNested: true, items: [
               { label: "Made in Italy", dot: "rosada", total: 670, complete: true },
               { label: "Made in Italy", dot: "negra",  total: 682, complete: false },
               { label: "Gold", total: 694, complete: false },
@@ -680,27 +679,27 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "México",  countNested: true, items: [
-                { label: "Botella",  total: 9, coming: true, sub: [
+                { label: "Botella",  total: 9, complete: true, photo: "CocaCola_2018_Mexico_Botella.jpg", sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
                   "CC4 Giovani Dos Santos",
-                  "CC5 Héctor Herrera",
-                  "CC6 Javier Aquino",
+                  "CC5 Javier Aquino",
+                  "CC6 Héctor Herrera",
                   "CC7 Carlos Vela",
-                  "CC8 Raúl Jiménez",
-                  "CC9 Oribe Peralta",
+                  "CC8 Oribe Peralta",
+                  "CC9 Raúl Jiménez",
                 ] },
                 { label: "Numerada", total: 9, coming: true, sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
                   "CC4 Giovani Dos Santos",
-                  "CC5 Héctor Herrera",
-                  "CC6 Javier Aquino",
+                  "CC5 Javier Aquino",
+                  "CC6 Héctor Herrera",
                   "CC7 Carlos Vela",
-                  "CC8 Raúl Jiménez",
-                  "CC9 Oribe Peralta",
+                  "CC8 Oribe Peralta",
+                  "CC9 Raúl Jiménez",
                 ] },
               ] },
               { label: "Austria", countNested: true, items: [
@@ -718,7 +717,7 @@
                   "C11 Carles Puyol",
                   "C12 Miroslav Klose",
                 ] },
-                { label: "Numerada", total: 12, coming: true, sub: [
+                { label: "Numerada", total: 12, complete: true, photo: "CocaCola_2018_Austria_Numerada.jpg", sub: [
                   "C1 Pelé",
                   "C2 Franz Beckenbauer",
                   "C3 Mario Kempes",
@@ -867,7 +866,7 @@
                 { label: "Made in Italy",  dot: "negra", complete: true, photo: "Ronaldo_2018_130_MadeInItaly.jpg" },
                 { label: "Gold",                         complete: true, photo: "Ronaldo_2018_130_Gold.jpg" },
               ] },
-              { label: "MP6 McDonald's", complete: true, photo: "Ronaldo_2018_M6_McDonalds.jpg" },
+              { label: "M6 McDonald's", complete: true, photo: "Ronaldo_2018_M6_McDonalds.jpg" },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "197", items: [
@@ -883,7 +882,7 @@
             ] },
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
-            { label: "Set", plural: "Sets", countNested: true, items: [
+            { label: "Postales", countNested: true, items: [
               { label: "Made in Brazil", dot: "naranja", total: 638, complete: true },
               { label: "Made in Italy",  dot: "violeta", total: 670, complete: false },
               { label: "Oryx",           dot: "granate", total: 670, complete: true },
@@ -911,7 +910,7 @@
                   "C13 Sergej Milinković-Savić",
                   "C14 Hirving Lozano",
                 ] },
-                { label: "Numerada", total: 14, complete: true, sub: [
+                { label: "Numerada", total: 14, complete: true, photo: "CocaCola_2022_Europa_Numerada.jpg", sub: [
                   "C1 Eden Hazard",
                   "C2 Serge Gnabry",
                   "C3 Ángel Di María",
@@ -1138,7 +1137,7 @@
             ] },
           ] },
         { year: 2026, host: "World Cup 2026",     postales: { items: [
-            { label: "Set", plural: "Sets", countNested: true, items: [
+            { label: "Postales", countNested: true, items: [
               { label: "Made in Brazil", total: 980, complete: true },
               { label: "United",         dot: "lima",   total: 980, complete: false },
               { label: "USA",            dot: "blanca", total: 980, complete: true },
@@ -1507,11 +1506,11 @@
         const own = hasOwnStatus(node) && setStatus(node).state === "complete" ? 1 : 0;
         return own + kids.reduce((n, k) => n + deepGreens(k), 0);
       }
-      // The Sets row is the one place the number reads as a score: these are album
+      // The Postales row is the one place the number reads as a score: these are album
       // variants you either own or do not. Count the leaves — a group nested inside
-      // Sets is not itself a set, the sets inside it are — and how many of those
+      // Postales is not itself a set, the sets inside it are — and how many of those
       // leaves are green.
-      const SETS_PLURAL = "Sets";
+      const POSTALES = "Postales";
       // null when there is only one set to own — "1/1" says less than a plain check
       const setsScore = it => {
         const leaves = leavesOf(it);
@@ -1527,9 +1526,9 @@
       };
 
       // ── Todo card figures ──────────────────────────────────────────────────
-      // Every figure on a Todo card is a count of green checks in the Postales tab, so the
-      // grid reads as numbers rather than icons. Each maps to one row of that tab.
-      // Postales: the album sets, which live inside the "Set(s)" row — Actualización sits
+      // Every figure under Sets on a Todo card is a count of green checks in the Sets tab,
+      // so the grid reads as numbers rather than icons. Each maps to one row of that tab.
+      // Postales: the album sets, which live inside the Postales row — Actualización sits
       // outside it and is counted on its own line.
       const postalesSetGreens = p => {
         if (!p) return 0;
@@ -1599,7 +1598,7 @@
                                       "du","la","le","el","den","der","bin","ibn","al","st.",
                                       "santa","vanden","vander","vande","ten","ter"]);
       // A leading code such as CC6, No.10, 417, TT-A, Ö1 or a bare letter is kept verbatim
-      // A leading code is anything with a digit ("CC12", "MP6") or a short all-caps
+      // A leading code is anything with a digit ("CC12", "M6") or a short all-caps
       // token — including one written apart from its number, as in "CC 12 ...".
       // Data goes into title="..." verbatim, so a name carrying a quote or an
       // ampersand has to be escaped or it breaks out of the attribute.
@@ -1687,17 +1686,15 @@
           const shown = out.length;
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
-          // total (e.g. Gold's 694), else nothing — the counter-free variant groups. A
-          // plural label follows that same count.
+          // total (e.g. Gold's 694), else nothing — the counter-free variant groups.
           const detail = it.countNested ? String(shown) : (it.total ?? "");
-          const label  = it.plural && shown !== 1 ? it.plural : it.label;
           // A player tab holds few enough rows to show everything at once, so its groups
           // open in every subtab, Todo included. Elsewhere Todo starts collapsed.
           if (!state) {
-            // Sets alone shows x/y here. Everywhere else an entry count is the right
+            // Postales alone shows x/y here. Everywhere else an entry count is the right
             // answer, and in a state subtab the count already means one clear thing.
-            const score = it.plural === SETS_PLURAL ? setsScore(it) : null;
-            return expBlock(label, { state: quiet ? "none" : setStatus(it).state, detail: score ?? detail }, inner, openAll);
+            const score = it.label === POSTALES ? setsScore(it) : null;
+            return expBlock(it.label, { state: quiet ? "none" : setStatus(it).state, detail: score ?? detail }, inner, openAll);
           }
           // Filtered: the group belongs here when it is in this state itself (or, in Tengo,
           // holds nothing but what is in hand); it shows the icon unless a group above
@@ -1706,8 +1703,8 @@
           const inState  = (hasOwnStatus(it) && setStatus(it).state === state) ||
                            (state === "complete" && allInHand(it));
           const icon     = inState && !quiet ? state : "none";
-          if (!inner) return inState ? ledgerRow(label, { state: icon, detail }) : "";
-          return expBlock(label, { state: icon, detail }, inner, !inAct);
+          if (!inner) return inState ? ledgerRow(it.label, { state: icon, detail }) : "";
+          return expBlock(it.label, { state: icon, detail }, inner, !inAct);
         }
         if (state && setStatus(it).state !== state) return "";
         const st = quiet ? { ...setStatus(it), state: "none" } : setStatus(it);
@@ -1746,10 +1743,10 @@
         // still in transit are counted there as well as under De camino.
         if (state && isGridSet(s)) {
           const n = gridStateCount(s, state);
-          return n ? ledgerRow("Set", { state, detail: n }) : "";
+          return n ? ledgerRow(POSTALES, { state, detail: n }) : "";
         }
         if (state && setStatus(s).state !== state) return "";
-        return ledgerRow("Set", setStatus(s));
+        return ledgerRow(POSTALES, setStatus(s));
       };
 
       // The secondary sets (Coca Cola, McDonald's, Actualización, ...) have no tab of their
@@ -1986,37 +1983,30 @@
           if (filterKey) {
             // Set tab: the tab already names the set. With items, one row per
             // item; otherwise a single row labeled by year. Always the full ledger.
-            countsHtml = `<div class="card-counts">${setLedgerRows(album, filterKey, subState)}</div>`;
+            countsHtml = `<div class="card-counts ledger">${setLedgerRows(album, filterKey, subState)}</div>`;
           } else {
-            // Todo is a tally, not a ledger: Álbumes and Sobres (both filled in by
-            // applyCount, untouched), then one green-check count per row of the Postales
-            // tab. No icons beyond a bare ✗ when a count is zero. Actualización nests under
-            // Postales, mirroring where it lives in that tab.
-            const countVal = n =>
-              `<span class="count-val ${n ? "" : stateClass("pending")}">${n || ""}${n ? "" : srState(stateClass("pending"))}</span>`;
-            const countRow = (label, n) => `<div class="card-count-row">
+            // Todo is a tally of what is in hand, not a ledger: Álbumes and Sobres (filled in
+            // by applyCount), then Sets, the year's Sets tab in one number, opening onto its
+            // rows: Postales, Actualización and Otros. A count of 0 is left out rather than
+            // shown as a ✗, and so is Sets when all three are.
+            const lists = IMAGE_LISTS[album.year] || { albumPaths: [], sobrePaths: [] };
+            const imageRow = (type, label, paths) => paths.length ? `<div class="card-count-row">
+                <span class="count-label" data-label="${type}" data-year="${album.year}">${label}</span>
+                <span class="count-val" data-type="${type}" data-year="${album.year}">—</span>
+              </div>` : "";
+            const countRow = (label, n) => n ? `<div class="card-count-row">
                 <span class="count-label">${label}</span>
-                ${countVal(n)}
-              </div>`;
-            const hasAct   = !!postalesActualizacion(album.postales);
-            const hasOtros = (album.sets || []).some(s => !s.afterPostales && s.id !== "actualizacion");
-            const postalesRow = !album.postales
-              ? `<div class="card-count-row"><span class="count-label">Postales</span><span class="count-val">—</span></div>`
-              : hasAct
-                ? (n => expBlock("Postales", { state: n ? "none" : "pending", detail: n || "" },
-                                 countRow(ACTUALIZACION, actualizacionGreens(album))))(postalesSetGreens(album.postales))
-                : countRow("Postales", postalesSetGreens(album.postales));
+                <span class="count-val">${n}</span>
+              </div>` : "";
+            const sets = [[POSTALES, postalesSetGreens(album.postales)],
+                          [ACTUALIZACION, actualizacionGreens(album)],
+                          ["Otros", otrosGreens(album)]];
+            const setsTotal = sets.reduce((n, pair) => n + pair[1], 0);
             countsHtml = `<div class="card-counts">
-              <div class="card-count-row">
-                <span class="count-label" data-label="albums" data-year="${album.year}">Álbumes</span>
-                <span class="count-val" data-type="albums" data-year="${album.year}">—</span>
-              </div>
-              <div class="card-count-row">
-                <span class="count-label" data-label="sobres" data-year="${album.year}">Sobres</span>
-                <span class="count-val" data-type="sobres" data-year="${album.year}">—</span>
-              </div>
-              ${postalesRow}
-              ${hasOtros ? countRow("Otros", otrosGreens(album)) : ""}
+              ${imageRow("albums", "Álbumes", lists.albumPaths)}
+              ${imageRow("sobres", "Sobres", lists.sobrePaths)}
+              ${setsTotal ? expBlock("Sets", { state: "none", detail: setsTotal },
+                                     sets.map(pair => countRow(pair[0], pair[1])).join("")) : ""}
             </div>`;
           }
           return `<article class="album-card" data-year="${album.year}">
