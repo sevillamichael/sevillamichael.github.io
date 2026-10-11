@@ -769,6 +769,19 @@ html {
   text-align: center;
 }
 
+/* A green set without its photo yet: a dashed frame where the photo will go */
+.gallery-missing {
+  aspect-ratio: 3 / 2;
+  border: 1.5px dashed var(--subtle);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--subtle);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .gallery-figure .gallery-img {
   width: 100%;
   height: auto;
@@ -996,10 +1009,12 @@ html {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Two photos per row leave a caption ~155-190px. "2010 · Sin número Made in Italy"
-     plus its dot needs slightly smaller, untracked type to stay on one line */
-  .photo-wall .gallery-label {
-    font-size: 10.5px;
+  /* Two photos per row leave a caption ~155-190px. The longest, a year's "Otros · Trading
+     Cards · Host Cities" and Fotos' "2010 · Sin número Made in Italy" plus its dot, need
+     smaller, untracked type to stay on one line on a 360px phone */
+  .photo-wall .gallery-label,
+  #gallery-set-panel .gallery-label {
+    font-size: 10px;
     letter-spacing: 0;
   }
 
