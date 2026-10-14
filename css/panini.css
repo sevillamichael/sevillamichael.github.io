@@ -782,6 +782,11 @@ html {
   font-weight: 600;
 }
 
+/* On a player's Fotos wall it takes a sticker photo's exact shape, so its row stays even */
+.photo-wall .gallery-missing {
+  aspect-ratio: 1640 / 1080;
+}
+
 .gallery-figure .gallery-img {
   width: 100%;
   height: auto;

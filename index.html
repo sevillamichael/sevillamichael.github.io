@@ -23,8 +23,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=30" />
+    <link rel="stylesheet" href="css/panini.css?v=31" />
     <meta name="theme-color" content="#121416" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Panini" />
@@ -44,7 +45,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.2</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.3</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -102,7 +103,7 @@
       <span class="lightbox-counter" id="lightbox-counter"></span>
       <div class="lightbox-content">
         <span class="lightbox-label" id="lightbox-label"></span>
-        <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+        <img class="lightbox-img" id="lightbox-img" alt="" />
       </div>
     </div>
 
@@ -478,7 +479,7 @@
                 "E (Imposible)",
                 "F-I",
               ] },
-              { label: "Visa Ourocard",               total: 4,  coming: true, sub: [
+              { label: "Visa Ourocard",               total: 4,  complete: true, sub: [
                 "A1",
                 "B1",
                 "C1",
@@ -690,7 +691,7 @@
                   "CC8 Oribe Peralta",
                   "CC9 Raúl Jiménez",
                 ] },
-                { label: "Numerada", total: 9, coming: true, sub: [
+                { label: "Numerada", total: 9, complete: true, sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
@@ -1333,7 +1334,7 @@
                 { label: "United", dot: "lima",   complete: true, photo: "Messi_2026_ARG17_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
-                { label: "USA", dot: "roja",   coming: true },
+                { label: "USA", dot: "roja",   complete: true },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   dot: "lila", complete: true, photo: "Messi_2026_Extra_Base.jpg" },
@@ -1914,16 +1915,22 @@
       // by its place in the checklist ("ARG 20 Made in Italy"). A photo is one sticker,
       // so a group named in the plural reads singular ("Extra Base").
       const PHOTO_WORD = { Extras: "Extra" };
-      function playerPhotos(key) {
+      // With withMissing, a sticker in hand (green) without its photo yet takes its place as
+      // { missing: true }: a reminder of what is still to photograph
+      function playerPhotos(key, withMissing = false) {
         const out = [];
         ALBUMS.forEach(album => {
           const s = setForFilter(album, key);
           if (!s || !s.afterPostales) return;
-          const walk = (n, path) => kidsOf(n).length
-            ? kidsOf(n).forEach(k => walk(k, [...path, n.label]))
-            : n.photo && out.push({ year: album.year, player: s.label, dot: n.dot,
-                                    src: `assets/players/${s.id}/${n.photo}`,
-                                    name: [...path, n.label].map(w => PHOTO_WORD[w] || w).join(" ") });
+          const walk = (n, path) => {
+            if (kidsOf(n).length) return kidsOf(n).forEach(k => walk(k, [...path, n.label]));
+            const name = [...path, n.label].map(w => PHOTO_WORD[w] || w).join(" ");
+            if (n.photo) out.push({ year: album.year, player: s.label, dot: n.dot, name,
+                                    src: `assets/players/${s.id}/${n.photo}` });
+            else if (withMissing && setStatus(n).state === "complete") {
+              out.push({ year: album.year, player: s.label, dot: n.dot, name, missing: true });
+            }
+          };
           orderedItems(kidsOf(s)).forEach(top => walk(top, []));
         });
         return out;
@@ -1934,13 +1941,17 @@
       // year links jump to. The images use the year page's gallery classes, so they open
       // in the same lightbox.
       function photoWallHtml(key) {
-        const photos = playerPhotos(key);
+        const photos = playerPhotos(key, true);
         const firstOfYear = new Set();
         const figs = photos.map(p => {
           const first = !firstOfYear.has(p.year);
           firstOfYear.add(p.year);
           const caption = `${p.year} · ${p.name}`;
           const named   = `${caption}${p.dot ? ` (${DOT_NAME[p.dot]})` : ""}`;
+          if (p.missing) return `<figure class="gallery-figure is-missing"${first ? ` id="fotos-${p.year}" tabindex="-1"` : ""}>
+              <div class="gallery-missing" role="img" aria-label="${esc(`${p.player} ${named}: falta escanear`)}">Falta escanear</div>
+              <figcaption class="gallery-label">${esc(caption)}${colorDot(p.dot)}</figcaption>
+            </figure>`;
           return `<figure class="gallery-figure"${first ? ` id="fotos-${p.year}" tabindex="-1"` : ""}>
               <img class="gallery-img" src="${p.src}" alt="${esc(`${p.player} ${named}`)}" data-label="${esc(caption)}"${p.dot ? ` data-dot="${p.dot}"` : ""}
                    width="1200" height="790" loading="lazy" decoding="async" role="button" tabindex="0" />
@@ -2755,7 +2766,8 @@
 
       function closeLightbox() {
         lightbox.classList.remove("is-open");
-        lightboxImg.src = "";
+        // Dropping the image (not src = "", which the browser reports as a failed load)
+        lightboxImg.removeAttribute("src");
         document.body.style.overflow = "";
         if (lbReturnFocus && typeof lbReturnFocus.focus === "function") lbReturnFocus.focus();
         lbReturnFocus = null;
