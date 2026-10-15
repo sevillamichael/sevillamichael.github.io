@@ -45,7 +45,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.3</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.4</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -174,6 +174,8 @@
       //   is that sticker, kept in assets/players/<set id>/ and shown in the Fotos subtab;
       //   on a Postales row (a Coca Cola section, an Otros entry...) it is that set, kept
       //   in assets/sets/<year>/ and shown in the year's Postales tab.
+      //   caption: "<name>" is what that photo's caption calls a set whose label is
+      //   shortened to fit its row ("Tourn. Tracker" -> "Tournament Tracker").
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
@@ -479,13 +481,13 @@
                 "E (Imposible)",
                 "F-I",
               ] },
-              { label: "Visa Ourocard",               total: 4,  complete: true, sub: [
+              { label: "Visa Ourocard",               total: 4,  complete: true, photo: "Otros_2010_VisaOurocard.jpg", sub: [
                 "A1",
                 "B1",
                 "C1",
                 "D1",
               ] },
-              { label: "Tourn. Tracker", total: 24, complete: true, photo: "Otros_2010_TournamentTracker.jpg", sub: [
+              { label: "Tourn. Tracker", caption: "Tournament Tracker", total: 24, complete: true, photo: "Otros_2010_TournamentTracker.jpg", sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
                 "C Lionel Messi",
@@ -537,7 +539,7 @@
                 { label: "Made in Italy", dot: "azul",   coming: true },
                 { label: "Made in Italy", dot: "negra",  complete: true, photo: "Messi_2010_SinNumero_MadeInItaly_Negra.jpg" },
               ] },
-              { label: "Tourn. Tracker C", complete: false, photo: "Messi_2010_TrackerC_MadeInItaly.jpg" },
+              { label: "Tourn. Tracker C", caption: "Tournament Tracker C", complete: false, photo: "Messi_2010_TrackerC_MadeInItaly.jpg" },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "559", items: [
@@ -691,7 +693,7 @@
                   "CC8 Oribe Peralta",
                   "CC9 Raúl Jiménez",
                 ] },
-                { label: "Numerada", total: 9, complete: true, sub: [
+                { label: "Numerada", total: 9, complete: true, photo: "CocaCola_2018_Mexico_Numerada.jpg", sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
                   "CC3 Héctor Moreno",
@@ -746,33 +748,38 @@
                 "M8 Timo Werner",
                 "M9 Thomas Müller",
               ] },
-              { label: "Sin número", total: 40, complete: true, sub: [
+              { label: "Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", sub: [
                 "Igor Akinfeev",
                 "Viktor Vasin",
                 "Aleksei Miranchuk",
                 "Fedor Smolov",
                 "Aleksandr Kokorin",
                 "",
+                "Gerard Piqué",
+                "Sergio Ramos",
+                "Isco",
+                "Álvaro Morata",
+                "",
                 "Mitchell Langerak",
-                "Tom Rogic",
+                "Tom Rogić",
                 "Mathew Leckie",
                 "Robbie Kruse",
                 "",
-                "Christian Eriksen",
-                "Thomas Delaney",
-                "Nicolai Jørgensen",
-                "Pione Sisto",
                 "Simon Kjær",
+                "Thomas Delaney",
+                "Christian Eriksen",
+                "Pione Sisto",
+                "Nicolai Jørgensen",
                 "",
-                "Gylfi Sigurðsson",
+                "Birkir Sævarsson",
                 "Aron Gunnarsson",
+                "Gylfi Sigurðsson",
                 "Björn Sigurðarson",
-                "Hjörvar Sverrisson",
                 "",
-                "Christian Bolaños",
                 "Michael Umaña",
                 "Johnny Acosta",
                 "Bryan Ruiz",
+                "Christian Bolaños",
                 "",
                 "Mats Hummels",
                 "Joshua Kimmich",
@@ -790,11 +797,6 @@
                 "Youri Tielemans",
                 "Dries Mertens",
                 "Romelu Lukaku",
-                "",
-                "Álvaro Morata",
-                "Isco",
-                "Sergio Ramos",
-                "Gerard Piqué",
               ] },
               { label: "Portugal",  total: 8, complete: true, photo: "McDonalds_2018_Portugal.jpg", sub: [
                 "M1 Rui Patrício",
@@ -1334,7 +1336,7 @@
                 { label: "United", dot: "lima",   complete: true, photo: "Messi_2026_ARG17_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
-                { label: "USA", dot: "roja",   complete: true },
+                { label: "USA", dot: "roja",   complete: true, photo: "Messi_2026_ARG17_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
                 { label: "Base",   dot: "lila", complete: true, photo: "Messi_2026_Extra_Base.jpg" },
@@ -1924,7 +1926,7 @@
           if (!s || !s.afterPostales) return;
           const walk = (n, path) => {
             if (kidsOf(n).length) return kidsOf(n).forEach(k => walk(k, [...path, n.label]));
-            const name = [...path, n.label].map(w => PHOTO_WORD[w] || w).join(" ");
+            const name = [...path, n.caption || n.label].map(w => PHOTO_WORD[w] || w).join(" ");
             if (n.photo) out.push({ year: album.year, player: s.label, dot: n.dot, name,
                                     src: `assets/players/${s.id}/${n.photo}` });
             else if (withMissing && setStatus(n).state === "complete") {
@@ -2266,7 +2268,7 @@
       }
 
       // A year's set photos, in the order its Postales tab lists them, each captioned by
-      // its place there ("Coca Cola · Alemania"). With withMissing, every entry of the Coca
+      // its place there ("Coca Cola · Alemania", "McDonald's · Rusia"). With withMissing, every entry of the Coca
       // Cola and Otros rows that is in hand (green) but has no photo yet takes its place as
       // { missing: true }: a reminder of what is still to photograph. An entry is one
       // collectible: a row without entries of its own, or one whose inside only details it
@@ -2277,10 +2279,12 @@
         const out = [];
         const isEntry = n => !kidsOf(n).length || n.detailOnly || kidsOf(n).every(k => k.noIcon);
         const walk = (n, path, mirrored) => {
-          const here = [...path, n.label];
-          if (n.photo) out.push({ src: `assets/sets/${album.year}/${n.photo}`, name: here.join(" · ") });
+          const here = [...path, n.caption || n.label];
+          // The Otros row only groups what is not Coca Cola: its photos go by their own names
+          const name = (here[0] === OTROS_MIRROR_LABEL ? here.slice(1) : here).join(" · ");
+          if (n.photo) out.push({ src: `assets/sets/${album.year}/${n.photo}`, name });
           else if (withMissing && mirrored && path.length && isEntry(n) && setStatus(n).state === "complete") {
-            out.push({ name: here.join(" · "), missing: true });
+            out.push({ name, missing: true });
           }
           if (!isEntry(n)) kidsOf(n).forEach(k => walk(k, here, mirrored && !n.photo));
         };
