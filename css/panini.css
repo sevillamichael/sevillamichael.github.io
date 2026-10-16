@@ -787,6 +787,62 @@ html {
   aspect-ratio: 1640 / 1080;
 }
 
+/* A year's Postales tab: every sticker the same size, in every set and every year. On
+   the web a typical set of two rows of four (0.885 of a pocket sheet's width) is as wide
+   as an Álbumes column, so four fill a row edge to edge; on a phone a pocket sheet is
+   8% over half the row, as big as stickers go while two sets still share a row. Each set
+   takes its own width, every set and every sheet of a set over 16 the row's 14px from
+   the next, each name on top; a set that doesn't fit goes to the next row (at these
+   sizes, four at most on the web and two on a phone). --w and --h are a preview's width
+   and height in sheets (SET_PREVIEWS). */
+.sheet-pages {
+  container-type: inline-size;
+  align-items: flex-start;
+}
+
+/* (304.6px on a full-width row; on a narrower screen it scales with the row, so a year's
+   sets fall into the same rows at any width, like Álbumes) */
+.sheet-pages .gallery-figure {
+  --sheet: calc((100cqw - 42px) / 4 / 0.885);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.sheet-pages .gallery-figure img {
+  display: block;
+  width: calc(var(--sheet) * var(--w, 1));
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: var(--w) / var(--h);
+  /* the preview is cut to its stickers: a small radius, so their corners stay */
+  border-radius: 2px;
+}
+
+/* The name on top, on one line: it may run 5px past each side of its set, and a set is
+   never laid out narrower than that, so names never touch */
+.sheet-pages .gallery-label {
+  margin: 0 -5px 6px;
+  white-space: nowrap;
+}
+
+/* On a narrow row the sets are small: so are their names, at the phone size */
+@container (max-width: 800px) {
+  .sheet-pages .gallery-label {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
+
+/* A placeholder takes the shape of a typical set of two rows of four (MISSING_SET) */
+.sheet-pages .gallery-missing {
+  width: calc(var(--sheet) * var(--w));
+  max-width: 100%;
+  aspect-ratio: var(--w) / var(--h);
+}
+
 .gallery-figure .gallery-img {
   width: 100%;
   height: auto;
@@ -1012,6 +1068,10 @@ html {
   .gallery-images.cols-3,
   .gallery-images.cols-4 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sheet-pages .gallery-figure {
+    --sheet: calc((100cqw - 14px) / 2 * 1.08);
   }
 
   /* Two photos per row leave a caption ~155-190px. The longest, a year's "Otros · Trading

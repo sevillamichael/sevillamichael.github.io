@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
-      // On the live site every view has its own address (/messi/fotos, /2010/postales).
+      // On the live site every view has its own address (/messi/fotos, /2010/sets).
       // Anchor relative paths at the site root so assets load from there at any depth;
       // opened as a local file the page keeps resolving them from its folder.
       if (location.protocol.startsWith("http")) {
@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=31" />
+    <link rel="stylesheet" href="css/panini.css?v=36" />
     <meta name="theme-color" content="#121416" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -45,7 +45,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.4</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.5</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -173,7 +173,11 @@
       //   photo: "<file>.jpg" is a photo of the fronts and backs. On a player set's row it
       //   is that sticker, kept in assets/players/<set id>/ and shown in the Fotos subtab;
       //   on a Postales row (a Coca Cola section, an Otros entry...) it is that set, kept
-      //   in assets/sets/<year>/ and shown in the year's Postales tab.
+      //   in assets/sets/<year>/ and shown in the year's Sets tab by its fronts
+      //   (assets/sets/<year>/fronts/, same name).
+      //   pages: N is a set photo that fills N pocket sheets (over 16 stickers): the tab
+      //   shows it sheet by sheet (1/N...), each from <name>_1.jpg to _N.jpg (fronts
+      //   and backs, scanner/codigo/split.swift) and fronts/<name>_1.jpg to _N.jpg.
       //   caption: "<name>" is what that photo's caption calls a set whose label is
       //   shortened to fit its row ("Tourn. Tracker" -> "Tournament Tracker").
       //   afterPostales: true places the set's tab after Postales (player sets).
@@ -487,7 +491,7 @@
                 "C1",
                 "D1",
               ] },
-              { label: "Tourn. Tracker", caption: "Tournament Tracker", total: 24, complete: true, photo: "Otros_2010_TournamentTracker.jpg", sub: [
+              { label: "Tourn. Tracker", caption: "Tournament Tracker", total: 24, complete: true, photo: "Otros_2010_TournamentTracker.jpg", pages: 2, sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
                 "C Lionel Messi",
@@ -748,7 +752,7 @@
                 "M8 Timo Werner",
                 "M9 Thomas Müller",
               ] },
-              { label: "Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", sub: [
+              { label: "Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", pages: 3, sub: [
                 "Igor Akinfeev",
                 "Viktor Vasin",
                 "Aleksei Miranchuk",
@@ -1151,7 +1155,7 @@
           sets: [
             { id: "coca-cola",     label: "Coca Cola", items: [
               { label: "Latam",      countNested: true, items: [
-                { label: "Botella",  total: 14, complete: true, sub: [
+                { label: "Botella",  total: 14, complete: true, photo: "CocaCola_2026_Latam_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Harry Kane",
@@ -1167,7 +1171,7 @@
                   "CC13 Raúl Jiménez",
                   "CC14 Lautaro Martínez",
                 ] },
-                { label: "Numerada", total: 14, complete: true, sub: [
+                { label: "Numerada", total: 14, complete: true, photo: "CocaCola_2026_Latam_Numerada.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Harry Kane",
@@ -1185,7 +1189,7 @@
                 ] },
               ] },
               { label: "USA",                countNested: true, items: [
-                { label: "Botella",  total: 12, complete: true, sub: [
+                { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2026_USA_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Harry Kane",
@@ -1199,7 +1203,7 @@
                   "CC11 Lautaro Martínez",
                   "CC12 Gabriel Magalhães",
                 ] },
-                { label: "Numerada", total: 12, complete: true, sub: [
+                { label: "Numerada", total: 12, complete: true, photo: "CocaCola_2026_USA_Numerada.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Harry Kane",
@@ -1218,7 +1222,7 @@
                 ] },
               ] },
               { label: "Europa",             countNested: true, items: [
-                { label: "Botella",  total: 12, complete: true, sub: [
+                { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2026_Europa_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Eduardo Camavinga",
@@ -1232,7 +1236,7 @@
                   "CC11 Harry Kane",
                   "CC12 Antonee Robinson",
                 ] },
-                { label: "Numerada", total: 12, complete: true, sub: [
+                { label: "Numerada", total: 12, complete: true, photo: "CocaCola_2026_Europa_Numerada.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
                   "CC3 Eduardo Camavinga",
@@ -1264,12 +1268,14 @@
                   "No.11 Edson Álvarez",
                   "No.12 Weston McKennie",
                 ] },
-                { label: "Host Cities", total: 16, complete: true, plain: true, sub: [
+                { label: "Host Cities", total: 16, complete: true, plain: true, photo: "Otros_2026_TradingCards_HostCities.jpg", sub: [
                   "Toronto",
                   "Vancouver",
+                  "",
                   "Guadalajara",
                   "Mexico City",
                   "Monterrey",
+                  "",
                   "Atlanta",
                   "Boston",
                   "Dallas",
@@ -1277,12 +1283,12 @@
                   "Kansas City",
                   "Los Angeles",
                   "Miami",
-                  "New York",
+                  "New York New Jersey",
                   "Philadelphia",
-                  "San Francisco",
                   "Seattle",
+                  "San Francisco Bay Area",
                 ] },
-                { label: "China",       total: 4, complete: true, sub: [
+                { label: "China",       total: 4, complete: true, photo: "Otros_2026_TradingCards_China.jpg", sub: [
                   "Lamine Yamal",
                   "Harry Kane",
                   "Virgil Van Dijk",
@@ -1296,34 +1302,34 @@
                 { label: "Oro",    dot: "oro", total: 20, noIcon: true },
               ] },
               { label: "McDonald's", total: 28, collected: 28, sub: [
-                "CAN13 Canada",
                 "MEX13 Mexico",
-                "USA13 USA",
+                "KOR13 S. Korea",
+                "PAN13 Panama",
+                "CAN13 Canada",
                 "QAT13 Qatar",
-                "ECU13 Ecuador",
-                "SEN13 Senegal",
-                "ENG13 England",
-                "IRN13 Iran",
-                "ARG13 Argentina",
-                "KSA13 Saudi Arabia",
-                "FRA13 France",
-                "AUS13 Australia",
-                "ESP13 Spain",
-                "GER13 Germany",
-                "JPN13 Japan",
-                "CIV13 Ivory Coast",
-                "BEL13 Belgium",
-                "MAR13 Morocco",
-                "CRO13 Croatia",
+                "SUI13 Switzerland",
                 "BRA13 Brazil",
-                "GHA13 Ghana",
-                "URU13 Uruguay",
-                "KOR13 South Korea",
-                "POR13 Portugal",
-                "NGA13 Nigeria",
+                "MAR13 Morocco",
+                "USA13 USA",
+                "AUS13 Australia",
+                "GER13 Germany",
+                "CIV13 Ivory Coast",
                 "NED13 Netherlands",
-                "EGY13 Egypt",
+                "JPN13 Japan",
+                "TUN13 Tunisia",
+                "BEL13 Belgium",
+                "ESP13 Spain",
+                "KSA13 S. Arabia",
+                "URU13 Uruguay",
+                "FRA13 France",
+                "SEN13 Senegal",
+                "NOR13 Norway",
+                "ARG13 Argentina",
+                "UZB13 Uzbekistan",
                 "COL13 Colombia",
+                "ENG13 England",
+                "CRO13 Croatia",
+                "GHA13 Ghana",
               ] },
             ] },
             { id: "actualizacion", label: "Actualización", items: [
@@ -1661,6 +1667,10 @@
         const short = line.split(" / ").map(shortenPart).join(" / ");
         return short.length < line.length ? short : line;
       };
+      // A place doesn't shorten like a person's name: a plain line (Host Cities) that runs
+      // out of room takes the place's usual short form, its full name in the tooltip
+      const PLACE_SHORT = { "New York New Jersey": "NY New Jersey", "San Francisco Bay Area": "SF Bay Area" };
+      const fitPlace = (line, depth = 3) => (textEm(line) <= lineFitsEm(depth) ? line : PLACE_SHORT[line] || line);
 
       // A row for an item inside a panel.
       //  - items: [...] (stateful children, e.g. a player's "Extras"/"USA") → a block
@@ -1724,7 +1734,7 @@
             return `<div class="exp-line exp-pair"${cut ? ` title="${esc(line)}"` : ""}>` +
                    `<span>${pair[1]}</span><span>${esc(a)}<br />${esc(b)}</span></div>`;
           }
-          const shown = it.plain ? line : shortenLine(line, depth + 1);
+          const shown = it.plain ? fitPlace(line, depth + 1) : shortenLine(line, depth + 1);
           return `<div class="exp-line"${shown !== line ? ` title="${esc(line)}"` : ""}>${esc(shown)}</div>`;
         }).join("");
         // A state subtab opens containers so you can walk down to the rows that
@@ -2258,21 +2268,63 @@
         const tabs = [];
         if (counts.albumPaths.length) tabs.push({ key: "albumes", label: counts.albumPaths.length === 1 ? "Álbum" : "Álbumes" });
         if (counts.sobrePaths.length) tabs.push({ key: "sobres",  label: counts.sobrePaths.length === 1 ? "Sobre" : "Sobres" });
-        // Postales holds the year's set photos (and what is still to photograph), or the
-        // 1970-82 numbered checklist; a year with none has no Postales tab. Player sets have
-        // their own tabs.
-        if (album.postales && (isGridSet(album.postales) || setPhotos(album, true).length)) {
+        // Postales is the 1970-82 numbered checklist; Sets holds a later year's set photos
+        // (and what is still to photograph). A year with neither has no such tab. Player
+        // sets have their own tabs.
+        if (album.postales && isGridSet(album.postales)) {
           tabs.push({ key: "postales", label: "Postales" });
+        } else if (album.postales && setPhotos(album, true).length) {
+          tabs.push({ key: "postales", label: "Sets" });
         }
         return tabs;
       }
 
-      // A year's set photos, in the order its Postales tab lists them, each captioned by
+      // A year's set photos, in the order its Postales row lists them, each captioned by
       // its place there ("Coca Cola · Alemania", "McDonald's · Rusia"). With withMissing, every entry of the Coca
       // Cola and Otros rows that is in hand (green) but has no photo yet takes its place as
       // { missing: true }: a reminder of what is still to photograph. An entry is one
       // collectible: a row without entries of its own, or one whose inside only details it
       // (Extras' tiers, noIcon lines); nothing under a photo is missing.
+      // Every set photo also comes as its fronts, in its year's fronts/ folder (a set of N
+      // pocket sheets as name_1 to name_N, each with its own fronts+backs image): the
+      // year's Sets tab shows those, and a click opens the image with the backs. SET_PREVIEWS has each
+      // one's size in pocket sheets (a sheet is 4 stickers across), [width, height] per
+      // sheet, as scanner/codigo/pages.swift prints them: the tab sizes every preview by
+      // it, so a sticker is the same size in every set and each set sits the same
+      // distance from the next.
+      const SET_PREVIEWS = {
+        "CocaCola_2010_Alemania.jpg": [[0.452, 0.596]],
+        "CocaCola_2010_Latam.jpg": [[0.905, 0.597]],
+        "Otros_2010_TournamentTracker.jpg": [[0.887, 1.205], [0.887, 0.597]],
+        "Otros_2010_VisaOurocard.jpg": [[0.596, 0.492]],
+        "CocaCola_2014_Austria.jpg": [[0.432, 0.901]],
+        "CocaCola_2014_Mexico.jpg": [[0.891, 0.597]],
+        "Otros_2014_Brasil.jpg": [[0.887, 0.901]],
+        "Otros_2014_Ecuador.jpg": [[0.897, 0.901]],
+        "CocaCola_2018_Austria_Botella.jpg": [[0.974, 0.901]],
+        "CocaCola_2018_Austria_Numerada.jpg": [[0.832, 0.901]],
+        "CocaCola_2018_Mexico_Botella.jpg": [[0.714, 0.901]],
+        "CocaCola_2018_Mexico_Numerada.jpg": [[0.687, 0.901]],
+        "McDonalds_2018_Alemania.jpg": [[0.696, 0.902]],
+        "McDonalds_2018_Portugal.jpg": [[0.882, 0.597]],
+        "McDonalds_2018_Rusia.jpg": [[0.884, 0.597]],
+        "McDonalds_2018_SinNumero.jpg": [[0.920, 1.205], [0.920, 1.205], [0.920, 0.597]],
+        "CocaCola_2022_America_Numerada.jpg": [[0.876, 0.596]],
+        "CocaCola_2022_Europa_Botella.jpg": [[0.800, 1.205]],
+        "CocaCola_2022_Europa_Numerada.jpg": [[0.804, 1.205]],
+        "McDonalds_2022.jpg": [[0.929, 0.597]],
+        "Otros_2026_TradingCards_China.jpg": [[0.429, 0.864]],
+        "Otros_2026_TradingCards_HostCities.jpg": [[0.874, 1.205]],
+        "CocaCola_2026_Latam_Botella.jpg": [[0.911, 1.205]],
+        "CocaCola_2026_Latam_Numerada.jpg": [[0.909, 1.205]],
+        "CocaCola_2026_USA_Botella.jpg": [[0.860, 0.901]],
+        "CocaCola_2026_USA_Numerada.jpg": [[0.916, 0.901]],
+        "CocaCola_2026_Europa_Botella.jpg": [[0.800, 0.901]],
+        "CocaCola_2026_Europa_Numerada.jpg": [[0.868, 0.901]],
+      };
+      // A placeholder's size: a typical set of two rows of four
+      const MISSING_SET = [0.88, 0.597];
+
       function setPhotos(album, withMissing = false) {
         const p = album.postales;
         if (!p || !Array.isArray(p.items)) return [];
@@ -2282,7 +2334,19 @@
           const here = [...path, n.caption || n.label];
           // The Otros row only groups what is not Coca Cola: its photos go by their own names
           const name = (here[0] === OTROS_MIRROR_LABEL ? here.slice(1) : here).join(" · ");
-          if (n.photo) out.push({ src: `assets/sets/${album.year}/${n.photo}`, name });
+          const dir = `assets/sets/${album.year}`;
+          const sheet = i => n.photo.replace(/\.jpg$/, `_${i + 1}.jpg`);
+          // A set over 16 comes sheet by sheet, captioned 1/2, 2/2...: each pocket sheet is
+          // a preview of its own and opens just that sheet's fronts and backs
+          if (n.photo && n.pages > 1) {
+            const sizes = SET_PREVIEWS[n.photo] || [];
+            for (let i = 0; i < n.pages; i++) out.push({
+              src: `${dir}/${sheet(i)}`, name: `${name} ${i + 1}/${n.pages}`, page: i + 1,
+              thumb: `${dir}/fronts/${sheet(i)}`, size: sizes[i]
+            });
+          } else if (n.photo) out.push({
+            src: `${dir}/${n.photo}`, name, thumb: `${dir}/fronts/${n.photo}`, size: (SET_PREVIEWS[n.photo] || [])[0]
+          });
           else if (withMissing && mirrored && path.length && isEntry(n) && setStatus(n).state === "complete") {
             out.push({ name, missing: true });
           }
@@ -2341,19 +2405,25 @@
             return;
           }
           const photos = setPhotos(album, true);
-          // The count is of photos; a placeholder is not one yet
-          showCountLine(headEl, photos.filter(ph => !ph.missing).length);
-          // Up to four per row (two on phones), fewer spread over the row, like Fotos
-          panel.className = gridClass(photos.length);
-          panel.innerHTML = photos.map(ph => ph.missing
-            ? `<figure class="gallery-figure is-missing">
-                <div class="gallery-missing" role="img" aria-label="${esc(`${ph.name}: falta escanear`)}">Falta escanear</div>
+          // The count is of sets; a placeholder is not one yet, a set's second sheet is
+          // the same set
+          showCountLine(headEl, photos.filter(ph => !ph.missing && !(ph.page > 1)).length);
+          // Each set (or sheet of a set over 16) by its fronts, its name on top, every
+          // sticker the same size (see .sheet-pages)
+          panel.className = "gallery-images sheet-pages";
+          // A preview's size, in sheets (a sheet not in SET_PREVIEWS: one wide)
+          const sized = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
+          panel.innerHTML = photos.map(ph => {
+            if (ph.missing) return `<figure class="gallery-figure is-missing">
                 <figcaption class="gallery-label">${esc(ph.name)}</figcaption>
-              </figure>`
-            : `<figure class="gallery-figure">
-              <img class="gallery-img" src="${ph.src}" alt="${esc(`${label} ${album.year} · ${ph.name}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
+                <div class="gallery-missing" ${sized(MISSING_SET)} role="img" aria-label="${esc(`${ph.name}: falta escanear`)}">Falta escanear</div>
+              </figure>`;
+            const alt = esc(`${label} ${album.year} · ${ph.name}`);
+            return `<figure class="gallery-figure">
               <figcaption class="gallery-label">${esc(ph.name)}</figcaption>
-            </figure>`).join("");
+              <img class="gallery-img" src="${ph.thumb}" ${sized(ph.size)} data-full="${ph.src}" alt="${alt}" loading="lazy" decoding="async" role="button" tabindex="0" />
+            </figure>`;
+          }).join("");
         }
         renderGalleryTabs(tabs);
       }
@@ -2739,6 +2809,14 @@
       let lbIndex  = 0;
       let lbReturnFocus = null;
 
+      // Starts loading an image the viewer is about to show (once per address)
+      const warmedImages = new Set();
+      function warmImage(src) {
+        if (!src || warmedImages.has(src)) return;
+        warmedImages.add(src);
+        new Image().src = src;
+      }
+
       function openLightbox(images, index) {
         lbImages = images;
         lbIndex  = index;
@@ -2754,6 +2832,8 @@
         lightboxImg.src = lbImages[lbIndex].src;
         lightboxImg.alt = lbImages[lbIndex].alt;
         if (lbCounter) lbCounter.textContent = `${lbIndex + 1} de ${lbImages.length}`;
+        // The photos either side load meanwhile, so the arrows turn without a wait
+        if (lbImages.length > 1) [-1, 1].forEach(d => warmImage(lbImages[(lbIndex + d + lbImages.length) % lbImages.length].src));
         if (lbLabel) {
           const l = lbImages[lbIndex].label;
           lbLabel.textContent = l || "";
@@ -2784,7 +2864,9 @@
         const images  = all.map(el => {
           const fig = el.closest(".gallery-figure");
           const cap = fig ? fig.querySelector(".gallery-label") : null;
-          return { src: el.src, alt: el.alt, label: el.dataset.label || (cap ? cap.textContent : null), dot: el.dataset.dot };
+          // A set's pocket-page preview opens as its whole image (data-full); a preview of
+          // several pages is one button, named by its aria-label
+          return { src: el.dataset.full || el.src, alt: el.alt || el.getAttribute("aria-label"), label: el.dataset.label || (cap ? cap.textContent : null), dot: el.dataset.dot };
         });
         openLightbox(images, all.indexOf(img));
       }
@@ -2804,6 +2886,13 @@
           openLightboxFromImg(img);
         });
       });
+
+      // A set preview's whole image starts loading when the pointer or focus reaches it,
+      // so the viewer has it (or most of it) by the click
+      ["pointerover", "focusin"].forEach(type => document.getElementById("gallery-set-panel").addEventListener(type, e => {
+        const img = e.target.closest(".gallery-img[data-full]");
+        if (img) warmImage(img.dataset.full);
+      }));
 
       lightbox.addEventListener("click", closeLightbox);
       lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); });
@@ -2889,7 +2978,7 @@
 
       // ── Addresses ──────────────────────────────────────────────────────────
       // Every view has an address: /messi, /messi/fotos, /messi/fotos/2010, /sets/falta,
-      // /2010, /2010/postales. GitHub Pages has no file at those paths, so its 404.html
+      // /2010, /2010/sets, /1982/postales. GitHub Pages has no file at those paths, so its 404.html
       // hands the path back here as /?p=messi/fotos and the clean address returns to the
       // bar. A local file cannot change its path, so there the route rides in the hash
       // (index.html#messi/fotos).
@@ -2908,8 +2997,10 @@
         if (album) {
           const counts = imageCounts[currentGalleryYear] || { albumPaths: [], sobrePaths: [] };
           const first  = (galleryTabsFor(album, counts)[0] || {}).key;
+          // A year's Sets tab is /2010/sets; the 1970-82 checklist stays /1982/postales
+          const tab = galleryTabsFor(album, counts).find(t => t.key === currentGalleryTab);
           return currentGalleryTab && currentGalleryTab !== first
-            ? `${currentGalleryYear}/${currentGalleryTab}` : String(currentGalleryYear);
+            ? `${currentGalleryYear}/${tab ? slugOf(tab.label) : currentGalleryTab}` : String(currentGalleryYear);
         }
         // A tab without subtabs keeps the last subtab in mind for the next tab, but it is
         // not part of this tab's address
@@ -2937,7 +3028,7 @@
         const [first = "", second = "", third = ""] = route.split("/");
         const album = ALBUMS.find(a => String(a.year) === first);
         if (album) {
-          showGallery(album.year, second || null);
+          showGallery(album.year, second === "sets" ? "postales" : second || null);
           return true;
         }
         const key = first === "" ? null : first === "sets" ? "postales"
