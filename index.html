@@ -45,7 +45,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.5</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.6</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -183,7 +183,8 @@
       //   afterPostales: true places the set's tab after Postales (player sets).
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
-      //   the Postales tab's Actualización and Otros rows are derived from.
+      //   the Postales tab's Actualización, Coca Cola, Variantes (id "variantes": sets
+      //   made to be glued into the album) and Otros rows are derived from.
       //   A blank "" entry inside sub renders as a gap between groups of lines.
       const ALBUMS = [
         { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
@@ -337,13 +338,6 @@
           ] },
           sets: [
             { id: "otros",         label: "Otros", items: [
-              { label: "Made in Brazil", total: 5,  complete: false, sub: [
-                "171 Marcos",
-                "173 Juan",
-                "177 Edmílson",
-                "178 Belletti",
-                "179 Ronaldinho",
-              ] },
               { label: "México", total: 2, complete: false, sub: [
                 "Cristiano Zanetti",
                 "Marco Delvecchio",
@@ -398,8 +392,48 @@
             { label: "Actualización", total: 80, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "Sin número", total: 60, complete: true, sub: [
+            { id: "variantes",     label: "Variantes", items: [
+              { label: "CC Latam", total: 8, complete: true, plain: true, photo: "CocaCola_2010_Latam.jpg", sub: [
+                "A Copa Mundial 2010",
+                "B Mascot",
+                "C El Aeroplano",
+                "D El Arquero",
+                "E La Mecedora",
+                "F El Robot",
+                "G El Bote",
+                "H El Rockero",
+              ] },
+              { label: "CC Alemania", total: 4, complete: true, photo: "CocaCola_2010_Alemania.jpg", sub: [
+                "M. Klose 1/4",
+                "M. Klose 2/4",
+                "M. Klose 3/4",
+                "M. Klose 4/4",
+              ] },
+              { label: "Brasil", total: 4, complete: true, photo: "Variantes_2010_Brasil.jpg", sub: [
+                "A1",
+                "B1",
+                "C1",
+                "D1",
+              ] },
+            ] },
+            { id: "otros",         label: "Otros", items: [
+              { label: "Brasil",                      total: 9,  complete: false, sub: [
+                "Doni",
+                "Gomes",
+                "Thiago Silva",
+                "Gilberto",
+                "Michel Bastos",
+                "Kléberson",
+                "Ramires",
+                "Júlio Baptista",
+                "Grafite",
+              ] },
+              { label: "Jabulani",                    total: 9,  complete: false, sub: [
+                "A-D",
+                "E (Imposible)",
+                "F-I",
+              ] },
+              { label: "CC Sin núm.", caption: "CC Sin número", total: 60, complete: true, sub: [
                 "Benni McCarthy",
                 "Steven Pienaar",
                 "Diego Lugano",
@@ -461,36 +495,7 @@
                 "Gökhan Inler",
                 "Carlos Pavón",
               ] },
-              { label: "Latam", total: 8, complete: true, plain: true, photo: "CocaCola_2010_Latam.jpg", sub: [
-                "A Copa Mundial 2010",
-                "B Mascot",
-                "C El Aeroplano",
-                "D El Arquero",
-                "E La Mecedora",
-                "F El Robot",
-                "G El Bote",
-                "H El Rockero",
-              ] },
-              { label: "Alemania", total: 4, complete: true, photo: "CocaCola_2010_Alemania.jpg", sub: [
-                "M. Klose 1/4",
-                "M. Klose 2/4",
-                "M. Klose 3/4",
-                "M. Klose 4/4",
-              ] },
-              { label: "Trophy Tour", total: 1, coming: true },
-            ] },
-            { id: "otros",         label: "Otros", items: [
-              { label: "Jabulani",                    total: 9,  complete: false, sub: [
-                "A-D",
-                "E (Imposible)",
-                "F-I",
-              ] },
-              { label: "Visa Ourocard",               total: 4,  complete: true, photo: "Otros_2010_VisaOurocard.jpg", sub: [
-                "A1",
-                "B1",
-                "C1",
-                "D1",
-              ] },
+              { label: "CC Trophy Tour",              total: 1,  coming: true },
               { label: "Tourn. Tracker", caption: "Tournament Tracker", total: 24, complete: true, photo: "Otros_2010_TournamentTracker.jpg", pages: 2, sub: [
                 "A John Terry",
                 "B Samuel Eto'o",
@@ -516,19 +521,6 @@
                 "V Dirk Kuyt",
                 "W Franck Ribéry",
                 "X Rio Ferdinand",
-              ] },
-            ] },
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "Brasil", total: 9, complete: false, sub: [
-                "Doni",
-                "Gomes",
-                "Thiago Silva",
-                "Gilberto",
-                "Michel Bastos",
-                "Kléberson",
-                "Ramires",
-                "Júlio Baptista",
-                "Grafite",
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -563,8 +555,8 @@
             { label: "Actualización", total: 72, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "Austria", total: 6, complete: true, photo: "CocaCola_2014_Austria.jpg", sub: [
+            { id: "variantes",     label: "Variantes", items: [
+              { label: "CC Europa", total: 6, complete: true, photo: "CocaCola_2014_Europa.jpg", sub: [
                 "A Bruno Alves",
                 "B D. De Rossi",
                 "C Edin Džeko",
@@ -572,20 +564,18 @@
                 "E J. Mascherano",
                 "F Axel Witsel",
               ] },
-              { label: "México", total: 8, complete: true, photo: "CocaCola_2014_Mexico.jpg" },
-            ] },
-            { id: "otros",         label: "Otros", items: [
+              { label: "CC México", total: 8, complete: true, photo: "CocaCola_2014_Mexico.jpg" },
               { label: "USA", total: 3, complete: true, sub: [
                 "640 UNITY",
                 "641 FRIENDSHIP",
                 "642 FAIRPLAY",
               ] },
-              { label: "Brasil", total: 9,  complete: true, photo: "Otros_2014_Brasil.jpg", sub: [
+              { label: "Brasil", total: 9,  complete: true, photo: "Variantes_2014_Brasil.jpg", sub: [
                 "J1-J4",
                 "L1-L4",
                 "W1",
               ] },
-              { label: "Ecuador", total: 11, complete: true, photo: "Otros_2014_Ecuador.jpg", sub: [
+              { label: "Ecuador", total: 11, complete: true, photo: "Variantes_2014_Ecuador.jpg", sub: [
                 "V1 Iker Casillas",
                 "V2 Thiago Silva",
                 "V3 Vincent Kompany",
@@ -599,7 +589,7 @@
                 "V11 Neymar Jr",
               ] },
             ] },
-            { id: "actualizacion", label: "Actualización", items: [
+            { id: "otros",         label: "Otros", items: [
               { label: "Bélgica",  total: 6,  complete: false, sub: [
                 "Divock Origi",
                 "Adnan Januzaj",
@@ -684,8 +674,44 @@
             { label: "Actualización", total: 92, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "México",  countNested: true, items: [
+            { id: "variantes",     label: "Variantes", items: [
+              { label: "CC Suiza", countNested: true, items: [
+                { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2018_Suiza_Botella.jpg", sub: [
+                  "C1 Pelé",
+                  "C2 Franz Beckenbauer",
+                  "C3 Mario Kempes",
+                  "C4 Karl-Heinz Rummenigge",
+                  "C5 Diego Armando Maradona",
+                  "C6 Paolo Maldini",
+                  "C7 Carlos Valderrama",
+                  "C8 Michael Owen",
+                  "C9 Rivaldo",
+                  "C10 Fabio Cannavaro",
+                  "C11 Carles Puyol",
+                  "C12 Miroslav Klose",
+                ] },
+                { label: "Numerada", total: 12, complete: true, photo: "CocaCola_2018_Suiza_Numerada.jpg", sub: [
+                  "C1 Pelé",
+                  "C2 Franz Beckenbauer",
+                  "C3 Mario Kempes",
+                  "C4 Karl-Heinz Rummenigge",
+                  "C5 Diego Armando Maradona",
+                  "C6 Paolo Maldini",
+                  "C7 Carlos Valderrama",
+                  "C8 Michael Owen",
+                  "C9 Rivaldo",
+                  "C10 Fabio Cannavaro",
+                  "C11 Carles Puyol",
+                  "C12 Miroslav Klose",
+                ] },
+              ] },
+              { label: "Firminho", items: [
+                { label: "357 Brazil", dot: "rosada", complete: false },
+                { label: "357 Italy",  dot: "negra",  complete: true },
+                { label: "369 Brazil", dot: "rosada", complete: false },
+                { label: "369 Italy",  dot: "negra",  complete: false },
+              ] },
+              { label: "CC México", countNested: true, items: [
                 { label: "Botella",  total: 9, complete: true, photo: "CocaCola_2018_Mexico_Botella.jpg", sub: [
                   "CC1 Jesús Corona",
                   "CC2 Diego Reyes",
@@ -709,39 +735,7 @@
                   "CC9 Raúl Jiménez",
                 ] },
               ] },
-              { label: "Austria", countNested: true, items: [
-                { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2018_Austria_Botella.jpg", sub: [
-                  "C1 Pelé",
-                  "C2 Franz Beckenbauer",
-                  "C3 Mario Kempes",
-                  "C4 Karl-Heinz Rummenigge",
-                  "C5 Diego Armando Maradona",
-                  "C6 Paolo Maldini",
-                  "C7 Carlos Valderrama",
-                  "C8 Michael Owen",
-                  "C9 Rivaldo",
-                  "C10 Fabio Cannavaro",
-                  "C11 Carles Puyol",
-                  "C12 Miroslav Klose",
-                ] },
-                { label: "Numerada", total: 12, complete: true, photo: "CocaCola_2018_Austria_Numerada.jpg", sub: [
-                  "C1 Pelé",
-                  "C2 Franz Beckenbauer",
-                  "C3 Mario Kempes",
-                  "C4 Karl-Heinz Rummenigge",
-                  "C5 Diego Armando Maradona",
-                  "C6 Paolo Maldini",
-                  "C7 Carlos Valderrama",
-                  "C8 Michael Owen",
-                  "C9 Rivaldo",
-                  "C10 Fabio Cannavaro",
-                  "C11 Carles Puyol",
-                  "C12 Miroslav Klose",
-                ] },
-              ] },
-            ] },
-            { id: "otros",         label: "McDonald's", items: [
-              { label: "Alemania",     total: 9,  complete: true, photo: "McDonalds_2018_Alemania.jpg", sub: [
+              { label: "Mc Alemania", total: 9, complete: true, photo: "McDonalds_2018_Alemania.jpg", sub: [
                 "M1 Jérôme Boateng",
                 "M2 Manuel Neuer",
                 "M3 Mats Hummels",
@@ -752,7 +746,48 @@
                 "M8 Timo Werner",
                 "M9 Thomas Müller",
               ] },
-              { label: "Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", pages: 3, sub: [
+              { label: "Mc Portugal", total: 8, complete: true, photo: "McDonalds_2018_Portugal.jpg", sub: [
+                "M1 Rui Patrício",
+                "M2 João Mário",
+                "M3 João Moutinho",
+                "M4 William Carvalho",
+                "M5 André Gomes",
+                "M6 Cristiano Ronaldo",
+                "M7 Bernardo Silva",
+                "M8 André Silva",
+              ] },
+              { label: "Mc Rusia",    total: 8, complete: true, photo: "McDonalds_2018_Rusia.jpg", sub: [
+                "M1 Igor Akinfeev",
+                "M2 Igor Smolnikov",
+                "M3 Denis Glushakov",
+                "M4 Aleksandr Golovin",
+                "M5 Yuri Zhirkov",
+                "M6 Aleksandr Samedov",
+                "M7 Fedor Smolov",
+                "M8 Dmitri Poloz",
+              ] },
+            ] },
+            { id: "otros",         label: "Otros", items: [
+              { label: "Brasil",        total: 8,  complete: true },
+              { label: "España",        total: 7,  complete: false, sub: [
+                "Pepe Reina",
+                "Kepa Arrizabalaga",
+                "Álvaro Odriozola",
+                "César Azpilicueta",
+                "Lucas Vázquez",
+                "Iago Aspas",
+                "Rodrigo",
+              ] },
+              { label: "Francia",       total: 6,  complete: false, sub: [
+                "Steve Mandanda",
+                "Benjamin Pavard",
+                "Presnel Kimpembe",
+                "Corentin Tolisso",
+                "Nabil Fekir",
+                "Florian Thauvin",
+              ] },
+              { label: "México",        total: 5,  complete: false },
+              { label: "Mc Sin núm.", caption: "Mc Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", pages: 3, sub: [
                 "Igor Akinfeev",
                 "Viktor Vasin",
                 "Aleksei Miranchuk",
@@ -801,53 +836,6 @@
                 "Youri Tielemans",
                 "Dries Mertens",
                 "Romelu Lukaku",
-              ] },
-              { label: "Portugal",  total: 8, complete: true, photo: "McDonalds_2018_Portugal.jpg", sub: [
-                "M1 Rui Patrício",
-                "M2 João Mário",
-                "M3 João Moutinho",
-                "M4 William Carvalho",
-                "M5 André Gomes",
-                "M6 Cristiano Ronaldo",
-                "M7 Bernardo Silva",
-                "M8 André Silva",
-              ] },
-              { label: "Rusia",     total: 8, complete: true, photo: "McDonalds_2018_Rusia.jpg", sub: [
-                "M1 Igor Akinfeev",
-                "M2 Igor Smolnikov",
-                "M3 Denis Glushakov",
-                "M4 Aleksandr Golovin",
-                "M5 Yuri Zhirkov",
-                "M6 Aleksandr Samedov",
-                "M7 Fedor Smolov",
-                "M8 Dmitri Poloz",
-              ] },
-            ] },
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "Brasil",        total: 8,  complete: true },
-              { label: "España",        total: 7,  complete: false, sub: [
-                "Pepe Reina",
-                "Kepa Arrizabalaga",
-                "Álvaro Odriozola",
-                "César Azpilicueta",
-                "Lucas Vázquez",
-                "Iago Aspas",
-                "Rodrigo",
-              ] },
-              { label: "Francia",       total: 6,  complete: false, sub: [
-                "Steve Mandanda",
-                "Benjamin Pavard",
-                "Presnel Kimpembe",
-                "Corentin Tolisso",
-                "Nabil Fekir",
-                "Florian Thauvin",
-              ] },
-              { label: "México",        total: 5,  complete: false },
-              { label: "Firminho", items: [
-                { label: "357 Brazil", dot: "rosada", complete: false },
-                { label: "357 Italy",  dot: "negra",  complete: true },
-                { label: "369 Brazil", dot: "rosada", complete: false },
-                { label: "369 Italy",  dot: "negra",  complete: false },
               ] },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -899,8 +887,8 @@
             { label: "Actualización", total: 80, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "Europa", countNested: true, items: [
+            { id: "variantes",     label: "Variantes", items: [
+              { label: "CC Europa", countNested: true, items: [
                 { label: "Botella",  total: 14, complete: true, photo: "CocaCola_2022_Europa_Botella.jpg", sub: [
                   "C1 Eden Hazard",
                   "C2 Serge Gnabry",
@@ -934,7 +922,7 @@
                   "C14 Hirving Lozano",
                 ] },
               ] },
-              { label: "Corea",  total: 14, complete: false, sub: [
+              { label: "CC Corea", total: 14, complete: false, sub: [
                 "C1 Eden Hazard",
                 "C2 Serge Gnabry",
                 "C3 Ángel Di María",
@@ -950,7 +938,7 @@
                 "C13 Sergej Milinković-Savić",
                 "C14 Hirving Lozano",
               ] },
-              { label: "América", countNested: true, items: [
+              { label: "CC América", countNested: true, items: [
                 { label: "Botella",  total: 8, complete: false, sub: [
                   "C1 Serge Gnabry",
                   "C2 Emiliano Martínez",
@@ -971,6 +959,16 @@
                   "C7 Hirving Lozano",
                   "C8 Heung-Min Son",
                 ] },
+              ] },
+              { label: "Mc O. Medio", caption: "Mc Oriente Medio", total: 8, complete: true, photo: "McDonalds_2022_OrienteMedio.jpg", sub: [
+                "M1 Kevin De Bruyne",
+                "M2 Luka Modrić",
+                "M3 Heung-Min Son",
+                "M4 Ángel Di María",
+                "M5 Thiago Silva",
+                "M6 Sergej Milinković-Savić",
+                "M7 Declan Rice",
+                "M8 Hirving Lozano",
               ] },
             ] },
             { id: "otros",         label: "Otros", items: [
@@ -1064,20 +1062,8 @@
                   "Dušan Vlahović",
                 ] },
               ] },
+              { label: "España",     total: 8,  complete: false },
               { label: "Letras",     total: 22, complete: true },
-              { label: "McDonald's", total: 8,  complete: true, photo: "McDonalds_2022.jpg", sub: [
-                "M1 Kevin De Bruyne",
-                "M2 Luka Modrić",
-                "M3 Heung-Min Son",
-                "M4 Ángel Di María",
-                "M5 Thiago Silva",
-                "M6 Sergej Milinković-Savić",
-                "M7 Declan Rice",
-                "M8 Hirving Lozano",
-              ] },
-            ] },
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "España",        total: 8,  complete: false },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 19", items: [
@@ -1153,8 +1139,8 @@
             { label: "Actualización", total: 120, complete: true },
           ] },
           sets: [
-            { id: "coca-cola",     label: "Coca Cola", items: [
-              { label: "Latam",      countNested: true, items: [
+            { id: "variantes",     label: "Variantes", items: [
+              { label: "CC Latam",  countNested: true, items: [
                 { label: "Botella",  total: 14, complete: true, photo: "CocaCola_2026_Latam_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
@@ -1188,7 +1174,7 @@
                   "CC14 Lautaro Martínez",
                 ] },
               ] },
-              { label: "USA",                countNested: true, items: [
+              { label: "CC USA",    countNested: true, items: [
                 { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2026_USA_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
@@ -1217,11 +1203,8 @@
                   "CC11 Lautaro Martínez",
                   "CC12 Gabriel Magalhães",
                 ] },
-                { label: "Error",    total: 1, complete: true, sub: [
-                  "CC 12 Thibaut Courtois",
-                ] },
               ] },
-              { label: "Europa",             countNested: true, items: [
+              { label: "CC Europa", countNested: true, items: [
                 { label: "Botella",  total: 12, complete: true, photo: "CocaCola_2026_Europa_Botella.jpg", sub: [
                   "CC1 Lamine Yamal",
                   "CC2 Joshua Kimmich",
@@ -1250,11 +1233,25 @@
                   "CC11 Harry Kane",
                   "CC12 Antonee Robinson",
                 ] },
+                { label: "Mini",     total: 12, complete: true, photo: "CocaCola_2026_Europa_Mini.jpg", sub: [
+                  "CC1 Lamine Yamal",
+                  "CC2 Joshua Kimmich",
+                  "CC3 Eduardo Camavinga",
+                  "CC4 Joško Gvardiol",
+                  "CC5 Federico Valverde",
+                  "CC6 Virgil Van Dijk",
+                  "CC7 Alphonso Davies",
+                  "CC8 Raúl Jiménez",
+                  "CC9 William Saliba",
+                  "CC10 Lautaro Martínez",
+                  "CC11 Harry Kane",
+                  "CC12 Antonee Robinson",
+                ] },
               ] },
             ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Trading Cards", countNested: true, items: [
-                { label: "Set",         total: 12, complete: true, sub: [
+              { label: "Tarjetas", countNested: true, items: [
+                { label: "Coca Cola",   total: 12, complete: true, sub: [
                   "No.1 Lamine Yamal",
                   "No.2 Joshua Kimmich",
                   "No.3 Harry Kane",
@@ -1268,7 +1265,7 @@
                   "No.11 Edson Álvarez",
                   "No.12 Weston McKennie",
                 ] },
-                { label: "Host Cities", total: 16, complete: true, plain: true, photo: "Otros_2026_TradingCards_HostCities.jpg", sub: [
+                { label: "Host Cities", total: 16, complete: true, plain: true, photo: "Otros_2026_Tarjetas_HostCities.jpg", sub: [
                   "Toronto",
                   "Vancouver",
                   "",
@@ -1288,7 +1285,7 @@
                   "Seattle",
                   "San Francisco Bay Area",
                 ] },
-                { label: "China",       total: 4, complete: true, photo: "Otros_2026_TradingCards_China.jpg", sub: [
+                { label: "China",       total: 4, complete: true, photo: "Otros_2026_Tarjetas_China.jpg", sub: [
                   "Lamine Yamal",
                   "Harry Kane",
                   "Virgil Van Dijk",
@@ -1301,6 +1298,10 @@
                 { label: "Plata",  dot: "plateada", total: 20, noIcon: true },
                 { label: "Oro",    dot: "oro", total: 20, noIcon: true },
               ] },
+              { label: "CC USA Error", total: 1, complete: true, sub: [
+                "CC12 Thibaut Courtois",
+              ] },
+              { label: "España",     total: 12, complete: false },
               { label: "McDonald's", total: 28, collected: 28, sub: [
                 "MEX13 Mexico",
                 "KOR13 S. Korea",
@@ -1332,13 +1333,10 @@
                 "GHA13 Ghana",
               ] },
             ] },
-            { id: "actualizacion", label: "Actualización", items: [
-              { label: "España",           total: 12,  complete: false },
-            ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "ARG 17", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Messi_2026_ARG17_MadeInBrazil.jpg" },
-                { label: "Made in Italy",      coming: true },
+                { label: "Made in Italy",      complete: true, photo: "Messi_2026_ARG17_MadeInItaly.jpg" },
                 { label: "United", dot: "lima",   complete: true, photo: "Messi_2026_ARG17_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
@@ -1354,7 +1352,7 @@
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 15", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2026_POR15_MadeInBrazil.jpg" },
-                { label: "Made in Italy",      coming: true },
+                { label: "Made in Italy",      complete: true, photo: "Ronaldo_2026_POR15_MadeInItaly.jpg" },
                 { label: "United", dot: "lima",   complete: true, photo: "Ronaldo_2026_POR15_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2026_POR15_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Ronaldo_2026_POR15_USA_Azul.jpg" },
@@ -1370,7 +1368,7 @@
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 20", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Mbappe_2026_FRA20_MadeInBrazil.jpg" },
-                { label: "Made in Italy",      coming: true },
+                { label: "Made in Italy",      complete: true, photo: "Mbappe_2026_FRA20_MadeInItaly.jpg" },
                 { label: "Silver Parallel", dot: "plateada", complete: false },
                 { label: "United", dot: "lima",   complete: true, photo: "Mbappe_2026_FRA20_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2026_FRA20_USA_Blanca.jpg" },
@@ -1786,17 +1784,21 @@
 
       const OTROS_MIRROR_LABEL = "Otros";
       const COCA_COLA_ID = "coca-cola";
-      // Coca Cola carries enough of its own to read as a row in its own right, so it
-      // sits above Otros rather than as one more section inside it. Everything else
+      const VARIANTES_ID = "variantes";
+      // Coca Cola carries enough of its own to read as a row in its own right, and Variantes
+      // gathers the sets that were made to be glued into the album, so both sit above
+      // Otros (in that order) rather than as one more section inside it. Everything else
       // still gathers under Otros.
+      const OWN_ROWS = [COCA_COLA_ID, VARIANTES_ID];
       const otrosMirrorRows = album => {
         const rows = [], otros = [];
         (album.sets || [])
           .filter(c => !c.afterPostales && c.id !== "actualizacion")
+          .sort((a, b) => (OWN_ROWS.indexOf(a.id) + 1 || 99) - (OWN_ROWS.indexOf(b.id) + 1 || 99))
           .forEach(c => {
             // List each section's entries A-Z
             const entries = otrosSortedEntries(c);
-            if (c.id === COCA_COLA_ID) rows.push({ label: c.label, countNested: true, items: entries });
+            if (OWN_ROWS.includes(c.id)) rows.push({ label: c.label, countNested: true, items: entries });
             // A catch-all named like the row itself would read "Otros › Otros", so its
             // entries sit straight in the row, listed inline
             else if (c.label === OTROS_MIRROR_LABEL) otros.push(...entries);
@@ -1993,6 +1995,11 @@
         let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
         // Under a sub tab, only years with at least one row in that state
         if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
+        // Sets' Todo leaves out a year with nothing in hand or on its way (1970-78, none of
+        // their postales yet); Falta still lists it
+        else if (filterKey === "postales") {
+          albums = albums.filter(a => ["complete", "coming"].some(st => setLedgerRows(a, filterKey, st) !== ""));
+        }
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const cardLabel = albumTitle(album);
           const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(photoYears.has(album.year) ? `Fotos ${album.year}` : cardLabel)}">
@@ -2094,6 +2101,9 @@
       // ── Gallery ────────────────────────────────────────────────────────────
       let currentGalleryYear = null;
       let currentGalleryTab  = null;
+      let currentSetAlbum    = null; // the year whose Sets tab is open, its tab label and subtab
+      let currentSetLabel    = "";
+      let currentSetSection  = null;
       let currentGridSet     = null;
       let currentGridYear    = null; // the album the grid belongs to, for the copy list
       let gridFilter         = null; // null = all; else "is-confirmed" | "is-pending" | "is-coming"
@@ -2279,10 +2289,10 @@
         return tabs;
       }
 
-      // A year's set photos, in the order its Postales row lists them, each captioned by
-      // its place there ("Coca Cola · Alemania", "McDonald's · Rusia"). With withMissing, every entry of the Coca
-      // Cola and Otros rows that is in hand (green) but has no photo yet takes its place as
-      // { missing: true }: a reminder of what is still to photograph. An entry is one
+      // A year's set photos, in the order its Sets rows list them, each with its section
+      // (SET_SECTIONS) and captioned by its place inside it ("CC México · Botella",
+      // "Made in Italy"). With withMissing, every entry in hand (green) that has no photo yet
+      // takes its place as { missing: true }: a reminder of what is still to photograph. An entry is one
       // collectible: a row without entries of its own, or one whose inside only details it
       // (Extras' tiers, noIcon lines); nothing under a photo is missing.
       // Every set photo also comes as its fronts, in its year's fronts/ folder (a set of N
@@ -2296,13 +2306,13 @@
         "CocaCola_2010_Alemania.jpg": [[0.452, 0.596]],
         "CocaCola_2010_Latam.jpg": [[0.905, 0.597]],
         "Otros_2010_TournamentTracker.jpg": [[0.887, 1.205], [0.887, 0.597]],
-        "Otros_2010_VisaOurocard.jpg": [[0.596, 0.492]],
-        "CocaCola_2014_Austria.jpg": [[0.432, 0.901]],
+        "Variantes_2010_Brasil.jpg": [[0.596, 0.492]],
+        "CocaCola_2014_Europa.jpg": [[0.432, 0.901]],
         "CocaCola_2014_Mexico.jpg": [[0.891, 0.597]],
-        "Otros_2014_Brasil.jpg": [[0.887, 0.901]],
-        "Otros_2014_Ecuador.jpg": [[0.897, 0.901]],
-        "CocaCola_2018_Austria_Botella.jpg": [[0.974, 0.901]],
-        "CocaCola_2018_Austria_Numerada.jpg": [[0.832, 0.901]],
+        "Variantes_2014_Brasil.jpg": [[0.887, 0.901]],
+        "Variantes_2014_Ecuador.jpg": [[0.897, 0.901]],
+        "CocaCola_2018_Suiza_Botella.jpg": [[0.974, 0.901]],
+        "CocaCola_2018_Suiza_Numerada.jpg": [[0.832, 0.901]],
         "CocaCola_2018_Mexico_Botella.jpg": [[0.714, 0.901]],
         "CocaCola_2018_Mexico_Numerada.jpg": [[0.687, 0.901]],
         "McDonalds_2018_Alemania.jpg": [[0.696, 0.902]],
@@ -2312,49 +2322,95 @@
         "CocaCola_2022_America_Numerada.jpg": [[0.876, 0.596]],
         "CocaCola_2022_Europa_Botella.jpg": [[0.800, 1.205]],
         "CocaCola_2022_Europa_Numerada.jpg": [[0.804, 1.205]],
-        "McDonalds_2022.jpg": [[0.929, 0.597]],
-        "Otros_2026_TradingCards_China.jpg": [[0.429, 0.864]],
-        "Otros_2026_TradingCards_HostCities.jpg": [[0.874, 1.205]],
+        "McDonalds_2022_OrienteMedio.jpg": [[0.929, 0.597]],
+        "Otros_2026_Tarjetas_China.jpg": [[0.429, 0.864]],
+        "Otros_2026_Tarjetas_HostCities.jpg": [[0.874, 1.205]],
         "CocaCola_2026_Latam_Botella.jpg": [[0.911, 1.205]],
         "CocaCola_2026_Latam_Numerada.jpg": [[0.909, 1.205]],
         "CocaCola_2026_USA_Botella.jpg": [[0.860, 0.901]],
         "CocaCola_2026_USA_Numerada.jpg": [[0.916, 0.901]],
         "CocaCola_2026_Europa_Botella.jpg": [[0.800, 0.901]],
         "CocaCola_2026_Europa_Numerada.jpg": [[0.868, 0.901]],
+        "CocaCola_2026_Europa_Mini.jpg": [[0.918, 0.901]],
       };
       // A placeholder's size: a typical set of two rows of four
       const MISSING_SET = [0.88, 0.597];
 
+      // The year's Sets tab has a subtab per section, in this order: Postales (the album's own
+      // sets: its rows other than Actualización), Actualización, then the rows the other sets
+      // make (Variantes, Otros)
+      const SET_SECTIONS = [POSTALES, ACTUALIZACION, "Variantes", OTROS_MIRROR_LABEL];
+
       function setPhotos(album, withMissing = false) {
         const p = album.postales;
-        if (!p || !Array.isArray(p.items)) return [];
+        if (!p || isGridSet(p)) return [];
+        // A year tracked as one number (1986, 1990, Story) is one Postales set
+        const own = Array.isArray(p.items) ? p.items : [{ label: POSTALES, total: p.total, collected: p.collected }];
         const out = [];
         const isEntry = n => !kidsOf(n).length || n.detailOnly || kidsOf(n).every(k => k.noIcon);
-        const walk = (n, path, mirrored) => {
+        const walk = (n, path, section, underPhoto) => {
           const here = [...path, n.caption || n.label];
-          // The Otros row only groups what is not Coca Cola: its photos go by their own names
-          const name = (here[0] === OTROS_MIRROR_LABEL ? here.slice(1) : here).join(" · ");
+          // A photo goes by its name inside its section ("CC México · Botella", "Mc Rusia",
+          // "Made in Italy"); a section that is a single set goes by the section's name
+          const inner = here[0] === section ? here.slice(1) : here;
+          const name = (inner.length ? inner : here).join(" · ");
           const dir = `assets/sets/${album.year}`;
+          const dot = n.dot;
           const sheet = i => n.photo.replace(/\.jpg$/, `_${i + 1}.jpg`);
           // A set over 16 comes sheet by sheet, captioned 1/2, 2/2...: each pocket sheet is
           // a preview of its own and opens just that sheet's fronts and backs
           if (n.photo && n.pages > 1) {
             const sizes = SET_PREVIEWS[n.photo] || [];
             for (let i = 0; i < n.pages; i++) out.push({
-              src: `${dir}/${sheet(i)}`, name: `${name} ${i + 1}/${n.pages}`, page: i + 1,
+              src: `${dir}/${sheet(i)}`, name: `${name} ${i + 1}/${n.pages}`, page: i + 1, section, dot,
               thumb: `${dir}/fronts/${sheet(i)}`, size: sizes[i]
             });
           } else if (n.photo) out.push({
-            src: `${dir}/${n.photo}`, name, thumb: `${dir}/fronts/${n.photo}`, size: (SET_PREVIEWS[n.photo] || [])[0]
+            src: `${dir}/${n.photo}`, name, section, dot, thumb: `${dir}/fronts/${n.photo}`, size: (SET_PREVIEWS[n.photo] || [])[0]
           });
-          else if (withMissing && mirrored && path.length && isEntry(n) && setStatus(n).state === "complete") {
-            out.push({ name, missing: true });
+          else if (withMissing && !underPhoto && isEntry(n) && setStatus(n).state === "complete") {
+            out.push({ name, missing: true, section, dot });
           }
-          if (!isEntry(n)) kidsOf(n).forEach(k => walk(k, here, mirrored && !n.photo));
+          if (!isEntry(n)) kidsOf(n).forEach(k => walk(k, here, section, underPhoto || !!n.photo));
         };
-        // The Coca Cola and Otros rows follow the album's own items (Postales, Actualización)
-        postalesRows(album, p).forEach((row, i) => walk(row, [], i >= p.items.length));
+        // The album's own rows (Postales, Actualización), then the Variantes and Otros rows
+        const rows = Array.isArray(p.items) ? postalesRows(album, p) : own;
+        rows.forEach((row, i) =>
+          walk(row, [], i >= own.length ? row.label : row.label === ACTUALIZACION ? ACTUALIZACION : POSTALES, false));
         return out;
+      }
+
+      // Set names say CC and Mc to stay short; spelled out they read "Coca Cola México ·
+      // Botella", "McDonald's Rusia"
+      const longSetName = name => name.split(" · ")
+        .map(part => part.replace(/^CC /, "Coca Cola ").replace(/^Mc /, "McDonald's ")).join(" · ");
+      // A set's caption takes its spelled-out name when that fits over the set (the caption
+      // may run its negative margins past each side, see .sheet-pages .gallery-label), and
+      // otherwise keeps the short one, so a name never widens its set's place. Sizes follow
+      // the row's width, so this runs again whenever the panel resizes and once the fonts load.
+      function fitSetNames(panel) {
+        panel.querySelectorAll(".gallery-name[data-long]").forEach(nameEl => {
+          const cap  = nameEl.parentElement;
+          const css  = getComputedStyle(cap);
+          const room = cap.nextElementSibling.getBoundingClientRect().width -
+                       parseFloat(css.marginLeft) - parseFloat(css.marginRight);
+          nameEl.textContent = nameEl.dataset.long;
+          const text = document.createRange();
+          text.selectNodeContents(cap);
+          if (text.getBoundingClientRect().width > room + 0.5) nameEl.textContent = nameEl.dataset.short;
+        });
+      }
+      {
+        const panel = document.getElementById("gallery-set-panel");
+        let queued = false;
+        const refit = () => {
+          if (queued) return;
+          queued = true;
+          // After the resize has settled, so changing a caption doesn't feed back into it
+          requestAnimationFrame(() => { queued = false; fitSetNames(panel); });
+        };
+        new ResizeObserver(refit).observe(panel);
+        document.fonts.ready.then(refit);
       }
 
       function renderGalleryTabs(tabs) {
@@ -2393,7 +2449,6 @@
           const tabDef  = tabs.find(t => t.key === key);
           const label   = tabDef ? tabDef.label : "";
           const headEl  = document.getElementById("gallery-set-label");
-          const panel   = document.getElementById("gallery-set-panel");
           const gset    = setForFilter(album, key);
           if (key === "postales" && gset && gset.owned !== undefined) {
             // Numbered sticker grid with a state filter (Todo / De camino / Tengo / Falta)
@@ -2404,28 +2459,63 @@
             renderGalleryTabs(tabs);
             return;
           }
-          const photos = setPhotos(album, true);
-          // The count is of sets; a placeholder is not one yet, a set's second sheet is
-          // the same set
-          showCountLine(headEl, photos.filter(ph => !ph.missing && !(ph.page > 1)).length);
-          // Each set (or sheet of a set over 16) by its fronts, its name on top, every
-          // sticker the same size (see .sheet-pages)
-          panel.className = "gallery-images sheet-pages";
-          // A preview's size, in sheets (a sheet not in SET_PREVIEWS: one wide)
-          const sized = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
-          panel.innerHTML = photos.map(ph => {
-            if (ph.missing) return `<figure class="gallery-figure is-missing">
-                <figcaption class="gallery-label">${esc(ph.name)}</figcaption>
-                <div class="gallery-missing" ${sized(MISSING_SET)} role="img" aria-label="${esc(`${ph.name}: falta escanear`)}">Falta escanear</div>
-              </figure>`;
-            const alt = esc(`${label} ${album.year} · ${ph.name}`);
-            return `<figure class="gallery-figure">
-              <figcaption class="gallery-label">${esc(ph.name)}</figcaption>
-              <img class="gallery-img" src="${ph.thumb}" ${sized(ph.size)} data-full="${ph.src}" alt="${alt}" loading="lazy" decoding="async" role="button" tabindex="0" />
-            </figure>`;
-          }).join("");
+          currentSetAlbum = album;
+          currentSetLabel = label;
+          headEl.hidden = true; // the count sits under the subtabs, as on a 1970-82 grid
+          renderSetSection();
         }
         renderGalleryTabs(tabs);
+      }
+
+      // A year's Sets tab: a subtab per section with something to show (SET_SECTIONS order),
+      // like the 1970-82 grid's filter, then its count and its sets. Each set (or sheet of a set
+      // over 16) shows by its fronts, its name on top, every sticker the same size (see
+      // .sheet-pages); a set in hand without a photo yet shows as "Falta escanear". The
+      // subtab carries over to the next year when that year has it, and is in the address
+      // (/2010/sets/variantes) unless it is the first.
+      const setSectionsFor = album => {
+        const found = [...new Set(setPhotos(album, true).map(ph => ph.section))];
+        return SET_SECTIONS.filter(sec => found.includes(sec)).concat(found.filter(sec => !SET_SECTIONS.includes(sec)));
+      };
+
+      function renderSetSection() {
+        const album  = currentSetAlbum;
+        const panel  = document.getElementById("gallery-set-panel");
+        const photos = setPhotos(album, true);
+        const sections = setSectionsFor(album);
+        if (!sections.includes(currentSetSection)) currentSetSection = sections[0];
+        const shown = photos.filter(ph => ph.section === currentSetSection);
+        const bar = sections.map(sec => {
+          const active = sec === currentSetSection;
+          return `<button class="view-tab grid-filter-btn set-section-btn${active ? " is-active" : ""}" data-section="${esc(sec)}" type="button" aria-pressed="${active}">${esc(sec)}</button>`;
+        }).join("");
+        // The count is of the subtab's sets, in hand: photographed or still "Falta escanear"
+        // (a set's second sheet is the same set)
+        const n = shown.filter(ph => !(ph.page > 1)).length;
+        // A preview's size, in sheets (a sheet not in SET_PREVIEWS: one wide)
+        const sized = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
+        // A caption spells Coca Cola and McDonald's out when that fits (fitSetNames)
+        const caption = ph => {
+          const long = longSetName(ph.name);
+          return `<figcaption class="gallery-label"><span class="gallery-name"${long !== ph.name ? ` data-short="${esc(ph.name)}" data-long="${esc(long)}"` : ""}>${esc(ph.name)}</span>${colorDot(ph.dot)}</figcaption>`;
+        };
+        const figure = ph => {
+          const named = `${longSetName(ph.name)}${ph.dot ? ` (${DOT_NAME[ph.dot]})` : ""}`;
+          if (ph.missing) return `<figure class="gallery-figure is-missing">
+              ${caption(ph)}
+              <div class="gallery-missing" ${sized(MISSING_SET)} role="img" aria-label="${esc(`${named}: falta escanear`)}">Falta escanear</div>
+            </figure>`;
+          // The lightbox has room for the whole name
+          return `<figure class="gallery-figure">
+              ${caption(ph)}
+              <img class="gallery-img" src="${ph.thumb}" ${sized(ph.size)} data-full="${ph.src}" data-label="${esc(longSetName(ph.name))}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${currentSetLabel} ${album.year} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
+            </figure>`;
+        };
+        panel.className = "";
+        panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
+          `<p class="gallery-section-label">Total: ${n}</p>` +
+          `<div class="gallery-images sheet-pages">${shown.map(figure).join("")}</div>`;
+        fitSetNames(panel);
       }
 
       function updateGalleryStats(year) {
@@ -2657,6 +2747,15 @@
             copy.classList.add("is-done");
             setTimeout(() => copy.classList.remove("is-done"), 1200);
           }).catch(() => {});
+          return;
+        }
+        const section = e.target.closest(".set-section-btn");
+        if (section) {
+          const refocus = keepFocusIn(e.currentTarget, "data-section");
+          currentSetSection = section.dataset.section;
+          renderSetSection();
+          setAddress(viewRoute(), "replace");
+          refocus();
           return;
         }
         const btn = e.target.closest(".grid-filter-btn");
@@ -2978,7 +3077,7 @@
 
       // ── Addresses ──────────────────────────────────────────────────────────
       // Every view has an address: /messi, /messi/fotos, /messi/fotos/2010, /sets/falta,
-      // /2010, /2010/sets, /1982/postales. GitHub Pages has no file at those paths, so its 404.html
+      // /2010, /2010/sets, /2010/sets/variantes, /1982/postales. GitHub Pages has no file at those paths, so its 404.html
       // hands the path back here as /?p=messi/fotos and the clean address returns to the
       // bar. A local file cannot change its path, so there the route rides in the hash
       // (index.html#messi/fotos).
@@ -2996,11 +3095,16 @@
                       ALBUMS.find(a => a.year === currentGalleryYear);
         if (album) {
           const counts = imageCounts[currentGalleryYear] || { albumPaths: [], sobrePaths: [] };
-          const first  = (galleryTabsFor(album, counts)[0] || {}).key;
+          const tabs   = galleryTabsFor(album, counts);
+          const first  = (tabs[0] || {}).key;
           // A year's Sets tab is /2010/sets; the 1970-82 checklist stays /1982/postales
-          const tab = galleryTabsFor(album, counts).find(t => t.key === currentGalleryTab);
-          return currentGalleryTab && currentGalleryTab !== first
-            ? `${currentGalleryYear}/${tab ? slugOf(tab.label) : currentGalleryTab}` : String(currentGalleryYear);
+          const tab = tabs.find(t => t.key === currentGalleryTab);
+          // A Sets subtab other than the first is part of it: /2010/sets/variantes
+          const sections = currentGalleryTab === "postales" && !isGridSet(album.postales) ? setSectionsFor(album) : [];
+          const sub = sections.length && currentSetSection !== sections[0] ? slugOf(currentSetSection) : "";
+          return currentGalleryTab && (currentGalleryTab !== first || sub)
+            ? [currentGalleryYear, tab ? slugOf(tab.label) : currentGalleryTab, sub].filter(Boolean).join("/")
+            : String(currentGalleryYear);
         }
         // A tab without subtabs keeps the last subtab in mind for the next tab, but it is
         // not part of this tab's address
@@ -3028,6 +3132,8 @@
         const [first = "", second = "", third = ""] = route.split("/");
         const album = ALBUMS.find(a => String(a.year) === first);
         if (album) {
+          // The Sets subtab it names (/2010/sets/variantes); none means the first
+          currentSetSection = setSectionsFor(album).find(sec => slugOf(sec) === third) || null;
           showGallery(album.year, second === "sets" ? "postales" : second || null);
           return true;
         }
