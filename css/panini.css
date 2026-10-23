@@ -1,3 +1,9 @@
+/* The space between photos in every photo grid (players' Fotos, Sets, Álbumes, Sobres), side
+   to side and row to row, on the web and on a phone. The Sets and Sobres sizes count it in. */
+:root {
+  --grid-gap: 10px;
+}
+
 /* Screen-reader-only text: names each item's state (Tengo / Falta / De camino), which
    is otherwise conveyed only by colour and a CSS ::after glyph — neither of which is
    reliably announced (WCAG 1.4.1) */
@@ -82,6 +88,12 @@ html {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* A year without Sets: the Sets line's height, nothing shown */
+.inv-stats-subgroup.is-spacer {
+  visibility: hidden;
+  width: 0;
 }
 
 .inv-stat {
@@ -711,7 +723,7 @@ html {
 .gallery-images {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: var(--grid-gap);
 }
 
 .gallery-images .gallery-img {
@@ -782,16 +794,17 @@ html {
   font-weight: 600;
 }
 
-/* On a player's Fotos wall it takes a sticker photo's exact shape, so its row stays even */
+/* On a player's Fotos wall it takes a sticker photo's shape as shown (without its border), so
+   its row stays even */
 .photo-wall .gallery-missing {
-  aspect-ratio: 1640 / 1080;
+  aspect-ratio: 1560 / 1000;
 }
 
 /* A year's Postales tab: every sticker the same size, in every set and every year. On
    the web a typical set of two rows of four (0.885 of a pocket sheet's width) is as wide
    as an Álbumes column, so four fill a row edge to edge; on a phone a pocket sheet is
    8% over half the row, as big as stickers go while two sets still share a row. Each set
-   takes its own width, every set and every sheet of a set over 16 the row's 14px from
+   takes its own width, every set and every sheet of a set over 16 the row's gap from
    the next, each name on top; a set that doesn't fit goes to the next row (at these
    sizes, four at most on the web and two on a phone). --w and --h are a preview's width
    and height in sheets (SET_PREVIEWS). */
@@ -800,10 +813,10 @@ html {
   align-items: flex-start;
 }
 
-/* (304.6px on a full-width row; on a narrower screen it scales with the row, so a year's
+/* (307.9px on a full-width row; on a narrower screen it scales with the row, so a year's
    sets fall into the same rows at any width, like Álbumes) */
 .sheet-pages .gallery-figure {
-  --sheet: calc((100cqw - 42px) / 4 / 0.885);
+  --sheet: calc((100cqw - 3 * var(--grid-gap)) / 4 / 0.885);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -848,11 +861,94 @@ html {
   height: auto;
 }
 
+/* A photo's name, on top of it in every grid */
 .gallery-label {
-  margin-top: 6px;
+  margin: 0 0 6px;
   font: 500 12px/1.3 "Fira Sans", sans-serif;
   color: var(--muted);
   letter-spacing: 0.02em;
+}
+
+/* A year's Sobres: rows of four (two on a phone) that fill the width, the grid gap apart like every
+   other grid. A row is two pairs; each sobre, pair and empty spot grows by its shape (--a,
+   width over height), so the sobres of a row share one height. A pair starts at the gap, its
+   inner gap, so both pairs of a row come out that same height too. */
+.sobre-rows {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.sobre-row,
+.sobre-pair {
+  display: flex;
+  gap: var(--grid-gap);
+  align-items: flex-start;
+}
+
+.sobre-pair {
+  flex: var(--a) 1 var(--b, var(--grid-gap));
+  min-width: 0;
+}
+
+/* The empty spot beside a lone last sobre, kept on the web only once the year fills a row */
+.sobre-pad.phone-only {
+  display: none;
+}
+
+.sobre-pair > .gallery-figure,
+.sobre-pad {
+  flex: var(--a) 1 0;
+  min-width: 0;
+}
+
+
+/* Its name on top, as on the Sets tab, on one line and never wider than its sobre (a long
+   one is cut short); a sobre without one keeps the line's height, so a row stays level */
+.sobre-rows .gallery-label {
+  width: 0;
+  min-width: 100%;
+  margin: 0 0 6px;
+  min-height: 1.3em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* A player's or sobre's photo cut to its stickers (see cropped in index.html): the frame takes
+   the look of a photo (corners, shadow, hover, focus) and hides the black border, the image is
+   laid out bigger behind it (--w, --h) and shifted by the border (--l, --t) */
+.photo-crop {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  /* cut to its stickers like a Set's preview: the same small radius, so their corners stay */
+  border-radius: 2px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.photo-crop:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+}
+
+.photo-crop:has(> .gallery-img:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.gallery-images .photo-crop > img.gallery-img {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  left: var(--l);
+  top: var(--t);
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  outline: none;
 }
 
 /* ── Player photo wall (the Fotos subtab) ──────────────────────────────── */
@@ -1070,8 +1166,26 @@ html {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* A phone stacks a row's pairs, each the full width; an empty pair isn't needed */
+  .sobre-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sobre-row > .sobre-pair {
+    flex: none;
+  }
+
+  .sobre-pad-pair {
+    display: none;
+  }
+
+  .sobre-pad.phone-only {
+    display: block;
+  }
+
   .sheet-pages .gallery-figure {
-    --sheet: calc((100cqw - 14px) / 2 * 1.08);
+    --sheet: calc((100cqw - var(--grid-gap)) / 2 * 1.08);
   }
 
   /* Two photos per row leave a caption ~155-190px. The longest, a year's "Otros · Trading
@@ -1101,11 +1215,11 @@ html {
     display: none;
   }
 
-  /* A year page's figures (Álbumes · Sobres | Sets: Postales · Actualización · Otros)
-     must hold one line down to a 360px phone: tighter gaps and slightly smaller,
-     less tracked labels than on desktop */
+  /* The figures on a phone, all on one line as on the web (Álbumes · Sobres | Sets:
+     Postales · Actualización · Variantes · Otros), with tighter gaps and smaller, untracked
+     labels: 336px at most, inside a 393px iPhone's 346px */
   .inv-stats-row {
-    gap: 10px;
+    gap: 8px;
   }
 
   .inv-stat-value {
@@ -1114,13 +1228,8 @@ html {
 
   .inv-stat-label,
   .inv-postales-label {
-    font-size: 11px;
-    letter-spacing: 0.02em;
-  }
-
-  .inv-stats-subgroup .inv-stats-row {
-    gap: 10px;
-    flex-wrap: wrap;
+    font-size: 10.5px;
+    letter-spacing: 0;
   }
 
   .view-tabs {
