@@ -1,7 +1,9 @@
 /* The space between photos in every photo grid (players' Fotos, Sets, Álbumes, Sobres), side
-   to side and row to row, on the web and on a phone. The Sets and Sobres sizes count it in. */
+   to side and row to row, on the web and on a phone. The Sets and Sobres sizes count it in.
+   --pair-gap is the space between a photo's front and its back, the same at any size. */
 :root {
   --grid-gap: 10px;
+  --pair-gap: 4px;
 }
 
 /* Screen-reader-only text: names each item's state (Tengo / Falta / De camino), which
@@ -67,16 +69,6 @@ html {
   flex-wrap: nowrap;
 }
 
-.inv-postales-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  align-self: flex-start;
-  padding-bottom: 4px;
-}
-
 .inv-stats-divider {
   width: 1px;
   background: var(--border);
@@ -90,11 +82,6 @@ html {
   gap: 6px;
 }
 
-/* A year without Sets: the Sets line's height, nothing shown */
-.inv-stats-subgroup.is-spacer {
-  visibility: hidden;
-  width: 0;
-}
 
 .inv-stat {
   display: flex;
@@ -490,6 +477,27 @@ html {
   gap: 5px;
 }
 
+/* Tracker's Álbumes and Sobres rows, set apart from the ledger below by the card's own line */
+.card-divider {
+  border-top: 1px solid var(--border);
+  margin: 2px -14px;
+}
+
+/* A card measures itself, so its rows can fit a narrow one (see below) */
+.card-counts {
+  container-type: inline-size;
+}
+
+/* On a narrow card (about 173px at 1024 wide) a row inside an opened group has less room:
+   its label is set a little smaller, so a print with its dot (Made in Brazil ●) stays on one
+   line */
+@container (max-width: 180px) {
+  .exp-panel .count-label {
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+}
+
 .card-count-row {
   display: flex;
   align-items: center;
@@ -785,7 +793,7 @@ html {
 .gallery-missing {
   aspect-ratio: 3 / 2;
   border: 1.5px dashed var(--subtle);
-  border-radius: 10px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -797,7 +805,25 @@ html {
 /* On a player's Fotos wall it takes a sticker photo's shape as shown (without its border), so
    its row stays even */
 .photo-wall .gallery-missing {
-  aspect-ratio: 1560 / 1000;
+  aspect-ratio: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--pair-gap);
+  position: relative;
+}
+
+.photo-wall .gallery-missing::before,
+.photo-wall .gallery-missing::after {
+  content: "";
+  aspect-ratio: 760 / 1000;
+}
+
+.photo-wall .gallery-missing > span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* A year's Postales tab: every sticker the same size, in every set and every year. On
@@ -873,38 +899,41 @@ html {
    other grid. A row is two pairs; each sobre, pair and empty spot grows by its shape (--a,
    width over height), so the sobres of a row share one height. A pair starts at the gap, its
    inner gap, so both pairs of a row come out that same height too. */
-.sobre-rows {
+.item-rows {
   flex-direction: column;
   flex-wrap: nowrap;
 }
 
-.sobre-row,
-.sobre-pair {
+.item-row,
+.item-pair {
   display: flex;
   gap: var(--grid-gap);
   align-items: flex-start;
 }
 
-.sobre-pair {
-  flex: var(--a) 1 var(--b, var(--grid-gap));
+.item-pair {
+  flex: var(--a) 1 var(--b, calc(var(--grid-gap) + 2 * var(--pair-gap)));
   min-width: 0;
 }
 
 /* The empty spot beside a lone last sobre, kept on the web only once the year fills a row */
-.sobre-pad.phone-only {
+.item-pad.phone-only {
   display: none;
 }
 
-.sobre-pair > .gallery-figure,
-.sobre-pad {
-  flex: var(--a) 1 0;
+/* Each starts at its front-to-back gap and grows by its faces' shape (--a), so a row's
+   photos share one height */
+.item-pair > .gallery-figure,
+.item-pad {
+  flex: var(--a) 1 var(--pair-gap);
   min-width: 0;
 }
 
 
 /* Its name on top, as on the Sets tab, on one line and never wider than its sobre (a long
-   one is cut short); a sobre without one keeps the line's height, so a row stays level */
-.sobre-rows .gallery-label {
+   one is set smaller until it fits, see fitItemNames; "…" only past 8px); a sobre without one
+   keeps the line's height, so a row stays level */
+.item-rows .gallery-label {
   width: 0;
   min-width: 100%;
   margin: 0 0 6px;
@@ -914,30 +943,45 @@ html {
   text-overflow: ellipsis;
 }
 
-/* A player's or sobre's photo cut to its stickers (see cropped in index.html): the frame takes
-   the look of a photo (corners, shadow, hover, focus) and hides the black border, the image is
-   laid out bigger behind it (--w, --h) and shifted by the border (--l, --t) */
+/* A player's, sobre's or album's photo cut to its stickers (see cropped in index.html): its
+   front and back side by side, --pair-gap apart, each a frame (--f, the face's shape) that
+   hides the black border; the image is laid out bigger behind it (--w, --h) and shifted to
+   that face (--l, --t). The pair hovers and takes focus as one photo. */
+.photo-pair {
+  display: flex;
+  gap: var(--pair-gap);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.photo-pair:hover {
+  transform: scale(1.02);
+}
+
+.photo-pair:has(.gallery-img:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .photo-crop {
   display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: var(--f);
   position: relative;
   overflow: hidden;
   /* cut to its stickers like a Set's preview: the same small radius, so their corners stay */
   border-radius: 2px;
   box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: box-shadow 0.15s ease;
 }
 
-.photo-crop:hover {
-  transform: scale(1.02);
+.photo-pair:hover > .photo-crop {
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
 }
 
-.photo-crop:has(> .gallery-img:focus-visible) {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-.gallery-images .photo-crop > img.gallery-img {
+.gallery-images .photo-crop > img.gallery-img,
+.gallery-images .photo-crop > img.gallery-img-back {
   position: absolute;
   width: var(--w);
   height: var(--h);
@@ -1167,20 +1211,20 @@ html {
   }
 
   /* A phone stacks a row's pairs, each the full width; an empty pair isn't needed */
-  .sobre-row {
+  .item-row {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .sobre-row > .sobre-pair {
+  .item-row > .item-pair {
     flex: none;
   }
 
-  .sobre-pad-pair {
+  .item-pad-pair {
     display: none;
   }
 
-  .sobre-pad.phone-only {
+  .item-pad.phone-only {
     display: block;
   }
 
@@ -1192,7 +1236,8 @@ html {
      Cards · Host Cities" and Fotos' "2010 · Sin número Made in Italy" plus its dot, need
      smaller, untracked type to stay on one line on a 360px phone */
   .photo-wall .gallery-label,
-  #gallery-set-panel .gallery-label {
+  #gallery-set-panel .gallery-label,
+  .item-rows .gallery-label {
     font-size: 10px;
     letter-spacing: 0;
   }
@@ -1222,12 +1267,22 @@ html {
     gap: 8px;
   }
 
+  /* The main page's figures spread out over the whole line, as evenly as it allows (the
+     group around Actualización · Variantes · Otros dissolves into the line) */
+  .inv-stats-row.is-main {
+    justify-content: space-between;
+  }
+
+  .inv-stats-row.is-main .inv-stats-subgroup,
+  .inv-stats-row.is-main .inv-stats-subgroup > .inv-stats-row {
+    display: contents;
+  }
+
   .inv-stat-value {
     font-size: 1.3rem;
   }
 
-  .inv-stat-label,
-  .inv-postales-label {
+  .inv-stat-label {
     font-size: 10.5px;
     letter-spacing: 0;
   }

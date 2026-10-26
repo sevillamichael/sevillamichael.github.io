@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=37" />
+    <link rel="stylesheet" href="css/panini.css?v=38" />
     <meta name="theme-color" content="#121416" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -45,7 +45,7 @@
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"/></svg>
           <svg class="theme-icon theme-icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>
         </button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.8</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.37.9</span></h1>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -1081,10 +1081,24 @@
                 { label: "USA", dot: "roja",   coming: true },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "carmesi", complete: true, photo: "Messi_2022_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2022_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "carmesi", complete: true, photo: "Messi_2022_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2022_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2022_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
@@ -1102,10 +1116,24 @@
                 { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2022_POR18_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "carmesi", complete: true, photo: "Ronaldo_2022_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2022_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "carmesi", complete: true, photo: "Ronaldo_2022_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2022_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2022_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
@@ -1123,10 +1151,24 @@
                 { label: "USA", dot: "roja",   complete: false },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "carmesi", complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "carmesi", complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "carmesi", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
           ] },
@@ -1362,38 +1404,69 @@
               { label: "ARG 17", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Messi_2026_ARG17_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      complete: true, photo: "Messi_2026_ARG17_MadeInItaly.jpg" },
+                { label: "Ind. Argentina",     complete: false },
                 { label: "United", dot: "lima",   complete: true, photo: "Messi_2026_ARG17_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Messi_2026_ARG17_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2026_ARG17_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Messi_2026_ARG17_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "lila", complete: true, photo: "Messi_2026_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2026_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "lila", complete: true, photo: "Messi_2026_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Messi_2026_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Messi_2026_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
               { label: "POR 15", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Ronaldo_2026_POR15_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      complete: true, photo: "Ronaldo_2026_POR15_MadeInItaly.jpg" },
+                { label: "Ind. Argentina",     complete: false },
                 { label: "United", dot: "lima",   complete: true, photo: "Ronaldo_2026_POR15_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Ronaldo_2026_POR15_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Ronaldo_2026_POR15_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Ronaldo_2026_POR15_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "lila", complete: true, photo: "Ronaldo_2026_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2026_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "lila", complete: true, photo: "Ronaldo_2026_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Ronaldo_2026_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Ronaldo_2026_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
             { id: "mbappe",    label: "Mbappé",            afterPostales: true, items: [
               { label: "FRA 20", items: [
                 { label: "Made in Brazil",     complete: true, photo: "Mbappe_2026_FRA20_MadeInBrazil.jpg" },
                 { label: "Made in Italy",      complete: true, photo: "Mbappe_2026_FRA20_MadeInItaly.jpg" },
+                { label: "Ind. Argentina",     complete: false },
                 { label: "Plata", dot: "plateada", complete: false },
                 { label: "United", dot: "lima",   complete: true, photo: "Mbappe_2026_FRA20_United.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2026_FRA20_USA_Blanca.jpg" },
@@ -1401,10 +1474,24 @@
                 { label: "USA", dot: "roja",   complete: true, photo: "Mbappe_2026_FRA20_USA_Roja.jpg" },
               ] },
               { label: "Extras", items: [
-                { label: "Base",   dot: "lila", complete: true, photo: "Mbappe_2026_Extra_Base.jpg" },
-                { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2026_Extra_Bronce.jpg" },
-                { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2026_Extra_Plata.jpg" },
-                { label: "Oro",    dot: "oro", complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
+                { label: "Made in Brazil", items: [
+                    { label: "Base",   dot: "lila", complete: true, photo: "Mbappe_2026_Extra_Base.jpg" },
+                    { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2026_Extra_Bronce.jpg" },
+                    { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2026_Extra_Plata.jpg" },
+                    { label: "Oro",    dot: "oro", complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
+                ] },
+                { label: "Made in Italy", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
+                { label: "Ind. Argentina", items: [
+                    { label: "Base",   dot: "lila", complete: false },
+                    { label: "Bronce", dot: "bronce", complete: false },
+                    { label: "Plata",  dot: "plateada", complete: false },
+                    { label: "Oro",    dot: "oro", complete: false },
+                ] },
               ] },
             ] },
           ] },
@@ -1751,13 +1838,16 @@
           // A counted section reports what it is actually showing; otherwise its declared
           // total (e.g. Gold's 694), else nothing — the counter-free variant groups.
           const detail = it.countNested ? String(shown) : (it.total ?? "");
-          // A player tab holds few enough rows to show everything at once, so its groups
-          // open in every subtab, Todo included. Elsewhere Todo starts collapsed.
+          // A player tab holds few enough rows to show them at once, so its groups open in
+          // every subtab, Todo included, but only the top ones (ARG 17, Extras): a group
+          // nested in them (Extras' Made in Brazil) starts shut. Elsewhere Todo starts
+          // collapsed.
+          const playerOpen = openAll && depth === 1;
           if (!state) {
             // Postales alone shows x/y here. Everywhere else an entry count is the right
             // answer, and in a state subtab the count already means one clear thing.
             const score = it.label === POSTALES ? setsScore(it) : null;
-            return expBlock(it.label, { state: quiet ? "none" : setStatus(it).state, detail: score ?? detail }, inner, openAll, it.dot);
+            return expBlock(it.label, { state: quiet ? "none" : setStatus(it).state, detail: score ?? detail }, inner, playerOpen, it.dot);
           }
           // Filtered: the group belongs here when it is in this state itself (or, in Tengo,
           // holds nothing but what is in hand); it shows the icon unless a group above
@@ -1767,7 +1857,7 @@
                            (state === "complete" && allInHand(it));
           const icon     = inState && !quiet ? state : "none";
           if (!inner) return inState ? ledgerRow(it.label, { state: icon, detail }, it.dot) : "";
-          return expBlock(it.label, { state: icon, detail }, inner, !inAct, it.dot);
+          return expBlock(it.label, { state: icon, detail }, inner, openAll ? playerOpen : !inAct, it.dot);
         }
         if (state && setStatus(it).state !== state) return "";
         const st = quiet ? { ...setStatus(it), state: "none" } : setStatus(it);
@@ -1916,9 +2006,9 @@
                sobrePaths: ["assets/sobres/1978_0.jpg"] },
         1982: { albumPaths: ["assets/albums/1982_0_Europa.jpg"],
                sobrePaths: ["assets/sobres/1982_0.jpg"] },
-        1986: { albumPaths: ["assets/albums/1986_0_Europa.jpg"],
+        1986: { albumPaths: ["assets/albums/1986_0_Internacional.jpg"],
                sobrePaths: ["assets/sobres/1986_0.jpg", "assets/sobres/1986_1.jpg"] },
-        1990: { albumPaths: ["assets/albums/1990_0_Europa.jpg"],
+        1990: { albumPaths: ["assets/albums/1990_0_Espana.jpg"],
                sobrePaths: ["assets/sobres/1990_0.jpg"] },
         1994: { albumPaths: ["assets/albums/1994_0_Europa.jpg"],
                sobrePaths: ["assets/sobres/1994_0.jpg", "assets/sobres/1994_1.jpg", "assets/sobres/1994_2.jpg", "assets/sobres/1994_3.jpg", "assets/sobres/1994_4.jpg"] },
@@ -1928,17 +2018,17 @@
                sobrePaths: ["assets/sobres/2002_0.jpg", "assets/sobres/2002_1.jpg", "assets/sobres/2002_2.jpg"] },
         2006: { albumPaths: ["assets/albums/2006_0_Internacional.jpg"],
                sobrePaths: ["assets/sobres/2006_0.jpg", "assets/sobres/2006_1.jpg", "assets/sobres/2006_2.jpg", "assets/sobres/2006_3.jpg", "assets/sobres/2006_4.jpg"] },
-        2010: { albumPaths: ["assets/albums/2010_0_Sudafrica.jpg"],
+        2010: { albumPaths: ["assets/albums/2010_0_Africa.jpg", "assets/albums/2010_1_Internacional.jpg"],
                sobrePaths: [] },
-        2014: { albumPaths: ["assets/albums/2014_0_Europa.jpg", "assets/albums/2014_1_USA-Tapa-Dura.jpg"],
+        2014: { albumPaths: ["assets/albums/2014_0_Tapa-Suave-Austria.jpg", "assets/albums/2014_1_Tapa-Suave-Internacional.jpg", "assets/albums/2014_2_Tapa-Suave-USA.jpg", "assets/albums/2014_3_Tapa-Dura-USA.jpg"],
                sobrePaths: [] },
-        2018: { albumPaths: ["assets/albums/2018_0_Colombia.jpg", "assets/albums/2018_1_Colombia-Tapa-Dura.jpg", "assets/albums/2018_2_Mexico-Tapa-Dura.jpg", "assets/albums/2018_3_Francia-Tapa-Dura.jpg"],
+        2018: { albumPaths: ["assets/albums/2018_0_Tapa-Suave-Centroamerica.jpg", "assets/albums/2018_1_Tapa-Suave-Colombia.jpg", "assets/albums/2018_2_Tapa-Dura-Colombia.jpg", "assets/albums/2018_3_Tapa-Dura-Francia.jpg", "assets/albums/2018_4_Tapa-Dura-Latinoamerica.jpg", "assets/albums/2018_5_Tapa-Dura-Mexico.jpg"],
                sobrePaths: [] },
-        2022: { albumPaths: ["assets/albums/2022_0_Costa-Rica.jpg", "assets/albums/2022_1_Costa-Rica-Tapa-Dura.jpg", "assets/albums/2022_3_Colombia-Tapa-Dura.jpg", "assets/albums/2022_4_Oryx.jpg", "assets/albums/2022_5_Oryx-Tapa-Dura.jpg", "assets/albums/2022_6_Brasil.jpg", "assets/albums/2022_7_Brasil-Plateado-Tapa-Dura.jpg", "assets/albums/2022_8_Brasil-Dorado-Tapa-Dura.jpg"],
+        2022: { albumPaths: ["assets/albums/2022_0_Tapa-Suave-Alemania.jpg", "assets/albums/2022_1_Tapa-Dura-Brasil.jpg", "assets/albums/2022_2_Tapa-Dura-Brasil-Dorado.jpg", "assets/albums/2022_3_Tapa-Dura-Brasil-Plateado.jpg", "assets/albums/2022_4_Tapa-Suave-Centroamerica.jpg", "assets/albums/2022_5_Tapa-Dura-Centroamerica.jpg", "assets/albums/2022_6_Tapa-Dura-Colombia.jpg", "assets/albums/2022_7_Tapa-Suave-Oryx.jpg", "assets/albums/2022_8_Tapa-Dura-Oryx.jpg", "assets/albums/2022_9_Tapa-Suave-USA.jpg"],
                sobrePaths: [] },
-        2026: { albumPaths: ["assets/albums/2026_0_Costa-Rica.jpg", "assets/albums/2026_1_Costa-Rica-Tapa-Dura.jpg", "assets/albums/2026_2_Costa-Rica-Dorado-Tapa-Dura.jpg", "assets/albums/2026_5_United_Edition.jpg", "assets/albums/2026_7_USA.jpg", "assets/albums/2026_9_Mexico.jpg", "assets/albums/2026_10_Mexico-Tapa-Dura.jpg", "assets/albums/2026_13_Brasil-Plateado-Tapa-Dura.jpg"],
+        2026: { albumPaths: ["assets/albums/2026_0_Tapa-Dura-Brasil.jpg", "assets/albums/2026_1_Tapa-Suave-Espana.jpg", "assets/albums/2026_2_Tapa-Suave-Latinoamerica.jpg", "assets/albums/2026_3_Tapa-Dura-Latinoamerica.jpg", "assets/albums/2026_4_Tapa-Dura-Latinoamerica-Dorado.jpg", "assets/albums/2026_5_Tapa-Suave-Mexico.jpg", "assets/albums/2026_6_Tapa-Dura-Mexico.jpg", "assets/albums/2026_7_Tapa-Suave-USA.jpg", "assets/albums/2026_8_Tapa-Dura-USA.jpg"],
                sobrePaths: [] },
-        "story": { albumPaths: ["assets/albums/story_0.jpg"],
+        "story": { albumPaths: ["assets/albums/story_0_Colombia.jpg"],
                sobrePaths: ["assets/sobres/story_0.jpg", "assets/sobres/story_1.jpg"] },
       };
 
@@ -1951,6 +2041,45 @@
       // loads; any other shows its full photo in the grid until it is rescanned. Either way it
       // only loads once its tab is shown (data-src, see showSectionImages) and it scrolls into view.
       const GRID_PREVIEWS = {
+        "assets/albums/1982_0_Europa.jpg": [836, 480],
+        "assets/albums/1986_0_Internacional.jpg": [821, 480],
+        "assets/albums/1990_0_Espana.jpg": [805, 480],
+        "assets/albums/1994_0_Europa.jpg": [816, 480],
+        "assets/albums/1998_0_America.jpg": [810, 480],
+        "assets/albums/2002_0_America.jpg": [817, 480],
+        "assets/albums/2006_0_Internacional.jpg": [817, 480],
+        "assets/albums/2010_0_Africa.jpg": [817, 480],
+        "assets/albums/2010_1_Internacional.jpg": [809, 480],
+        "assets/albums/2014_0_Tapa-Suave-Austria.jpg": [811, 480],
+        "assets/albums/2014_2_Tapa-Suave-USA.jpg": [813, 480],
+        "assets/albums/2014_3_Tapa-Dura-USA.jpg": [818, 480],
+        "assets/albums/2014_1_Tapa-Suave-Internacional.jpg": [813, 480],
+        "assets/albums/2018_0_Tapa-Suave-Centroamerica.jpg": [818, 480],
+        "assets/albums/2018_1_Tapa-Suave-Colombia.jpg": [810, 480],
+        "assets/albums/2018_2_Tapa-Dura-Colombia.jpg": [816, 480],
+        "assets/albums/2018_3_Tapa-Dura-Francia.jpg": [815, 480],
+        "assets/albums/2018_4_Tapa-Dura-Latinoamerica.jpg": [820, 480],
+        "assets/albums/2018_5_Tapa-Dura-Mexico.jpg": [815, 480],
+        "assets/albums/2022_0_Tapa-Suave-Alemania.jpg": [805, 480],
+        "assets/albums/2022_1_Tapa-Dura-Brasil.jpg": [813, 480],
+        "assets/albums/2022_2_Tapa-Dura-Brasil-Dorado.jpg": [816, 480],
+        "assets/albums/2022_3_Tapa-Dura-Brasil-Plateado.jpg": [817, 480],
+        "assets/albums/2022_4_Tapa-Suave-Centroamerica.jpg": [814, 480],
+        "assets/albums/2022_5_Tapa-Dura-Centroamerica.jpg": [807, 480],
+        "assets/albums/2022_6_Tapa-Dura-Colombia.jpg": [811, 480],
+        "assets/albums/2022_7_Tapa-Suave-Oryx.jpg": [814, 480],
+        "assets/albums/2022_8_Tapa-Dura-Oryx.jpg": [825, 480],
+        "assets/albums/2022_9_Tapa-Suave-USA.jpg": [811, 480],
+        "assets/albums/2026_0_Tapa-Dura-Brasil.jpg": [816, 480],
+        "assets/albums/2026_1_Tapa-Suave-Espana.jpg": [805, 480],
+        "assets/albums/2026_2_Tapa-Suave-Latinoamerica.jpg": [811, 480],
+        "assets/albums/2026_3_Tapa-Dura-Latinoamerica.jpg": [813, 480],
+        "assets/albums/2026_4_Tapa-Dura-Latinoamerica-Dorado.jpg": [812, 480],
+        "assets/albums/2026_5_Tapa-Suave-Mexico.jpg": [825, 480],
+        "assets/albums/2026_6_Tapa-Dura-Mexico.jpg": [811, 480],
+        "assets/albums/2026_7_Tapa-Suave-USA.jpg": [802, 480],
+        "assets/albums/2026_8_Tapa-Dura-USA.jpg": [808, 480],
+        "assets/albums/story_0_Colombia.jpg": [807, 480],
         "assets/sobres/1970_0.jpg": [1170, 480],
         "assets/sobres/1974_0.jpg": [1156, 480],
         "assets/sobres/1978_0.jpg": [1151, 480],
@@ -1996,37 +2125,45 @@
           img.removeAttribute("data-src");
         });
 
-      // The grid shows a player's or sobre's photo without the scanner's black border, as a
-      // Set's preview is cut to its stickers, so every grid's photos stand just the gap apart;
-      // the viewer still opens the whole photo. iw x ih is the photo and b its border on every
-      // side (in the scanner's pixels): the crop keeps the middle and the image is laid out
-      // that much bigger behind it.
+      // The grid shows a player's, sobre's or album's photo without the scanner's black border,
+      // as a Set's preview is cut to its stickers, so every grid's photos stand just the gap
+      // apart; the viewer still opens the whole photo. Its front and back are two cut-outs of
+      // the one image, --pair-gap apart: the scan's own gap is 4% of the photo, so it grew with
+      // it (25px on a lone album across the row). iw x ih is the photo and b its border on every
+      // side and between the faces (in the scanner's pixels), each face (iw - 3b) / 2 wide; the
+      // image is laid out that much bigger behind each cut-out.
       const cropped = (img, iw, ih, b) => {
-        const cw = iw - 2 * b, ch = ih - 2 * b, pc = v => `${+(v * 100).toFixed(4)}%`;
-        return `<span class="photo-crop" style="aspect-ratio: ${cw} / ${ch}; --w: ${pc(iw / cw)}; --h: ${pc(ih / ch)}; --l: ${pc(-b / cw)}; --t: ${pc(-b / ch)}">${img}</span>`;
+        const fw = (iw - 3 * b) / 2, fh = ih - 2 * b, pc = v => `${+(v * 100).toFixed(4)}%`;
+        const face = (x, el) => `<span class="photo-crop" style="--w: ${pc(iw / fw)}; --h: ${pc(ih / fh)}; --l: ${pc(-x / fw)}; --t: ${pc(-b / fh)}">${el}</span>`;
+        // The back's copy is only a picture: the front's is the photo's button
+        const back = img.replace('class="gallery-img"', 'class="gallery-img-back"')
+          .replace(' role="button" tabindex="0"', ' aria-hidden="true"').replace(/ alt="[^"]*"/, ' alt=""');
+        return `<span class="photo-pair" style="--f: ${fw} / ${fh}">${face(b, img)}${face(2 * b + fw, back)}</span>`;
       };
       // A rescanned álbum or sobre is 2160 px tall in the scanner, with an 80 px border; its
       // preview has the same shape
       const itemWidth = src => { const s = GRID_PREVIEWS[src]; return s[0] * 2160 / s[1]; };
 
-      // A year's sobres in rows that fill the width, four to a row on the web and two on a
-      // phone, or as many as the year has when that's fewer (a lone sobre takes the whole row).
-      // A row's sobres share one height, each as wide as its shape takes (see .sobre-rows). A
+      // A year's sobres (or rescanned albums) in rows that fill the width, four to a row on
+      // the web and two on a phone, or as many as the year has when that's fewer (a lone sobre takes the whole row).
+      // A row's sobres share one height, each as wide as its shape takes (see .item-rows). A
       // row is two pairs, and a phone stacks the pairs. Once a year fills a row, a short last
       // row keeps a full one's size: a lone sobre in a pair is matched by an empty spot of its
       // own shape, and a row of one pair by an empty pair (web only). A sobre's name (after its
       // number: 2026_5_Vertical-Costa-Rica) sits on top, as on the Sets tab; once one of a
       // year's sobres has a name, every one gets the line (empty when it has none), so the
       // photos of a row stay level.
-      function itemRows(paths, alt) {
+      function itemRows(paths, alt, caption = getVersionLabel) {
         const n = paths.length, webPad = n >= 4, phonePad = n >= 2;
-        const named = paths.some(getVersionLabel);
-        // A sobre's shape as shown: without its border (see cropped)
-        const shape = src => GRID_PREVIEWS[src] ? (itemWidth(src) - 160) / 2000 : 1.6;
+        const named = paths.some(caption);
+        const altOf = src => typeof alt === "function" ? alt(src) : alt;
+        // A sobre's shape as shown: its two faces without the border and the gap between them
+        // (see cropped), which --pair-gap takes the place of
+        const shape = src => GRID_PREVIEWS[src] ? (itemWidth(src) - 240) / 2000 : 1.6;
         const sum = list => list.reduce((a, src) => a + shape(src), 0);
-        // The image itself is laid out bigger than its crop by this much
-        const over = src => GRID_PREVIEWS[src] ? itemWidth(src) / (itemWidth(src) - 160) : 1;
-        const img = (src, sizes) => GRID_PREVIEWS[src] ? cropped(galleryImg(src, alt, sizes), itemWidth(src), 2160, 80) : galleryImg(src, alt, sizes);
+        // The image itself is laid out bigger than its faces by this much
+        const over = src => GRID_PREVIEWS[src] ? itemWidth(src) / (itemWidth(src) - 240) : 1;
+        const img = (src, sizes) => GRID_PREVIEWS[src] ? cropped(galleryImg(src, altOf(src), sizes), itemWidth(src), 2160, 80) : galleryImg(src, altOf(src), sizes);
         const chunk = (list, k) => list.reduce((out, x, i) => (i % k ? out[out.length - 1].push(x) : out.push([x]), out), []);
         return chunk(paths, 4).map(row => {
           const pairs = chunk(row, 2), avg = sum(row) / row.length;
@@ -2034,23 +2171,26 @@
           const webSum = sum(row) + (webPad ? (row.length % 2 ? shape(row[row.length - 1]) : 0) + (row.length <= 2 ? 2 * avg : 0) : 0);
           const pair = two => {
             const phoneSum = sum(two) + (two.length === 1 && phonePad ? sum(two) : 0);
-            const figure = src => `<figure class="gallery-figure" style="--a: ${shape(src)}">${named ? `<figcaption class="gallery-label">${getVersionLabel(src) || ""}</figcaption>` : ""}${img(src,
+            const figure = src => `<figure class="gallery-figure" style="--a: ${shape(src)}">${named ? `<figcaption class="gallery-label">${caption(src) || ""}</figcaption>` : ""}${img(src,
               `(max-width: 480px) ${Math.ceil(100 * over(src) * shape(src) / phoneSum)}vw, ${Math.ceil(1120 * over(src) * shape(src) / webSum)}px`)}</figure>`;
             // A lone sobre's pair grows as two with its empty spot, or as one where that spot isn't shown
-            const style = two.length === 1 && !webPad ? `--a: ${sum(two)}; --b: 0px` : `--a: ${two.length === 1 ? 2 * sum(two) : sum(two)}`;
-            return `<div class="sobre-pair" style="${style}">${two.map(figure).join("")}${two.length === 1 && phonePad
-              ? `<span class="sobre-pad${webPad ? "" : " phone-only"}" style="--a: ${sum(two)}"></span>` : ""}</div>`;
+            const style = two.length === 1 && !webPad ? `--a: ${sum(two)}; --b: var(--pair-gap)` : `--a: ${two.length === 1 ? 2 * sum(two) : sum(two)}`;
+            return `<div class="item-pair" style="${style}">${two.map(figure).join("")}${two.length === 1 && phonePad
+              ? `<span class="item-pad${webPad ? "" : " phone-only"}" style="--a: ${sum(two)}"></span>` : ""}</div>`;
           };
-          return `<div class="sobre-row">${pairs.map(pair).join("")}${webPad && row.length <= 2
-            ? `<div class="sobre-pair sobre-pad-pair" style="--a: ${2 * avg}"></div>` : ""}</div>`;
+          return `<div class="item-row">${pairs.map(pair).join("")}${webPad && row.length <= 2
+            ? `<div class="item-pair item-pad-pair" style="--a: ${2 * avg}"></div>` : ""}</div>`;
         }).join("");
       }
 
+      // A name in a file name has no accents (2026_1_Tapa-Suave-Espana.jpg): they come back here
+      const LABEL_WORD = { Espana: "España", Mexico: "México", Africa: "África", America: "América",
+                           Latinoamerica: "Latinoamérica", Centroamerica: "Centroamérica" };
       function getVersionLabel(path) {
         const base = path.replace(/\.[^.]+$/, "").split("/").pop();
         const parts = base.split("_");
         if (parts.length < 3) return null;
-        return parts.slice(2).join(" ").replace(/-/g, " ");
+        return parts.slice(2).join(" ").replace(/-/g, " ").split(" ").map(w => LABEL_WORD[w] || w).join(" ");
       }
 
       // ── Card rendering ─────────────────────────────────────────────────────
@@ -2062,13 +2202,30 @@
       // is not a variant itself, so only the leaves count.
       function renderTabCount(filterKey, subState) {
         const el = document.getElementById("tab-count");
+        // The Galería counts what its subtab shows: every album, every sobre, every set (a set
+        // shown sheet by sheet is still one)
+        if (filterKey === null) {
+          const list = subState === "sets" ? null : subState === "sobres" ? "sobrePaths" : "albumPaths";
+          const n = list ? ALBUMS.reduce((sum, a) => sum + ((IMAGE_LISTS[a.year] || {})[list] || []).length, 0)
+            : ALBUMS.reduce((sum, a) => sum + setPhotos(a).filter(ph => !(ph.page > 1)).length, 0);
+          el.hidden = !n;
+          el.textContent = `Total: ${n}`;
+          return;
+        }
         // A player tab counts its stickers; Sets counts the sets the year cards count
         // (setEntries), every year included
-        const leaves = filterKey === "postales" ? ALBUMS.flatMap(setEntries)
+        const leaves = filterKey === "postales" ? ALBUMS.filter(inTracker).flatMap(setEntries)
           : filterKey ? ALBUMS.map(a => setForFilter(a, filterKey)).filter(s => s && s.afterPostales).flatMap(leavesOf)
           : [];
-        // The Fotos wall goes without a count line
-        el.hidden = !leaves.length || subState === PHOTOS;
+        // A player's Galería counts its photos, those still to scan included (as a year's Sets
+        // tab counts its "Falta escanear" sets)
+        if (subState === PHOTOS) {
+          const n = playerPhotos(filterKey, true).length;
+          el.hidden = !n;
+          el.textContent = `Total: ${n}`;
+          return;
+        }
+        el.hidden = !leaves.length;
         if (el.hidden) return;
         // The one count format of the site: Todo counts the whole list and De camino what
         // is on its way; Tengo and Falta read as part of the whole ("8 de 45")
@@ -2119,7 +2276,7 @@
           // The caption on top, as on every photo grid
           if (p.missing) return `<figure class="gallery-figure is-missing"${first ? ` id="fotos-${p.year}" tabindex="-1"` : ""}>
               <figcaption class="gallery-label">${esc(caption)}${colorDot(p.dot)}</figcaption>
-              <div class="gallery-missing" role="img" aria-label="${esc(`${p.player} ${named}: falta escanear`)}">Falta escanear</div>
+              <div class="gallery-missing" role="img" aria-label="${esc(`${p.player} ${named}: falta escanear`)}"><span>Falta escanear</span></div>
             </figure>`;
           // Every player photo is 1640 x 1080 in the scanner with a 40 px border (a narrower
           // sticker keeps a few px more at its sides)
@@ -2132,34 +2289,110 @@
         return figs ? `<div class="${gridClass(photos.length)}">${figs}</div>` : "";
       }
 
+      // The Galería: every album, sobre or set photo scanned, oldest first, each named with
+      // its year ("1982 · Europa", "2010 · CC Alemania"; Story for World Cup Story). Albums and
+      // sobres lie in full-width rows as on a year page (itemRows), sets at one sticker scale
+      // as on a year's Sets tab.
+      const GALLERY_SUBS = [
+        { state: null,     label: "Álbumes" },
+        { state: "sobres", label: "Sobres" },
+        { state: "sets",   label: "Sets" },
+      ];
+      const yearName = y => y === "story" ? "Story" : String(y);
+      function galleryWallHtml(kind) {
+        if (kind === "sets") {
+          const figs = ALBUMS.flatMap(al => setPhotos(al).map(ph => setFigure(ph, `Sets ${yearName(al.year)}`, `${yearName(al.year)} · `)));
+          return `<div class="gallery-images sheet-pages">${figs.join("")}</div>`;
+        }
+        const list = kind === "sobres" ? "sobrePaths" : "albumPaths", word = kind === "sobres" ? "Sobre" : "Álbum";
+        const yearOf = new Map(ALBUMS.flatMap(al => ((IMAGE_LISTS[al.year] || {})[list] || []).map(src => [src, al.year])));
+        const name = src => [yearName(yearOf.get(src)), getVersionLabel(src)].filter(Boolean).join(" · ");
+        return `<div class="gallery-images item-rows">${itemRows([...yearOf.keys()], src => `${word} ${name(src)}`, name)}</div>`;
+      }
+
       // A year's name: "España 1982", or the host alone when it already reads as a full
       // name ("World Cup Story", "World Cup 2026")
       const albumTitle = album =>
         album.year === "story" || album.year === 2026 ? album.host : `${album.host} ${album.year}`;
 
+      // Tracker's Todo card: the year's Postales (its album's sticker sets: one, like México 86's
+      // 427, or several prints, like 2010's Made in Italy and Swiss) in one row, Set or Sets,
+      // that opens onto several (a lone one is a plain row); its number is 1 for a lone set in
+      // hand, else those in hand of all of them ("1/2"). The rest of the ledger (Actualización,
+      // Variantes, Otros) goes below the line.
+      // A state subtab (Tengo, Falta, De camino) keeps what is in that state: a lone set when it
+      // is, and of several the ones that are, open as its other groups are there.
+      function trackerSets(album, subState = null) {
+        const p = album.postales;
+        // A year with none of its postales in hand or on its way (1970-78) leaves them out, and
+        // so does Tracker's count
+        if (!inTracker(album)) return { sets: "", rest: "" };
+        const rows = p.items ? postalesRows(album, p) : [];
+        const own  = p.items ? rows.slice(0, p.items.length).filter(it => it.label !== ACTUALIZACION) : [];
+        // The sets themselves: a Postales group's prints, else its rows, else the year's one set
+        const group = own.length === 1 && kidsOf(own[0]).length && !own[0].dot ? own[0] : null;
+        const sets  = group ? kidsOf(group) : own.length ? own : [p];
+        const states = sets.map(n => setStatus(n).state);
+        const state  = states.every(st => st === "complete") ? "complete" : states.includes("pending") ? "pending" : "coming";
+        const quiet  = state === "complete";
+        const inner  = p.items
+          ? sets.map(n => expItemHtml(n, null, 2, false, false, quiet)).join("")
+          : ledgerRow(POSTALES, quiet ? { ...setStatus(p), state: "none" } : setStatus(p));
+        const green  = states.filter(st => st === "complete").length;
+        const rest   = rows.filter(it => !own.includes(it)).map(it => expItemHtml(it, subState, 1, false)).filter(Boolean).join("");
+        if (subState) {
+          // A numbered checklist (1970-82) counts its stickers in that state, as Postales did;
+          // Tengo reads as Todo does (365/427), without a ✓ for a set not yet whole
+          if (isGridSet(p)) {
+            const n = gridStateCount(p, subState);
+            const st = subState === "complete" ? { state: "none", detail: `${n}/${gridTotal(p)}` } : { state: subState, detail: n };
+            return { sets: n ? ledgerRow("Set", st) : "", rest };
+          }
+          if (sets.length === 1) {
+            const st = setStatus(sets[0]);
+            return { sets: st.state !== subState ? "" : ledgerRow("Set", subState === "complete" ? { state: "none", detail: "1" } : st), rest };
+          }
+          const shown = sets.filter(n => setStatus(n).state === subState);
+          return { sets: shown.length ? expBlock(shown.length === 1 ? "Set" : "Sets", { state: "none", detail: shown.length },
+            shown.map(n => expItemHtml(n, subState, 2)).join(""), true) : "", rest };
+        }
+        // A lone set is a plain row: 1 once in hand, with no ✓ (the 1 says it), else how far
+        // along it is with its state (1982's 365/427 ✗)
+        if (sets.length === 1) return { sets: ledgerRow("Set", quiet ? { state: "none", detail: "1" } : { state, detail: setStatus(sets[0]).detail }), rest };
+        return { sets: expBlock("Sets", { state, detail: `${green}/${sets.length}` }, inner, false), rest };
+      }
+
+      // A year's sets count on Tracker once one is in hand or on its way
+      const inTracker = a => ["complete", "coming"].some(st => setLedgerRows(a, "postales", st) !== "");
+      const hasImages = a => { const c = IMAGE_LISTS[a.year]; return !!c && (c.albumPaths.length > 0 || c.sobrePaths.length > 0); };
+
       function renderGrid(filterKey) {
         const subState = hasSubTabs(filterKey) ? currentSubFilter : null;
         renderTabCount(filterKey, subState);
-        // Fotos swaps the year cards for the player's photo wall
-        const photos = subState === PHOTOS;
-        const wall   = document.getElementById("photo-wall");
+        // Fotos swaps the year cards for the player's photo wall, and the Galería has no year
+        // cards: its subtab's photos instead
+        const gallery = filterKey === null;
+        const photos  = gallery || subState === PHOTOS;
+        const wall    = document.getElementById("photo-wall");
         wall.hidden    = !photos;
-        wall.innerHTML = photos ? photoWallHtml(filterKey) : "";
+        wall.innerHTML = gallery ? galleryWallHtml(subState) : photos ? photoWallHtml(filterKey) : "";
         document.getElementById("albums-grid").hidden = photos;
+        if (gallery) { showSectionImages(wall); fitNames(wall); }
         if (photos) return;
         // On a player's Todo, Tengo, Falta and De camino each year's logo links to that year in Fotos
         const photoYears = new Set(playerPhotos(filterKey).map(p => p.year));
         let albums = filterKey ? ALBUMS.filter(a => matchesFilter(a, filterKey)) : ALBUMS;
-        // Under a sub tab, only years with at least one row in that state
-        if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
-        // Sets' Todo leaves out a year with nothing in hand or on its way (1970-78, none of
-        // their postales yet); Falta still lists it
-        else if (filterKey === "postales") {
-          albums = albums.filter(a => ["complete", "coming"].some(st => setLedgerRows(a, filterKey, st) !== ""));
-        }
+        // Tracker lists a year when its card has something to show in that subtab (1970-78:
+        // their sobres in Todo and Tengo, their postales left out, see trackerSets)
+        if (filterKey === "postales") albums = albums.filter(a => {
+          const { sets, rest } = trackerSets(a, subState);
+          return sets || rest || ((!subState || subState === "complete") && hasImages(a));
+        });
+        // Under a player's sub tab, only years with at least one row in that state
+        else if (subState) albums = albums.filter(a => setLedgerRows(a, filterKey, subState) !== "");
         document.getElementById("albums-grid").innerHTML = albums.map(album => {
           const cardLabel = albumTitle(album);
-          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(photoYears.has(album.year) ? `Fotos ${album.year}` : cardLabel)}">
+          const logoHtml = `<div class="card-logo" role="button" tabindex="0" aria-label="${esc(photoYears.has(album.year) ? `Galería ${album.year}` : cardLabel)}">
               <img
                 src="assets/logos/${album.year}.png"
                 alt="${album.year} logo"
@@ -2167,10 +2400,28 @@
               />
             </div>`;
           let countsHtml;
+          // Álbumes and Sobres, filled in by applyCount
+          const lists = IMAGE_LISTS[album.year] || { albumPaths: [], sobrePaths: [] };
+          const imageRow = (type, label, paths) => paths.length ? `<div class="card-count-row">
+              <span class="count-label" data-label="${type}" data-year="${album.year}">${label}</span>
+              <span class="count-val" data-type="${type}" data-year="${album.year}">—</span>
+            </div>` : "";
           if (filterKey) {
             // Set tab: the tab already names the set. With items, one row per
-            // item; otherwise a single row labeled by year. Always the full ledger.
-            countsHtml = `<div class="card-counts ledger">${setLedgerRows(album, filterKey, subState)}</div>`;
+            // item; otherwise a single row labeled by year. Always the full ledger. Tracker's
+            // Todo leads with the year's Álbumes and Sobres, what the Todo tab used to show.
+            // In Todo the year's Postales follow them as its Set(s) (trackerSets), and a line
+            // sets them apart from the rest of the ledger, when there is a rest
+            if (filterKey === "postales") {
+              const { sets, rest } = trackerSets(album, subState);
+              // Álbumes and Sobres are in hand: Todo and Tengo list them
+              const images = !subState || subState === "complete"
+                ? imageRow("albums", "Álbumes", lists.albumPaths) + imageRow("sobres", "Sobres", lists.sobrePaths) : "";
+              const top = images + sets;
+              countsHtml = `<div class="card-counts ledger">${top}${top && rest ? `<div class="card-divider"></div>` : ""}${rest}</div>`;
+            } else {
+              countsHtml = `<div class="card-counts ledger">${setLedgerRows(album, filterKey, subState)}</div>`;
+            }
           } else {
             // Todo is a tally of what is in hand, not a ledger: Álbumes and Sobres (filled in
             // by applyCount), then Sets, the year's Sets tab in one number, opening onto its
@@ -2178,11 +2429,6 @@
             // shown as a ✗. Sets only wraps two or more of them: a lone row stands on its own
             // (nesting one row says nothing), and none leaves Sets out. Standing alone,
             // Postales reads "Set de Postales"; under Sets the "Set" would only repeat it.
-            const lists = IMAGE_LISTS[album.year] || { albumPaths: [], sobrePaths: [] };
-            const imageRow = (type, label, paths) => paths.length ? `<div class="card-count-row">
-                <span class="count-label" data-label="${type}" data-year="${album.year}">${label}</span>
-                <span class="count-val" data-type="${type}" data-year="${album.year}">—</span>
-              </div>` : "";
             const countRow = (label, n) => n ? `<div class="card-count-row">
                 <span class="count-label">${label}</span>
                 <span class="count-val">${n}</span>
@@ -2245,20 +2491,20 @@
             <span class="inv-stat-label">${label}</span>
           </div>`;
 
+        // As on a Tracker card: Álbumes, Sobres and the album's own Sets, then past the line
+        // Actualización, Variantes and Otros
+        const rest = (actConfirmed ? stat(actConfirmed, ACTUALIZACION) : "") +
+          (variantesTotal ? stat(variantesConfirmed, "Variantes") : "") + (otrosTotal ? stat(otrosConfirmed, "Otros") : "");
         document.getElementById("inv-stats").innerHTML = `
-          <div class="inv-stats-row">
+          <div class="inv-stats-row is-main">
             ${stat(totalAlbums, "Álbumes")}
             ${stat(totalSobres, "Sobres")}
+            ${stat(totalSets, "Sets")}
+            ${rest ? `
             <div class="inv-stats-divider"></div>
             <div class="inv-stats-subgroup">
-              <span class="inv-postales-label">Sets</span>
-              <div class="inv-stats-row">
-                ${stat(totalSets, "Postales")}
-                ${actConfirmed ? stat(actConfirmed, ACTUALIZACION) : ""}
-                ${variantesTotal ? stat(variantesConfirmed, "Variantes") : ""}
-                ${otrosTotal ? stat(otrosConfirmed, "Otros") : ""}
-              </div>
-            </div>
+              <div class="inv-stats-row">${rest}</div>
+            </div>` : ""}
           </div>`;
       }
 
@@ -2580,6 +2826,32 @@
         document.fonts.ready.then(refit);
       }
 
+      // An album's or sobre's name stays on one line, as wide as its photo, and so does a set's
+      // on the Galería (its year in front): a long one is set half a px smaller at a time until
+      // it fits (8px at the least, past that an album's or sobre's ends in "…")
+      function fitNames(root) {
+        const caps = [...root.querySelectorAll(".item-rows .gallery-label, .photo-wall .sheet-pages .gallery-label")];
+        caps.forEach(cap => { cap.style.fontSize = ""; });
+        fitSetNames(root);
+        caps.forEach(cap => {
+          for (let px = parseFloat(getComputedStyle(cap).fontSize); cap.scrollWidth > cap.clientWidth + 0.5 && px > 8; ) {
+            px -= 0.5;
+            cap.style.fontSize = `${px}px`;
+          }
+        });
+      }
+      {
+        const sections = ["gallery-albums-section", "gallery-sobres-section", "photo-wall"].map(id => document.getElementById(id));
+        let queued = false;
+        const refit = () => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(() => { queued = false; sections.filter(sec => !sec.hidden).forEach(fitNames); });
+        };
+        sections.forEach(sec => new ResizeObserver(refit).observe(sec));
+        document.fonts.ready.then(refit);
+      }
+
       function renderGalleryTabs(tabs) {
         document.getElementById("gallery-tabs").innerHTML = tabs.map(t => {
           const active = t.key === currentGalleryTab;
@@ -2609,7 +2881,7 @@
         document.getElementById("gallery-sobres-section").hidden = key !== "sobres"  || !counts.sobrePaths.length;
         ["gallery-albums-section", "gallery-sobres-section"].forEach(id => {
           const sec = document.getElementById(id);
-          if (!sec.hidden) showSectionImages(sec);
+          if (!sec.hidden) { showSectionImages(sec); fitNames(sec); }
         });
         const isSet = key !== "albumes" && key !== "sobres";
         document.getElementById("gallery-set-section").hidden = !isSet;
@@ -2681,30 +2953,31 @@
         // The count is of the subtab's sets, in hand: photographed or still "Falta escanear"
         // (a set's second sheet is the same set)
         const n = shown.filter(ph => !(ph.page > 1)).length;
-        // A preview's size, in sheets (a sheet not in SET_PREVIEWS: one wide)
-        const sized = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
-        // A caption spells Coca Cola and McDonald's out when that fits (fitSetNames)
-        const caption = ph => {
-          const long = longSetName(ph.name);
-          return `<figcaption class="gallery-label"><span class="gallery-name"${long !== ph.name ? ` data-short="${esc(ph.name)}" data-long="${esc(long)}"` : ""}>${esc(ph.name)}</span>${colorDot(ph.dot)}</figcaption>`;
-        };
-        const figure = ph => {
-          const named = `${longSetName(ph.name)}${ph.dot ? ` (${DOT_NAME[ph.dot]})` : ""}`;
-          if (ph.missing) return `<figure class="gallery-figure is-missing">
-              ${caption(ph)}
-              <div class="gallery-missing" ${sized(MISSING_SET)} role="img" aria-label="${esc(`${named}: falta escanear`)}">Falta escanear</div>
-            </figure>`;
-          // The lightbox has room for the whole name
-          return `<figure class="gallery-figure">
-              ${caption(ph)}
-              <img class="gallery-img" src="${ph.thumb}" ${sized(ph.size)} data-full="${ph.src}" data-label="${esc(longSetName(ph.name))}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${currentSetLabel} ${album.year} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
-            </figure>`;
-        };
+        const figure = ph => setFigure(ph, `${currentSetLabel} ${album.year}`);
         panel.className = "";
         panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
           `<p class="gallery-section-label">Total: ${n}</p>` +
           `<div class="gallery-images sheet-pages">${shown.map(figure).join("")}</div>`;
         fitSetNames(panel);
+      }
+
+      // One set's preview with its name on top: on a year's Sets tab, or on the Galería with its
+      // year in front ("2010 · CC Alemania"). A caption spells Coca Cola and McDonald's out when
+      // that fits (fitSetNames); the lightbox has room for the whole name. A preview's size is
+      // in sheets (a sheet not in SET_PREVIEWS: one wide).
+      const sizedSet = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
+      function setFigure(ph, alt, prefix = "") {
+        const long  = longSetName(ph.name);
+        const named = `${long}${ph.dot ? ` (${DOT_NAME[ph.dot]})` : ""}`;
+        const caption = `<figcaption class="gallery-label"><span class="gallery-name"${long !== ph.name ? ` data-short="${esc(prefix + ph.name)}" data-long="${esc(prefix + long)}"` : ""}>${esc(prefix + ph.name)}</span>${colorDot(ph.dot)}</figcaption>`;
+        if (ph.missing) return `<figure class="gallery-figure is-missing">
+            ${caption}
+            <div class="gallery-missing" ${sizedSet(MISSING_SET)} role="img" aria-label="${esc(`${named}: falta escanear`)}">Falta escanear</div>
+          </figure>`;
+        return `<figure class="gallery-figure">
+            ${caption}
+            <img class="gallery-img" src="${ph.thumb}" ${sizedSet(ph.size)} data-full="${ph.src}" data-label="${esc(prefix + long)}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${alt} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
+          </figure>`;
       }
 
       function updateGalleryStats(year) {
@@ -2717,13 +2990,14 @@
             <span class="inv-stat-value">${val}</span>
             <span class="inv-stat-label">${label}</span>
           </div>`;
-        // The same figures as the year's Todo card, so the grid and this header
-        // always agree. A count of 0 hides its stat entirely. A year without Sets keeps the
-        // Sets line's height (an empty, invisible copy), so its header is as tall as any
-        // other's and the page below doesn't move when paging through the years.
+        // The same figures as the year's Tracker card, so the grid and this header always
+        // agree: Álbumes, Sobres and its own sets (Set or Sets), then past the line
+        // Actualización, Variantes and Otros. A count of 0 hides its stat entirely. Every
+        // figure is one line tall, so the header is the same height on every year and the page
+        // below doesn't move when paging through them.
         const setsItems = [];
-        [["Postales", postalesSetGreens(album.postales)],
-         [ACTUALIZACION, actualizacionGreens(album)],
+        const ownSets = postalesSetGreens(album.postales);
+        [[ACTUALIZACION, actualizacionGreens(album)],
          ["Variantes", variantesGreens(album)],
          ["Otros", otrosGreens(album)]].forEach(pair => {
           if (pair[1] > 0) setsItems.push(stat(pair[1], pair[0]));
@@ -2738,18 +3012,14 @@
               <span class="inv-stat-value">${counts.sobrePaths.length}</span>
               <span class="inv-stat-label">${sobresLabel}</span>
             </div>
+            ${ownSets ? stat(ownSets, ownSets === 1 ? "Set" : "Sets") : ""}
             ${setsItems.length ? `
             <div class="inv-stats-divider"></div>
             <div class="inv-stats-subgroup">
-              <span class="inv-postales-label">Sets</span>
               <div class="inv-stats-row">
                 ${setsItems.join("")}
               </div>
-            </div>` : `
-            <div class="inv-stats-subgroup is-spacer" aria-hidden="true">
-              <span class="inv-postales-label">Sets</span>
-              <div class="inv-stats-row">${stat(0, "&nbsp;")}</div>
-            </div>`}
+            </div>` : ""}
           </div>`;
       }
 
@@ -2795,13 +3065,20 @@
           const albumsLabelEl = albumsSection.querySelector(".gallery-section-label");
           showCountLine(albumsLabelEl, an);
           const el = document.getElementById("gallery-albums");
-          el.className = gridClass(counts.albumPaths.length);
-          el.innerHTML = counts.albumPaths.map(src => {
-            const label = getVersionLabel(src);
-            return label
-              ? `<figure class="gallery-figure"><figcaption class="gallery-label">${label}</figcaption>${galleryImg(src, `Álbum ${year}`)}</figure>`
-              : galleryImg(src, `Álbum ${year}`);
-          }).join("");
+          // A year whose albums are all rescanned lays them out like its sobres (itemRows);
+          // until then its old photos keep the plain grid
+          if (counts.albumPaths.every(src => GRID_PREVIEWS[src])) {
+            el.className = "gallery-images item-rows";
+            el.innerHTML = itemRows(counts.albumPaths, `Álbum ${year}`);
+          } else {
+            el.className = gridClass(counts.albumPaths.length);
+            el.innerHTML = counts.albumPaths.map(src => {
+              const label = getVersionLabel(src);
+              return label
+                ? `<figure class="gallery-figure"><figcaption class="gallery-label">${label}</figcaption>${galleryImg(src, `Álbum ${year}`)}</figure>`
+                : galleryImg(src, `Álbum ${year}`);
+            }).join("");
+          }
           albumsSection.hidden = false;
         } else {
           albumsSection.hidden = true;
@@ -2814,7 +3091,7 @@
           showCountLine(sobresLabelEl, sn);
           const el = document.getElementById("gallery-sobres");
           // Rows that fill the width (see itemRows)
-          el.className = "gallery-images sobre-rows";
+          el.className = "gallery-images item-rows";
           el.innerHTML = itemRows(counts.sobrePaths, `Sobre ${year}`);
           sobresSection.hidden = false;
         } else {
@@ -2893,8 +3170,8 @@
           setAddress(`${viewRoute()}/${year}`);
           return;
         }
-        // From a set tab, land on that same set inside the year
-        showGallery(year, currentFilter);
+        // A year opens on its first tab (Álbum, Sobres or Sets, whichever it has first)
+        showGallery(year, null);
         setAddress(viewRoute());
         // The card is hidden now. Start at the year's title: a keyboard user is not left
         // on nothing, and a page opened from far down the grid opens at its top.
@@ -2969,7 +3246,7 @@
         refocus();
       });
 
-      // ── View tabs: Todo + one tab per sticker set ──────────────────────────
+      // ── View tabs: Galería, Tracker + one tab per player ────────────────────
       const setKey = s => s.id || s.label;
 
       // The player collections are the only sets with their own tab, listed after
@@ -3002,14 +3279,14 @@
         { state: "complete", label: "Tengo" },
         { state: "pending",  label: "Falta" },
         { state: "coming",   label: "De camino" },
-        { state: PHOTOS,     label: "Fotos" },
+        { state: PHOTOS,     label: "Galería" },
       ];
       // A player tab leads with its photos, then what you have and what you miss, then
       // what is on the way. Todo stays the subtab a tab opens on.
       const PLAYER_SUB_ORDER = [PHOTOS, null, "complete", "pending", "coming"];
 
-      // Sub tabs apply to every set tab, Postales included
-      const hasSubTabs = key => !!key;
+      // Sub tabs apply to every tab: the Galería's kinds, and every set tab's states
+      const hasSubTabs = () => true;
 
       // Which states exist anywhere in a tab
       // Offer exactly the subtabs that have something to show. Asking the renderer is the
@@ -3026,6 +3303,9 @@
 
       // Which subtabs a tab offers: its states, plus Fotos when it has photos
       function subTabsFor(key) {
+        if (key === null) return new Set(GALLERY_SUBS.map(t => t.state).filter(st =>
+          st === "sobres" ? ALBUMS.some(a => (IMAGE_LISTS[a.year] || { sobrePaths: [] }).sobrePaths.length)
+          : st === "sets" && ALBUMS.some(a => setPhotos(a).length)));
         const avail = tabStates(key);
         if (playerPhotos(key).length) avail.add(PHOTOS);
         return avail;
@@ -3039,12 +3319,13 @@
           return;
         }
         const avail = subTabsFor(currentFilter);
-        const order = playerColumns().some(c => c.key === currentFilter)
+        const order = currentFilter === null ? GALLERY_SUBS
+          : playerColumns().some(c => c.key === currentFilter)
           ? PLAYER_SUB_ORDER.map(st => SUB_TABS.find(t => t.state === st))
           : SUB_TABS;
         // "All" (state null) is always present; then only the states that exist
         const tabs = order.filter(t => t.state === null || avail.has(t.state));
-        nav.hidden = avail.size === 0;
+        nav.hidden = avail.size === 0 && currentFilter !== null;
         nav.innerHTML = tabs.map(t => {
           const active = t.state === currentSubFilter;
           return `<button class="view-tab sub-tab${active ? " is-active" : ""}" data-state="${t.state ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
@@ -3056,7 +3337,7 @@
           const active = t.key === currentFilter;
           return `<button class="view-tab${active ? " is-active" : ""}" data-set="${t.key ?? ""}" type="button" aria-pressed="${active}">${t.label}</button>`;
         };
-        const main = [{ key: null, label: "Todo" }, { key: "postales", label: "Sets" }];
+        const main = [{ key: null, label: "Galería" }, { key: "postales", label: "Tracker" }];
         document.getElementById("view-tabs").innerHTML =
           main.concat(playerColumns()).map(tabBtn).join("");
       }
@@ -3168,7 +3449,8 @@
       ["gallery-view", "photo-wall"].forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("click", e => {
-          const img = e.target.closest(".gallery-img");
+          // The back of a photo (see cropped) opens it as the front does
+          const img = e.target.closest(".gallery-img") || e.target.closest(".photo-pair")?.querySelector(".gallery-img");
           if (img) openLightboxFromImg(img);
         });
         el.addEventListener("keydown", e => {
@@ -3260,8 +3542,9 @@
       // Nothing here awaits the network any more, so the grid, the counts and the
       // header all render in one pass on first paint.
       function init() {
-        renderGrid();
         renderTabs();
+        renderSubTabs();
+        renderGrid(currentFilter);
         ALBUMS.forEach(album => {
           const lists = IMAGE_LISTS[album.year] || { albumPaths: [], sobrePaths: [] };
           applyCount(album, lists.albumPaths, lists.sobrePaths);
@@ -3270,19 +3553,19 @@
       }
 
       // ── Addresses ──────────────────────────────────────────────────────────
-      // Every view has an address: /messi, /messi/fotos, /messi/fotos/2010, /sets/falta,
+      // Every view has an address: /messi, /messi/fotos, /messi/fotos/2010, /tracker/falta, /galeria/sobres,
       // /2010, /2010/sets, /2010/sets/variantes, /1982/postales, /1982/postales/falta. GitHub Pages has no file at those paths, so its 404.html
       // hands the path back here as /?p=messi/fotos and the clean address returns to the
       // bar. A local file cannot change its path, so there the route rides in the hash
       // (index.html#messi/fotos).
       const CLEAN_PATHS = location.protocol.startsWith("http");
-      const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "fotos" };
+      const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "galeria", sobres: "sobres", sets: "sets" };
       // The 1970-82 checklist's filters, by the same names
       const GRID_SLUG = { "is-confirmed": "tengo", "is-pending": "falta", "is-coming": "de-camino" };
       // "Mbappé" -> "mbappe"
       const slugOf = label => label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
                                    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      const tabSlug = key => key === null ? "" : key === "postales" ? "sets"
+      const tabSlug = key => key === null ? "" : key === "postales" ? "tracker"
         : slugOf((playerColumns().find(c => c.key === key) || { label: key }).label);
 
       // The address of what is on screen. A year page leaves out its first tab.
@@ -3308,7 +3591,8 @@
         // A tab without subtabs keeps the last subtab in mind for the next tab, but it is
         // not part of this tab's address
         const sub = hasSubTabs(currentFilter) ? currentSubFilter : null;
-        return [tabSlug(currentFilter), SUB_SLUG[sub]].filter(Boolean).join("/");
+        // The Galería is / (its Álbumes), /galeria/sobres and /galeria/sets
+        return [tabSlug(currentFilter) || (sub ? "galeria" : ""), SUB_SLUG[sub]].filter(Boolean).join("/");
       }
 
       const addressRoute = () => CLEAN_PATHS
@@ -3342,10 +3626,12 @@
           showGallery(album.year, TAB_ALIAS[second] || second || null);
           return true;
         }
-        const key = first === "" ? null : first === "sets" ? "postales"
+        // /sets (Tracker's old name) still opens Tracker
+        const key = first === "" || first === "galeria" ? null : first === "tracker" || first === "sets" ? "postales"
           : (playerColumns().find(c => slugOf(c.label) === first) || {}).key;
         if (key === undefined) return false;
-        const sub = Object.keys(SUB_SLUG).find(st => SUB_SLUG[st] === second) || null;
+        // /messi/fotos is the player's Galería's old address
+        const sub = second === "fotos" ? PHOTOS : Object.keys(SUB_SLUG).find(st => SUB_SLUG[st] === second) || null;
         currentFilter    = key;
         currentSubFilter = sub && hasSubTabs(key) && subTabsFor(key).has(sub) ? sub : null;
         if (!document.getElementById("gallery-view").hidden) hideGallery();
@@ -3372,7 +3658,8 @@
       // settle the bar on that view's clean address
       function openAddress() {
         const handed = CLEAN_PATHS ? new URLSearchParams(location.search).get("p") : null;
-        const route  = (handed ?? addressRoute()).replace(/^\/+|\/+$/g, "");
+        // (a player's Galería was Fotos: /messi/fotos/2010 is /messi/galeria/2010)
+        const route  = (handed ?? addressRoute()).replace(/^\/+|\/+$/g, "").replace(/^([^/]+)\/fotos(?=\/|$)/, "$1/galeria");
         if (route && !applyRoute(route)) applyRoute("");
         const shown  = viewRoute();
         const year   = route.split("/")[2];
