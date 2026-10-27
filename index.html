@@ -33,7 +33,7 @@
         <!-- A year page's way back, beside its title -->
         <div class="inv-title-row">
           <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-          <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.38.0</span></h1>
+          <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.38.1</span></h1>
         </div>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
@@ -548,7 +548,7 @@
           ] },
         { year: 2014, host: "Brasil",             postales: { items: [
             { label: "Postales", countNested: true, items: [
-              { label: "Made in Brazil", total: 640, collected: 640 },
+              { label: "Internacional", total: 640, collected: 640 },
               { label: "Platinum", total: 660, complete: false },
             ] },
           ] },
@@ -878,8 +878,8 @@
           ] },
         { year: 2022, host: "Qatar",              postales: { items: [
             { label: "Postales", countNested: true, items: [
-              { label: "Made in Brazil", dot: "naranja", total: 638, complete: true },
-              { label: "Made in Italy",  dot: "violeta", total: 670, coming: true },
+              { label: "Internacional", dot: "naranja", total: 638, complete: true },
+              { label: "Estándar",      dot: "violeta", total: 670, coming: true },
               { label: "Oryx",           dot: "granate", total: 670, complete: true },
               { label: "USA",            dot: "blanca",  total: 670, complete: true },
               { label: "USA",            dot: "azulrey", total: 670, complete: false },
@@ -1173,7 +1173,7 @@
           ] },
         { year: 2026, host: "World Cup 2026",     postales: { items: [
             { label: "Postales", countNested: true, items: [
-              { label: "Made in Brazil", total: 980, complete: true },
+              { label: "Internacional", total: 980, complete: true },
               { label: "United",         dot: "lima",   total: 980, complete: false, coming: true },
               { label: "USA",            dot: "blanca", total: 980, complete: true },
               { label: "USA",            dot: "azulrey", total: 980, complete: false },
@@ -1310,7 +1310,7 @@
             ] },
             { id: "otros",         label: "Otros", items: [
               { label: "Actualización", countNested: true, items: [
-                { label: "Made in Brazil", total: 120, complete: true },
+                { label: "Internacional", total: 120, complete: true },
                 { label: "United",         dot: "lima",   total: 120, complete: false },
                 { label: "USA",            dot: "blanca", total: 120, complete: false },
               ] },
@@ -1635,11 +1635,14 @@
       // Postales is not itself a set, the sets inside it are — and how many of those
       // leaves are green.
       const POSTALES = "Postales";
+      // A score of what is in hand: all of it reads as the number alone, its ✓ saying the
+      // rest (2026's Tarjetas: 3 ✓, not 3/3)
+      const ofAll = (n, total) => n === total ? String(total) : `${n}/${total}`;
       // null when there is only one set to own — "1/1" says less than a plain check
       const setsScore = it => {
         const leaves = leavesOf(it);
         const green  = leaves.filter(l => setStatus(l).state === "complete").length;
-        return leaves.length > 1 ? `${green}/${leaves.length}` : null;
+        return leaves.length > 1 ? ofAll(green, leaves.length) : null;
       };
 
       // A year's sets one by one, as its Todo card counts them (Postales, Variantes, Otros):
@@ -1803,21 +1806,22 @@
       const allInHand = n => setStatus(n).state === "complete" &&
         kidsOf(n).every(k => k.noIcon || (kidsOf(k).length ? allInHand(k) : setStatus(k).state === "complete"));
 
-      // Variantes and Otros on Tracker count like Sets: in Todo those in hand of all of them
-      // (3/5), in Tengo just those in hand (3), in Falta those missing of all of them (2/5).
-      // A row of one set reads 1 everywhere, its icon saying the rest, as a lone Set does
-      // (none once in hand). A set counts as its header figure does (entriesOf); De camino
-      // keeps its plain count.
+      // Variantes and Otros on Tracker, and every group on a player tab (ARG 20, Extras and
+      // the prints inside it), count like Sets: in Todo those in hand of all of them (3/5, or
+      // 5 ✓ once all are), in Tengo just those in hand (3), in Falta those missing of all of
+      // them (2/5), in De camino those on their way (1). A row of one set reads 1 everywhere,
+      // its icon saying the rest, as a lone Set does (none once in hand). A set counts as its
+      // header figure does (entriesOf).
       const SCORED_ROWS = ["Variantes", "Otros"];
       const rowEntries = it => kidsOf(it).flatMap(entriesOf);
       const rowScore = (it, state) => {
         const entries = rowEntries(it);
         const count = st => entries.filter(e => setStatus(e).state === st).length;
         if (entries.length === 1 && state !== "coming") return "1";
-        if (!state) return `${count("complete")}/${entries.length}`;
+        if (!state) return ofAll(count("complete"), entries.length);
         if (state === "complete") return String(count("complete"));
         if (state === "pending") return `${count("pending")}/${entries.length}`;
-        return null;
+        return String(count("coming"));
       };
 
       // quiet: a group above already shows the ✓ for this row
@@ -1835,7 +1839,8 @@
           const inner = out.join("");
           // A counted section reports what it is actually showing; otherwise its declared
           // total (e.g. Gold's 694), else nothing — the counter-free variant groups.
-          const scored = depth === 1 && SCORED_ROWS.includes(it.label);
+          // (openAll: a player tab)
+          const scored = openAll || (depth === 1 && SCORED_ROWS.includes(it.label));
           const detail = (scored && rowScore(it, state)) || (it.countNested ? String(shown) : (it.total ?? ""));
           // A player tab holds few enough rows to show them at once, so its groups open in
           // every subtab, but only the top ones (ARG 17, Extras): a group nested in them
@@ -2354,7 +2359,7 @@
         // A lone set is a plain row: 1 once in hand, with no ✓ (the 1 says it), else how far
         // along it is with its state (1982's 365/427 ✗)
         if (sets.length === 1) return { sets: ledgerRow("Set", quiet ? { state: "none", detail: "1" } : { state, detail: setStatus(sets[0]).detail }), rest };
-        return { sets: expBlock("Sets", { state, detail: `${green}/${sets.length}` }, inner, true), rest };
+        return { sets: expBlock("Sets", { state, detail: ofAll(green, sets.length) }, inner, true), rest };
       }
 
       // A year's sets count on Tracker once one is in hand or on its way
@@ -2788,24 +2793,22 @@
       // long for its photo is set smaller, to the half px, until it fits, down to 11px (Apple's
       // smallest text): past that an album's, sobre's or photo's ends in "…", and a set's (a
       // one-sticker set such as CC Trophy Tour) widens its set's place to fit it.
-      // Names are measured on a canvas, not on the page, so a run reads the same however the
+      // Names are measured on a canvas, not on the page, and a run only reads the page before
+      // it sets anything, never taking a size off a name, so it reads the same however the
       // page was last laid out and one with nothing to fix changes nothing: Safari on iPhone
-      // can read a name at its old size right after it changes, and a name it kept re-sizing
-      // flipped between two sizes on every frame.
+      // can read a name at its old size right after it changes, and names it kept re-sizing
+      // flipped between two sizes on every frame, their photos jumping with them.
       const PHOTO_NAMES = ".item-rows .gallery-label, .sheet-pages .gallery-label, .player-wall .gallery-label";
       const measurer = document.createElement("canvas").getContext("2d");
+      // A name's own size (12px), read once before a run sets one
+      const fullSize = new WeakMap();
       // What a name shows: a dot's colour is spelled out for screen readers only
       const shownText = el => [...el.childNodes].map(n => n.nodeType === Node.TEXT_NODE ? n.textContent
         : n.classList.contains("sr-only") ? "" : shownText(n)).join("");
       function fitNames(root) {
-        root.querySelectorAll(PHOTO_NAMES).forEach(cap => {
-          cap.style.fontSize = "";
-          const css  = getComputedStyle(cap), full = parseFloat(css.fontSize);
-          const track = css.letterSpacing === "normal" ? 0 : parseFloat(css.letterSpacing) / full;
-          const wide = (text, px) => {
-            measurer.font = `${css.fontStyle} ${css.fontWeight} ${px}px ${css.fontFamily}`;
-            return measurer.measureText(text).width + track * px * [...text].length;
-          };
+        const fits = [...root.querySelectorAll(PHOTO_NAMES)].map(cap => {
+          const css = getComputedStyle(cap);
+          if (!fullSize.has(cap)) fullSize.set(cap, parseFloat(css.fontSize));
           const set  = cap.closest(".sheet-pages");
           // A colour dot keeps its size whatever the name's
           const dots = [...cap.querySelectorAll(".color-dot")].reduce((w, dot) => {
@@ -2814,6 +2817,14 @@
           }, 0);
           const room = (set ? cap.nextElementSibling.getBoundingClientRect().width - parseFloat(css.marginLeft) - parseFloat(css.marginRight)
                             : cap.clientWidth) - dots - 1;
+          return { cap, room, full: fullSize.get(cap), font: [css.fontStyle, css.fontWeight, css.fontFamily],
+                   track: css.letterSpacing === "normal" ? 0 : parseFloat(css.letterSpacing) / parseFloat(css.fontSize) };
+        });
+        fits.forEach(({ cap, room, full, font: [style, weight, family], track }) => {
+          const wide = (text, px) => {
+            measurer.font = `${style} ${weight} ${px}px ${family}`;
+            return measurer.measureText(text).width + track * px * [...text].length;
+          };
           const nameEl = cap.querySelector(".gallery-name[data-long]");
           if (nameEl) {
             const name = wide(nameEl.dataset.long, full) <= room ? nameEl.dataset.long : nameEl.dataset.short;
@@ -2823,19 +2834,25 @@
           let px = full;
           while (px > 11 && wide(text, px) > room) px -= 0.5;
           // Hidden, it has no room to measure: it keeps its full size
-          if (room > 0 && px < full) cap.style.fontSize = `${px}px`;
+          const size = room > 0 && px < full ? `${px}px` : "";
+          if (cap.style.fontSize !== size) cap.style.fontSize = size;
         });
       }
       {
+        // Only a new width moves a name's room: a photo coming in, or a name set smaller,
+        // changes a section's height alone
         const sections = ["gallery-albums-section", "gallery-sobres-section", "photo-wall"].map(id => document.getElementById(id));
+        const widths = new WeakMap();
         let queued = false;
-        const refit = () => {
-          if (queued) return;
+        const refit = entries => {
+          const moved = !entries || entries.filter(e => widths.get(e.target) !== e.contentRect.width)
+            .map(e => widths.set(e.target, e.contentRect.width)).length > 0;
+          if (!moved || queued) return;
           queued = true;
           requestAnimationFrame(() => { queued = false; sections.filter(sec => !sec.hidden).forEach(fitNames); });
         };
         sections.forEach(sec => new ResizeObserver(refit).observe(sec));
-        document.fonts.ready.then(refit);
+        document.fonts.ready.then(() => refit());
       }
 
       function renderGalleryTabs(tabs) {
