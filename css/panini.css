@@ -4,6 +4,17 @@
 :root {
   --grid-gap: 10px;
   --pair-gap: 4px;
+  /* Apple's own font: SF Pro on iPhone and Mac, each other device's system font elsewhere */
+  --font: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* iOS's dark separator and segmented-control track. The chosen segment is lighter than
+     iOS's dark grey so it stands out from the track (3:1) and its text reads (4.5:1). */
+  --separator: rgba(84, 84, 88, 0.65);
+  --segment-track: rgba(118, 118, 128, 0.24);
+  --segment-on: #aeaeb2;
+}
+
+body {
+  font-family: var(--font);
 }
 
 /* Screen-reader-only text: names each item's state (Tengo / Falta / De camino), which
@@ -32,16 +43,30 @@ html {
 .inv-header {
   position: relative;
   padding: 16px 0 8px;
-  padding-right: 64px;
 }
 
+/* Its height is the back chevron's, so the page below stays put between the main page and a
+   year */
+.inv-title-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+}
+
+/* Titles on Apple's type scale: the main page's a Large Title (34px), a year's a Title 1
+   (28px) beside its back chevron, as iOS does once you go one level in */
 .inv-title {
+  min-width: 0;
   margin: 0;
   color: var(--heading);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.05;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.inv-title.is-gallery {
+  font-size: 28px;
 }
 
 /* Focus lands on the title when a year opens, for the keyboard; it is not a control,
@@ -51,11 +76,10 @@ html {
 }
 
 .inv-version {
-  font-size: 0.32em;
+  font-size: 12px;
   font-weight: 600;
   color: var(--subtle);
-  letter-spacing: 0.04em;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 
 .inv-stats {
@@ -69,19 +93,6 @@ html {
   flex-wrap: nowrap;
 }
 
-.inv-stats-divider {
-  width: 1px;
-  background: var(--border);
-  align-self: stretch;
-  flex-shrink: 0;
-}
-
-.inv-stats-subgroup {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 
 .inv-stat {
   display: flex;
@@ -89,12 +100,12 @@ html {
   gap: 3px;
 }
 
+/* A Title 2 (22px) */
 .inv-stat-value {
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 700;
   color: var(--heading);
   line-height: 1;
-  letter-spacing: -0.03em;
 }
 
 .inv-stat-label {
@@ -102,7 +113,7 @@ html {
   font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 /* ── Inline expand/collapse (caret) blocks — set & version lists ────────── */
@@ -153,8 +164,8 @@ html {
    are never scrollbars nested inside the card. */
 .exp-panel {
   display: none;
-  margin: 2px 0 4px 4px;
-  padding-left: 8px;
+  margin: 2px 0 4px 1px;
+  padding-left: 4px;
   border-left: 1px solid var(--border);
 }
 
@@ -164,7 +175,7 @@ html {
 
 .exp-panel > .exp,
 .exp-panel > .card-count-row {
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 /* Plain reference line inside a panel (a version's own sticker list) */
@@ -173,6 +184,13 @@ html {
   color: var(--text);
   font-size: 12px;
   line-height: 1.4;
+}
+
+/* A line too long even at 11px ends in "…" (its whole text is its title) */
+.exp-line.is-cut {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* A pair sticker ("419 A / B") lists one name per line, the second aligned under
@@ -194,34 +212,41 @@ html {
 
 /* ── View tabs ──────────────────────────────────────────────────────────── */
 
-.view-tabs {
+/* Every tab bar is an iOS segmented control: a grey track holding its tabs, the one you're
+   on raised on a lighter segment, at Apple's 13px. On the web a bar is as wide as its tabs;
+   on a phone it fills the width and its tabs share it equally. */
+.view-tabs,
+.grid-filter {
   margin-top: 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  gap: 2px;
+  padding: 2px;
+  background: var(--segment-track);
+  border-radius: 9px;
 }
 
 .view-tab {
   background: none;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 8px 18px;
-  color: var(--muted);
-  font: 600 14px/1 "Fira Sans", sans-serif;
+  border: 0;
+  border-radius: 7px;
+  padding: 8px 14px;
+  color: var(--text);
+  font: 600 13px/1.2 var(--font);
+  white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .view-tab:hover {
-  background: var(--surface);
-  color: var(--heading);
-  border-color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .view-tab.is-active {
-  background: var(--heading);
-  color: var(--bg);
-  border-color: var(--heading);
+  background: var(--segment-on);
+  color: #000;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
 }
 
 .view-tab:focus-visible {
@@ -235,38 +260,43 @@ html {
   margin-top: 10px;
 }
 
-.view-tab.sub-tab {
-  padding: 6px 14px;
-  font-size: 13px;
-}
+
 
 /* ── Numbered sticker checklist (1970-82 grids) ─────────────────────────── */
 
-/* State filter above the grid (Todo / De camino / Tengo / Falta) */
-.grid-filter {
+/* The state filter above a grid (Todo / Tengo / Falta / De camino), or a year's set
+   sections, and on a checklist the button that copies its Falta list beside it */
+.grid-filter-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   margin-bottom: 14px;
 }
 
-/* Copies the Falta list; sits with the filter buttons and matches their height */
+.grid-filter {
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.grid-filter-row > .grid-filter {
+  margin-bottom: 0;
+}
+
+/* Copies the Falta list: a grey button the segmented control's height */
 .grid-copy {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 10px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--muted);
+  padding: 0 11px;
+  background: var(--segment-track);
+  border: 0;
+  border-radius: 9px;
+  color: var(--text);
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .grid-copy:hover {
-  color: var(--heading);
-  border-color: var(--muted);
+  background: rgba(118, 118, 128, 0.4);
 }
 
 .grid-copy:focus-visible {
@@ -277,12 +307,6 @@ html {
 /* Brief acknowledgement that the list reached the clipboard */
 .grid-copy.is-done {
   color: #4ade80;
-  border-color: #4ade80;
-}
-
-.view-tab.grid-filter-btn {
-  padding: 6px 14px;
-  font-size: 13px;
 }
 
 /* Category rows: label left, sticker chips flowing to the right */
@@ -398,8 +422,17 @@ html {
 /* ── Per-year gallery tabs and set panel ────────────────────────────────── */
 
 /* 18px above (header 8px + 10px) and 18px below (6px + section 12px) */
+/* The year's tabs, and on the web its arrows at the row's end */
+.gallery-tabs-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 24px 0 6px;
+}
+
 .gallery-tabs {
-  margin: 10px 0 6px;
+  min-width: 0;
+  margin-top: 0;
 }
 
 /* ── Grid ───────────────────────────────────────────────────────────────── */
@@ -414,23 +447,13 @@ html {
 
 /* ── Card ───────────────────────────────────────────────────────────────── */
 
+/* A card is an iOS inset group, as in Settings: a rounded block with no outline. Its logo
+   lightens under the pointer, the way a row does when tapped. */
 .album-card {
   display: flex;
   flex-direction: column;
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: 12px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.album-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-  border-color: color-mix(in srgb, var(--border) 60%, var(--muted));
-}
-
-.album-card:active {
-  transform: translateY(-1px);
 }
 
 .card-logo:focus-visible {
@@ -456,6 +479,11 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.15s;
+}
+
+.card-logo:hover {
+  background: color-mix(in srgb, var(--surface-strong) 88%, #fff);
 }
 
 .card-logo img {
@@ -468,41 +496,26 @@ html {
 }
 
 /* Count area — below the divider */
+/* A card is ~174px wide on the web and the iPhone alike: slim side padding and nesting
+   indent keep a deeply nested label ("Otros > Coca Cola > Europa > Numerada") on one line.
+   The border-left still marks each level. */
 .card-counts {
   flex-shrink: 0;
-  padding: 10px 14px 12px;
-  border-top: 1px solid var(--border);
+  padding: 10px 10px 12px;
+  border-top: 0.5px solid var(--separator);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 }
 
-/* Tracker's Álbumes and Sobres rows, set apart from the ledger below by the card's own line */
-.card-divider {
-  border-top: 1px solid var(--border);
-  margin: 2px -14px;
-}
-
-/* A card measures itself, so its rows can fit a narrow one (see below) */
-.card-counts {
-  container-type: inline-size;
-}
-
-/* On a narrow card (about 173px at 1024 wide) a row inside an opened group has less room:
-   its label is set a little smaller, so a print with its dot (Made in Brazil ●) stays on one
-   line */
-@container (max-width: 180px) {
-  .exp-panel .count-label {
-    font-size: 11px;
-    letter-spacing: 0;
-  }
-}
-
+/* Every row is at least 24px tall, the smallest a tap target may be, since a group's whole
+   row opens it */
 .card-count-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  min-height: 24px;
 }
 
 /* Label wrapper: a flex row holding the label text and, when present, the
@@ -538,12 +551,6 @@ html {
   border-radius: 50%;
 }
 
-/* Centring on the line box leaves the dot 0.75px below the middle of the capitals beside it
-   (Fira Sans sits a little high in its line); lift it to meet them */
-.count-label .color-dot {
-  transform: translateY(-0.75px);
-}
-
 /* Each colour is measured on the sticker photos: a back's print or a front's frame */
 /* 2010's blue backs */
 .color-dot.dot-azul    { background: #0387b5; border-color: #0387b5; }
@@ -553,28 +560,28 @@ html {
 /* 2018's pink backs */
 .color-dot.dot-rosada  { background: #d65684; border-color: #d65684; }
 /* The 2022 fronts: orange for ARG 19 / POR 17 / FRA 18, violet for ARG 20 / POR 18 /
-   FRA 19; and lime from the 2026 United fronts, with a darker edge for the light theme */
+   FRA 19; and lime from the 2026 United fronts */
 .color-dot.dot-naranja { background: #fa5b27; border-color: #fa5b27; }
 .color-dot.dot-violeta { background: #6d56a2; border-color: #6d56a2; }
-.color-dot.dot-lima    { background: #dce74c; border-color: #a9b52c; }
+.color-dot.dot-lima    { background: #dce74c; border-color: #dce74c; }
 
-/* Black vanishes on the dark theme and white on the light one without a ring */
+/* Black vanishes on the dark background without a ring */
 .color-dot.dot-negra  { background: #000; border-color: var(--subtle); }
 /* The USA base frame is a warm off-white rather than pure white (measured on the photos) */
-.color-dot.dot-blanca { background: #f3f4e9; border-color: var(--subtle); }
+.color-dot.dot-blanca { background: #f3f4e9; border-color: #f3f4e9; }
 /* Oryx's burgundy front (measured on the photos); dark enough to need the ring too */
 .color-dot.dot-granate { background: #793645; border-color: var(--subtle); }
 
 /* The Extras tiers, measured on the 2022 and 2026 fronts of all three players. The two
    Base colours differ by year; the metals are shared, drawn from their highlight to their
-   middle tone so they read as metal rather than flat, with the ring on light. Gold comes
+   middle tone so they read as metal rather than flat. Gold comes
    from the panel's bottom right, where the foil reads gold rather than olive. Silver is
    also the Silver Parallel's. */
 .color-dot.dot-carmesi  { background: #9c2130; border-color: #9c2130; }
 .color-dot.dot-lila     { background: #b97fb6; border-color: #b97fb6; }
-.color-dot.dot-bronce   { background: linear-gradient(135deg, #b29175, #946a48); border-color: var(--subtle); }
-.color-dot.dot-plateada { background: linear-gradient(135deg, #989d96, #848982); border-color: var(--subtle); }
-.color-dot.dot-oro      { background: linear-gradient(135deg, #c6ae6a, #ad9653); border-color: var(--subtle); }
+.color-dot.dot-bronce   { background: linear-gradient(135deg, #b29175, #946a48); border-color: transparent; }
+.color-dot.dot-plateada { background: linear-gradient(135deg, #989d96, #848982); border-color: transparent; }
+.color-dot.dot-oro      { background: linear-gradient(135deg, #c6ae6a, #ad9653); border-color: transparent; }
 
 .count-val {
   font-size: 13px;
@@ -641,30 +648,29 @@ html {
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-.gallery-header {
+/* A year page's way back sits beside its title as on iOS and macOS: a bare chevron, its
+   44px tap area pulled out so the chevron lines up with the page's edge; on hover it gets
+   macOS's soft rounded backing. It goes back in the browser's history, so Safari's swipe
+   from the edge does the same. */
+.gallery-back-btn {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-left: -12px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 12px 0 8px;
-  flex-wrap: wrap;
-}
-
-.gallery-back-btn {
+  justify-content: center;
+  padding: 0;
   background: none;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 16px;
-  color: var(--muted);
-  font: 600 14px/1 "Fira Sans", sans-serif;
+  border: 0;
+  border-radius: 10px;
+  color: var(--heading);
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  transition: background-color 0.15s;
 }
 
 .gallery-back-btn:hover {
-  background: var(--surface);
-  color: var(--heading);
-  border-color: var(--muted);
+  background: var(--surface-strong);
 }
 
 .gallery-back-btn:focus-visible {
@@ -678,25 +684,24 @@ html {
   margin-left: auto;
 }
 
+/* The arrows to the year before and after: bare chevrons like the back one */
 .gallery-nav-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 8px;
   width: 36px;
   height: 36px;
-  color: var(--muted);
-  font-size: 22px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: var(--heading);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  transition: background-color 0.15s;
 }
 
 .gallery-nav-btn:hover {
-  background: var(--surface);
-  color: var(--heading);
-  border-color: var(--muted);
+  background: var(--surface-strong);
 }
 
 .gallery-nav-btn:focus-visible {
@@ -714,7 +719,7 @@ html {
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 /* A player tab's count line, 14px under the subtabs and 14px over the cards. A 1970-82
@@ -798,8 +803,8 @@ html {
   align-items: center;
   justify-content: center;
   color: var(--subtle);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 /* On a player's Fotos wall it takes a sticker photo's shape as shown (without its border), so
@@ -867,14 +872,6 @@ html {
   white-space: nowrap;
 }
 
-/* On a narrow row the sets are small: so are their names, at the phone size */
-@container (max-width: 800px) {
-  .sheet-pages .gallery-label {
-    font-size: 10px;
-    letter-spacing: 0;
-  }
-}
-
 /* A placeholder takes the shape of a typical set of two rows of four (MISSING_SET) */
 .sheet-pages .gallery-missing {
   width: calc(var(--sheet) * var(--w));
@@ -890,9 +887,8 @@ html {
 /* A photo's name, on top of it in every grid */
 .gallery-label {
   margin: 0 0 6px;
-  font: 500 12px/1.3 "Fira Sans", sans-serif;
+  font: 500 12px/1.3 var(--font);
   color: var(--muted);
-  letter-spacing: 0.02em;
 }
 
 /* A year's Sobres: rows of four (two on a phone) that fill the width, the grid gap apart like every
@@ -931,9 +927,11 @@ html {
 
 
 /* Its name on top, as on the Sets tab, on one line and never wider than its sobre (a long
-   one is set smaller until it fits, see fitItemNames; "…" only past 8px); a sobre without one
+   one is set smaller until it fits, see fitNames; "…" only past 11px); a sobre without one
    keeps the line's height, so a row stays level */
-.item-rows .gallery-label {
+.item-rows .gallery-label,
+.player-wall .gallery-label {
+  position: relative;
   width: 0;
   min-width: 100%;
   margin: 0 0 6px;
@@ -1037,6 +1035,10 @@ html {
   display: none;
 }
 
+/* The viewer, as Photos on iOS and macOS: the photo on black, a close button at the top
+   right and the counter at the top's middle, round frosted buttons that turn the photos at
+   its sides (on a phone at its foot, under the thumb). Its padding keeps the photo clear of
+   them. */
 .lightbox.is-open {
   position: fixed;
   inset: 0;
@@ -1045,7 +1047,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 68px 76px 24px;
   animation: fadeIn 0.18s ease both;
   cursor: pointer;
 }
@@ -1055,13 +1057,13 @@ html {
   to   { opacity: 1; }
 }
 
-/* The height cap is the screen less the viewer's padding (2 x 24px) and the caption above
-   the photo (26px tall, 10px below it). A plain 100% has no fixed height to resolve
-   against, so a photo taller than the screen (the 4x4 2022 Europa sheet) ran off the bottom. */
+/* The height cap is the screen less the viewer's padding and the caption above the photo
+   (26px tall, 10px below it). A plain 100% has no fixed height to resolve against, so a
+   photo taller than the screen (the 4x4 2022 Europa sheet) ran off the bottom. */
 .lightbox-img {
   max-width: 100%;
-  max-height: calc(100vh - 84px);
-  max-height: calc(100dvh - 84px);
+  max-height: calc(100vh - 128px);
+  max-height: calc(100dvh - 128px);
   border-radius: 10px;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
   object-fit: contain;
@@ -1078,60 +1080,57 @@ html {
 .lightbox-prev,
 .lightbox-next {
   position: fixed;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.1);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(44, 44, 46, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   color: #fff;
-  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background-color 0.15s;
 }
 
 .lightbox-close:hover,
 .lightbox-prev:hover,
 .lightbox-next:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(72, 72, 74, 0.85);
+}
+
+.lightbox-close:focus-visible,
+.lightbox-prev:focus-visible,
+.lightbox-next:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .lightbox-close {
-  top: 18px;
-  right: 22px;
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
 }
 
 .lightbox-prev,
 .lightbox-next {
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  font-size: 32px;
 }
 
 .lightbox-prev { left: 16px; }
 .lightbox-next { right: 16px; }
 
-/* Buttons hidden — navigate via keyboard (←/→/Esc), swipe, or click backdrop */
-.lightbox-close,
-.lightbox-prev,
-.lightbox-next {
-  display: none;
-}
-
 .lightbox-counter {
   position: fixed;
-  top: 20px;
-  right: 24px;
-  color: rgba(255, 255, 255, 0.65);
-  font: 600 13px/1 "Fira Sans", sans-serif;
-  letter-spacing: 0.04em;
+  top: calc(26px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.75);
+  font: 600 13px/16px var(--font);
   pointer-events: none;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .lightbox-content {
@@ -1145,8 +1144,7 @@ html {
 
 .lightbox-label {
   color: rgba(255, 255, 255, 0.85);
-  font: 500 14px/1 "Fira Sans", sans-serif;
-  letter-spacing: 0.03em;
+  font: 500 14px/1 var(--font);
   pointer-events: none;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
   background: rgba(0, 0, 0, 0.35);
@@ -1156,44 +1154,39 @@ html {
 }
 
 @media (max-width: 480px) {
-  .theme-toggle {
-    display: none;
+  /* The viewer's arrows and counter in a bar at the foot, under the thumb */
+  .lightbox.is-open {
+    padding: 68px 12px calc(76px + env(safe-area-inset-bottom));
   }
 
-  .inv-header {
-    padding-right: 0;
+  .lightbox-img {
+    max-height: calc(100vh - 180px);
+    max-height: calc(100dvh - 180px - env(safe-area-inset-bottom));
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    top: auto;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    transform: none;
+  }
+
+  .lightbox-counter {
+    top: auto;
+    bottom: calc(30px + env(safe-area-inset-bottom));
   }
 
   .inv-title {
-    font-size: clamp(2rem, 9vw, 2.8rem);
     white-space: nowrap;
     overflow: hidden;
-    min-height: calc(9vw * 1.05);
     display: flex;
     align-items: baseline;
   }
 
-  .inv-title.is-gallery {
-    align-items: flex-end;
-  }
-
+  /* Two equal columns, whatever a card holds (a line cut with "…" keeps its full width) */
   .albums-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-  }
-
-  /* Two columns leaves a ~150px card, ~27px narrower than the desktop six-column
-     layout. Claw that back from the horizontal padding and the nesting indent so a
-     deeply nested label ("Otros > Coca Cola > Europa > Numerada") still fits one
-     line. The border-left still marks each level. */
-  .card-counts {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .exp-panel {
-    margin-left: 1px;
-    padding-left: 4px;
   }
 
   .card-logo {
@@ -1232,29 +1225,10 @@ html {
     --sheet: calc((100cqw - var(--grid-gap)) / 2 * 1.08);
   }
 
-  /* Two photos per row leave a caption ~155-190px. The longest, a year's "Otros · Trading
-     Cards · Host Cities" and Fotos' "2010 · Sin número Made in Italy" plus its dot, need
-     smaller, untracked type to stay on one line on a 360px phone */
-  .photo-wall .gallery-label,
-  #gallery-set-panel .gallery-label,
-  .item-rows .gallery-label {
-    font-size: 10px;
-    letter-spacing: 0;
-  }
-
   .photo-wall .gallery-label .color-dot {
     margin-left: 4px;
   }
 
-  /* A player tab's five subtabs (with Fotos) fit one line on a 375px phone */
-  .sub-tabs {
-    gap: 6px;
-  }
-
-  .view-tab.sub-tab {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
 
   .gallery-nav {
     display: none;
@@ -1267,47 +1241,26 @@ html {
     gap: 8px;
   }
 
-  /* The main page's figures spread out over the whole line, as evenly as it allows (the
-     group around Actualización · Variantes · Otros dissolves into the line) */
+  /* The main page's figures spread out over the whole line, as evenly as it allows */
   .inv-stats-row.is-main {
     justify-content: space-between;
   }
 
-  .inv-stats-row.is-main .inv-stats-subgroup,
-  .inv-stats-row.is-main .inv-stats-subgroup > .inv-stats-row {
-    display: contents;
+  /* A tab bar fills the width, each tab as wide as its name plus an even share of what's
+     left (iOS's segments sized by their content), so a long one (De camino) keeps its room */
+  .view-tabs,
+  .grid-filter {
+    width: auto;
   }
 
-  .inv-stat-value {
-    font-size: 1.3rem;
-  }
-
-  .inv-stat-label {
-    font-size: 10.5px;
-    letter-spacing: 0;
-  }
-
-  .view-tabs {
-    gap: 8px 4px;
+  .grid-filter-row > .grid-filter,
+  .gallery-tabs {
+    flex: 1;
   }
 
   .view-tab {
-    padding: 10px 8px;
-    font-size: 12px;
-  }
-
-  /* Main tab bar: all tabs in one equal-width row, filling the width */
-  #view-tabs {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 4px;
-  }
-
-  #view-tabs .view-tab {
-    padding: 9px 2px;
-    font-size: 13px;
+    flex: 1 1 auto;
+    padding: 8px 6px;
     text-align: center;
-    white-space: nowrap;
   }
 }
