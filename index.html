@@ -17,7 +17,7 @@
     <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=39" />
+    <link rel="stylesheet" href="css/panini.css?v=40" />
     <meta name="theme-color" content="#121416" />
     <meta name="color-scheme" content="dark" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
         <!-- A year page's way back, beside its title -->
         <div class="inv-title-row">
           <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-          <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.38.1</span></h1>
+          <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.39.0</span></h1>
         </div>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
@@ -82,6 +82,9 @@
       </div>
 
     </main>
+
+    <!-- Back to the top, on a phone (see .to-top) -->
+    <button class="to-top" id="to-top" type="button" aria-label="Volver arriba"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg></button>
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" tabindex="-1">
@@ -346,7 +349,7 @@
         { year: 2010, host: "South Africa",       postales: { items: [
             { label: "Postales", countNested: true, items: [
               { label: "Made in Italy",  dot: "negra", total: 640, complete: true },
-              { label: "Swiss",      total: 660, complete: false },
+              { label: "Swiss",      dot: "amarilla", total: 660, complete: false },
             ] },
           ] },
           sets: [
@@ -528,7 +531,7 @@
                 { label: "Made in Italy",       dot: "azul",   complete: true, photo: "Messi_2010_122_MadeInItaly_Azul.jpg" },
                 { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Messi_2010_122_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
-                { label: "Swiss",               complete: true, photo: "Messi_2010_122_Swiss.jpg" },
+                { label: "Swiss",               dot: "amarilla", complete: true, photo: "Messi_2010_122_Swiss.jpg" },
               ] },
               { label: "Sin número", items: [
                 { label: "Made in Italy", dot: "azul",   complete: true, photo: "Messi_2010_SinNumero_MadeInItaly_Azul.jpg" },
@@ -542,7 +545,7 @@
                 { label: "Made in Italy",       dot: "azul",   complete: true, photo: "Ronaldo_2010_559_MadeInItaly_Azul.jpg" },
                 { label: "Made in Italy",       dot: "negra",  complete: true, photo: "Ronaldo_2010_559_MadeInItaly_Negra.jpg" },
                 { label: "Ind. Argentina",      dot: "negra",  complete: false },
-                { label: "Swiss",               complete: true, photo: "Ronaldo_2010_559_Swiss.jpg" },
+                { label: "Swiss",               dot: "amarilla", complete: true, photo: "Ronaldo_2010_559_Swiss.jpg" },
               ] },
             ] },
           ] },
@@ -669,7 +672,7 @@
             { label: "Postales", countNested: true, items: [
               { label: "Made in Italy", dot: "rosada", total: 670, complete: true },
               { label: "Made in Italy", dot: "negra",  total: 682, complete: false },
-              { label: "Gold", total: 694, complete: false },
+              { label: "Gold", dot: "dorada", total: 694, complete: false },
             ] },
           ] },
           sets: [
@@ -847,7 +850,7 @@
               { label: "288", items: [
                 { label: "Made in Brazil", dot: "negra", complete: true, photo: "Messi_2018_288_MadeInBrazil.jpg" },
                 { label: "Made in Italy",  dot: "negra", complete: true, photo: "Messi_2018_288_MadeInItaly.jpg" },
-                { label: "Gold",                         complete: true, photo: "Messi_2018_288_Gold.jpg" },
+                { label: "Gold",                         dot: "dorada", complete: true, photo: "Messi_2018_288_Gold.jpg" },
               ] },
             ] },
             { id: "cristiano", label: "Ronaldo",            afterPostales: true, items: [
@@ -859,7 +862,7 @@
               { label: "130", items: [
                 { label: "Made in Brazil", dot: "negra", complete: true, photo: "Ronaldo_2018_130_MadeInBrazil.jpg" },
                 { label: "Made in Italy",  dot: "negra", complete: true, photo: "Ronaldo_2018_130_MadeInItaly.jpg" },
-                { label: "Gold",                         complete: true, photo: "Ronaldo_2018_130_Gold.jpg" },
+                { label: "Gold",                         dot: "dorada", complete: true, photo: "Ronaldo_2018_130_Gold.jpg" },
               ] },
               { label: "M6 McDonald's", complete: true, photo: "Ronaldo_2018_M6_McDonalds.jpg" },
             ] },
@@ -872,7 +875,7 @@
               { label: "209", items: [
                 { label: "Made in Brazil", dot: "negra", complete: true, photo: "Mbappe_2018_209_MadeInBrazil.jpg" },
                 { label: "Made in Italy",  dot: "negra", complete: true, photo: "Mbappe_2018_209_MadeInItaly.jpg" },
-                { label: "Gold",                         complete: false },
+                { label: "Gold",                         dot: "dorada", complete: false },
               ] },
             ] },
           ] },
@@ -1693,7 +1696,7 @@
       // back a print run used, or a parallel's finish. Spelling the colour out would push
       // the name onto a second line in a narrow card. Screen readers get it as text.
       const DOT_NAME = { blanca: "Blanca", plateada: "Plateada", azul: "Azul", azulrey: "Azul rey", roja: "Roja", rosada: "Rosada",
-                         naranja: "Naranja", violeta: "Violeta", lima: "Verde lima", granate: "Granate",
+                         naranja: "Naranja", violeta: "Violeta", lima: "Verde lima", granate: "Granate", amarilla: "Amarilla", dorada: "Dorada",
                          carmesi: "Carmesí", lila: "Lila", bronce: "Bronce", oro: "Oro", negra: "Negra" };
       const colorDot = dot => DOT_NAME[dot]
         ? `<span class="color-dot dot-${dot}" title="${DOT_NAME[dot]}" aria-hidden="true"></span>` +
@@ -2144,43 +2147,48 @@
       // preview has the same shape
       const itemWidth = src => { const s = GRID_PREVIEWS[src]; return s[0] * 2160 / s[1]; };
 
-      // A year's sobres (or rescanned albums) in rows that fill the width, four to a row on
-      // the web and two on a phone, or as many as the year has when that's fewer (a lone sobre takes the whole row).
-      // A row's sobres share one height, each as wide as its shape takes (see .item-rows). A
-      // row is two pairs, and a phone stacks the pairs. Once a year fills a row, a short last
-      // row keeps a full one's size: a lone sobre in a pair is matched by an empty spot of its
-      // own shape, and a row of one pair by an empty pair (web only). A sobre's name (after its
-      // number: 2026_5_Vertical-Costa-Rica) sits on top, as on the Sets tab; once one of a
-      // year's sobres has a name, every one gets the line (empty when it has none), so the
-      // photos of a row stay level.
-      function itemRows(paths, alt, caption = getVersionLabel) {
-        const n = paths.length, webPad = n >= 4, phonePad = n >= 2;
-        const named = paths.some(caption);
-        const altOf = src => typeof alt === "function" ? alt(src) : alt;
-        // A sobre's shape as shown: its two faces without the border and the gap between them
-        // (see cropped), which --pair-gap takes the place of
-        const shape = src => GRID_PREVIEWS[src] ? (itemWidth(src) - 240) / 2000 : 1.6;
-        const sum = list => list.reduce((a, src) => a + shape(src), 0);
-        // The image itself is laid out bigger than its faces by this much
-        const over = src => GRID_PREVIEWS[src] ? itemWidth(src) / (itemWidth(src) - 240) : 1;
-        const img = (src, sizes) => GRID_PREVIEWS[src] ? cropped(galleryImg(src, altOf(src), sizes), itemWidth(src), 2160, 80) : galleryImg(src, altOf(src), sizes);
+      // Photos in rows that fill the width, four to a row on the web and two on a phone, or as
+      // many as there are when that's fewer (a lone sobre takes the whole row). A row's photos
+      // share one height, each as wide as its shape takes (see .item-rows). A row is two pairs,
+      // and a phone stacks the pairs. Once there are enough to fill a row, a short last row
+      // keeps a full one's size: a lone photo in a pair is matched by an empty spot of its own
+      // shape, and a row of one pair by an empty pair (web only). figure(item, phone, web)
+      // draws one, given the share of a phone's row and of the web's that it takes.
+      function rowsHtml(items, shape, figure) {
+        const n = items.length, webPad = n >= 4, phonePad = n >= 2;
+        const sum = list => list.reduce((a, it) => a + shape(it), 0);
         const chunk = (list, k) => list.reduce((out, x, i) => (i % k ? out[out.length - 1].push(x) : out.push([x]), out), []);
-        return chunk(paths, 4).map(row => {
+        return chunk(items, 4).map(row => {
           const pairs = chunk(row, 2), avg = sum(row) / row.length;
           // The row's shapes as the web lays it out, empty spots included, for each photo's size
           const webSum = sum(row) + (webPad ? (row.length % 2 ? shape(row[row.length - 1]) : 0) + (row.length <= 2 ? 2 * avg : 0) : 0);
           const pair = two => {
             const phoneSum = sum(two) + (two.length === 1 && phonePad ? sum(two) : 0);
-            const figure = src => `<figure class="gallery-figure" style="--a: ${shape(src)}">${named ? `<figcaption class="gallery-label">${caption(src) || ""}</figcaption>` : ""}${img(src,
-              `(max-width: 480px) ${Math.ceil(100 * over(src) * shape(src) / phoneSum)}vw, ${Math.ceil(1120 * over(src) * shape(src) / webSum)}px`)}</figure>`;
-            // A lone sobre's pair grows as two with its empty spot, or as one where that spot isn't shown
-            const style = two.length === 1 && !webPad ? `--a: ${sum(two)}; --b: var(--pair-gap)` : `--a: ${two.length === 1 ? 2 * sum(two) : sum(two)}`;
-            return `<div class="item-pair" style="${style}">${two.map(figure).join("")}${two.length === 1 && phonePad
+            // A lone photo's pair grows as two with its empty spot, or as one where that spot isn't shown
+            const style = two.length === 1 && !webPad ? `--a: ${sum(two)}; --b: var(--fixed)` : `--a: ${two.length === 1 ? 2 * sum(two) : sum(two)}`;
+            return `<div class="item-pair" style="${style}">${two.map(it => figure(it, shape(it) / phoneSum, shape(it) / webSum)).join("")}${two.length === 1 && phonePad
               ? `<span class="item-pad${webPad ? "" : " phone-only"}" style="--a: ${sum(two)}"></span>` : ""}</div>`;
           };
           return `<div class="item-row">${pairs.map(pair).join("")}${webPad && row.length <= 2
             ? `<div class="item-pair item-pad-pair" style="--a: ${2 * avg}"></div>` : ""}</div>`;
         }).join("");
+      }
+
+      // A year's sobres (or rescanned albums) in rows (rowsHtml). A sobre's name (after its
+      // number: 2026_5_Vertical-Costa-Rica) sits on top, as on the Sets tab; once one of a
+      // year's sobres has a name, every one gets the line (empty when it has none), so the
+      // photos of a row stay level.
+      function itemRows(paths, alt, caption = getVersionLabel) {
+        const named = paths.some(caption);
+        const altOf = src => typeof alt === "function" ? alt(src) : alt;
+        // A sobre's shape as shown: its two faces without the border and the gap between them
+        // (see cropped), which --pair-gap takes the place of
+        const shape = src => GRID_PREVIEWS[src] ? (itemWidth(src) - 240) / 2000 : 1.6;
+        // The image itself is laid out bigger than its faces by this much
+        const over = src => GRID_PREVIEWS[src] ? itemWidth(src) / (itemWidth(src) - 240) : 1;
+        const img = (src, sizes) => GRID_PREVIEWS[src] ? cropped(galleryImg(src, altOf(src), sizes), itemWidth(src), 2160, 80) : galleryImg(src, altOf(src), sizes);
+        return rowsHtml(paths, shape, (src, phone, web) => `<figure class="gallery-figure" style="--a: ${shape(src)}">${named ? `<figcaption class="gallery-label">${caption(src) || ""}</figcaption>` : ""}${img(src,
+          `(max-width: 480px) ${Math.ceil(100 * over(src) * phone)}vw, ${Math.ceil(1120 * over(src) * web)}px`)}</figure>`);
       }
 
       // A name in a file name has no accents (2026_1_Tapa-Suave-Espana.jpg): they come back here
@@ -2292,7 +2300,7 @@
       // The Galería: every album, sobre or set photo scanned, oldest first, each named with
       // its year ("1982 · Europa", "2010 · CC Alemania"; a World Cup Story album says so in
       // full, its sobres and sets say Story). Albums and sobres lie in full-width rows as on a
-      // year page (itemRows), sets at one sticker scale as on a year's Sets tab.
+      // year page (itemRows), and so do its sets, as on a year's Sets tab.
       const GALLERY_SUBS = [
         { state: null,     label: "Álbumes" },
         { state: "sobres", label: "Sobres" },
@@ -2301,8 +2309,9 @@
       const yearName = (y, album) => y === "story" ? (album ? "World Cup Story" : "Story") : String(y);
       function galleryWallHtml(kind) {
         if (kind === "sets") {
-          const figs = ALBUMS.flatMap(al => setPhotos(al).map(ph => setFigure(ph, `Sets ${yearName(al.year)}`, `${yearName(al.year)} · `)));
-          return `<div class="gallery-images sheet-pages">${figs.join("")}</div>`;
+          const photos = ALBUMS.flatMap(al => setPhotos(al).map(ph => ({ ...ph, year: al.year })));
+          return `<div class="gallery-images item-rows set-rows">${rowsHtml(photos, setShape,
+            ph => setFigure(ph, `Sets ${yearName(ph.year)}`, `${yearName(ph.year)} · `))}</div>`;
         }
         const list = kind === "sobres" ? "sobrePaths" : "albumPaths", word = kind === "sobres" ? "Sobre" : "Álbum";
         const yearOf = new Map(ALBUMS.flatMap(al => ((IMAGE_LISTS[al.year] || {})[list] || []).map(src => [src, al.year])));
@@ -2704,8 +2713,7 @@
       // year's Sets tab shows those, and a click opens the image with the backs. SET_PREVIEWS has each
       // one's size in pocket sheets (a sheet is 4 stickers across), [width, height] per
       // sheet, as scanner/codigo/pages.swift prints them: the tab sizes every preview by
-      // it, so a sticker is the same size in every set and each set sits the same
-      // distance from the next.
+      // it, so each set is laid out in its own shape before it loads (setShape).
       const SET_PREVIEWS = {
         "CocaCola_2010_Alemania.jpg": [[0.452, 0.596]],
         "CocaCola_2010_Latam.jpg": [[0.919, 0.597]],
@@ -2787,18 +2795,16 @@
       // Botella", "McDonald's Rusia"
       const longSetName = name => name.split(" · ")
         .map(part => part.replace(/^CC /, "Coca Cola ").replace(/^Mc /, "McDonald's ")).join(" · ");
-      // Every photo's name stays on one line over its photo: an album's or sobre's as wide as
-      // it, a set's 5px past each side (see .sheet-pages .gallery-label). A set takes its
+      // Every photo's name stays on one line over its photo, as wide as it. A set takes its
       // spelled-out name when that fits at full size and otherwise its short one. A name too
       // long for its photo is set smaller, to the half px, until it fits, down to 11px (Apple's
-      // smallest text): past that an album's, sobre's or photo's ends in "…", and a set's (a
-      // one-sticker set such as CC Trophy Tour) widens its set's place to fit it.
+      // smallest text): past that it ends in "…".
       // Names are measured on a canvas, not on the page, and a run only reads the page before
       // it sets anything, never taking a size off a name, so it reads the same however the
       // page was last laid out and one with nothing to fix changes nothing: Safari on iPhone
       // can read a name at its old size right after it changes, and names it kept re-sizing
       // flipped between two sizes on every frame, their photos jumping with them.
-      const PHOTO_NAMES = ".item-rows .gallery-label, .sheet-pages .gallery-label, .player-wall .gallery-label";
+      const PHOTO_NAMES = ".item-rows .gallery-label, .player-wall .gallery-label";
       const measurer = document.createElement("canvas").getContext("2d");
       // A name's own size (12px), read once before a run sets one
       const fullSize = new WeakMap();
@@ -2809,14 +2815,12 @@
         const fits = [...root.querySelectorAll(PHOTO_NAMES)].map(cap => {
           const css = getComputedStyle(cap);
           if (!fullSize.has(cap)) fullSize.set(cap, parseFloat(css.fontSize));
-          const set  = cap.closest(".sheet-pages");
           // A colour dot keeps its size whatever the name's
           const dots = [...cap.querySelectorAll(".color-dot")].reduce((w, dot) => {
             const dc = getComputedStyle(dot);
             return w + dot.getBoundingClientRect().width + parseFloat(dc.marginLeft) + parseFloat(dc.marginRight);
           }, 0);
-          const room = (set ? cap.nextElementSibling.getBoundingClientRect().width - parseFloat(css.marginLeft) - parseFloat(css.marginRight)
-                            : cap.clientWidth) - dots - 1;
+          const room = cap.clientWidth - dots - 1;
           return { cap, room, full: fullSize.get(cap), font: [css.fontStyle, css.fontWeight, css.fontFamily],
                    track: css.letterSpacing === "normal" ? 0 : parseFloat(css.letterSpacing) / parseFloat(css.fontSize) };
         });
@@ -2913,8 +2917,9 @@
 
       // A year's Sets tab: a subtab per section with something to show (SET_SECTIONS order),
       // like the 1970-82 grid's filter, then its count and its sets. Each set (or sheet of a set
-      // over 16) shows by its fronts, its name on top, every sticker the same size (see
-      // .sheet-pages); a set in hand without a photo yet shows as "Falta escanear". A year
+      // over 16) shows by its fronts, its name on top, in rows that fill the width as the
+      // Álbumes and Sobres do (rowsHtml); a set in hand without a photo yet shows as "Falta
+      // escanear". A year
       // opens on its first subtab with a photo in it (else its first subtab); the subtab you
       // pick carries over to the next year when that year has photos in it, and it is in the
       // address (/2010/sets/variantes) unless it is the one the year opens on.
@@ -2960,26 +2965,28 @@
         panel.className = "";
         panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
           `<p class="gallery-section-label">Total: ${n}</p>` +
-          `<div class="gallery-images sheet-pages">${shown.map(figure).join("")}</div>`;
+          `<div class="gallery-images item-rows set-rows">${rowsHtml(shown, setShape, figure)}</div>`;
         fitNames(panel);
       }
 
       // One set's preview with its name on top: on a year's Sets tab, or on the Galería with its
       // year in front ("2010 · CC Alemania"). A caption spells Coca Cola and McDonald's out when
       // that fits (fitNames); the lightbox has room for the whole name. A preview's size is
-      // in sheets (a sheet not in SET_PREVIEWS: one wide).
-      const sizedSet = ([w, h] = [1, 0]) => `style="--w: ${w};${h ? ` --h: ${h};` : ""}"`;
+      // in sheets, and its shape is width over height (a set not in SET_PREVIEWS: a
+      // placeholder's).
+      const sizedSet = ([w, h]) => `style="--w: ${w}; --h: ${h};"`;
+      const setShape = ph => { const [w, h] = (!ph.missing && ph.size) || MISSING_SET; return w / h; };
       function setFigure(ph, alt, prefix = "") {
         const long  = longSetName(ph.name);
         const named = `${long}${ph.dot ? ` (${DOT_NAME[ph.dot]})` : ""}`;
         const caption = `<figcaption class="gallery-label"><span class="gallery-name"${long !== ph.name ? ` data-short="${esc(prefix + ph.name)}" data-long="${esc(prefix + long)}"` : ""}>${esc(prefix + ph.name)}</span>${colorDot(ph.dot)}</figcaption>`;
-        if (ph.missing) return `<figure class="gallery-figure is-missing">
+        if (ph.missing) return `<figure class="gallery-figure is-missing" style="--a: ${setShape(ph)}">
             ${caption}
             <div class="gallery-missing" ${sizedSet(MISSING_SET)} role="img" aria-label="${esc(`${named}: falta escanear`)}">Falta escanear</div>
           </figure>`;
-        return `<figure class="gallery-figure">
+        return `<figure class="gallery-figure" style="--a: ${setShape(ph)}">
             ${caption}
-            <img class="gallery-img" src="${ph.thumb}" ${sizedSet(ph.size)} data-full="${ph.src}" data-label="${esc(prefix + long)}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${alt} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
+            <img class="gallery-img" src="${ph.thumb}" ${sizedSet(ph.size || MISSING_SET)} data-full="${ph.src}" data-label="${esc(prefix + long)}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${alt} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
           </figure>`;
       }
 
@@ -3495,6 +3502,28 @@
         const btn = row.querySelector(".exp-toggle");
         if (btn) btn.setAttribute("aria-expanded", String(open));
       });
+
+      // ── Back to the top ────────────────────────────────────────────────────
+      // On a phone, once a page's tabs (its lowest bar of them) have scrolled out of sight, a
+      // round button at the bottom right takes it back up, as tapping the status bar does on
+      // iOS, and focus goes up with it to the page's title. It isn't there before that,
+      // rather than greyed out. (A whole screen down was too late: Messi's Todo scrolls only
+      // a little more than that.)
+      {
+        const toTop = document.getElementById("to-top");
+        const tabsGone = () => [...document.querySelectorAll(".view-tabs, .grid-filter")]
+          .filter(bar => bar.offsetParent).every(bar => bar.getBoundingClientRect().bottom < 0);
+        let queued = false;
+        addEventListener("scroll", () => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(() => { queued = false; toTop.classList.toggle("is-shown", scrollY > 0 && tabsGone()); });
+        }, { passive: true });
+        toTop.addEventListener("click", () => {
+          scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+          document.querySelector(".inv-title").focus({ preventScroll: true });
+        });
+      }
 
       // ── Swipe navigation ───────────────────────────────────────────────────
       // A sideways swipe on a year page goes to the year before or after. The photo viewer

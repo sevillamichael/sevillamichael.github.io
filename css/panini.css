@@ -564,6 +564,11 @@ html {
 .color-dot.dot-naranja { background: #fa5b27; border-color: #fa5b27; }
 .color-dot.dot-violeta { background: #6d56a2; border-color: #6d56a2; }
 .color-dot.dot-lima    { background: #dce74c; border-color: #dce74c; }
+/* 2010's Swiss fronts, framed in yellow where the others are cream (Messi's and Ronaldo's) */
+.color-dot.dot-amarilla { background: #fdd749; border-color: #fdd749; }
+/* 2018's Gold Edition frame, foil drawn from its highlight to its middle tone as the
+   Extras' metals are: paler than their Oro */
+.color-dot.dot-dorada  { background: linear-gradient(135deg, #ded082, #c7b468); border-color: transparent; }
 
 /* Black vanishes on the dark background without a ring */
 .color-dot.dot-negra  { background: #000; border-color: var(--subtle); }
@@ -831,52 +836,33 @@ html {
   justify-content: center;
 }
 
-/* A year's Postales tab: every sticker the same size, in every set and every year. On
-   the web a typical set of two rows of four (0.885 of a pocket sheet's width) is as wide
-   as an Álbumes column, so four fill a row edge to edge; on a phone a pocket sheet is
-   8% over half the row, as big as stickers go while two sets still share a row. Each set
-   takes its own width, every set and every sheet of a set over 16 the row's gap from
-   the next, each name on top; a set that doesn't fit goes to the next row (at these
-   sizes, four at most on the web and two on a phone). --w and --h are a preview's width
-   and height in sheets (SET_PREVIEWS). */
-.sheet-pages {
-  container-type: inline-size;
-  align-items: flex-start;
+/* A year's Sets tab and the Galería's Sets lie in rows as the Álbumes and Sobres do (see
+   .item-rows), each set in its own shape (--a, from --w and --h: its size in pocket sheets),
+   a set's photo being a single cut-out. A row of few sets, or of tall ones, stops at
+   --row-max tall rather than fill the width, so a lone set isn't blown up past its preview;
+   what is left of the row stays empty. */
+.item-rows.set-rows {
+  --fixed: 0px;
+  --row-max: 340px;
 }
 
-/* (307.9px on a full-width row; on a narrower screen it scales with the row, so a year's
-   sets fall into the same rows at any width, like Álbumes) */
-.sheet-pages .gallery-figure {
-  --sheet: calc((100cqw - 3 * var(--grid-gap)) / 4 / 0.885);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 100%;
+.set-rows .item-pair > .gallery-figure,
+.set-rows .item-pad {
+  max-width: calc(var(--a) * var(--row-max));
 }
 
-.sheet-pages .gallery-figure img {
-  display: block;
-  width: calc(var(--sheet) * var(--w, 1));
-  max-width: 100%;
+.set-rows .item-pair {
+  max-width: calc(var(--a) * var(--row-max) + var(--grid-gap));
+}
+
+.set-rows .gallery-figure .gallery-img,
+.set-rows .gallery-missing {
+  width: 100%;
   height: auto;
   max-height: none;
   aspect-ratio: var(--w) / var(--h);
   /* the preview is cut to its stickers: a small radius, so their corners stay */
   border-radius: 2px;
-}
-
-/* The name on top, on one line: it may run 5px past each side of its set, and a set is
-   never laid out narrower than that, so names never touch */
-.sheet-pages .gallery-label {
-  margin: 0 -5px 6px;
-  white-space: nowrap;
-}
-
-/* A placeholder takes the shape of a typical set of two rows of four (MISSING_SET) */
-.sheet-pages .gallery-missing {
-  width: calc(var(--sheet) * var(--w));
-  max-width: 100%;
-  aspect-ratio: var(--w) / var(--h);
 }
 
 .gallery-figure .gallery-img {
@@ -896,6 +882,8 @@ html {
    width over height), so the sobres of a row share one height. A pair starts at the gap, its
    inner gap, so both pairs of a row come out that same height too. */
 .item-rows {
+  /* what each photo has that doesn't scale: a sobre's front-to-back gap */
+  --fixed: var(--pair-gap);
   flex-direction: column;
   flex-wrap: nowrap;
 }
@@ -908,7 +896,7 @@ html {
 }
 
 .item-pair {
-  flex: var(--a) 1 var(--b, calc(var(--grid-gap) + 2 * var(--pair-gap)));
+  flex: var(--a) 1 var(--b, calc(var(--grid-gap) + 2 * var(--fixed)));
   min-width: 0;
 }
 
@@ -917,11 +905,11 @@ html {
   display: none;
 }
 
-/* Each starts at its front-to-back gap and grows by its faces' shape (--a), so a row's
-   photos share one height */
+/* Each starts at what it has that doesn't scale (--fixed) and grows by its shape (--a), so a
+   row's photos share one height */
 .item-pair > .gallery-figure,
 .item-pad {
-  flex: var(--a) 1 var(--pair-gap);
+  flex: var(--a) 1 var(--fixed);
   min-width: 0;
 }
 
@@ -1153,8 +1141,49 @@ html {
   margin-bottom: 10px;
 }
 
+/* Back to the top, a phone's alone: a round button at the bottom right, solid rather than
+   frosted so nothing under it is redrawn as the page scrolls. It fades in once the page is
+   scrolled past its first screen (see index.html) and is out of reach until then. */
+.to-top {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0.5px solid var(--separator);
+  border-radius: 50%;
+  background: rgba(44, 44, 46, 0.92);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.to-top.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 @media (max-width: 480px) {
   /* The viewer's arrows and counter in a bar at the foot, under the thumb */
+  .to-top {
+    display: flex;
+  }
+
   .lightbox.is-open {
     padding: 68px 12px calc(76px + env(safe-area-inset-bottom));
   }
@@ -1221,8 +1250,8 @@ html {
     display: block;
   }
 
-  .sheet-pages .gallery-figure {
-    --sheet: calc((100cqw - var(--grid-gap)) / 2 * 1.08);
+  .item-rows.set-rows {
+    --row-max: 240px;
   }
 
   .photo-wall .gallery-label .color-dot {
