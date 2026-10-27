@@ -17,7 +17,7 @@
     <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=40" />
+    <link rel="stylesheet" href="css/panini.css?v=41" />
     <meta name="theme-color" content="#121416" />
     <meta name="color-scheme" content="dark" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -28,13 +28,23 @@
   </head>
   <body>
     <main class="page">
+      <!-- ── Title bar: it stays at the top as the page scrolls, as iOS and macOS bars do ── -->
+      <!-- A year page's way back beside its title… -->
+      <div class="inv-title-row" id="title-bar">
+        <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.40.0</span></h1>
+        <!-- …the same title, small, once the bar has stuck to the top (the h1 is the one read out) -->
+        <span class="title-bar-text" id="title-bar-text" aria-hidden="true">Colección Panini</span>
+        <!-- …and at its end the arrows to the year before and after, as iOS Mail and macOS
+             Calendar put theirs in the title bar -->
+        <div class="gallery-nav" id="gallery-nav" hidden>
+          <button class="gallery-nav-btn" id="gallery-prev" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
+          <button class="gallery-nav-btn" id="gallery-next" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
       <!-- ── Page header ──────────────────────────────────────────────────── -->
       <section class="inv-header">
-        <!-- A year page's way back, beside its title -->
-        <div class="inv-title-row">
-          <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-          <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.39.0</span></h1>
-        </div>
         <div class="inv-stats" id="inv-stats"></div>
       </section>
 
@@ -55,14 +65,9 @@
 
       <!-- ── Gallery view (shown when a year is selected) ───────────────── -->
       <div class="gallery-view" id="gallery-view" hidden>
-        <!-- Per-year tabs: Álbumes/Sobres photos + this year's sticker sets, and on the web
-             the arrows to the year before and after -->
+        <!-- Per-year tabs: Álbumes/Sobres photos + this year's sticker sets -->
         <div class="gallery-tabs-row">
           <nav class="view-tabs gallery-tabs" id="gallery-tabs" aria-label="Secciones"></nav>
-          <div class="gallery-nav">
-            <button class="gallery-nav-btn" id="gallery-prev" type="button" aria-label="Anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-            <button class="gallery-nav-btn" id="gallery-next" type="button" aria-label="Siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-          </div>
         </div>
 
         <section class="gallery-section" id="gallery-albums-section">
@@ -83,17 +88,23 @@
 
     </main>
 
+    <!-- Short confirmations for VoiceOver, like "Copiado" (see announce) -->
+    <p class="sr-only" id="announcer" role="status"></p>
+
     <!-- Back to the top, on a phone (see .to-top) -->
     <button class="to-top" id="to-top" type="button" aria-label="Volver arriba"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg></button>
 
     <!-- ── Lightbox ───────────────────────────────────────────────────────── -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" tabindex="-1">
-      <button class="lightbox-close" type="button" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <button class="lightbox-prev" id="lightbox-prev" type="button" aria-label="Anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-      <button class="lightbox-next" id="lightbox-next" type="button" aria-label="Siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-      <span class="lightbox-counter" id="lightbox-counter"></span>
-      <div class="lightbox-content">
+      <button class="lightbox-close" type="button" aria-label="Cerrar" title="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <button class="lightbox-prev" id="lightbox-prev" type="button" aria-label="Anterior" title="Anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
+      <button class="lightbox-next" id="lightbox-next" type="button" aria-label="Siguiente" title="Siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <!-- The photo's name with "3 de 12" under it, read out as the photos turn -->
+      <div class="lightbox-title" aria-live="polite">
         <span class="lightbox-label" id="lightbox-label"></span>
+        <span class="lightbox-counter" id="lightbox-counter"></span>
+      </div>
+      <div class="lightbox-content">
         <img class="lightbox-img" id="lightbox-img" alt="" />
       </div>
     </div>
@@ -2587,6 +2598,14 @@
         return `${blocks.map(b => b.join("\n")).join("\n\n")}\n\nTOTAL: ${total}`;
       }
 
+      // Says a short confirmation to VoiceOver; emptied first, so the same words twice are
+      // still read out
+      function announce(text) {
+        const el = document.getElementById("announcer");
+        el.textContent = "";
+        setTimeout(() => { el.textContent = text; }, 50);
+      }
+
       // navigator.clipboard needs a secure context, which file:// is not in every
       // browser, so fall back to a throwaway textarea + execCommand.
       function copyText(text) {
@@ -2678,6 +2697,8 @@
             `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" ` +
             `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
             `<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>` +
+            `<svg class="copy-done" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" ` +
+            `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>` +
             `</button>`
           : "";
         panel.innerHTML = `<div class="grid-filter-row"><div class="grid-filter">${bar}</div>${copyBtn}</div>` +
@@ -3033,29 +3054,50 @@
 
       function navigateGallery(dir) {
         const nav = navigableAlbums();
-        const idx = nav.findIndex(a => a.year === currentGalleryYear);
-        if (idx === -1) return;
+        const to = nav[nav.findIndex(a => a.year === currentGalleryYear) + dir];
+        if (!to) return; // the first and last years stop there, as Apple's arrows do
         // Stay on the tab being shown (Postales stays Postales), as the player tabs keep their
         // subtab; a year without it opens on its first tab
-        showGallery(nav[(idx + dir + nav.length) % nav.length].year, currentGalleryTab);
+        showGallery(to.year, currentGalleryTab);
         // Paging through years swaps the address, so Back still returns to the list
         setAddress(viewRoute(), "replace");
         window.scrollTo(0, 0); // another year is another page: start at its top
+        // An arrow just dimmed at the end can't keep the focus: hand it to the other one
+        if (document.activeElement && document.activeElement.disabled)
+          document.getElementById(dir < 0 ? "gallery-next" : "gallery-prev").focus();
+      }
+
+      // Each arrow names the year it opens, for VoiceOver and as its tooltip; at the first
+      // or last year it dims
+      function setYearArrows(nav, idx) {
+        [["gallery-prev", "Anterior", nav[idx - 1]], ["gallery-next", "Siguiente", nav[idx + 1]]]
+          .forEach(([id, word, to]) => {
+            const btn = document.getElementById(id);
+            btn.disabled = !to;
+            const label = to ? `${word}: ${albumTitle(to)}` : word;
+            btn.setAttribute("aria-label", label);
+            btn.title = label;
+          });
+      }
+
+      // The page's title, and the small one the title bar shows once it has stuck to the top
+      function setTitle(text) {
+        document.getElementById("inv-title-text").textContent = text;
+        document.getElementById("title-bar-text").textContent = text;
       }
 
       function showGallery(year, initialTab) {
         currentGalleryYear = year;
         const nav   = navigableAlbums();
-        const hasNav = nav.length > 1;
-        document.getElementById("gallery-prev").hidden = !hasNav;
-        document.getElementById("gallery-next").hidden = !hasNav;
+        document.getElementById("gallery-nav").hidden = nav.length < 2;
+        setYearArrows(nav, nav.findIndex(a => a.year === year));
 
         const album    = ALBUMS.find(a => a.year === year);
         const counts   = imageCounts[year] || { albumPaths: [], sobrePaths: [] };
 
         const titleEl = document.querySelector(".inv-title");
         titleEl.classList.add("is-gallery");
-        document.getElementById("inv-title-text").textContent = albumTitle(album);
+        setTitle(albumTitle(album));
         document.querySelector(".inv-version").hidden = true;
 
         const albumsSection = document.getElementById("gallery-albums-section");
@@ -3121,13 +3163,14 @@
         currentGalleryTab = null;
         document.getElementById("gallery-view").hidden = true;
         document.getElementById("gallery-back").hidden = true;
+        document.getElementById("gallery-nav").hidden  = true;
         document.getElementById("view-tabs").hidden    = false;
         renderSubTabs();
         renderTabCount(currentFilter, hasSubTabs(currentFilter) ? currentSubFilter : null);
         document.getElementById("albums-grid").hidden  = false;
         const titleEl2 = document.querySelector(".inv-title");
         titleEl2.classList.remove("is-gallery");
-        document.getElementById("inv-title-text").textContent = "Colección Panini";
+        setTitle("Colección Panini");
         document.querySelector(".inv-version").hidden = false;
         updateStats();
         // Back to that year's card, where a keyboard user left the grid. Paging through
@@ -3217,6 +3260,7 @@
         if (copy && currentGridSet) {
           copyText(faltaText(currentGridSet, currentGridYear)).then(() => {
             copy.classList.add("is-done");
+            announce("Copiado");
             setTimeout(() => copy.classList.remove("is-done"), 1200);
           }).catch(() => {});
           return;
@@ -3397,9 +3441,10 @@
         lbImages = images;
         lbIndex  = index;
         lbPrev.hidden = lbNext.hidden = images.length <= 1;
-        updateLightboxImage();
         lbReturnFocus = document.activeElement;
+        // Open first: the name is fitted to the room the open viewer gives it
         lightbox.classList.add("is-open");
+        updateLightboxImage();
         lightbox.focus();
         document.body.style.overflow = "hidden";
       }
@@ -3407,21 +3452,38 @@
       function updateLightboxImage() {
         lightboxImg.src = lbImages[lbIndex].src;
         lightboxImg.alt = lbImages[lbIndex].alt;
-        if (lbCounter) lbCounter.textContent = `${lbIndex + 1} de ${lbImages.length}`;
+        lbCounter.textContent = `${lbIndex + 1} de ${lbImages.length}`;
         // The photos either side load meanwhile, so the arrows turn without a wait
-        if (lbImages.length > 1) [-1, 1].forEach(d => warmImage(lbImages[(lbIndex + d + lbImages.length) % lbImages.length].src));
-        if (lbLabel) {
-          const l = lbImages[lbIndex].label;
-          lbLabel.textContent = l || "";
-          // The caption's colour dot comes along (its name stays in the image's alt text)
-          if (l && lbImages[lbIndex].dot) lbLabel.insertAdjacentHTML("beforeend", colorDot(lbImages[lbIndex].dot));
-          lbLabel.hidden = !l;
-        }
+        [-1, 1].forEach(d => warmImage(lbImages[lbIndex + d]?.src));
+        // The first and last photos stop there, as in Photos: their arrow dims
+        lbPrev.disabled = lbIndex === 0;
+        lbNext.disabled = lbIndex === lbImages.length - 1;
+        const { label, dot } = lbImages[lbIndex];
+        // The caption's colour dot comes along (its name stays in the image's alt text)
+        lbLabel.innerHTML = label ? `<span class="lightbox-name">${esc(label)}</span>${dot ? colorDot(dot) : ""}` : "";
+        lbLabel.hidden = !label;
+        fitViewerName();
       }
 
+      // A long name shrinks to fit the top bar, to 11px at the least, then ends in "…"
+      function fitViewerName() {
+        const name = lbLabel.querySelector(".lightbox-name");
+        if (!name) return;
+        name.style.fontSize = "";
+        let px = parseFloat(getComputedStyle(name).fontSize);
+        while (px > 11 && name.scrollWidth > name.clientWidth) name.style.fontSize = `${px -= 0.5}px`;
+      }
+      window.addEventListener("resize", () => {
+        if (lightbox.classList.contains("is-open")) fitViewerName();
+      });
+
       function lightboxNav(dir) {
-        lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+        const to = lbIndex + dir;
+        if (to < 0 || to >= lbImages.length) return;
+        lbIndex = to;
         updateLightboxImage();
+        // An arrow just dimmed at the end can't keep the focus: hand it to the other one
+        if (document.activeElement && document.activeElement.disabled) (dir < 0 ? lbNext : lbPrev).focus();
       }
 
       function closeLightbox() {
@@ -3471,7 +3533,11 @@
         if (img) warmImage(img.dataset.full);
       }));
 
-      lightbox.addEventListener("click", closeLightbox);
+      // A tap around the photo closes the viewer; one on the photo doesn't, as in Photos, nor
+      // one on a dimmed arrow
+      lightbox.addEventListener("click", e => {
+        if (!e.target.closest(".lightbox-img, .lightbox-prev, .lightbox-next")) closeLightbox();
+      });
       lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); });
       lbNext.addEventListener("click", e => { e.stopPropagation(); lightboxNav(1); });
 
@@ -3503,8 +3569,17 @@
         if (btn) btn.setAttribute("aria-expanded", String(open));
       });
 
+      // ── Title bar ──────────────────────────────────────────────────────────
+      // The row with the title sticks to the top as the page scrolls. Once it has, the big
+      // title gives way to a small one in a solid bar, as iOS's large titles fold into the
+      // navigation bar and a Mac window keeps its toolbar. (Stuck is when its top edge has
+      // reached the screen's: then it no longer fits wholly under a line 1px lower.)
+      const titleBar = document.getElementById("title-bar");
+      new IntersectionObserver(([e]) => titleBar.classList.toggle("is-stuck", e.intersectionRatio < 1),
+        { rootMargin: "-1px 0px 0px 0px", threshold: 1 }).observe(titleBar);
+
       // ── Back to the top ────────────────────────────────────────────────────
-      // On a phone, once a page's tabs (its lowest bar of them) have scrolled out of sight, a
+      // On a phone, once a page's tabs (its lowest bar of them) have gone under the title bar, a
       // round button at the bottom right takes it back up, as tapping the status bar does on
       // iOS, and focus goes up with it to the page's title. It isn't there before that,
       // rather than greyed out. (A whole screen down was too late: Messi's Todo scrolls only
@@ -3512,7 +3587,7 @@
       {
         const toTop = document.getElementById("to-top");
         const tabsGone = () => [...document.querySelectorAll(".view-tabs, .grid-filter")]
-          .filter(bar => bar.offsetParent).every(bar => bar.getBoundingClientRect().bottom < 0);
+          .filter(bar => bar.offsetParent).every(bar => bar.getBoundingClientRect().bottom < titleBar.getBoundingClientRect().bottom);
         let queued = false;
         addEventListener("scroll", () => {
           if (queued) return;

@@ -42,16 +42,95 @@ html {
 
 .inv-header {
   position: relative;
-  padding: 16px 0 8px;
+  padding: 0 0 8px;
 }
 
 /* Its height is the back chevron's, so the page below stays put between the main page and a
-   year */
+   year. It sticks to the top as the page scrolls (see index.html); stuck, it turns into a
+   bar of the page's colour with a hairline under it, solid rather than frosted like the
+   go-up button, so nothing under it is redrawn as the page scrolls. */
 .inv-title-row {
+  position: sticky;
+  top: 0;
+  z-index: 40;
   display: flex;
   align-items: center;
   gap: 2px;
   min-height: 44px;
+  margin-top: 16px;
+}
+
+/* The bar and its hairline reach both edges of the screen, past the page's column, by a
+   shadow, which (unlike a wider box) can't make the page scroll sideways */
+.inv-title-row::before,
+.inv-title-row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  clip-path: inset(0 -100vmax);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.inv-title-row::before {
+  top: 0;
+  bottom: 0;
+  background: var(--bg);
+  box-shadow: 0 0 0 100vmax var(--bg);
+}
+
+.inv-title-row::after {
+  bottom: 0;
+  height: 0.5px;
+  background: var(--separator);
+  box-shadow: 0 0 0 100vmax var(--separator);
+}
+
+.inv-title-row.is-stuck::before,
+.inv-title-row.is-stuck::after {
+  opacity: 1;
+}
+
+/* Whatever the page scrolls to, or the keyboard moves to, stops below the bar, not under it */
+html {
+  scroll-padding-top: 44px;
+}
+
+/* Stuck, the big title fades into a small one: on the web at the bar's start, as a Mac
+   window's toolbar title (15px bold), on a phone in its middle, as iOS's (17px semibold) */
+.inv-title-row .inv-title {
+  transition: opacity 0.2s;
+}
+
+.inv-title-row.is-stuck .inv-title {
+  opacity: 0;
+}
+
+.title-bar-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  max-width: calc(100% - 140px);
+  transform: translateY(-50%);
+  color: var(--heading);
+  font: 700 15px/20px var(--font);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.gallery-back-btn:not([hidden]) ~ .title-bar-text {
+  left: 34px;
+}
+
+.inv-title-row.is-stuck .title-bar-text {
+  opacity: 1;
 }
 
 /* Titles on Apple's type scale: the main page's a Large Title (34px), a year's a Title 1
@@ -122,6 +201,7 @@ html {
    too small on touch, and it is the only way to open the panel */
 .exp > .card-count-row {
   cursor: pointer;
+  transition: opacity 0.15s;
 }
 
 /* Caret toggle button sitting next to a row's label. Padding grows the hit area to
@@ -149,8 +229,10 @@ html {
   transform: rotate(0deg); /* open: points down */
 }
 
-.exp-toggle:hover {
-  color: var(--heading);
+@media (hover: hover) {
+  .exp-toggle:hover {
+    color: var(--heading);
+  }
 }
 
 .exp-toggle:focus-visible {
@@ -236,11 +318,13 @@ html {
   font: 600 13px/1.2 var(--font);
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
+  transition: background-color 0.15s, color 0.15s, opacity 0.15s;
 }
 
-.view-tab:hover {
-  background: rgba(255, 255, 255, 0.06);
+@media (hover: hover) {
+  .view-tab:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
 }
 
 .view-tab.is-active {
@@ -295,8 +379,10 @@ html {
   transition: background-color 0.15s, color 0.15s;
 }
 
-.grid-copy:hover {
-  background: rgba(118, 118, 128, 0.4);
+@media (hover: hover) {
+  .grid-copy:hover {
+    background: rgba(118, 118, 128, 0.4);
+  }
 }
 
 .grid-copy:focus-visible {
@@ -304,9 +390,19 @@ html {
   outline-offset: 2px;
 }
 
-/* Brief acknowledgement that the list reached the clipboard */
+/* Once the list is on the clipboard the icon turns into a green checkmark for a moment, as
+   Apple swaps an icon for one whose action is done (VoiceOver hears "Copiado") */
 .grid-copy.is-done {
   color: #4ade80;
+}
+
+.grid-copy .copy-done,
+.grid-copy.is-done svg:not(.copy-done) {
+  display: none;
+}
+
+.grid-copy.is-done .copy-done {
+  display: block;
 }
 
 /* Category rows: label left, sticker chips flowing to the right */
@@ -422,7 +518,7 @@ html {
 /* ── Per-year gallery tabs and set panel ────────────────────────────────── */
 
 /* 18px above (header 8px + 10px) and 18px below (6px + section 12px) */
-/* The year's tabs, and on the web its arrows at the row's end */
+/* The year's tabs */
 .gallery-tabs-row {
   display: flex;
   align-items: center;
@@ -479,11 +575,13 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, filter 0.15s;
 }
 
-.card-logo:hover {
-  background: color-mix(in srgb, var(--surface-strong) 88%, #fff);
+@media (hover: hover) {
+  .card-logo:hover {
+    background: color-mix(in srgb, var(--surface-strong) 88%, #fff);
+  }
 }
 
 .card-logo img {
@@ -671,11 +769,13 @@ html {
   border-radius: 10px;
   color: var(--heading);
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, opacity 0.15s;
 }
 
-.gallery-back-btn:hover {
-  background: var(--surface-strong);
+@media (hover: hover) {
+  .gallery-back-btn:hover {
+    background: var(--surface-strong);
+  }
 }
 
 .gallery-back-btn:focus-visible {
@@ -683,16 +783,18 @@ html {
   outline-offset: 2px;
 }
 
+/* The arrows to the year before and after, at the title's end: bare chevrons like the back
+   one, with the same 44px tap areas, the last pulled out so its chevron sits as far in from
+   the page's edge as the back one's */
 .gallery-nav {
+  flex: none;
   display: flex;
-  gap: 8px;
-  margin-left: auto;
+  margin: 0 -13px 0 auto;
 }
 
-/* The arrows to the year before and after: bare chevrons like the back one */
 .gallery-nav-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: none;
   border: 0;
@@ -702,11 +804,20 @@ html {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, opacity 0.15s;
 }
 
-.gallery-nav-btn:hover {
-  background: var(--surface-strong);
+@media (hover: hover) {
+  .gallery-nav-btn:hover:not(:disabled) {
+    background: var(--surface-strong);
+  }
+}
+
+/* At the first or last year, dimmed as iOS dims a bar button it can't use */
+.gallery-nav-btn:disabled {
+  color: var(--subtle);
+  opacity: 0.4;
+  cursor: default;
 }
 
 .gallery-nav-btn:focus-visible {
@@ -781,12 +892,7 @@ html {
   box-shadow: var(--shadow);
   display: block;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.gallery-img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+  transition: filter 0.15s ease;
 }
 
 .gallery-img:focus-visible {
@@ -932,16 +1038,12 @@ html {
 /* A player's, sobre's or album's photo cut to its stickers (see cropped in index.html): its
    front and back side by side, --pair-gap apart, each a frame (--f, the face's shape) that
    hides the black border; the image is laid out bigger behind it (--w, --h) and shifted to
-   that face (--l, --t). The pair hovers and takes focus as one photo. */
+   that face (--l, --t). The pair dims when pressed and takes focus as one photo. */
 .photo-pair {
   display: flex;
   gap: var(--pair-gap);
-  transition: transform 0.15s ease;
+  transition: filter 0.15s ease;
   cursor: pointer;
-}
-
-.photo-pair:hover {
-  transform: scale(1.02);
 }
 
 .photo-pair:has(.gallery-img:focus-visible) {
@@ -959,11 +1061,6 @@ html {
   /* cut to its stickers like a Set's preview: the same small radius, so their corners stay */
   border-radius: 2px;
   box-shadow: var(--shadow);
-  transition: box-shadow 0.15s ease;
-}
-
-.photo-pair:hover > .photo-crop {
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
 }
 
 .gallery-images .photo-crop > img.gallery-img,
@@ -978,6 +1075,7 @@ html {
   border-radius: 0;
   box-shadow: none;
   transform: none;
+  filter: none; /* the pair dims as one */
   outline: none;
 }
 
@@ -994,7 +1092,7 @@ html {
 }
 
 /* A year card on a player's Todo links to that year's first photo: land it just below
-   the top of the screen. It takes focus for keyboard users but is not a control. */
+   the title bar. It takes focus for keyboard users but is not a control. */
 .photo-wall .gallery-figure[id] {
   scroll-margin-top: 16px;
 }
@@ -1003,14 +1101,8 @@ html {
   outline: none;
 }
 
-/* In a caption (and the viewer's label) the colour dot sits inline after the text (a
-   ledger row lays it out as a flex item instead) */
-.lightbox-label .color-dot {
-  display: inline-block;
-  vertical-align: middle;
-  margin: -2px 0 0 7px;
-}
-
+/* In a caption the colour dot sits inline after the text (a ledger row and the viewer's
+   name lay it out as a flex item instead) */
 .gallery-label .color-dot {
   display: inline-block;
   vertical-align: middle;
@@ -1024,9 +1116,9 @@ html {
 }
 
 /* The viewer, as Photos on iOS and macOS: the photo on black, a close button at the top
-   right and the counter at the top's middle, round frosted buttons that turn the photos at
-   its sides (on a phone at its foot, under the thumb). Its padding keeps the photo clear of
-   them. */
+   right and the photo's name over "3 de 12" at the top's middle, round frosted buttons that
+   turn the photos at its sides (on a phone at its foot, under the thumb). Its padding keeps
+   the photo clear of them. */
 .lightbox.is-open {
   position: fixed;
   inset: 0;
@@ -1035,7 +1127,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 68px 76px 24px;
+  padding: calc(68px + env(safe-area-inset-top)) 76px 24px;
   animation: fadeIn 0.18s ease both;
   cursor: pointer;
 }
@@ -1045,13 +1137,13 @@ html {
   to   { opacity: 1; }
 }
 
-/* The height cap is the screen less the viewer's padding and the caption above the photo
-   (26px tall, 10px below it). A plain 100% has no fixed height to resolve against, so a
-   photo taller than the screen (the 4x4 2022 Europa sheet) ran off the bottom. */
+/* The height cap is the screen less the viewer's padding. A plain 100% has no fixed height
+   to resolve against, so a photo taller than the screen (the 4x4 2022 Europa sheet) ran off
+   the bottom. */
 .lightbox-img {
   max-width: 100%;
-  max-height: calc(100vh - 128px);
-  max-height: calc(100dvh - 128px);
+  max-height: calc(100vh - 92px);
+  max-height: calc(100dvh - 92px - env(safe-area-inset-top));
   border-radius: 10px;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
   object-fit: contain;
@@ -1084,10 +1176,12 @@ html {
   transition: background-color 0.15s;
 }
 
-.lightbox-close:hover,
-.lightbox-prev:hover,
-.lightbox-next:hover {
-  background: rgba(72, 72, 74, 0.85);
+@media (hover: hover) {
+  .lightbox-close:hover,
+  .lightbox-prev:hover:not(:disabled),
+  .lightbox-next:hover:not(:disabled) {
+    background: rgba(72, 72, 74, 0.85);
+  }
 }
 
 .lightbox-close:focus-visible,
@@ -1102,23 +1196,62 @@ html {
   right: 12px;
 }
 
+/* Level with the photo's middle: the middle of the room the padding leaves it, 22px under
+   the screen's */
 .lightbox-prev,
 .lightbox-next {
-  top: 50%;
+  top: calc(50% + 22px);
   transform: translateY(-50%);
 }
 
 .lightbox-prev { left: 16px; }
 .lightbox-next { right: 16px; }
 
-.lightbox-counter {
+/* At the first or last photo, dimmed as iOS dims a button it can't use */
+.lightbox-prev:disabled,
+.lightbox-next:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* The photo's name over "3 de 12", as Photos titles a photo: level with the close button
+   and as far in from both sides, so it stays centred and clear of it */
+.lightbox-title {
   position: fixed;
-  top: calc(26px + env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.75);
-  font: 600 13px/16px var(--font);
+  top: calc(12px + env(safe-area-inset-top));
+  left: 68px;
+  right: 68px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
+}
+
+.lightbox-label {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  color: #fff;
+  font: 600 15px/20px var(--font);
+}
+
+.lightbox-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lightbox-label .color-dot {
+  flex: none;
+  margin-left: 7px;
+}
+
+.lightbox-counter {
+  color: rgba(255, 255, 255, 0.75);
+  font: 400 13px/16px var(--font);
 }
 
 .lightbox-content {
@@ -1130,16 +1263,6 @@ html {
   cursor: default;
 }
 
-.lightbox-label {
-  color: rgba(255, 255, 255, 0.85);
-  font: 500 14px/1 var(--font);
-  pointer-events: none;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
-  background: rgba(0, 0, 0, 0.35);
-  padding: 6px 14px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
 
 /* Back to the top, a phone's alone: a round button at the bottom right, solid rather than
    frosted so nothing under it is redrawn as the page scrolls. It fades in once the page is
@@ -1164,7 +1287,7 @@ html {
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s, background-color 0.15s;
 }
 
 .to-top.is-shown {
@@ -1179,18 +1302,28 @@ html {
 }
 
 @media (max-width: 480px) {
-  /* The viewer's arrows and counter in a bar at the foot, under the thumb */
   .to-top {
     display: flex;
   }
 
+  /* The small title in the middle of the bar, clear of the back chevron and the arrows */
+  .title-bar-text,
+  .gallery-back-btn:not([hidden]) ~ .title-bar-text {
+    left: 50%;
+    max-width: calc(100% - 160px);
+    transform: translate(-50%, -50%);
+    font: 600 17px/22px var(--font);
+  }
+
+  /* The viewer's arrows in a bar at the foot, under the thumb, and the photo in the middle
+     of the screen, as far from it as from the top bar */
   .lightbox.is-open {
-    padding: 68px 12px calc(76px + env(safe-area-inset-bottom));
+    padding: calc(76px + env(safe-area-inset-top)) 12px calc(76px + env(safe-area-inset-bottom));
   }
 
   .lightbox-img {
-    max-height: calc(100vh - 180px);
-    max-height: calc(100dvh - 180px - env(safe-area-inset-bottom));
+    max-height: calc(100vh - 152px);
+    max-height: calc(100dvh - 152px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   }
 
   .lightbox-prev,
@@ -1200,16 +1333,19 @@ html {
     transform: none;
   }
 
-  .lightbox-counter {
-    top: auto;
-    bottom: calc(30px + env(safe-area-inset-bottom));
-  }
-
   .inv-title {
     white-space: nowrap;
     overflow: hidden;
     display: flex;
     align-items: baseline;
+  }
+
+  /* A title too long for the room beside the chevrons ends in "…", as iOS's do (on an
+     iPhone every year's fits; a desktop browser's scrollbar takes 15px of that room) */
+  #inv-title-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Two equal columns, whatever a card holds (a line cut with "…" keeps its full width) */
@@ -1259,10 +1395,6 @@ html {
   }
 
 
-  .gallery-nav {
-    display: none;
-  }
-
   /* The figures on a phone, all on one line as on the web (Álbumes · Sobres | Sets:
      Postales · Actualización · Variantes · Otros), with tighter gaps and smaller, untracked
      labels: 336px at most, inside a 393px iPhone's 346px */
@@ -1291,5 +1423,60 @@ html {
     flex: 1 1 auto;
     padding: 8px 6px;
     text-align: center;
+  }
+}
+
+/* ── Pressed ────────────────────────────────────────────────────────────── */
+/* Whatever is under a finger (or a held click) reacts at once, as on iOS and macOS, and eases
+   back when let go; Safari's grey tap box is off, as this takes its place. Bare chevrons, tabs
+   and expandable rows fade like iOS's glyph and text buttons, photos and year cards dim like a
+   Photos thumbnail, and filled buttons light up a step. */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-back-btn:active,
+.gallery-nav-btn:active:not(:disabled),
+.view-tab:active:not(.is-active),
+.exp > .card-count-row:active {
+  opacity: 0.4;
+  transition: none;
+}
+
+.gallery-img:active,
+.photo-pair:active,
+.card-logo:active {
+  filter: brightness(0.7);
+  transition: none;
+}
+
+.grid-copy:active {
+  background: rgba(118, 118, 128, 0.5);
+  transition: none;
+}
+
+.lightbox-close:active,
+.lightbox-prev:active:not(:disabled),
+.lightbox-next:active:not(:disabled),
+.to-top:active {
+  background: rgba(99, 99, 102, 0.95);
+  transition: none;
+}
+
+/* ── Reduce Motion ──────────────────────────────────────────────────────── */
+/* With Reduce Motion on (an iPhone and Mac accessibility setting), what slides, zooms or turns
+   only fades or changes at once, as in Apple's own apps */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-view,
+  .lightbox-img {
+    animation-name: fadeIn;
+  }
+
+  .to-top {
+    transform: none;
+  }
+
+  .exp-toggle svg {
+    transition: none;
   }
 }
