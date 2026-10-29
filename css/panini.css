@@ -1158,7 +1158,8 @@ html {
 
 .lightbox-close,
 .lightbox-prev,
-.lightbox-next {
+.lightbox-next,
+.lightbox-place {
   position: fixed;
   width: 44px;
   height: 44px;
@@ -1179,14 +1180,16 @@ html {
 @media (hover: hover) {
   .lightbox-close:hover,
   .lightbox-prev:hover:not(:disabled),
-  .lightbox-next:hover:not(:disabled) {
+  .lightbox-next:hover:not(:disabled),
+  .lightbox-place:hover {
     background: rgba(72, 72, 74, 0.85);
   }
 }
 
 .lightbox-close:focus-visible,
 .lightbox-prev:focus-visible,
-.lightbox-next:focus-visible {
+.lightbox-next:focus-visible,
+.lightbox-place:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
@@ -1252,6 +1255,55 @@ html {
 .lightbox-counter {
   color: rgba(255, 255, 255, 0.75);
   font: 400 13px/16px var(--font);
+}
+
+/* Opened from the Galería: the way to the photo's World Cup, as Music's "Go to Album", a
+   frosted capsule at the foot's middle (between the arrows on a phone). A long name ends
+   in "…" rather than wrapping. */
+.lightbox-place {
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: calc(100% - 152px);
+  padding: 0 14px 0 18px;
+  border-radius: 22px;
+  gap: 4px;
+  font: 600 15px/20px var(--font);
+  white-space: nowrap;
+}
+
+.lightbox-place span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lightbox-place svg {
+  flex: none;
+}
+
+/* On the web the photo makes room for it at the foot; a phone's foot bar already has */
+@media (min-width: 481px) {
+  .lightbox.has-place.is-open {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  .lightbox.has-place .lightbox-img {
+    max-height: calc(100vh - 144px);
+    max-height: calc(100dvh - 144px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+}
+
+/* The photo a Galería photo led to, on its year's page: lit by a ring that fades, as the
+   eye needs only a moment to find it */
+.is-found {
+  animation: found 1.6s ease-out both;
+}
+
+@keyframes found {
+  0%, 40% { box-shadow: 0 0 0 3px var(--focus-ring); }
+  100%    { box-shadow: 0 0 0 3px transparent; }
 }
 
 .lightbox-content {
@@ -1458,6 +1510,7 @@ html {
 .lightbox-close:active,
 .lightbox-prev:active:not(:disabled),
 .lightbox-next:active:not(:disabled),
+.lightbox-place:active,
 .to-top:active {
   background: rgba(99, 99, 102, 0.95);
   transition: none;

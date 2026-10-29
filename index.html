@@ -17,7 +17,7 @@
     <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=41" />
+    <link rel="stylesheet" href="css/panini.css?v=42" />
     <meta name="theme-color" content="#121416" />
     <meta name="color-scheme" content="dark" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
       <!-- A year page's way back beside its title… -->
       <div class="inv-title-row" id="title-bar">
         <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.40.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.41.0</span></h1>
         <!-- …the same title, small, once the bar has stuck to the top (the h1 is the one read out) -->
         <span class="title-bar-text" id="title-bar-text" aria-hidden="true">Colección Panini</span>
         <!-- …and at its end the arrows to the year before and after, as iOS Mail and macOS
@@ -99,6 +99,8 @@
       <button class="lightbox-close" type="button" aria-label="Cerrar" title="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <button class="lightbox-prev" id="lightbox-prev" type="button" aria-label="Anterior" title="Anterior"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
       <button class="lightbox-next" id="lightbox-next" type="button" aria-label="Siguiente" title="Siguiente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <!-- Opened from the Galería: a way to the photo's World Cup, where the photo sits -->
+      <button class="lightbox-place" id="lightbox-place" type="button" hidden><span id="lightbox-place-text"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       <!-- The photo's name with "3 de 12" under it, read out as the photos turn -->
       <div class="lightbox-title" aria-live="polite">
         <span class="lightbox-label" id="lightbox-label"></span>
@@ -151,11 +153,18 @@
       //   caption: "<name>" is what that photo's caption calls a set whose label is
       //   shortened to fit its row ("Tourn. Tracker" -> "Tournament Tracker").
       //   afterPostales: true places the set's tab after Postales (player sets).
+      //   sheets: N marks an entry that comes as N printed sheets rather than loose stickers
+      //   (a promo or update with its stickers on one sheet; not the pocket sheets of pages).
+      //   total stays its stickers, but its row reads its sheets (1, 2), and every count in
+      //   Hojas adds sheets up: a group the sheets nested in it, the row and the headers'
+      //   figure (hojasGreens) the sheets of it all. An entry not yet counted in sheets is one.
+      //   They live in the year's Hojas set (id "hojas"), with its Actualización.
       //   coming: true marks a sticker in transit — shown with ✈️, not yet counted.
       //   Sets without afterPostales have no tab of their own: they are the source
       //   the Postales tab's Coca Cola, Variantes (id "variantes": sets made to be glued
-      //   into the album) and Otros rows are derived from. A year's Actualización is one of
-      //   its Otros.
+      //   into the album), Hojas (id "hojas": sheets and the year's Actualización) and Otros
+      //   rows are derived from. Hojas has its own figure and its own photo subtab, on a
+      //   year's Sets tab and on the Galería.
       //   A blank "" entry inside sub renders as a gap between groups of lines.
       const ALBUMS = [
         { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
@@ -303,13 +312,18 @@
           ] } },
         { year: 1998, host: "France",             postales: { items: [
             { label: "Postales", total: 561, collected: 561 },
-          ] } },
+          ] },
+          sets: [
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Irán", sheets: 1, complete: true },
+            ] },
+          ] },
         { year: 2002, host: "Korea/Japan",        postales: { items: [
             { label: "Made in Italy", dot: "negra", total: 576, collected: 576 },
           ] },
           sets: [
-            { id: "otros",         label: "Otros", items: [
-              { label: "México", total: 12, complete: false, sub: [
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "México", sheets: 2, total: 12, complete: false, sub: [
                 "Cristiano Zanetti",
                 "Marco Delvecchio",
                 "Gennaro Gattuso",
@@ -330,19 +344,19 @@
             { label: "Made in Italy", total: 596, collected: 596 },
           ] },
           sets: [
-            { id: "otros",         label: "Otros", items: [
-              { label: "Actualización", total: 8, complete: true, sub: [
-                "121 Edgar Barreto",
-                "379 Escudo con \"BRASIL\"",
-                "",
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Actualización", sheets: 1, total: 4, complete: true, sub: [
                 "Theo Walcott",
                 "Michael Carrick",
                 "Stewart Downing",
                 "Owen Hargreaves",
-                "",
-                "Jens Lehmann",
-                "Filippo Inzaghi",
               ] },
+            ] },
+            { id: "otros",         label: "Otros", items: [
+              { label: "121 Edgar Barreto",      total: 1, complete: true },
+              { label: "379 Escudo BRASIL",      total: 1, complete: true },
+              { label: "Jens Lehmann",           total: 1, complete: true },
+              { label: "Filippo Inzaghi",        total: 1, complete: true },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "185", items: [
@@ -393,9 +407,12 @@
                 "F-I",
               ] },
             ] },
-            { id: "otros",         label: "Otros", items: [
-              { label: "Actualización", total: 80, complete: true },
-              { label: "Brasil",                      total: 9,  complete: false, sub: [
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Actualización", countNested: true, items: [
+                { label: "Versión de 4", sheets: 20, total: 80, complete: true },
+                { label: "Versión de 8", sheets: 10, total: 80, complete: true },
+              ] },
+              { label: "Brasil", sheets: 1, total: 9,  complete: false, sub: [
                 "Doni",
                 "Gomes",
                 "Thiago Silva",
@@ -406,6 +423,9 @@
                 "Júlio Baptista",
                 "Grafite",
               ] },
+              { label: "UK",     sheets: 2,  complete: true },
+            ] },
+            { id: "otros",         label: "Otros", items: [
               { label: "Pop Up", countNested: true, items: [
                 { label: "Chile", dot: "azul", total: 17, complete: false, sub: [
                   "Claudio Bravo",
@@ -601,9 +621,9 @@
                 "V11 Neymar Jr",
               ] },
             ] },
-            { id: "otros",         label: "Otros", items: [
-              { label: "Actualización", total: 72, complete: true },
-              { label: "Bélgica",  total: 7,  complete: false, sub: [
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Actualización", sheets: 3, total: 72, complete: true },
+              { label: "Bélgica", sheets: 1, total: 7,  complete: false, sub: [
                 "Divock Origi",
                 "Adnan Januzaj",
                 "Simon Mignolet",
@@ -612,7 +632,7 @@
                 "Anthony Vanden Borre",
                 "Nicolas Lombaerts",
               ] },
-              { label: "Brasil",   total: 6,  complete: false, sub: [
+              { label: "Brasil",  sheets: 1, total: 6,  complete: false, sub: [
                 "Jefferson",
                 "Victor",
                 "Henrique",
@@ -620,14 +640,7 @@
                 "Maxwell",
                 "Fernandinho",
               ] },
-              { label: "Colombia", total: 1,  complete: true },
-              { label: "Italia",   total: 4,  complete: true, sub: [
-                "Alberto Aquilani",
-                "Marco Verratti",
-                "Antonio Cassano",
-                "Ciro Immobile",
-              ] },
-              { label: "España",   total: 9,  complete: false, sub: [
+              { label: "España",  sheets: 1, total: 9,  complete: false, sub: [
                 "Pepe Reina",
                 "David De Gea",
                 "César Azpilicueta",
@@ -638,7 +651,7 @@
                 "Fernando Torres",
                 "Diego Costa",
               ] },
-              { label: "Francia",  total: 9,  complete: false, sub: [
+              { label: "Francia", sheets: 1, total: 9,  complete: false, sub: [
                 "Steve Mandanda",
                 "Stéphane Ruffier",
                 "Lucas Digne",
@@ -649,7 +662,13 @@
                 "Antoine Griezmann",
                 "Dimitri Payet",
               ] },
-              { label: "Portugal", total: 8,  complete: false, sub: [
+              { label: "Italia",  sheets: 1, total: 4,  complete: true, sub: [
+                "Alberto Aquilani",
+                "Marco Verratti",
+                "Antonio Cassano",
+                "Ciro Immobile",
+              ] },
+              { label: "Portugal", sheets: 1, total: 8,  complete: false, sub: [
                 "Beto",
                 "Eduardo",
                 "André Almeida",
@@ -659,6 +678,9 @@
                 "Éder",
                 "Vieirinha",
               ] },
+            ] },
+            { id: "otros",         label: "Otros", items: [
+              { label: "Colombia", total: 1,  complete: true },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
               { label: "430", items: [
@@ -780,10 +802,10 @@
                 "M8 Dmitry Poloz",
               ] },
             ] },
-            { id: "otros",         label: "Otros", items: [
-              { label: "Actualización", total: 92, complete: true },
-              { label: "Brasil",        total: 8,  complete: true },
-              { label: "España",        total: 7,  complete: false, sub: [
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Actualización", sheets: 4, total: 92, complete: true },
+              { label: "Brasil", sheets: 1, total: 8,  complete: true },
+              { label: "España", sheets: 1, total: 7,  complete: false, sub: [
                 "Pepe Reina",
                 "Kepa Arrizabalaga",
                 "Álvaro Odriozola",
@@ -792,7 +814,7 @@
                 "Iago Aspas",
                 "Rodrigo",
               ] },
-              { label: "Francia",       total: 6,  complete: false, sub: [
+              { label: "Francia", sheets: 1, total: 6,  complete: false, sub: [
                 "Steve Mandanda",
                 "Benjamin Pavard",
                 "Presnel Kimpembe",
@@ -800,7 +822,9 @@
                 "Nabil Fekir",
                 "Florian Thauvin",
               ] },
-              { label: "México",        total: 5,  complete: false },
+              { label: "México", sheets: 1, total: 5,  complete: false },
+            ] },
+            { id: "otros",         label: "Otros", items: [
               { label: "Mc Sin núm.", caption: "Mc Sin número", total: 40, complete: true, photo: "McDonalds_2018_SinNumero.jpg", pages: 3, sub: [
                 "Igor Akinfeev",
                 "Viktor Vasin",
@@ -984,8 +1008,11 @@
                 "M8 Hirving Lozano",
               ] },
             ] },
+            { id: "hojas",         label: "Hojas", items: [
+              { label: "Actualización", sheets: 4, total: 80, complete: true },
+              { label: "España", sheets: 1, total: 8,  complete: false },
+            ] },
             { id: "otros",         label: "Otros", items: [
-              { label: "Actualización", total: 80, complete: true },
               { label: "Extras",     total: 80, collected: 80, detailOnly: true, keepOrder: true, items: [
                 { label: "Base",    dot: "carmesi", total: 20, noIcon: true, sub: [
                   "Lionel Messi",
@@ -1076,7 +1103,6 @@
                   "Dušan Vlahović",
                 ] },
               ] },
-              { label: "España",     total: 8,  complete: false },
               { label: "Letras",     total: 22, complete: true },
             ] },
             { id: "messi",     label: "Messi",             afterPostales: true, items: [
@@ -1322,12 +1348,17 @@
                 ] },
               ] },
             ] },
-            { id: "otros",         label: "Otros", items: [
+            { id: "hojas",         label: "Hojas", items: [
               { label: "Actualización", countNested: true, items: [
-                { label: "Internacional", total: 120, complete: true },
-                { label: "United",         dot: "lima",   total: 120, complete: false },
-                { label: "USA",            dot: "blanca", total: 120, complete: false },
+                { label: "Internacional", sheets: 6, total: 120, complete: true },
+                { label: "United",         dot: "lima",   sheets: 6, total: 120, complete: false, coming: true },
+                { label: "USA",            dot: "blanca", sheets: 6, total: 120, complete: false },
               ] },
+              { label: "España", sheets: 2, total: 12, complete: false, coming: true },
+              { label: "Costco", sheets: 27, complete: true },
+              { label: "USA",    sheets: 2,  complete: true },
+            ] },
+            { id: "otros",         label: "Otros", items: [
               { label: "Tarjetas", countNested: true, items: [
                 { label: "Coca Cola",   total: 12, complete: true, sub: [
                   "No.1 Lamine Yamal",
@@ -1379,7 +1410,6 @@
               { label: "CC USA Error", total: 1, complete: true, sub: [
                 "CC12 Thibaut Courtois",
               ] },
-              { label: "España",     total: 12, complete: false, coming: true },
               { label: "Plata", dot: "plateada", countNested: true, items: [
                 { label: "Alemania", total: 18, complete: false },
                 { label: "Austria",  total: 18, complete: false },
@@ -1565,6 +1595,14 @@
       const hasOwnStatus = s => s.coming === true || s.complete !== undefined ||
                                 (s.total != null && s.collected != null);
 
+      // A sheet entry's figure is its sheets, not the stickers printed on them (its Hojas
+      // group already says what the number counts)
+      const amountOf = s => s.sheets ?? s.total ?? "";
+      // How many things an entry is in a count: its sheets, else one (so a count in Hojas adds
+      // up sheets, and everywhere else, where nothing has sheets, entries)
+      const unitsOf = n => n.sheets || 1;
+      const unitCount = list => list.reduce((n, e) => n + unitsOf(e), 0);
+
       function setStatus(s) {
         // Number-range grid sets (impossible 1970-82 postales)
         if (isGridSet(s)) {
@@ -1597,10 +1635,10 @@
         }
         // noIcon: the row is reference detail under a parent that already carries the
         // status, so it shows its value with normal styling and no ✓/✗/✈️.
-        if (s.noIcon)             return { state: "none",     summary: "", detail: s.total ?? "" };
-        if (s.coming)             return { state: "coming",   summary: "", detail: s.total ?? "" };
-        if (s.complete === true)  return { state: "complete", summary: "", detail: s.total ?? "" };
-        if (s.complete === false) return { state: "pending",  summary: "", detail: s.total ?? "" };
+        if (s.noIcon)             return { state: "none",     summary: "", detail: amountOf(s) };
+        if (s.coming)             return { state: "coming",   summary: "", detail: amountOf(s) };
+        if (s.complete === true)  return { state: "complete", summary: "", detail: amountOf(s) };
+        if (s.complete === false) return { state: "pending",  summary: "", detail: amountOf(s) };
         if (s.total != null && s.collected != null) {
           // Complete: just the total next to the green check; in progress keeps
           // x/y; nothing collected yet shows the total alone (parity with
@@ -1692,15 +1730,20 @@
         const first = kidsOf(p)[0];
         return first ? deepGreens(first) : (setStatus(p).state === "complete" ? 1 : 0);
       };
-      const VARIANTES_ID = "variantes";
+      const VARIANTES_ID = "variantes", HOJAS_ID = "hojas";
+      // The row of sheets and Actualizaciones, and their photos' subtab
+      const HOJAS = "Hojas";
       // Variantes: every green in the Variantes row (sets with a spot in some album)
       const variantesGreens = album =>
         (album.sets || []).reduce((n, s) => n + (s.id === VARIANTES_ID ? setGreens(s) : 0), 0);
-      // Otros: every green inside the Otros row, i.e. the remaining mirrored sections
-      // (Actualización among them). Variantes is excluded — its own row accounts for it.
+      // Hojas: the sheets in hand, every green in the Hojas row adding its sheets (as the row does)
+      const hojasGreens = album => unitCount((album.sets || []).filter(s => s.id === HOJAS_ID)
+        .flatMap(s => kidsOf(s).flatMap(entriesOf)).filter(e => setStatus(e).state === "complete"));
+      // Otros: every green inside the Otros row, i.e. the remaining mirrored sections.
+      // Variantes and Hojas are excluded — their own rows account for them.
       const otrosGreens = album =>
         (album.sets || []).reduce((n, s) =>
-          n + (s.afterPostales || s.id === VARIANTES_ID ? 0 : setGreens(s)), 0);
+          n + (s.afterPostales || s.id === VARIANTES_ID || s.id === HOJAS_ID ? 0 : setGreens(s)), 0);
 
       // ── Set ledger rows (shared by set-tab cards and per-year gallery) ─────
       // A colour dot after a variant's name, telling variants of one sticker apart: the
@@ -1826,15 +1869,15 @@
       // them (2/5), in De camino those on their way (1). A row of one set reads 1 everywhere,
       // its icon saying the rest, as a lone Set does (none once in hand). A set counts as its
       // header figure does (entriesOf).
-      const SCORED_ROWS = ["Variantes", "Otros"];
+      const SCORED_ROWS = ["Variantes", HOJAS, "Otros"];
       const rowEntries = it => kidsOf(it).flatMap(entriesOf);
       const rowScore = (it, state) => {
-        const entries = rowEntries(it);
-        const count = st => entries.filter(e => setStatus(e).state === st).length;
-        if (entries.length === 1 && state !== "coming") return "1";
-        if (!state) return ofAll(count("complete"), entries.length);
+        const entries = rowEntries(it), all = unitCount(entries);
+        const count = st => unitCount(entries.filter(e => setStatus(e).state === st));
+        if (all === 1 && state !== "coming") return "1";
+        if (!state) return ofAll(count("complete"), all);
         if (state === "complete") return String(count("complete"));
-        if (state === "pending") return `${count("pending")}/${entries.length}`;
+        if (state === "pending") return `${count("pending")}/${all}`;
         return String(count("coming"));
       };
 
@@ -1848,9 +1891,10 @@
           const actInside = inAct || it.label === ACTUALIZACION;
           // Children filter themselves, so a state subtab is exactly the Todo tree with
           // the non-matching rows dropped — however deep they sit
-          const out = it.items.map(x => expItemHtml(x, state, depth + 1, openAll, actInside, quiet || allIn)).filter(Boolean);
-          const shown = out.length;
-          const inner = out.join("");
+          const out = it.items.map(x => [x, expItemHtml(x, state, depth + 1, openAll, actInside, quiet || allIn)]).filter(([, html]) => html);
+          // A group in Hojas sums the sheets nested in it
+          const shown = unitCount(out.map(([x]) => x));
+          const inner = out.map(([, html]) => html).join("");
           // A counted section reports what it is actually showing; otherwise its declared
           // total (e.g. Gold's 694), else nothing — the counter-free variant groups.
           // (openAll: a player tab)
@@ -1865,7 +1909,7 @@
             // Postales alone shows x/y here. Everywhere else an entry count is the right
             // answer, and in a state subtab the count already means one clear thing.
             const score = it.label === POSTALES ? setsScore(it) : null;
-            const lone  = scored && rowEntries(it).length === 1 && setStatus(it).state === "complete";
+            const lone  = scored && unitCount(rowEntries(it)) === 1 && setStatus(it).state === "complete";
             return expBlock(it.label, { state: quiet || lone ? "none" : setStatus(it).state, detail: score ?? detail }, inner, depth === 1, it.dot);
           }
           // Filtered: the group belongs here when it is in this state itself (or, in Tengo,
@@ -1874,7 +1918,7 @@
           // inside means a plain row, not a caret that opens onto emptiness.
           const inState  = (hasOwnStatus(it) && setStatus(it).state === state) ||
                            (state === "complete" && allInHand(it));
-          const icon     = inState && !quiet && !(scored && rowEntries(it).length === 1) ? state : "none";
+          const icon     = inState && !quiet && !(scored && unitCount(rowEntries(it)) === 1) ? state : "none";
           if (!inner) return inState ? ledgerRow(it.label, { state: icon, detail }, it.dot) : "";
           return expBlock(it.label, { state: icon, detail }, inner, openAll ? playerOpen : !inAct, it.dot);
         }
@@ -1942,11 +1986,11 @@
 
       const OTROS_MIRROR_LABEL = "Otros";
       const COCA_COLA_ID = "coca-cola";
-      // Coca Cola carries enough of its own to read as a row in its own right, and Variantes
-      // gathers the sets that were made to be glued into the album, so both sit above
-      // Otros (in that order) rather than as one more section inside it. Everything else
-      // still gathers under Otros.
-      const OWN_ROWS = [COCA_COLA_ID, VARIANTES_ID];
+      // Coca Cola carries enough of its own to read as a row in its own right, Variantes
+      // gathers the sets that were made to be glued into the album, and Hojas the sheets and
+      // Actualizaciones, so all three sit above Otros (in that order) rather than as one more
+      // section inside it. Everything else still gathers under Otros.
+      const OWN_ROWS = [COCA_COLA_ID, VARIANTES_ID, HOJAS_ID];
       const otrosMirrorRows = album => {
         const rows = [], otros = [];
         (album.sets || [])
@@ -2221,12 +2265,12 @@
       // is not a variant itself, so only the leaves count.
       function renderTabCount(filterKey, subState) {
         const el = document.getElementById("tab-count");
-        // The Galería counts what its subtab shows: every album, every sobre, every set (a set
-        // shown sheet by sheet is still one)
+        // The Galería counts what its subtab shows: every album, every sobre, every set or
+        // sheet (a set shown pocket sheet by pocket sheet is still one)
         if (filterKey === null) {
-          const list = subState === "sets" ? null : subState === "sobres" ? "sobrePaths" : "albumPaths";
+          const list = gallerySection(subState) ? null : subState === "sobres" ? "sobrePaths" : "albumPaths";
           const n = list ? ALBUMS.reduce((sum, a) => sum + ((IMAGE_LISTS[a.year] || {})[list] || []).length, 0)
-            : ALBUMS.reduce((sum, a) => sum + setPhotos(a).filter(ph => !(ph.page > 1)).length, 0);
+            : gallerySetPhotos(subState).filter(ph => !(ph.page > 1)).length;
           el.hidden = !n;
           el.textContent = `Total: ${n}`;
           return;
@@ -2315,14 +2359,22 @@
       const GALLERY_SUBS = [
         { state: null,     label: "Álbumes" },
         { state: "sobres", label: "Sobres" },
-        { state: "sets",   label: "Sets" },
+        // Then every year's set photos, a subtab per section of a year's Sets tab, in its order
+        // (SET_SECTIONS). Each shows only once it has a photo.
+        { state: "postales",  label: POSTALES,  section: POSTALES },
+        { state: "variantes", label: "Variantes", section: "Variantes" },
+        { state: "hojas",     label: HOJAS,     section: HOJAS },
+        { state: "otros",     label: "Otros",   section: OTROS_MIRROR_LABEL },
       ];
+      // The set section a Galería subtab shows, if it is one
+      const gallerySection = st => GALLERY_SUBS.find(t => t.state === st)?.section;
+      const gallerySetPhotos = st => ALBUMS.flatMap(al => setPhotos(al)
+        .filter(ph => ph.section === gallerySection(st)).map(ph => ({ ...ph, year: al.year })));
       const yearName = (y, album) => y === "story" ? (album ? "World Cup Story" : "Story") : String(y);
       function galleryWallHtml(kind) {
-        if (kind === "sets") {
-          const photos = ALBUMS.flatMap(al => setPhotos(al).map(ph => ({ ...ph, year: al.year })));
-          return `<div class="gallery-images item-rows set-rows">${rowsHtml(photos, setShape,
-            ph => setFigure(ph, `Sets ${yearName(ph.year)}`, `${yearName(ph.year)} · `))}</div>`;
+        if (gallerySection(kind)) {
+          return `<div class="gallery-images item-rows set-rows">${rowsHtml(gallerySetPhotos(kind), setShape,
+            ph => setFigure(ph, `${gallerySection(kind)} ${yearName(ph.year)}`, `${yearName(ph.year)} · `))}</div>`;
         }
         const list = kind === "sobres" ? "sobrePaths" : "albumPaths", word = kind === "sobres" ? "Sobre" : "Álbum";
         const yearOf = new Map(ALBUMS.flatMap(al => ((IMAGE_LISTS[al.year] || {})[list] || []).map(src => [src, al.year])));
@@ -2445,7 +2497,7 @@
           } else {
             // Todo is a tally of what is in hand, not a ledger: Álbumes and Sobres (filled in
             // by applyCount), then Sets, the year's Sets tab in one number, opening onto its
-            // rows: Postales, Variantes and Otros. A count of 0 is left out rather than
+            // rows: Postales, Variantes, Hojas and Otros. A count of 0 is left out rather than
             // shown as a ✗. Sets only wraps two or more of them: a lone row stands on its own
             // (nesting one row says nothing), and none leaves Sets out. Standing alone,
             // Postales reads "Set de Postales"; under Sets the "Set" would only repeat it.
@@ -2455,6 +2507,7 @@
               </div>` : "";
             const sets = [[POSTALES, postalesSetGreens(album.postales)],
                           ["Variantes", variantesGreens(album)],
+                          [HOJAS, hojasGreens(album)],
                           ["Otros", otrosGreens(album)]].filter(pair => pair[1]);
             const setsRows = sets.map(pair =>
               countRow(pair[0] === POSTALES && sets.length === 1 ? "Set de Postales" : pair[0], pair[1])).join("");
@@ -2481,7 +2534,7 @@
       // ── Stats ──────────────────────────────────────────────────────────────
       function updateStats() {
         let totalAlbums = 0, totalSobres = 0, totalSets = 0;
-        let otrosConfirmed = 0, otrosTotal = 0, variantesConfirmed = 0, variantesTotal = 0;
+        let otrosConfirmed = 0, otrosTotal = 0, variantesConfirmed = 0, variantesTotal = 0, hojasConfirmed = 0, hojasTotal = 0;
 
         ALBUMS.forEach(a => {
           const c = imageCounts[a.year];
@@ -2494,10 +2547,12 @@
           totalSets += postalesSetGreens(a.postales);
           otrosConfirmed += otrosGreens(a);
           variantesConfirmed += variantesGreens(a);
+          hojasConfirmed += hojasGreens(a);
           (a.sets || []).forEach(s => {
             if (s.afterPostales) return;
             // just gates whether the stat shows
             if (s.id === VARIANTES_ID) variantesTotal += setLeaves(s).length;
+            else if (s.id === HOJAS_ID) hojasTotal += setLeaves(s).length;
             else otrosTotal += setLeaves(s).length;
           });
         });
@@ -2509,13 +2564,14 @@
             <span class="inv-stat-label">${label}</span>
           </div>`;
 
-        // As on a Tracker card: Álbumes, Sobres, the album's own Sets, Variantes and Otros
+        // As on a Tracker card: Álbumes, Sobres, the album's own Sets, Variantes, Hojas and Otros
         document.getElementById("inv-stats").innerHTML = `
           <div class="inv-stats-row is-main">
             ${stat(totalAlbums, "Álbumes")}
             ${stat(totalSobres, "Sobres")}
             ${stat(totalSets, "Sets")}
             ${variantesTotal ? stat(variantesConfirmed, "Variantes") : ""}
+            ${hojasTotal ? stat(hojasConfirmed, HOJAS) : ""}
             ${otrosTotal ? stat(otrosConfirmed, "Otros") : ""}
           </div>`;
       }
@@ -2771,8 +2827,8 @@
       const MISSING_SET = [0.88, 0.597];
 
       // The year's Sets tab has a subtab per section, in this order: Postales (the album's own
-      // sets), then the rows the other sets make (Variantes, Otros)
-      const SET_SECTIONS = [POSTALES, "Variantes", OTROS_MIRROR_LABEL];
+      // sets), then the rows the other sets make (Variantes, Hojas, Otros)
+      const SET_SECTIONS = [POSTALES, "Variantes", HOJAS, OTROS_MIRROR_LABEL];
 
       function setPhotos(album, withMissing = false) {
         const p = album.postales;
@@ -3022,12 +3078,12 @@
             <span class="inv-stat-label">${label}</span>
           </div>`;
         // The same figures as the year's Tracker card, so the grid and this header always
-        // agree: Álbumes, Sobres, its own sets (Set or Sets), Variantes and Otros. A count of 0
+        // agree: Álbumes, Sobres, its own sets (Set or Sets), Variantes, Hojas and Otros. A count of 0
         // hides its stat entirely. Every
         // figure is one line tall, so the header is the same height on every year and the page
         // below doesn't move when paging through them.
         const ownSets = postalesSetGreens(album.postales);
-        const rest = [["Variantes", variantesGreens(album)], ["Otros", otrosGreens(album)]]
+        const rest = [["Variantes", variantesGreens(album)], [HOJAS, hojasGreens(album)], ["Otros", otrosGreens(album)]]
           .filter(pair => pair[1] > 0).map(pair => stat(pair[1], pair[0])).join("");
         document.getElementById("inv-stats").innerHTML = `
           <div class="inv-stats-row">
@@ -3351,7 +3407,7 @@
       function subTabsFor(key) {
         if (key === null) return new Set(GALLERY_SUBS.map(t => t.state).filter(st =>
           st === "sobres" ? ALBUMS.some(a => (IMAGE_LISTS[a.year] || { sobrePaths: [] }).sobrePaths.length)
-          : st === "sets" && ALBUMS.some(a => setPhotos(a).length)));
+          : !!gallerySection(st) && gallerySetPhotos(st).length > 0));
         const avail = tabStates(key);
         if (playerPhotos(key).length) avail.add(PHOTOS);
         return avail;
@@ -3424,6 +3480,7 @@
       const lbNext        = document.getElementById("lightbox-next");
       const lbCounter     = document.getElementById("lightbox-counter");
       const lbLabel       = document.getElementById("lightbox-label");
+      const lbPlace       = document.getElementById("lightbox-place");
 
       let lbImages = [];
       let lbIndex  = 0;
@@ -3463,6 +3520,11 @@
         lbLabel.innerHTML = label ? `<span class="lightbox-name">${esc(label)}</span>${dot ? colorDot(dot) : ""}` : "";
         lbLabel.hidden = !label;
         fitViewerName();
+        // From the Galería, the photo's World Cup, as Music's "Go to Album"
+        const { place } = lbImages[lbIndex];
+        lightbox.classList.toggle("has-place", !!place);
+        lbPlace.hidden = !place;
+        if (place) document.getElementById("lightbox-place-text").textContent = `Ver en ${albumTitle(ALBUMS.find(a => a.year === place.year))}`;
       }
 
       // A long name shrinks to fit the top bar, to 11px at the least, then ends in "…"
@@ -3495,16 +3557,55 @@
         lbReturnFocus = null;
       }
 
+      // The file a photo shows in full (a preview's data-full, else its own address)
+      const photoPath = el => el.dataset.full || el.getAttribute("data-src") || el.getAttribute("src");
+      // Where a Galería photo sits: its World Cup, and the tab (and Sets subtab) that shows it
+      function placeOf(path) {
+        for (const album of ALBUMS) {
+          const lists = IMAGE_LISTS[album.year] || {};
+          if ((lists.albumPaths || []).includes(path)) return { year: album.year, tab: "albumes", path };
+          if ((lists.sobrePaths || []).includes(path)) return { year: album.year, tab: "sobres", path };
+          const ph = setPhotos(album).find(ph => ph.src === path);
+          if (ph) return { year: album.year, tab: "postales", section: ph.section, path };
+        }
+        return null;
+      }
+
+      // Off to the photo's World Cup, on the tab that shows it, as a year card opens one (so
+      // Atrás comes back), the photo brought into view and lit for a moment so the eye lands on it
+      function goToPlace(place) {
+        lbReturnFocus = null; // the photo it was opened from is left behind
+        closeLightbox();
+        currentSetSection = place.section || null;
+        setSectionPinned  = !!place.section;
+        if (!place.section) setSectionYear = null;
+        showGallery(place.year, place.tab);
+        setAddress(viewRoute());
+        const img = [...document.querySelectorAll("#gallery-view .gallery-img")]
+          .find(el => el.offsetParent && photoPath(el) === place.path);
+        if (!img) return document.querySelector(".inv-title").focus();
+        const lit = img.closest(".photo-pair") || img;
+        img.focus({ preventScroll: true });
+        lit.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        lit.classList.remove("is-found");
+        void lit.offsetWidth; // so the light runs again on a photo just lit
+        lit.classList.add("is-found");
+        lit.addEventListener("animationend", () => lit.classList.remove("is-found"), { once: true });
+      }
+
       function openLightboxFromImg(img) {
         const section = img.closest("#gallery-albums, #gallery-sobres, #gallery-set-panel, #photo-wall");
         const scope   = section || document.getElementById("gallery-view");
         const all     = [...scope.querySelectorAll(".gallery-img")];
+        // Only the Galería's own photos lead somewhere: a year page is already their place
+        const fromGaleria = scope.id === "photo-wall" && currentFilter === null;
         const images  = all.map(el => {
           const fig = el.closest(".gallery-figure");
           const cap = fig ? fig.querySelector(".gallery-label") : null;
           // A set's pocket-page preview opens as its whole image (data-full); a preview of
           // several pages is one button, named by its aria-label
-          return { src: el.dataset.full || el.src, alt: el.alt || el.getAttribute("aria-label"), label: el.dataset.label || (cap ? cap.textContent : null), dot: el.dataset.dot };
+          return { src: el.dataset.full || el.src, alt: el.alt || el.getAttribute("aria-label"), label: el.dataset.label || (cap ? cap.textContent : null), dot: el.dataset.dot,
+                   place: fromGaleria ? placeOf(photoPath(el)) : null };
         });
         openLightbox(images, all.indexOf(img));
       }
@@ -3536,8 +3637,9 @@
       // A tap around the photo closes the viewer; one on the photo doesn't, as in Photos, nor
       // one on a dimmed arrow
       lightbox.addEventListener("click", e => {
-        if (!e.target.closest(".lightbox-img, .lightbox-prev, .lightbox-next")) closeLightbox();
+        if (!e.target.closest(".lightbox-img, .lightbox-prev, .lightbox-next, .lightbox-place")) closeLightbox();
       });
+      lbPlace.addEventListener("click", () => goToPlace(lbImages[lbIndex].place));
       lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); });
       lbNext.addEventListener("click", e => { e.stopPropagation(); lightboxNav(1); });
 
@@ -3656,7 +3758,7 @@
       // bar. A local file cannot change its path, so there the route rides in the hash
       // (index.html#messi/fotos).
       const CLEAN_PATHS = location.protocol.startsWith("http");
-      const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "galeria", sobres: "sobres", sets: "sets" };
+      const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "galeria", sobres: "sobres", postales: "postales", variantes: "variantes", hojas: "hojas", otros: "otros" };
       // The 1970-82 checklist's filters, by the same names
       const GRID_SLUG = { "is-confirmed": "tengo", "is-pending": "falta", "is-coming": "de-camino" };
       // "Mbappé" -> "mbappe"
@@ -3688,7 +3790,7 @@
         // A tab without subtabs keeps the last subtab in mind for the next tab, but it is
         // not part of this tab's address
         const sub = hasSubTabs(currentFilter) ? currentSubFilter : null;
-        // The Galería is / (its Álbumes), /galeria/sobres and /galeria/sets
+        // The Galería is / (its Álbumes), /galeria/sobres, /galeria/variantes and so on
         return [tabSlug(currentFilter) || (sub ? "galeria" : ""), SUB_SLUG[sub]].filter(Boolean).join("/");
       }
 
@@ -3727,8 +3829,9 @@
         const key = first === "" || first === "galeria" ? null : first === "tracker" || first === "sets" ? "postales"
           : (playerColumns().find(c => slugOf(c.label) === first) || {}).key;
         if (key === undefined) return false;
-        // /messi/fotos is the player's Galería's old address
-        const sub = second === "fotos" ? PHOTOS : Object.keys(SUB_SLUG).find(st => SUB_SLUG[st] === second) || null;
+        // /messi/fotos is the player's Galería's old address, and /galeria/sets its Variantes'
+        const sub = second === "fotos" ? PHOTOS : key === null && second === "sets" ? "variantes"
+          : Object.keys(SUB_SLUG).find(st => SUB_SLUG[st] === second) || null;
         currentFilter    = key;
         currentSubFilter = sub && hasSubTabs(key) && subTabsFor(key).has(sub) ? sub : null;
         if (!document.getElementById("gallery-view").hidden) hideGallery();
