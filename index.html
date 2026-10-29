@@ -17,7 +17,7 @@
     <meta name="description" content="Colección Panini de álbumes y sobres del Mundial de Fútbol 1970–2026." />
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
     <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/panini.css?v=42" />
+    <link rel="stylesheet" href="css/panini.css?v=46" />
     <meta name="theme-color" content="#121416" />
     <meta name="color-scheme" content="dark" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
       <!-- A year page's way back beside its title… -->
       <div class="inv-title-row" id="title-bar">
         <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.41.0</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.42.0</span></h1>
         <!-- …the same title, small, once the bar has stuck to the top (the h1 is the one read out) -->
         <span class="title-bar-text" id="title-bar-text" aria-hidden="true">Colección Panini</span>
         <!-- …and at its end the arrows to the year before and after, as iOS Mail and macOS
@@ -1187,7 +1187,7 @@
                 { label: "Oryx", dot: "granate", complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
-                { label: "USA", dot: "roja",   complete: false },
+                { label: "USA", dot: "roja",   coming: true },
               ] },
               { label: "Extras", items: [
                 { label: "Made in Brazil", items: [
@@ -2065,19 +2065,19 @@
         1982: { albumPaths: ["assets/albums/1982_0_Europa.jpg"],
                sobrePaths: ["assets/sobres/1982_0.jpg"] },
         1986: { albumPaths: ["assets/albums/1986_0_Internacional.jpg"],
-               sobrePaths: ["assets/sobres/1986_0.jpg", "assets/sobres/1986_1.jpg"] },
+               sobrePaths: ["assets/sobres/1986_0.jpg", "assets/sobres/1986_1_Colombia.jpg"] },
         1990: { albumPaths: ["assets/albums/1990_0_Espana.jpg"],
                sobrePaths: ["assets/sobres/1990_0.jpg"] },
         1994: { albumPaths: ["assets/albums/1994_0_Europa.jpg"],
-               sobrePaths: ["assets/sobres/1994_0.jpg", "assets/sobres/1994_1.jpg", "assets/sobres/1994_2.jpg", "assets/sobres/1994_3.jpg", "assets/sobres/1994_4.jpg"] },
+               sobrePaths: ["assets/sobres/1994_0_Holanda.jpg", "assets/sobres/1994_1_Blanco.jpg", "assets/sobres/1994_2_Turquesa.jpg", "assets/sobres/1994_3_Alemania.jpg", "assets/sobres/1994_4_Mexico.jpg"] },
         1998: { albumPaths: ["assets/albums/1998_0_America.jpg"],
-               sobrePaths: ["assets/sobres/1998_0.jpg", "assets/sobres/1998_1.jpg", "assets/sobres/1998_2.jpg", "assets/sobres/1998_3.jpg"] },
+               sobrePaths: ["assets/sobres/1998_0_1-punto.jpg", "assets/sobres/1998_1_3-puntos.jpg", "assets/sobres/1998_2_Blanco.jpg", "assets/sobres/1998_3_Total.jpg"] },
         2002: { albumPaths: ["assets/albums/2002_0_America.jpg"],
-               sobrePaths: ["assets/sobres/2002_0.jpg", "assets/sobres/2002_1.jpg", "assets/sobres/2002_2.jpg"] },
+               sobrePaths: ["assets/sobres/2002_0_Horizontal.jpg", "assets/sobres/2002_1_Vertical.jpg", "assets/sobres/2002_2_Canada.jpg"] },
         2006: { albumPaths: ["assets/albums/2006_0_Internacional.jpg"],
-               sobrePaths: ["assets/sobres/2006_0.jpg", "assets/sobres/2006_1.jpg", "assets/sobres/2006_2.jpg", "assets/sobres/2006_3.jpg", "assets/sobres/2006_4.jpg"] },
+               sobrePaths: ["assets/sobres/2006_0_Horizontal.jpg", "assets/sobres/2006_1_Vertical.jpg", "assets/sobres/2006_2_Vertical.jpg", "assets/sobres/2006_3_Contem-5-Cromos.jpg", "assets/sobres/2006_4_Brillante.jpg"] },
         2010: { albumPaths: ["assets/albums/2010_0_Africa.jpg", "assets/albums/2010_1_Internacional.jpg"],
-               sobrePaths: [] },
+               sobrePaths: ["assets/sobres/2010_0_Horizontal.jpg", "assets/sobres/2010_1_Vertical.jpg", "assets/sobres/2010_2_Sin-codigo-de-barras.jpg", "assets/sobres/2010_3_8-Stickers.jpg", "assets/sobres/2010_4_Plateado.jpg", "assets/sobres/2010_5_Swiss.jpg", "assets/sobres/2010_6_Dorado.jpg", "assets/sobres/2010_7_Contiene-5-figuritas.jpg", "assets/sobres/2010_8_Tournament-Tracker.jpg", "assets/sobres/2010_9_Coca-Cola-Espanol.jpg", "assets/sobres/2010_10_Coca-Cola-Italiano.jpg", "assets/sobres/2010_11_Coca-Cola-Aleman.jpg", "assets/sobres/2010_12_Coca-Cola-Aleman-Klose.jpg"] },
         2014: { albumPaths: ["assets/albums/2014_0_Tapa-Suave-Austria.jpg", "assets/albums/2014_1_Tapa-Suave-Internacional.jpg", "assets/albums/2014_2_Tapa-Suave-USA.jpg", "assets/albums/2014_3_Tapa-Dura-USA.jpg"],
                sobrePaths: [] },
         2018: { albumPaths: ["assets/albums/2018_0_Tapa-Suave-Centroamerica.jpg", "assets/albums/2018_1_Tapa-Suave-Colombia.jpg", "assets/albums/2018_2_Tapa-Dura-Colombia.jpg", "assets/albums/2018_3_Tapa-Dura-Francia.jpg", "assets/albums/2018_4_Tapa-Dura-Latinoamerica.jpg", "assets/albums/2018_5_Tapa-Dura-Mexico.jpg"],
@@ -2087,7 +2087,7 @@
         2026: { albumPaths: ["assets/albums/2026_0_Tapa-Dura-Brasil.jpg", "assets/albums/2026_1_Tapa-Suave-Espana.jpg", "assets/albums/2026_2_Tapa-Suave-Latinoamerica.jpg", "assets/albums/2026_3_Tapa-Dura-Latinoamerica.jpg", "assets/albums/2026_4_Tapa-Dura-Latinoamerica-Dorado.jpg", "assets/albums/2026_5_Tapa-Suave-Mexico.jpg", "assets/albums/2026_6_Tapa-Dura-Mexico.jpg", "assets/albums/2026_7_Tapa-Suave-USA.jpg", "assets/albums/2026_8_Tapa-Dura-USA.jpg"],
                sobrePaths: [] },
         "story": { albumPaths: ["assets/albums/story_0_Colombia.jpg"],
-               sobrePaths: ["assets/sobres/story_0.jpg", "assets/sobres/story_1.jpg"] },
+               sobrePaths: ["assets/sobres/story_0.jpg", "assets/sobres/story_1_Sonric's.jpg"] },
       };
 
       const imageCounts = {};
@@ -2142,28 +2142,41 @@
         "assets/sobres/1974_0.jpg": [1156, 480],
         "assets/sobres/1978_0.jpg": [1151, 480],
         "assets/sobres/1982_0.jpg": [1125, 480],
-        "assets/sobres/1986_0.jpg": [1226, 480],
-        "assets/sobres/1986_1.jpg": [1179, 480],
+        "assets/sobres/1986_1_Colombia.jpg": [1226, 480],
+        "assets/sobres/1986_0.jpg": [1179, 480],
         "assets/sobres/1990_0.jpg": [1176, 480],
+        "assets/sobres/story_1_Sonric's.jpg": [1167, 480],
         "assets/sobres/story_0.jpg": [1167, 480],
-        "assets/sobres/story_1.jpg": [1167, 480],
-        "assets/sobres/1994_0.jpg": [1286, 480],
-        "assets/sobres/1994_1.jpg": [1168, 480],
-        "assets/sobres/1994_2.jpg": [1160, 480],
-        "assets/sobres/1994_3.jpg": [1163, 480],
-        "assets/sobres/1994_4.jpg": [1147, 480],
-        "assets/sobres/1998_0.jpg": [1164, 480],
-        "assets/sobres/1998_1.jpg": [1168, 480],
-        "assets/sobres/1998_2.jpg": [1177, 480],
-        "assets/sobres/1998_3.jpg": [1169, 480],
-        "assets/sobres/2002_0.jpg": [765, 480],
-        "assets/sobres/2002_1.jpg": [760, 480],
-        "assets/sobres/2002_2.jpg": [754, 480],
-        "assets/sobres/2006_0.jpg": [754, 480],
-        "assets/sobres/2006_1.jpg": [764, 480],
-        "assets/sobres/2006_2.jpg": [757, 480],
-        "assets/sobres/2006_3.jpg": [779, 480],
-        "assets/sobres/2006_4.jpg": [756, 480],
+        "assets/sobres/1994_4_Mexico.jpg": [1286, 480],
+        "assets/sobres/1994_3_Alemania.jpg": [1168, 480],
+        "assets/sobres/1994_0_Holanda.jpg": [1160, 480],
+        "assets/sobres/1994_2_Turquesa.jpg": [1163, 480],
+        "assets/sobres/1994_1_Blanco.jpg": [1147, 480],
+        "assets/sobres/1998_3_Total.jpg": [1164, 480],
+        "assets/sobres/1998_2_Blanco.jpg": [1168, 480],
+        "assets/sobres/1998_1_3-puntos.jpg": [1177, 480],
+        "assets/sobres/1998_0_1-punto.jpg": [1169, 480],
+        "assets/sobres/2002_1_Vertical.jpg": [765, 480],
+        "assets/sobres/2002_0_Horizontal.jpg": [760, 480],
+        "assets/sobres/2002_2_Canada.jpg": [754, 480],
+        "assets/sobres/2006_3_Contem-5-Cromos.jpg": [754, 480],
+        "assets/sobres/2006_4_Brillante.jpg": [764, 480],
+        "assets/sobres/2006_0_Horizontal.jpg": [757, 480],
+        "assets/sobres/2006_1_Vertical.jpg": [779, 480],
+        "assets/sobres/2006_2_Vertical.jpg": [756, 480],
+        "assets/sobres/2010_2_Sin-codigo-de-barras.jpg": [775, 480],
+        "assets/sobres/2010_1_Vertical.jpg": [766, 480],
+        "assets/sobres/2010_0_Horizontal.jpg": [767, 480],
+        "assets/sobres/2010_3_8-Stickers.jpg": [767, 480],
+        "assets/sobres/2010_4_Plateado.jpg": [761, 480],
+        "assets/sobres/2010_5_Swiss.jpg": [788, 480],
+        "assets/sobres/2010_6_Dorado.jpg": [787, 480],
+        "assets/sobres/2010_7_Contiene-5-figuritas.jpg": [775, 480],
+        "assets/sobres/2010_8_Tournament-Tracker.jpg": [758, 480],
+        "assets/sobres/2010_9_Coca-Cola-Espanol.jpg": [769, 480],
+        "assets/sobres/2010_10_Coca-Cola-Italiano.jpg": [754, 480],
+        "assets/sobres/2010_11_Coca-Cola-Aleman.jpg": [1163, 480],
+        "assets/sobres/2010_12_Coca-Cola-Aleman-Klose.jpg": [1169, 480],
       };
       // The full copy of a rescanned álbum or sobre is 1231 px tall (57% of the scanner's 2160)
       const ITEM_FULL_H = 1231;
@@ -2202,7 +2215,8 @@
       // preview has the same shape
       const itemWidth = src => { const s = GRID_PREVIEWS[src]; return s[0] * 2160 / s[1]; };
 
-      // Photos in rows that fill the width, four to a row on the web and two on a phone, or as
+      // Photos in rows that fill the width, four to a row on the web and two on a phone (sobres:
+      // three on the web, see flatRowsHtml), or as
       // many as there are when that's fewer (a lone sobre takes the whole row). A row's photos
       // share one height, each as wide as its shape takes (see .item-rows). A row is two pairs,
       // and a phone stacks the pairs. Once there are enough to fill a row, a short last row
@@ -2229,11 +2243,49 @@
         }).join("");
       }
 
+      // Photos in rows that wrap (.flat-rows), perRow to a row on the web and two on a phone.
+      // A phone's rows don't split the web's then (rowsHtml's pairs split a row of four), so
+      // each photo is sized for both: widths(row) gives each one's width at a scale its row
+      // shares, a photo takes that share of its row (--ws, --ps), and the row is laid out for
+      // that many photos or empty spots (--wn, --pn). As in rowsHtml, fewer than a row fill it,
+      // and once there are enough a short last row keeps a full one's size, its empty spots as
+      // wide as its photos on average. cap(row, j), if given, is a photo's width over its row's
+      // tallest height, for when there are fewer photos than a row (--wc, --pc: see .set-rows);
+      // a full row always fills the width.
+      function flatRowsHtml(items, perRow, widths, figure, cap) {
+        const fit = k => {
+          const out = [];
+          for (let i = 0; i < items.length; i += k) {
+            const row = items.slice(i, i + k), n = items.length >= k ? k : row.length;
+            const ws = widths(row), sum = ws.reduce((a, b) => a + b, 0) * n / row.length;
+            row.forEach((it, j) => out.push([ws[j] / sum, n, cap && items.length < k ? cap(row, j) : null]));
+          }
+          return out;
+        };
+        const web = fit(perRow), phone = fit(2);
+        const vars = (p, [s, n, c]) => `; --${p}s: ${s}; --${p}n: ${n}${c === null ? "" : `; --${p}c: ${c}`}`;
+        return `<div class="flat-rows">${items.map((it, i) => figure(it, phone[i][0], web[i][0],
+          vars("w", web[i]) + vars("p", phone[i]))).join("")}</div>`;
+      }
+
+      // Sobres lie three to a row on the web (two on a phone), a row's sobres one height: each as
+      // wide as its shape. A row shared by upright sobres and ones on their side keeps the
+      // upright ones the size a row of their own gives them: one on its side takes an upright
+      // one's place (their average shape), fills its width and sits centred against them
+      // (.flat-rows). A row of only one kind fills the width as before.
+      const SOBRES_PER_ROW = 3;
+      const onItsSide = a => a > 2;
+      const sobreWidths = shape => row => {
+        const upright = row.map(shape).filter(a => !onItsSide(a));
+        const place = upright.length && upright.length < row.length ? upright.reduce((a, b) => a + b) / upright.length : 0;
+        return row.map(it => place && onItsSide(shape(it)) ? place : shape(it));
+      };
+
       // A year's sobres (or rescanned albums) in rows (rowsHtml). A sobre's name (after its
       // number: 2026_5_Vertical-Costa-Rica) sits on top, as on the Sets tab; once one of a
       // year's sobres has a name, every one gets the line (empty when it has none), so the
       // photos of a row stay level.
-      function itemRows(paths, alt, caption = getVersionLabel) {
+      function itemRows(paths, alt, caption = getVersionLabel, perRow = 4) {
         const named = paths.some(caption);
         const altOf = src => typeof alt === "function" ? alt(src) : alt;
         // A sobre's shape as shown: its two faces without the border and the gap between them
@@ -2242,13 +2294,16 @@
         // The image itself is laid out bigger than its faces by this much
         const over = src => GRID_PREVIEWS[src] ? itemWidth(src) / (itemWidth(src) - 240) : 1;
         const img = (src, sizes) => GRID_PREVIEWS[src] ? cropped(galleryImg(src, altOf(src), sizes), itemWidth(src), 2160, 80) : galleryImg(src, altOf(src), sizes);
-        return rowsHtml(paths, shape, (src, phone, web) => `<figure class="gallery-figure" style="--a: ${shape(src)}">${named ? `<figcaption class="gallery-label">${caption(src) || ""}</figcaption>` : ""}${img(src,
-          `(max-width: 480px) ${Math.ceil(100 * over(src) * phone)}vw, ${Math.ceil(1120 * over(src) * web)}px`)}</figure>`);
+        const figure = (src, phone, web, sizes = "") => `<figure class="gallery-figure" style="--a: ${shape(src)}${sizes}">${named ? `<figcaption class="gallery-label">${caption(src) || ""}</figcaption>` : ""}${img(src,
+          `(max-width: 480px) ${Math.ceil(100 * over(src) * phone)}vw, ${Math.ceil(1120 * over(src) * web)}px`)}</figure>`;
+        return perRow === 4 ? rowsHtml(paths, shape, figure) : flatRowsHtml(paths, perRow, sobreWidths(shape), figure);
       }
 
       // A name in a file name has no accents (2026_1_Tapa-Suave-Espana.jpg): they come back here
       const LABEL_WORD = { Espana: "España", Mexico: "México", Africa: "África", America: "América",
-                           Latinoamerica: "Latinoamérica", Centroamerica: "Centroamérica" };
+                           Latinoamerica: "Latinoamérica", Centroamerica: "Centroamérica",
+                       codigo: "código", Espanol: "Español", Aleman: "Alemán",
+                       Canada: "Canadá", Contem: "Contém" };
       function getVersionLabel(path) {
         const base = path.replace(/\.[^.]+$/, "").split("/").pop();
         const parts = base.split("_");
@@ -2373,13 +2428,14 @@
       const yearName = (y, album) => y === "story" ? (album ? "World Cup Story" : "Story") : String(y);
       function galleryWallHtml(kind) {
         if (gallerySection(kind)) {
-          return `<div class="gallery-images item-rows set-rows">${rowsHtml(gallerySetPhotos(kind), setShape,
-            ph => setFigure(ph, `${gallerySection(kind)} ${yearName(ph.year)}`, `${yearName(ph.year)} · `))}</div>`;
+          return `<div class="gallery-images item-rows set-rows">${flatRowsHtml(gallerySetPhotos(kind), 4, setWidths,
+            (ph, phone, web, vars) => setFigure(ph, `${gallerySection(kind)} ${yearName(ph.year)}`, `${yearName(ph.year)} · `, vars), setCap)}</div>`;
         }
         const list = kind === "sobres" ? "sobrePaths" : "albumPaths", word = kind === "sobres" ? "Sobre" : "Álbum";
         const yearOf = new Map(ALBUMS.flatMap(al => ((IMAGE_LISTS[al.year] || {})[list] || []).map(src => [src, al.year])));
         const name = src => [yearName(yearOf.get(src), kind !== "sobres"), getVersionLabel(src)].filter(Boolean).join(" · ");
-        return `<div class="gallery-images item-rows">${itemRows([...yearOf.keys()], src => `${word} ${name(src)}`, name)}</div>`;
+        return `<div class="gallery-images item-rows">${itemRows([...yearOf.keys()], src => `${word} ${name(src)}`, name,
+          kind === "sobres" ? SOBRES_PER_ROW : 4)}</div>`;
       }
 
       // A year's name: "España 1982", or the host alone when it already reads as a full
@@ -2995,7 +3051,7 @@
       // A year's Sets tab: a subtab per section with something to show (SET_SECTIONS order),
       // like the 1970-82 grid's filter, then its count and its sets. Each set (or sheet of a set
       // over 16) shows by its fronts, its name on top, in rows that fill the width as the
-      // Álbumes and Sobres do (rowsHtml); a set in hand without a photo yet shows as "Falta
+      // Sobres do (flatRowsHtml), its stickers one size across a row; a set in hand without a photo yet shows as "Falta
       // escanear". A year
       // opens on its first subtab with a photo in it (else its first subtab); the subtab you
       // pick carries over to the next year when that year has photos in it, and it is in the
@@ -3038,11 +3094,11 @@
         // The count is of the subtab's sets, in hand: photographed or still "Falta escanear"
         // (a set's second sheet is the same set)
         const n = shown.filter(ph => !(ph.page > 1)).length;
-        const figure = ph => setFigure(ph, `${currentSetLabel} ${album.year}`);
+        const figure = (ph, phone, web, vars) => setFigure(ph, `${currentSetLabel} ${album.year}`, "", vars);
         panel.className = "";
         panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
           `<p class="gallery-section-label">Total: ${n}</p>` +
-          `<div class="gallery-images item-rows set-rows">${rowsHtml(shown, setShape, figure)}</div>`;
+          `<div class="gallery-images item-rows set-rows">${flatRowsHtml(shown, 4, setWidths, figure, setCap)}</div>`;
         fitNames(panel);
       }
 
@@ -3052,16 +3108,22 @@
       // in sheets, and its shape is width over height (a set not in SET_PREVIEWS: a
       // placeholder's).
       const sizedSet = ([w, h]) => `style="--w: ${w}; --h: ${h};"`;
-      const setShape = ph => { const [w, h] = (!ph.missing && ph.size) || MISSING_SET; return w / h; };
-      function setFigure(ph, alt, prefix = "") {
+      const setSize = ph => (!ph.missing && ph.size) || MISSING_SET;
+      const setShape = ph => { const [w, h] = setSize(ph); return w / h; };
+      // A row of sets shares one sticker size, as each is as wide as its size in sheets: the set
+      // with the most rows of stickers is the tallest, the others centred against it. A row
+      // fills the width; fewer sets than a row stop where their tallest reaches --row-max.
+      const setWidths = row => row.map(ph => setSize(ph)[0]);
+      const setCap = (row, j) => setSize(row[j])[0] / Math.max(...row.map(ph => setSize(ph)[1]));
+      function setFigure(ph, alt, prefix = "", vars = "") {
         const long  = longSetName(ph.name);
         const named = `${long}${ph.dot ? ` (${DOT_NAME[ph.dot]})` : ""}`;
         const caption = `<figcaption class="gallery-label"><span class="gallery-name"${long !== ph.name ? ` data-short="${esc(prefix + ph.name)}" data-long="${esc(prefix + long)}"` : ""}>${esc(prefix + ph.name)}</span>${colorDot(ph.dot)}</figcaption>`;
-        if (ph.missing) return `<figure class="gallery-figure is-missing" style="--a: ${setShape(ph)}">
+        if (ph.missing) return `<figure class="gallery-figure is-missing" style="--a: ${setShape(ph)}${vars}">
             ${caption}
             <div class="gallery-missing" ${sizedSet(MISSING_SET)} role="img" aria-label="${esc(`${named}: falta escanear`)}">Falta escanear</div>
           </figure>`;
-        return `<figure class="gallery-figure" style="--a: ${setShape(ph)}">
+        return `<figure class="gallery-figure" style="--a: ${setShape(ph)}${vars}">
             ${caption}
             <img class="gallery-img" src="${ph.thumb}" ${sizedSet(ph.size || MISSING_SET)} data-full="${ph.src}" data-label="${esc(prefix + long)}"${ph.dot ? ` data-dot="${ph.dot}"` : ""} alt="${esc(`${alt} · ${named}`)}" loading="lazy" decoding="async" role="button" tabindex="0" />
           </figure>`;
@@ -3190,7 +3252,7 @@
           const el = document.getElementById("gallery-sobres");
           // Rows that fill the width (see itemRows)
           el.className = "gallery-images item-rows";
-          el.innerHTML = itemRows(counts.sobrePaths, `Sobre ${year}`);
+          el.innerHTML = itemRows(counts.sobrePaths, `Sobre ${year}`, undefined, SOBRES_PER_ROW);
           sobresSection.hidden = false;
         } else {
           sobresSection.hidden = true;

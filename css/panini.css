@@ -942,23 +942,19 @@ html {
   justify-content: center;
 }
 
-/* A year's Sets tab and the Galería's Sets lie in rows as the Álbumes and Sobres do (see
-   .item-rows), each set in its own shape (--a, from --w and --h: its size in pocket sheets),
-   a set's photo being a single cut-out. A row of few sets, or of tall ones, stops at
-   --row-max tall rather than fill the width, so a lone set isn't blown up past its preview;
-   what is left of the row stays empty. */
+/* A year's Sets tab and the Galería's set subtabs lie in rows as the Sobres do (see
+   .flat-rows), each set as wide as its size in pocket sheets (--w, --h) so a row's stickers
+   are one size, a set's photo being a single cut-out. A full row fills the width; fewer sets
+   than a row stop at --row-max for their tallest (--c: a set's width over that height, set
+   only then), so a few sets aren't blown up past their previews and the rest stays empty. */
 .item-rows.set-rows {
   --fixed: 0px;
   --row-max: 340px;
 }
 
-.set-rows .item-pair > .gallery-figure,
-.set-rows .item-pad {
-  max-width: calc(var(--a) * var(--row-max));
-}
-
-.set-rows .item-pair {
-  max-width: calc(var(--a) * var(--row-max) + var(--grid-gap));
+.set-rows .flat-rows > .gallery-figure {
+  --c: var(--wc, 1000);
+  width: min(var(--fill), var(--c) * var(--row-max));
 }
 
 .set-rows .gallery-figure .gallery-img,
@@ -983,7 +979,7 @@ html {
   color: var(--muted);
 }
 
-/* A year's Sobres: rows of four (two on a phone) that fill the width, the grid gap apart like every
+/* A year's Álbumes: rows of four (two on a phone; sobres see .flat-rows) that fill the width, the grid gap apart like every
    other grid. A row is two pairs; each sobre, pair and empty spot grows by its shape (--a,
    width over height), so the sobres of a row share one height. A pair starts at the gap, its
    inner gap, so both pairs of a row come out that same height too. */
@@ -1019,6 +1015,33 @@ html {
   min-width: 0;
 }
 
+
+/* Sobres: three to a row on the web, two on a phone (see flatRowsHtml). Each is its share of
+   its row's width once the gaps and the front-to-back gaps of the photos (or empty spots) the
+   row is laid out for are taken off, so a row's sobres share one height; they wrap row by row,
+   a hair narrower so rounding never pushes a row's last one onto the next. A row's photos are
+   as tall as its tallest, their names level on top; a smaller one (a sobre on its side beside
+   upright ones, a set with fewer rows of stickers) sits centred against it. */
+.flat-rows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--grid-gap);
+}
+
+.flat-rows > .gallery-figure > :last-child {
+  margin-block: auto;
+}
+
+.flat-rows > .gallery-figure {
+  --s: var(--ws);
+  --n: var(--wn);
+  --fill: calc(var(--s) * (100% - (var(--n) - 1) * var(--grid-gap) - var(--n) * var(--fixed)) + var(--fixed) - 0.1px);
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: var(--fill);
+  min-width: 0;
+}
 
 /* Its name on top, as on the Sets tab, on one line and never wider than its sobre (a long
    one is set smaller until it fits, see fitNames; "…" only past 11px); a sobre without one
@@ -1436,6 +1459,15 @@ html {
 
   .item-pad.phone-only {
     display: block;
+  }
+
+  .flat-rows > .gallery-figure {
+    --s: var(--ps);
+    --n: var(--pn);
+  }
+
+  .set-rows .flat-rows > .gallery-figure {
+    --c: var(--pc, 1000);
   }
 
   .item-rows.set-rows {
