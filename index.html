@@ -32,7 +32,7 @@
       <!-- A year page's way back beside its title… -->
       <div class="inv-title-row" id="title-bar">
         <button class="gallery-back-btn" id="gallery-back" type="button" aria-label="Atrás" title="Atrás" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.46.2</span></h1>
+        <h1 class="inv-title" tabindex="-1"><span id="inv-title-text">Colección Panini</span><span class="inv-version">v1.46.3</span></h1>
         <!-- …the same title, small, once the bar has stuck to the top (the h1 is the one read out) -->
         <span class="title-bar-text" id="title-bar-text" aria-hidden="true">Colección Panini</span>
         <!-- …and at its end the arrows to the year before and after, as iOS Mail and macOS
@@ -1171,10 +1171,10 @@
                     { label: "Oro",    dot: "oro", complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
                 ] },
                 { label: "Made in Italy", items: [
-                    { label: "Base",   dot: "carmesi", complete: false },
-                    { label: "Bronce", dot: "bronce", complete: false },
-                    { label: "Plata",  dot: "plateada", complete: false },
-                    { label: "Oro",    dot: "oro", complete: false },
+                    { label: "Base",   dot: "carmesi", complete: false, coming: true },
+                    { label: "Bronce", dot: "bronce", complete: false, coming: true },
+                    { label: "Plata",  dot: "plateada", complete: false, coming: true },
+                    { label: "Oro",    dot: "oro", complete: false, coming: true },
                 ] },
                 { label: "Ind. Argentina", items: [
                     { label: "Base",   dot: "carmesi", complete: false },
@@ -1197,6 +1197,8 @@
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   coming: true },
+                { label: "USA", dot: "violeta", complete: false },
+                { label: "Gold", dot: "dorada", complete: false },
               ] },
               { label: "Extras", items: [
                 { label: "Made in Brazil", items: [
@@ -1360,7 +1362,7 @@
             { id: "hojas",         label: "Hojas", items: [
               { label: "Actualización", countNested: true, items: [
                 { label: "Internacional", sheets: 6, total: 120, complete: true },
-                { label: "United",         dot: "lima",   sheets: 6, total: 120, complete: false, coming: true },
+                { label: "United",         dot: "lima",   sheets: 6, total: 120, complete: false },
                 { label: "USA",            dot: "blanca", sheets: 6, total: 120, complete: false },
               ] },
               { label: "España", sheets: 2, total: 12, complete: false, coming: true },
@@ -1529,6 +1531,7 @@
                 { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2026_FRA20_USA_Blanca.jpg" },
                 { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2026_FRA20_USA_Azul.jpg" },
                 { label: "USA", dot: "roja",   complete: true, photo: "Mbappe_2026_FRA20_USA_Roja.jpg" },
+                { label: "USA", dot: "violeta", coming: true },
               ] },
               { label: "Extras", items: [
                 { label: "Made in Brazil", items: [
