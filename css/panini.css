@@ -1,13 +1,10 @@
-/* The space between photos in every photo grid (players' Fotos, Sets, Álbumes, Sobres), side
-   to side and row to row, on the web and on a phone. The Sets and Sobres sizes count it in.
-   --pair-gap is the space between a photo's front and its back, the same at any size. */
+/* The gap between photos in every grid; --pair-gap is between a photo's front and back */
 :root {
   --grid-gap: 10px;
   --pair-gap: 4px;
   /* Apple's own font: SF Pro on iPhone and Mac, each other device's system font elsewhere */
   --font: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  /* iOS's dark separator and segmented-control track. The chosen segment is lighter than
-     iOS's dark grey so it stands out from the track (3:1) and its text reads (4.5:1). */
+  /* iOS dark separator and segmented-control track (selected segment lighter for contrast) */
   --separator: rgba(84, 84, 88, 0.65);
   --segment-track: rgba(118, 118, 128, 0.24);
   --segment-on: #aeaeb2;
@@ -17,9 +14,7 @@ body {
   font-family: var(--font);
 }
 
-/* Screen-reader-only text: names each item's state (Tengo / Falta / De camino), which
-   is otherwise conveyed only by colour and a CSS ::after glyph — neither of which is
-   reliably announced (WCAG 1.4.1) */
+/* Screen-reader-only text (names each state, since colour and icons aren't read out) */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -32,8 +27,7 @@ body {
   border: 0;
 }
 
-/* Every view shares one centred container, so a scrollbar that only some pages need
-   used to shift the layout sideways between them. Reserve its space everywhere. */
+/* Always reserve the scrollbar's space, so pages don't shift sideways */
 html {
   scrollbar-gutter: stable;
 }
@@ -45,10 +39,7 @@ html {
   padding: 0 0 8px;
 }
 
-/* Its height is the back chevron's, so the page below stays put between the main page and a
-   year. It sticks to the top as the page scrolls (see index.html); stuck, it turns into a
-   bar of the page's colour with a hairline under it, solid rather than frosted like the
-   go-up button, so nothing under it is redrawn as the page scrolls. */
+/* Title bar: sticks to the top; once stuck, a solid bar with a hairline */
 .inv-title-row {
   position: sticky;
   top: 0;
@@ -60,8 +51,7 @@ html {
   margin-top: 16px;
 }
 
-/* The bar and its hairline reach both edges of the screen, past the page's column, by a
-   shadow, which (unlike a wider box) can't make the page scroll sideways */
+/* The stuck bar's background and hairline reach both screen edges (a shadow, so no sideways scroll) */
 .inv-title-row::before,
 .inv-title-row::after {
   content: "";
@@ -99,8 +89,7 @@ html {
   scroll-padding-top: 44px;
 }
 
-/* Stuck, the big title fades into a small one: on the web at the bar's start, as a Mac
-   window's toolbar title (15px bold), on a phone in its middle, as iOS's (17px semibold) */
+/* Once stuck, the big title fades into a small one (web: left, 15px bold; phone: centred, 17px semibold) */
 .inv-title-row .inv-title {
   transition: opacity 0.2s;
 }
@@ -133,8 +122,7 @@ html {
   opacity: 1;
 }
 
-/* Titles on Apple's type scale: the main page's a Large Title (34px), a year's a Title 1
-   (28px) beside its back chevron, as iOS does once you go one level in */
+/* Apple type scale: main title 34px, a year's title 28px */
 .inv-title {
   min-width: 0;
   margin: 0;
@@ -148,8 +136,7 @@ html {
   font-size: 28px;
 }
 
-/* Focus lands on the title when a year opens, for the keyboard; it is not a control,
-   so it gets no focus ring */
+/* The title takes focus when a year opens, with no focus ring */
 .inv-title:focus {
   outline: none;
 }
@@ -197,16 +184,13 @@ html {
 
 /* ── Inline expand/collapse (caret) blocks — set & version lists ────────── */
 
-/* An expandable row's whole header is the tap target — the 12px caret alone is far
-   too small on touch, and it is the only way to open the panel */
+/* The whole header row of an expandable row is its tap target */
 .exp > .card-count-row {
   cursor: pointer;
   transition: opacity 0.15s;
 }
 
-/* Caret toggle button sitting next to a row's label. Padding grows the hit area to
-   24px (WCAG 2.5.8) while the matching negative margin keeps the row's height and
-   the caret's visual size unchanged */
+/* Caret button: 24px tap area (WCAG 2.5.8) without changing the row's height */
 .exp-toggle {
   flex-shrink: 0;
   display: inline-flex;
@@ -241,9 +225,7 @@ html {
   border-radius: 3px;
 }
 
-/* Inline panel revealed below the row — indented, grows in card flow. No height
-   cap or inner scroll: the list expands fully and the card grows to fit, so there
-   are never scrollbars nested inside the card. */
+/* The panel opens in the card's flow and the card grows (no inner scrolling) */
 .exp-panel {
   display: none;
   margin: 2px 0 4px 1px;
@@ -275,8 +257,7 @@ html {
   text-overflow: ellipsis;
 }
 
-/* A pair sticker ("419 A / B") lists one name per line, the second aligned under
-   the first instead of under the number, so the two names read as a block. */
+/* Two players on one sticker ("419 A / B"): one name per line */
 .exp-pair {
   display: flex;
   gap: 0.35em;
@@ -294,9 +275,7 @@ html {
 
 /* ── View tabs ──────────────────────────────────────────────────────────── */
 
-/* Every tab bar is an iOS segmented control: a grey track holding its tabs, the one you're
-   on raised on a lighter segment, at Apple's 13px. On the web a bar is as wide as its tabs;
-   on a phone it fills the width and its tabs share it equally. */
+/* Tab bars are iOS segmented controls: as wide as their tabs on the web, full width on phones */
 .view-tabs,
 .grid-filter {
   margin-top: 24px;
@@ -348,8 +327,7 @@ html {
 
 /* ── Numbered sticker checklist (1970-82 grids) ─────────────────────────── */
 
-/* The state filter above a grid (Todo / Tengo / Falta / De camino), or a year's set
-   sections, and on a checklist the button that copies its Falta list beside it */
+/* The state filter above a grid, with the Falta copy button beside it */
 .grid-filter-row {
   display: flex;
   gap: 8px;
@@ -390,8 +368,7 @@ html {
   outline-offset: 2px;
 }
 
-/* Once the list is on the clipboard the icon turns into a green checkmark for a moment, as
-   Apple swaps an icon for one whose action is done (VoiceOver hears "Copiado") */
+/* After copying, the icon turns into a green check for a moment */
 .grid-copy.is-done {
   color: #4ade80;
 }
@@ -543,8 +520,7 @@ html {
 
 /* ── Card ───────────────────────────────────────────────────────────────── */
 
-/* A card is an iOS inset group, as in Settings: a rounded block with no outline. Its logo
-   lightens under the pointer, the way a row does when tapped. */
+/* A year card is an iOS inset group; its logo lightens under the pointer */
 .album-card {
   display: flex;
   flex-direction: column;
@@ -594,9 +570,7 @@ html {
 }
 
 /* Count area — below the divider */
-/* A card is ~174px wide on the web and the iPhone alike: slim side padding and nesting
-   indent keep a deeply nested label ("Otros > Coca Cola > Europa > Numerada") on one line.
-   The border-left still marks each level. */
+/* Slim padding and indents keep deeply nested labels on one line in a ~174px card */
 .card-counts {
   flex-shrink: 0;
   padding: 10px 10px 12px;
@@ -606,8 +580,7 @@ html {
   gap: 2px;
 }
 
-/* Every row is at least 24px tall, the smallest a tap target may be, since a group's whole
-   row opens it */
+/* Rows are at least 24px tall (tap target) */
 .card-count-row {
   display: flex;
   align-items: center;
@@ -616,8 +589,7 @@ html {
   min-height: 24px;
 }
 
-/* Label wrapper: a flex row holding the label text and, when present, the
-   fixed-size expand caret or back-colour dot (neither shrinks) */
+/* Label wrapper: the text plus a fixed-size caret or colour dot */
 .count-label {
   font-size: 12px;
   font-weight: 600;
@@ -631,16 +603,11 @@ html {
 
 .count-label-text {
   min-width: 0;
-  /* Wraps to a 2nd line rather than clipping or painting over the value, so a long
-     label ("276 Internacional (Rosado)") stays fully readable. overflow-wrap covers
-     the pathological case of one unbreakable word. */
+  /* A long label wraps rather than clipping or overlapping the value */
   overflow-wrap: anywhere;
 }
 
-/* A colour dot after a variant's name (a back, or a parallel's finish). It sits in
-   the label wrapper beside the text, so the wrapper's gap spaces it and its
-   align-items centres it on the line. Inline, vertical-align: middle centred it on
-   the lowercase letters instead, which reads low next to a capital. */
+/* A variant's colour dot after its name, centred on the line */
 .color-dot {
   flex: none;
   width: 8px;
@@ -657,15 +624,13 @@ html {
 .color-dot.dot-roja    { background: #f63128; border-color: #f63128; }
 /* 2018's pink backs */
 .color-dot.dot-rosada  { background: #d65684; border-color: #d65684; }
-/* The 2022 fronts: orange for ARG 19 / POR 17 / FRA 18, violet for ARG 20 / POR 18 /
-   FRA 19; and lime from the 2026 United fronts */
+/* 2022 fronts: orange (ARG 19, POR 17, FRA 18), violet (ARG 20, POR 18, FRA 19); lime: 2026 United */
 .color-dot.dot-naranja { background: #fa5b27; border-color: #fa5b27; }
 .color-dot.dot-violeta { background: #6d56a2; border-color: #6d56a2; }
 .color-dot.dot-lima    { background: #dce74c; border-color: #dce74c; }
 /* 2010's Swiss fronts, framed in yellow where the others are cream (Messi's and Ronaldo's) */
 .color-dot.dot-amarilla { background: #fdd749; border-color: #fdd749; }
-/* 2018's Gold Edition frame, foil drawn from its highlight to its middle tone as the
-   Extras' metals are: paler than their Oro */
+/* 2018 Gold Edition frame (paler than the Extras' Oro) */
 .color-dot.dot-dorada  { background: linear-gradient(135deg, #ded082, #c7b468); border-color: transparent; }
 
 /* Black vanishes on the dark background without a ring */
@@ -675,11 +640,7 @@ html {
 /* Oryx's burgundy front (measured on the photos); dark enough to need the ring too */
 .color-dot.dot-granate { background: #793645; border-color: var(--subtle); }
 
-/* The Extras tiers, measured on the 2022 and 2026 fronts of all three players. The two
-   Base colours differ by year; the metals are shared, drawn from their highlight to their
-   middle tone so they read as metal rather than flat. Gold comes
-   from the panel's bottom right, where the foil reads gold rather than olive. Silver is
-   also the Silver Parallel's. */
+/* Extras tiers, measured from the 2022 and 2026 fronts; metals drawn as a gradient */
 .color-dot.dot-carmesi  { background: #9c2130; border-color: #9c2130; }
 .color-dot.dot-lila     { background: #b97fb6; border-color: #b97fb6; }
 .color-dot.dot-bronce   { background: linear-gradient(135deg, #b29175, #946a48); border-color: transparent; }
@@ -695,11 +656,7 @@ html {
   text-align: right;
 }
 
-/* On the Sets and player tabs the ✓, ✗ and ✈️ share one fixed-width column, and a row
-   without an icon keeps that column empty, so every number in a card lines up. The
-   glyphs differ in width, which used to shift the numbers. The column is the ✓'s width:
-   any wider and 2022's "Made in Brazil" wraps on a 360px phone. :where() keeps the base
-   rule below the state rules, which supply the glyph. */
+/* The ✓ ✗ ✈️ share one fixed-width column so every number in a card lines up */
 :where(.ledger) .count-val::after {
   content: "";
   display: inline-block;
@@ -729,8 +686,7 @@ html {
   margin-left: 4px;
   font-size: 11px;
 }
-/* The ✈️ is 14px, wider than the column: it starts 2px after the number and reaches
-   3.5px past the column's right edge, so its row takes the same room as the others */
+/* The ✈️ is wider than the column, so it overhangs to keep its row the same size */
 .ledger .count-val.is-coming::after { width: 14px; margin: 0 -3.5px 0 2px; }
 
 /* A set with no status recorded yet */
@@ -751,10 +707,7 @@ html {
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* A year page's way back sits beside its title as on iOS and macOS: a bare chevron, its
-   44px tap area pulled out so the chevron lines up with the page's edge; on hover it gets
-   macOS's soft rounded backing. It goes back in the browser's history, so Safari's swipe
-   from the edge does the same. */
+/* Back chevron beside a year's title, 44px tap area, macOS hover backing */
 .gallery-back-btn {
   flex: none;
   width: 44px;
@@ -783,9 +736,7 @@ html {
   outline-offset: 2px;
 }
 
-/* The arrows to the year before and after, at the title's end: bare chevrons like the back
-   one, with the same 44px tap areas, the last pulled out so its chevron sits as far in from
-   the page's edge as the back one's */
+/* Year arrows at the title's end, same 44px tap areas as the back chevron */
 .gallery-nav {
   flex: none;
   display: flex;
@@ -838,8 +789,7 @@ html {
   letter-spacing: 0.06em;
 }
 
-/* A player tab's count line, 14px under the subtabs and 14px over the cards. A 1970-82
-   grid gets the same rhythm from .grid-filter's margin above its own count line. */
+/* The count line under the subtabs, 14px above and below */
 .gallery-section-label.tab-count {
   margin-top: 14px;
 }
@@ -918,8 +868,7 @@ html {
   font-weight: 500;
 }
 
-/* On a player's Fotos wall it takes a sticker photo's shape as shown (without its border), so
-   its row stays even */
+/* On a player's Galería a placeholder takes a sticker photo's shape */
 .photo-wall .gallery-missing {
   aspect-ratio: auto;
   display: grid;
@@ -942,11 +891,7 @@ html {
   justify-content: center;
 }
 
-/* A year's Sets tab and the Galería's set subtabs lie in rows as the Sobres do (see
-   .flat-rows), each set as wide as its size in pocket sheets (--w, --h) so a row's stickers
-   are one size, a set's photo being a single cut-out. A full row fills the width; fewer sets
-   than a row stop at --row-max for their tallest (--c: a set's width over that height, set
-   only then), so a few sets aren't blown up past their previews and the rest stays empty. */
+/* Set rows: each set as wide as its size in sheets; a full row fills the width, fewer stop at --row-max */
 .item-rows.set-rows {
   --fixed: 0px;
   --row-max: 340px;
@@ -979,10 +924,7 @@ html {
   color: var(--muted);
 }
 
-/* A year's Álbumes: rows of four (two on a phone; sobres see .flat-rows) that fill the width, the grid gap apart like every
-   other grid. A row is two pairs; each sobre, pair and empty spot grows by its shape (--a,
-   width over height), so the sobres of a row share one height. A pair starts at the gap, its
-   inner gap, so both pairs of a row come out that same height too. */
+/* Album rows: 4 per row (2 on phones), photos of a row share one height */
 .item-rows {
   /* what each photo has that doesn't scale: a sobre's front-to-back gap */
   --fixed: var(--pair-gap);
@@ -1007,8 +949,7 @@ html {
   display: none;
 }
 
-/* Each starts at what it has that doesn't scale (--fixed) and grows by its shape (--a), so a
-   row's photos share one height */
+/* Each grows by its shape (--a), so a row's photos share one height */
 .item-pair > .gallery-figure,
 .item-pad {
   flex: var(--a) 1 var(--fixed);
@@ -1016,12 +957,7 @@ html {
 }
 
 
-/* Sobres: three to a row on the web, two on a phone (see flatRowsHtml). Each is its share of
-   its row's width once the gaps and the front-to-back gaps of the photos (or empty spots) the
-   row is laid out for are taken off, so a row's sobres share one height; they wrap row by row,
-   a hair narrower so rounding never pushes a row's last one onto the next. A row's photos are
-   as tall as its tallest, their names level on top; a smaller one (a sobre on its side beside
-   upright ones, a set with fewer rows of stickers) sits centred against it. */
+/* Sobres: 3 per row on the web, 2 on phones; a row shares one height, names level on top */
 .flat-rows {
   display: flex;
   flex-wrap: wrap;
@@ -1043,9 +979,7 @@ html {
   min-width: 0;
 }
 
-/* Its name on top, as on the Sets tab, on one line and never wider than its sobre (a long
-   one is set smaller until it fits, see fitNames; "…" only past 11px); a sobre without one
-   keeps the line's height, so a row stays level */
+/* A sobre's name on top, one line, never wider than the sobre */
 .item-rows .gallery-label,
 .player-wall .gallery-label {
   position: relative;
@@ -1058,10 +992,7 @@ html {
   text-overflow: ellipsis;
 }
 
-/* A player's, sobre's or album's photo cut to its stickers (see cropped in index.html): its
-   front and back side by side, --pair-gap apart, each a frame (--f, the face's shape) that
-   hides the black border; the image is laid out bigger behind it (--w, --h) and shifted to
-   that face (--l, --t). The pair dims when pressed and takes focus as one photo. */
+/* A scan shown as front and back cut-outs without its black border (see cropped in app.js) */
 .photo-pair {
   display: flex;
   gap: var(--pair-gap);
@@ -1104,8 +1035,7 @@ html {
 
 /* ── Player photo wall (the Fotos subtab) ──────────────────────────────── */
 
-/* All of a player's photos in one run, four per row (two on phones), starting 14px under
-   the subtabs like a tab's count line */
+/* A player's photos, 4 per row (2 on phones), 14px under the subtabs */
 .photo-wall {
   padding-bottom: 48px;
 }
@@ -1114,8 +1044,7 @@ html {
   margin-top: 14px;
 }
 
-/* A year card on a player's Todo links to that year's first photo: land it just below
-   the title bar. It takes focus for keyboard users but is not a control. */
+/* A year link on a player tab lands just below the title bar */
 .photo-wall .gallery-figure[id] {
   scroll-margin-top: 16px;
 }
@@ -1124,8 +1053,7 @@ html {
   outline: none;
 }
 
-/* A player's Galería sections (Postales, Álbumes, Hojas): a year's Sets subtabs, 14px under
-   the subtabs, with the count line right under them as there */
+/* A player's Galería sections bar, 14px under the subtabs */
 .grid-filter.player-gallery-tabs {
   margin-top: 14px;
 }
@@ -1134,8 +1062,7 @@ html {
   margin-top: 0;
 }
 
-/* In a caption the colour dot sits inline after the text (a ledger row and the viewer's
-   name lay it out as a flex item instead) */
+/* In a caption the colour dot sits inline after the text */
 .gallery-label .color-dot {
   display: inline-block;
   vertical-align: middle;
@@ -1148,10 +1075,7 @@ html {
   display: none;
 }
 
-/* The viewer, as Photos on iOS and macOS: the photo on black, a close button at the top
-   right and the photo's name over "3 de 12" at the top's middle, round frosted buttons that
-   turn the photos at its sides (on a phone at its foot, under the thumb). Its padding keeps
-   the photo clear of them. */
+/* The viewer, like Photos: photo on black, close at top right, name and "3 de 12" at the top */
 .lightbox.is-open {
   position: fixed;
   inset: 0;
@@ -1172,9 +1096,7 @@ html {
   to   { opacity: 1; }
 }
 
-/* The height cap is the screen less the viewer's padding. A plain 100% has no fixed height
-   to resolve against, so a photo taller than the screen (the 4x4 2022 Europa sheet) ran off
-   the bottom. */
+/* The photo is capped to the screen's height less the padding */
 .lightbox-img {
   max-width: 100%;
   max-height: calc(100vh - 92px);
@@ -1234,8 +1156,7 @@ html {
   right: 12px;
 }
 
-/* Level with the photo's middle: the middle of the room the padding leaves it, 22px under
-   the screen's */
+/* Level with the photo's middle */
 .lightbox-prev,
 .lightbox-next {
   top: calc(50% + 22px);
@@ -1252,8 +1173,7 @@ html {
   cursor: default;
 }
 
-/* The photo's name over "3 de 12", as Photos titles a photo: level with the close button
-   and as far in from both sides, so it stays centred and clear of it */
+/* The photo's name over "3 de 12", centred, level with the close button */
 .lightbox-title {
   position: fixed;
   top: calc(12px + env(safe-area-inset-top));
@@ -1292,9 +1212,7 @@ html {
   font: 400 13px/16px var(--font);
 }
 
-/* Opened from the Galería: the way to the photo's World Cup, as Music's "Go to Album", a
-   frosted capsule at the foot's middle (between the arrows on a phone). A long name ends
-   in "…" rather than wrapping. */
+/* From the Galería: a capsule to the photo's World Cup (like Music's "Go to Album") */
 .lightbox-place {
   bottom: calc(16px + env(safe-area-inset-bottom));
   left: 50%;
@@ -1330,8 +1248,7 @@ html {
   }
 }
 
-/* The photo a Galería photo led to, on its year's page: lit by a ring that fades, as the
-   eye needs only a moment to find it */
+/* The photo you arrived at gets a fading ring */
 .is-found {
   animation: found 1.6s ease-out both;
 }
@@ -1351,9 +1268,7 @@ html {
 }
 
 
-/* Back to the top, a phone's alone: a round button at the bottom right, solid rather than
-   frosted so nothing under it is redrawn as the page scrolls. It fades in once the page is
-   scrolled past its first screen (see index.html) and is out of reach until then. */
+/* Phone only: a round button back to the top, shown once the tabs scroll away */
 .to-top {
   display: none;
   position: fixed;
@@ -1402,8 +1317,7 @@ html {
     font: 600 17px/22px var(--font);
   }
 
-  /* The viewer's arrows in a bar at the foot, under the thumb, and the photo in the middle
-     of the screen, as far from it as from the top bar */
+  /* Phone viewer: arrows in a bar at the bottom, photo centred */
   .lightbox.is-open {
     padding: calc(76px + env(safe-area-inset-top)) 12px calc(76px + env(safe-area-inset-bottom));
   }
@@ -1427,8 +1341,7 @@ html {
     align-items: baseline;
   }
 
-  /* A title too long for the room beside the chevrons ends in "…", as iOS's do (on an
-     iPhone every year's fits; a desktop browser's scrollbar takes 15px of that room) */
+  /* A title too long for the bar ends in "…" */
   #inv-title-text {
     min-width: 0;
     overflow: hidden;
@@ -1491,9 +1404,7 @@ html {
   }
 
 
-  /* The figures on a phone, all on one line as on the web (Álbumes · Sobres | Sets:
-     Postales · Actualización · Variantes · Otros), with tighter gaps and smaller, untracked
-     labels: 336px at most, inside a 393px iPhone's 346px */
+  /* Phone header: all figures on one line, tighter gaps and smaller labels */
   .inv-stats-row {
     gap: 8px;
   }
@@ -1503,8 +1414,7 @@ html {
     justify-content: space-between;
   }
 
-  /* A tab bar fills the width, each tab as wide as its name plus an even share of what's
-     left (iOS's segments sized by their content), so a long one (De camino) keeps its room */
+  /* Phone tab bar fills the width; each tab sized by its name plus an even share */
   .view-tabs,
   .grid-filter {
     width: auto;
@@ -1523,10 +1433,7 @@ html {
 }
 
 /* ── Pressed ────────────────────────────────────────────────────────────── */
-/* Whatever is under a finger (or a held click) reacts at once, as on iOS and macOS, and eases
-   back when let go; Safari's grey tap box is off, as this takes its place. Bare chevrons, tabs
-   and expandable rows fade like iOS's glyph and text buttons, photos and year cards dim like a
-   Photos thumbnail, and filled buttons light up a step. */
+/* Pressed states: react instantly and ease back (fade, dim or light up, like iOS and macOS) */
 html {
   -webkit-tap-highlight-color: transparent;
 }
@@ -1561,8 +1468,7 @@ html {
 }
 
 /* ── Reduce Motion ──────────────────────────────────────────────────────── */
-/* With Reduce Motion on (an iPhone and Mac accessibility setting), what slides, zooms or turns
-   only fades or changes at once, as in Apple's own apps */
+/* Reduce Motion: no slides or zooms, only fades */
 @media (prefers-reduced-motion: reduce) {
   .gallery-view,
   .lightbox-img {
