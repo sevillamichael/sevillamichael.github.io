@@ -3,7 +3,7 @@
 // ── Album data ─────────────────────────────────────────────────────────
 // An album: { year, host, postales, sets? }; host names its card and year page ("España 1982").
 // postales: { items: [{ label, total, complete }] }, one item per print; for 1970-82 a numbered checklist
-//   { owned: "1-150, 200", coming?: "151", comingLots?: { "<seller>": "1-4" }, groups: [{ cat, names }] }.
+//   { owned: "1-150, 200", coming?: "151", groups: [{ cat, names }] }.
 // sets: { id (never rename), label, items? }; afterPostales: true makes a player tab; ids "variantes" and
 //   "hojas" get their own rows, the rest go under Otros.
 // Entry fields:
@@ -14,7 +14,6 @@
 //   dot: colour dot key (DOT_NAME) · caption: the photo's name when the label is shortened
 //   photo: "<file>.jpg" in assets/players/<id>/ or assets/sets/<year>/ · pages: N pocket sheets (<name>_1.jpg...)
 //   albumes / hojas: [{ label?, photo }] on a player set: album pages and sheets, photographed but not tracked
-//   noIcon / detailOnly: detail rows under a parent that carries the status (unused for now)
 const ALBUMS = [
   { year: 1970, host: "Mexico",             postales: { owned: "", groups: [
         { cat: "México 70", names: ["Rimet Cup", "F.I.F.A.", "Mexican Map", "Juanito (Mascot)", "Mexican Poster"] },

@@ -19,13 +19,8 @@ const gridTotal = s => s.groups ? s.groups.reduce((a, g) => a + g.names.length, 
 // A set tracked as a numbered checklist rather than a single owned/not flag
 const isGridSet = s => s.owned !== undefined && (s.total != null || s.groups);
 
-// Stickers on their way: the coming range plus any comingLots (unconfirmed seller batches,
-// one entry per deal so it can be dropped in one edit)
-const comingOf = s => {
-  const set = parseRanges(s.coming);
-  Object.values(s.comingLots || {}).forEach(r => parseRanges(r).forEach(n => set.add(n)));
-  return set;
-};
+// Stickers on their way (the coming range)
+const comingOf = s => parseRanges(s.coming);
 
 // Falta is what is neither in hand nor on its way, as everywhere on the site
 const gridStateCount = (s, state) => {
@@ -71,8 +66,6 @@ function setStatus(s) {
       ? { state: "complete", detail: "" }
       : { state: "pending",  detail: `${done}/${real.length}` };
   }
-  // noIcon: a detail row under a parent that already shows the status
-  if (s.noIcon)             return { state: "none",     detail: amountOf(s) };
   if (s.coming)             return { state: "coming",   detail: amountOf(s) };
   if (s.complete === true)  return { state: "complete", detail: amountOf(s) };
   if (s.complete === false) return { state: "pending",  detail: amountOf(s) };
@@ -105,8 +98,6 @@ const leavesOf = n => { const k = kidsOf(n); return k.length ? k.flatMap(leavesO
 function deepGreens(node) {
   const kids = kidsOf(node);
   if (!kids.length) return setStatus(node).state === "complete" ? 1 : 0;
-  // detailOnly: the items only break it down (Extras 80 = 4 x 20), so it counts once
-  if (node.detailOnly) return setStatus(node).state === "complete" ? 1 : 0;
   const own = hasOwnStatus(node) && setStatus(node).state === "complete" ? 1 : 0;
   return own + kids.reduce((n, k) => n + deepGreens(k), 0);
 }
@@ -124,7 +115,7 @@ const setsScore = it => {
 // A year's sets one by one, as its card counts them (a group with its own status counts too)
 const entriesOf = n => {
   const kids = kidsOf(n);
-  if (!kids.length || n.detailOnly) return [n];
+  if (!kids.length) return [n];
   return [...(hasOwnStatus(n) ? [n] : []), ...kids.flatMap(entriesOf)];
 };
 const setEntries = album => {
@@ -242,7 +233,7 @@ const fitPlace = (line, depth = 3) => (textEm(line) <= lineFitsEm(depth) ? line 
 
 // A group whose every entry is in hand shows one ✓; its rows show none
 const allInHand = n => setStatus(n).state === "complete" &&
-  kidsOf(n).every(k => k.noIcon || (kidsOf(k).length ? allInHand(k) : setStatus(k).state === "complete"));
+  kidsOf(n).every(k => kidsOf(k).length ? allInHand(k) : setStatus(k).state === "complete");
 
 // Variantes, Hojas, Otros and player groups count their sets: Todo "3/5", Tengo "3", Falta "2/5", De camino "1"
 const SCORED_ROWS = ["Variantes", HOJAS, "Otros"];
@@ -971,7 +962,7 @@ function setPhotos(album, withMissing = false) {
   if (!p || isGridSet(p)) return [];
   const own = p.items;
   const out = [];
-  const isEntry = n => !kidsOf(n).length || n.detailOnly || kidsOf(n).every(k => k.noIcon);
+  const isEntry = n => !kidsOf(n).length;
   const walk = (n, path, section, underPhoto) => {
     const here = [...path, n.caption || n.label];
     // A photo is named by its place inside its section ("CC México · Botella")
@@ -1587,6 +1578,8 @@ function openLightbox(images, index) {
   lightbox.focus();
   // Freezes the page behind the viewer (root and body, for iOS Safari)
   document.documentElement.style.overflow = document.body.style.overflow = "hidden";
+  // The page behind can't be reached by Tab or VoiceOver while the viewer is open
+  document.querySelector("main").inert = document.getElementById("to-top").inert = true;
 }
 
 function updateLightboxImage() {
@@ -1636,6 +1629,7 @@ function closeLightbox() {
   // Dropping the image (not src = "", which the browser reports as a failed load)
   lightboxImg.removeAttribute("src");
   document.documentElement.style.overflow = document.body.style.overflow = "";
+  document.querySelector("main").inert = document.getElementById("to-top").inert = false;
   if (lbReturnFocus && typeof lbReturnFocus.focus === "function") lbReturnFocus.focus();
   lbReturnFocus = null;
 }
@@ -1728,6 +1722,8 @@ lbPrev.addEventListener("click", e => { e.stopPropagation(); lightboxNav(-1); })
 lbNext.addEventListener("click", e => { e.stopPropagation(); lightboxNav(1); });
 
 document.addEventListener("keydown", e => {
+  // Cmd/Alt/Ctrl + arrow is the browser's own shortcut (Back), not ours
+  if (e.metaKey || e.altKey || e.ctrlKey) return;
   if (lightbox.classList.contains("is-open")) {
     if (e.key === "Escape")     closeLightbox();
     if (e.key === "ArrowLeft")  lightboxNav(-1);
@@ -1778,12 +1774,15 @@ new IntersectionObserver(([e]) => titleBar.classList.toggle("is-stuck", e.inters
 
 // ── Swipe navigation ───────────────────────────────────────────────────
 // A sideways swipe on a year page goes to the year before or after
-let swipeTouchStartX = 0, swipeTouchStartY = 0;
+let swipeTouchStartX = 0, swipeTouchStartY = 0, swipeMulti = false;
 document.addEventListener("touchstart", e => {
+  // Two fingers (a pinch) or a zoomed-in page is not a swipe
+  swipeMulti = e.touches.length > 1 || (swipeMulti && e.touches.length > 0);
   swipeTouchStartX = e.changedTouches[0].clientX;
   swipeTouchStartY = e.changedTouches[0].clientY;
 }, { passive: true });
 document.addEventListener("touchend", e => {
+  if (swipeMulti || e.touches.length || (window.visualViewport && visualViewport.scale > 1.01)) return;
   const dx = e.changedTouches[0].clientX - swipeTouchStartX;
   const dy = e.changedTouches[0].clientY - swipeTouchStartY;
   // Mostly sideways only, so scrolling doesn't flip years
