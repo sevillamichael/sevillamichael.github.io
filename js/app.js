@@ -781,85 +781,7 @@ let currentSetAlbum    = null; // the year whose Sets tab is open, its tab label
 let currentSetLabel    = "";
 let currentSetSection  = null;
 let currentGridSet     = null;
-let currentGridYear    = null; // the album the grid belongs to, for the copy list
 let gridFilter         = null; // null = all; else "is-confirmed" | "is-pending" | "is-coming"
-
-// The copy list is for sellers, so categories go in English
-const CAT_EN = {
-  "Alemania 1954": "Germany 1954", "Alemania Democrática": "East Germany",
-  "Alemania Federal": "West Germany", "Argelia": "Algeria", "Bélgica": "Belgium",
-  "Brasil": "Brazil", "Brasil 1958": "Brazil 1958", "Brasil 1962": "Brazil 1962",
-  "Camerún": "Cameroon", "Checoslovaquia": "Czechoslovakia",
-  "Ciudades y Estadios": "Cities and Stadiums", "Dinamarca": "Denmark",
-  "Escocia": "Scotland", "España": "Spain", "Especial": "Special",
-  "Estadio": "Stadium", "Estadios": "Stadiums", "Francia": "France",
-  "Gales": "Wales", "Haití": "Haiti", "Historia": "History",
-  "Holanda": "Netherlands", "Hungría": "Hungary", "Inglaterra": "England",
-  "Inglaterra 1966": "England 1966", "Irlanda del Norte": "Northern Ireland",
-  "Irán": "Iran", "Italia": "Italy", "Italia 1934": "Italy 1934",
-  "Italia 1938": "Italy 1938", "Marruecos": "Morocco", "México": "Mexico",
-  "México 70": "Mexico 70", "Noruega": "Norway", "Nueva Zelanda": "New Zealand",
-  "Perú": "Peru", "Polonia": "Poland", "Programa México 70": "Mexico 70 Programme",
-  "Póster": "Poster", "Rumania": "Romania", "Suecia": "Sweden",
-  "Suiza": "Switzerland", "Túnez": "Tunisia", "URSS": "Soviet Union",
-};
-const catEn = cat => CAT_EN[cat] || cat.replace(/^Historia: Mundial /, "History: World Cup ");
-
-// The Falta list as text, one line per category, shaped by FALTA_SHAPE
-function faltaText(gset, year) {
-  const owned = parseRanges(gset.owned), coming = comingOf(gset);
-  const shape = FALTA_SHAPE[year] || {}, notes = shape.notes || {};
-  const by = new Map();
-  let n = 0, total = 0;
-  (gset.groups || []).forEach(g => g.names.forEach(() => {
-    n++;
-    if (owned.has(n) || coming.has(n)) return;
-    if (!by.has(g.cat)) by.set(g.cat, []);
-    by.get(g.cat).push(notes[n] ? `${n} (${notes[n]})` : String(n));
-    total++;
-  }));
-  // Pulling a category out of the map leaves the remainder to list itself
-  const take = cat => { const nums = by.get(cat); by.delete(cat); return nums; };
-  const line = (label, nums) => `${label}: ${nums.join(", ")}`;
-  const blocks = [];
-
-  const lead = shape.lead;
-  if (lead) {
-    // These categories alternate through the opening pages, so they re-sort
-    const nums = lead.cats.flatMap(c => take(c) || []).sort((a, b) => parseInt(a) - parseInt(b));
-    if (nums.length) blocks.push([line(lead.label, nums)]);
-  }
-  const first = (shape.first || []).map(c => [c, take(c)]).filter(([, nums]) => nums);
-  if (first.length) blocks.push(first.map(([cat, nums]) => line(catEn(cat), nums)));
-  const rest = [...by].map(([cat, nums]) => line(catEn(cat), nums));
-  if (rest.length) blocks.push(rest);
-
-  return `${blocks.map(b => b.join("\n")).join("\n\n")}\n\nTOTAL: ${total}`;
-}
-
-// Tells VoiceOver a short confirmation (cleared first, so repeats are read)
-function announce(text) {
-  const el = document.getElementById("announcer");
-  el.textContent = "";
-  setTimeout(() => { el.textContent = text; }, 50);
-}
-
-// Copies to the clipboard, with a fallback for file:// pages
-function copyText(text) {
-  if (navigator.clipboard && window.isSecureContext)
-    return navigator.clipboard.writeText(text);
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.setAttribute("readonly", "");
-  ta.style.position = "fixed";
-  ta.style.opacity = "0";
-  document.body.appendChild(ta);
-  ta.select();
-  let okCopy = false;
-  try { okCopy = document.execCommand("copy"); } catch (e) { okCopy = false; }
-  document.body.removeChild(ta);
-  return okCopy ? Promise.resolve() : Promise.reject(new Error("copy failed"));
-}
 
 // Render the numbered sticker grid for currentGridSet, honoring gridFilter
 function renderStickerGrid() {
@@ -922,17 +844,7 @@ function renderStickerGrid() {
     body = `<div class="sticker-grid">${cells}</div>`;
   }
   panel.className = "";
-  // Offered only when something is actually missing
-  const copyBtn = present.has("is-pending")
-    ? `<button class="grid-copy" type="button" title="Copiar los que faltan" aria-label="Copiar la lista de los que faltan">` +
-      `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" ` +
-      `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
-      `<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>` +
-      `<svg class="copy-done" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" ` +
-      `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>` +
-      `</button>`
-    : "";
-  panel.innerHTML = `<div class="grid-filter-row"><div class="grid-filter">${bar}</div>${copyBtn}</div>` +
+  panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
     `<p class="gallery-section-label">${count}</p>${body}`;
 }
 
@@ -1092,7 +1004,6 @@ function showGalleryTab(key) {
     if (key === "postales" && gset && gset.owned !== undefined) {
       // Numbered sticker grid with a state filter (Todo / De camino / Tengo / Falta)
       currentGridSet = gset;
-      currentGridYear = album.year;
       // The filter carries over from the last checklist opened
       renderStickerGrid();
       renderGalleryTabs(tabs);
@@ -1392,15 +1303,6 @@ document.getElementById("gallery-back").addEventListener("click", goBack);
 document.getElementById("gallery-prev").addEventListener("click", () => navigateGallery(-1));
 document.getElementById("gallery-next").addEventListener("click", () => navigateGallery(1));
 document.getElementById("gallery-set-panel").addEventListener("click", e => {
-  const copy = e.target.closest(".grid-copy");
-  if (copy && currentGridSet) {
-    copyText(faltaText(currentGridSet, currentGridYear)).then(() => {
-      copy.classList.add("is-done");
-      announce("Copiado");
-      setTimeout(() => copy.classList.remove("is-done"), 1200);
-    }).catch(() => {});
-    return;
-  }
   const section = e.target.closest(".set-section-btn");
   if (section) {
     const refocus = keepFocusIn(e.currentTarget, "data-section");
@@ -1822,9 +1724,8 @@ function init() {
 }
 
 // ── Addresses ──────────────────────────────────────────────────────────
-// Every view has an address (/messi/galeria, /2010/sets/variantes, /1982/postales/falta).
-// Live, 404.html hands it back as /?p=...; opened as a file, it rides in the hash
-const CLEAN_PATHS = location.protocol.startsWith("http");
+// Every view has an address (?messi/galeria, ?2010/sets/variantes): after a "?" live, a "#" as a file
+const MARK = location.protocol.startsWith("http") ? "?" : "#";
 const SUB_SLUG = { complete: "tengo", pending: "falta", coming: "de-camino", [PHOTOS]: "galeria", sobres: "sobres", postales: "postales", variantes: "variantes", hojas: "hojas", otros: "otros" };
 // The 1970-82 checklist's filters, by the same names
 const GRID_SLUG = { "is-confirmed": "tengo", "is-pending": "falta", "is-coming": "de-camino" };
@@ -1862,15 +1763,13 @@ function viewRoute() {
     .filter(Boolean).join("/");
 }
 
-const addressRoute = () => CLEAN_PATHS
-  ? decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, "").replace(/^index\.html$/, "")
-  : decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+const addressRoute = () =>
+  decodeURIComponent(MARK === "?" ? location.search : location.hash).replace(/^[?#]\/*|\/+$/g, "");
 
 // Put a route in the address bar: "push" adds a step to Back, "replace" does not
 function setAddress(route, mode = "push") {
-  const leftover = CLEAN_PATHS && location.search; // the 404 page's ?p= hand-off
-  if (route === addressRoute() && !leftover) return;
-  const url = CLEAN_PATHS ? `/${route}` : route ? `#${route}` : location.pathname;
+  if (route === addressRoute()) return;
+  const url = route ? MARK + route : location.pathname;
   // Marks views opened in the page, so Atrás knows it can go back
   if (mode === "replace") history.replaceState(history.state, "", url);
   else history.pushState({ inApp: true }, "", url);
@@ -1922,11 +1821,10 @@ const followAddress = () => {
 window.addEventListener("popstate", followAddress);
 window.addEventListener("hashchange", followAddress);
 
-// Opens the view in the address (or the one 404.html handed over), then cleans the address
+// Opens the view in the address, then tidies the address
 function openAddress() {
-  const handed = CLEAN_PATHS ? new URLSearchParams(location.search).get("p") : null;
-  // (a player's Galería was Fotos: /messi/fotos/2010 is /messi/galeria/2010)
-  const route  = (handed ?? addressRoute()).replace(/^\/+|\/+$/g, "").replace(/^([^/]+)\/fotos(?=\/|$)/, "$1/galeria");
+  // (a player's Galería was Fotos: messi/fotos/2010 is messi/galeria/2010)
+  const route  = addressRoute().replace(/^([^/]+)\/fotos(?=\/|$)/, "$1/galeria");
   if (route && !applyRoute(route)) applyRoute("");
   const shown  = viewRoute();
   const year   = route.split("/")[2];

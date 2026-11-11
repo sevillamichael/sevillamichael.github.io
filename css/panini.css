@@ -425,59 +425,10 @@ html {
 
 /* ── Numbered sticker checklist (1970-82 grids) ─────────────────────────── */
 
-/* The state filter above a grid, with the Falta copy button beside it */
-.grid-filter-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
+/* The state filter above a grid */
 .grid-filter {
   margin-top: 0;
   margin-bottom: 14px;
-}
-
-.grid-filter-row > .grid-filter {
-  margin-bottom: 0;
-}
-
-/* Copies the Falta list: a grey button the segmented control's height */
-.grid-copy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 11px;
-  background: var(--segment-track);
-  border: 0;
-  border-radius: 9px;
-  color: var(--text);
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-}
-
-@media (hover: hover) {
-  .grid-copy:hover {
-    background: rgba(118, 118, 128, 0.4);
-  }
-}
-
-.grid-copy:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-/* After copying, the icon turns into a green check for a moment */
-.grid-copy.is-done {
-  color: #4ade80;
-}
-
-.grid-copy .copy-done,
-.grid-copy.is-done svg:not(.copy-done) {
-  display: none;
-}
-
-.grid-copy.is-done .copy-done {
-  display: block;
 }
 
 /* Category rows: label left, sticker chips flowing to the right */
@@ -701,8 +652,10 @@ html {
 
 .count-label-text {
   min-width: 0;
-  /* A long label wraps rather than clipping or overlapping the value */
-  overflow-wrap: anywhere;
+  /* Labels never wrap: one too long ends in "…" */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* A variant's colour dot after its name, centred on the line */
@@ -1501,6 +1454,11 @@ html {
     margin-left: 4px;
   }
 
+  /* A narrower gap before the count keeps labels like "379 Escudo BRASIL" whole */
+  .card-count-row {
+    gap: 6px;
+  }
+
 
   /* Phone header: all figures on one line, tighter gaps and smaller labels */
   .inv-stats-row {
@@ -1518,7 +1476,6 @@ html {
     width: auto;
   }
 
-  .grid-filter-row > .grid-filter,
   .gallery-tabs {
     flex: 1;
   }
@@ -1548,11 +1505,6 @@ html {
 .photo-pair:active,
 .card-logo:active {
   filter: brightness(0.7);
-  transition: none;
-}
-
-.grid-copy:active {
-  background: rgba(118, 118, 128, 0.5);
   transition: none;
 }
 
