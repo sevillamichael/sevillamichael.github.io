@@ -1084,6 +1084,21 @@ html {
   outline: none;
 }
 
+/* A set scanned sticker by sticker, in 4x4 sheets: two side by side on the web, one on phones */
+.sticker-sheets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--section-gap);
+}
+
+.sticker-sheets .gallery-images.sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 14px;
+  background: var(--surface);
+  border-radius: 12px;
+}
+
 /* ── Player photo wall (the Fotos subtab) ──────────────────────────────── */
 
 /* A player's photos, 4 per row (2 on phones), 14px under the subtabs */
@@ -1357,6 +1372,15 @@ html {
 @media (max-width: 480px) {
   .to-top {
     display: flex;
+  }
+
+  .sticker-sheets {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sticker-sheets .gallery-images.sheet-grid {
+    gap: 8px;
+    padding: 10px;
   }
 
   /* The small title in the middle of the bar, clear of the back chevron and the arrows */

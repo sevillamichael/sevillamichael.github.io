@@ -401,13 +401,13 @@ const showSectionImages = section =>
   });
 
 // Shows a scan's front and back as two cut-outs without the black border (iw x ih image, b px border)
-const cropped = (img, iw, ih, b) => {
+const cropped = (img, iw, ih, b, withBack = true) => {
   const fw = (iw - 3 * b) / 2, fh = ih - 2 * b, pc = v => `${+(v * 100).toFixed(4)}%`;
   const face = (x, el) => `<span class="photo-crop" style="--w: ${pc(iw / fw)}; --h: ${pc(ih / fh)}; --l: ${pc(-x / fw)}; --t: ${pc(-b / fh)}">${el}</span>`;
   // The back's copy is only a picture: the front's is the photo's button
   const back = img.replace('class="gallery-img"', 'class="gallery-img-back"')
     .replace(' role="button" tabindex="0"', ' aria-hidden="true"').replace(/ alt="[^"]*"/, ' alt=""');
-  return `<span class="photo-pair" style="--f: ${fw} / ${fh}">${face(b, img)}${face(2 * b + fw, back)}</span>`;
+  return `<span class="photo-pair" style="--f: ${fw} / ${fh}">${face(b, img)}${withBack ? face(2 * b + fw, back) : ""}</span>`;
 };
 // Album and sobre scans are 2160 px tall with an 80 px border
 const itemWidth = src => { const s = GRID_PREVIEWS[src]; return s[0] * 2160 / s[1]; };
@@ -1020,7 +1020,9 @@ function showGalleryTab(key) {
 // Sets tab: a subtab per section, its count and its sets; a year opens on the first subtab with a photo.
 // Postales shows only once one of its sets has a photo
 const PHOTO_ONLY_SECTIONS = [POSTALES];
-const sectionHasPhotos = (album, sec) => setPhotos(album).some(ph => ph.section === sec);
+// A set scanned sticker by sticker (stickers on a postales item; none yet)
+const stickersOf = album => (album.postales.items || []).find(it => it.stickers);
+const sectionHasPhotos = (album, sec) => setPhotos(album).some(ph => ph.section === sec) || (sec === POSTALES && !!stickersOf(album));
 const setSectionsFor = album => {
   const found = [...new Set(setPhotos(album, true).map(ph => ph.section))]
     .filter(sec => !PHOTO_ONLY_SECTIONS.includes(sec) || sectionHasPhotos(album, sec));
@@ -1055,10 +1057,32 @@ function renderSetSection() {
   const n = shown.filter(ph => !(ph.page > 1)).length;
   const figure = (ph, phone, web, vars) => setFigure(ph, `${currentSetLabel} ${album.year}`, "", vars);
   panel.className = "";
+  const set = currentSetSection === POSTALES && stickersOf(album);
+  if (set) {
+    panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
+      `<p class="gallery-section-label">Total: ${set.stickers.files.length} de ${set.total}</p>${stickerSheetsHtml(set.stickers)}`;
+    return;
+  }
   panel.innerHTML = `<div class="grid-filter">${bar}</div>` +
     `<p class="gallery-section-label">Total: ${n}</p>` +
     `<div class="gallery-images item-rows set-rows">${flatRowsHtml(shown, 4, setWidths, figure, setCap)}</div>`;
   fitNames(panel);
+}
+
+// Stickers in the 4x4 sheets they're kept in, each its number on top and its front only (the viewer shows both)
+function stickerSheetsHtml({ dir, files }) {
+  const sheets = [];
+  for (let i = 0; i < files.length; i += 16) sheets.push(files.slice(i, i + 16));
+  return `<div class="sticker-sheets">${sheets.map((sheet, s) => {
+    const figs = sheet.map((f, j) => {
+      const n = s * 16 + j + 1;
+      return `<figure class="gallery-figure"><figcaption class="gallery-label">${n}</figcaption>
+        ${cropped(`<img class="gallery-img" src="${dir}/previews/${f}" data-full="${dir}/${f}" data-label="Postal ${n}" alt="Postal ${n}"
+             width="600" height="395" loading="lazy" decoding="async" role="button" tabindex="0" />`, 1640, 1080, 40, false)}
+      </figure>`;
+    }).join("");
+    return `<div class="gallery-images sheet-grid">${figs}</div>`;
+  }).join("")}</div>`;
 }
 
 // One set's preview, name on top (Coca Cola and McDonald's spelled out when they fit), sized in sheets
