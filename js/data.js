@@ -159,11 +159,11 @@ const ALBUMS = [
   { year: 1990, host: "Italia",             postales: { items: [
       { label: "Postales", total: 448, complete: true },
     ] } },
-  { year: "story", host: "World Cup Story", postales: { items: [
-      { label: "Postales", total: 262, complete: true },
-    ] } },
   { year: 1994, host: "USA",                postales: { items: [
       { label: "Postales", total: 444, complete: true },
+    ] } },
+  { year: "story", host: "World Cup Story", postales: { items: [
+      { label: "Postales", total: 262, complete: true },
     ] } },
   { year: 1998, host: "France",             postales: { items: [
       { label: "Postales", total: 561, complete: true },
@@ -281,7 +281,7 @@ const ALBUMS = [
             "Humberto Suazo",
             "Jean Beausejour",
           ] },
-          { label: "México", dot: "negra", total: 17, complete: false, sub: [
+          { label: "México", dot: "negra", total: 17, coming: true, sub: [
             "Claudio Bravo",
             "Gonzalo Jara",
             "Gary Medel",
@@ -833,7 +833,7 @@ const ALBUMS = [
           "C14 Hirving Lozano",
         ] },
         { label: "CC América", countNested: true, items: [
-          { label: "Botella",  total: 8, complete: false, sub: [
+          { label: "Botella",  total: 8, coming: true, sub: [
             "C1 Serge Gnabry",
             "C2 Emiliano Martínez",
             "C3 Kevin De Bruyne",
@@ -908,7 +908,7 @@ const ALBUMS = [
           { label: "Oryx", dot: "granate", coming: true, photo: "Messi_2022_ARG20_Oryx.jpg" },
           { label: "USA", dot: "blanca", complete: true, photo: "Messi_2022_ARG20_USA_Blanca.jpg" },
           { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2022_ARG20_USA_Azul.jpg" },
-          { label: "USA", dot: "roja",   coming: true },
+          { label: "USA", dot: "roja",   complete: true },
         ] },
         { label: "Extras", items: [
           { label: "Made in Brazil", items: [
@@ -918,12 +918,6 @@ const ALBUMS = [
               { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2022_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "carmesi", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
-          ] },
-          { label: "Ind. Argentina", items: [
               { label: "Base",   dot: "carmesi", complete: false },
               { label: "Bronce", dot: "bronce", complete: false },
               { label: "Plata",  dot: "plateada", complete: false },
@@ -953,12 +947,6 @@ const ALBUMS = [
               { label: "Oro",    dot: "oro", complete: true, photo: "Ronaldo_2022_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "carmesi", coming: true },
-              { label: "Bronce", dot: "bronce", coming: true },
-              { label: "Plata",  dot: "plateada", coming: true },
-              { label: "Oro",    dot: "oro", coming: true },
-          ] },
-          { label: "Ind. Argentina", items: [
               { label: "Base",   dot: "carmesi", complete: false },
               { label: "Bronce", dot: "bronce", complete: false },
               { label: "Plata",  dot: "plateada", complete: false },
@@ -978,7 +966,7 @@ const ALBUMS = [
           { label: "Oryx", dot: "granate", complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
           { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
           { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
-          { label: "USA", dot: "roja",   coming: true },
+          { label: "USA", dot: "roja",   complete: true },
           { label: "USA", dot: "violeta", complete: false },
           { label: "Gold", dot: "dorada", complete: false },
         ] },
@@ -987,15 +975,9 @@ const ALBUMS = [
               { label: "Base",   dot: "carmesi", complete: true, photo: "Mbappe_2022_Extra_Base.jpg" },
               { label: "Bronce", dot: "bronce", complete: true, photo: "Mbappe_2022_Extra_Bronce.jpg" },
               { label: "Plata",  dot: "plateada", complete: true, photo: "Mbappe_2022_Extra_Plata.jpg" },
-              { label: "Oro",    dot: "oro", complete: false, photo: "Mbappe_2022_Extra_Oro.jpg" },
+              { label: "Oro",    dot: "oro", complete: true, photo: "Mbappe_2022_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "carmesi", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
-          ] },
-          { label: "Ind. Argentina", items: [
               { label: "Base",   dot: "carmesi", complete: false },
               { label: "Bronce", dot: "bronce", complete: false },
               { label: "Plata",  dot: "plateada", complete: false },
@@ -1007,7 +989,7 @@ const ALBUMS = [
   { year: 2026, host: "World Cup 2026",     postales: { items: [
       { label: "Postales", countNested: true, items: [
         { label: "Internacional", total: 980, complete: true },
-        { label: "United",         dot: "lima",   total: 980, coming: true },
+        { label: "United",         dot: "lima",   total: 980, complete: true },
         { label: "USA",            dot: "blanca", total: 980, complete: true },
         { label: "USA",            dot: "azulrey", total: 980, complete: false },
       ] },
@@ -1299,15 +1281,9 @@ const ALBUMS = [
               { label: "Oro",    dot: "oro", complete: true, photo: "Messi_2026_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "lila", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
-          ] },
-          { label: "Ind. Argentina", items: [
-              { label: "Base",   dot: "lila", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
+              { label: "Base",   dot: "lila", coming: true },
+              { label: "Bronce", dot: "bronce", coming: true },
+              { label: "Plata",  dot: "plateada", coming: true },
               { label: "Oro",    dot: "oro", complete: false },
           ] },
           { label: "PRIZM", coming: true },
@@ -1331,16 +1307,10 @@ const ALBUMS = [
               { label: "Oro",    dot: "oro", complete: false, photo: "Ronaldo_2026_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "lila", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
-          ] },
-          { label: "Ind. Argentina", items: [
-              { label: "Base",   dot: "lila", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
+              { label: "Base",   dot: "lila", coming: true },
+              { label: "Bronce", dot: "bronce", coming: true },
+              { label: "Plata",  dot: "plateada", coming: true },
+              { label: "Oro",    dot: "oro", coming: true },
           ] },
           { label: "PRIZM", coming: true },
         ] },
@@ -1365,12 +1335,6 @@ const ALBUMS = [
               { label: "Oro",    dot: "oro", complete: true, photo: "Mbappe_2026_Extra_Oro.jpg" },
           ] },
           { label: "Made in Italy", items: [
-              { label: "Base",   dot: "lila", complete: false },
-              { label: "Bronce", dot: "bronce", complete: false },
-              { label: "Plata",  dot: "plateada", complete: false },
-              { label: "Oro",    dot: "oro", complete: false },
-          ] },
-          { label: "Ind. Argentina", items: [
               { label: "Base",   dot: "lila", complete: false },
               { label: "Bronce", dot: "bronce", complete: false },
               { label: "Plata",  dot: "plateada", complete: false },
