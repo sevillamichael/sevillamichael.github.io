@@ -908,7 +908,7 @@ const ALBUMS = [
           { label: "Oryx", dot: "granate", coming: true, photo: "Messi_2022_ARG20_Oryx.jpg" },
           { label: "USA", dot: "blanca", complete: true, photo: "Messi_2022_ARG20_USA_Blanca.jpg" },
           { label: "USA", dot: "azulrey", complete: true, photo: "Messi_2022_ARG20_USA_Azul.jpg" },
-          { label: "USA", dot: "roja",   complete: true },
+          { label: "USA", dot: "roja",   complete: true, photo: "Messi_2022_ARG20_USA_Roja.jpg" },
         ] },
         { label: "Extras", items: [
           { label: "Made in Brazil", items: [
@@ -966,7 +966,7 @@ const ALBUMS = [
           { label: "Oryx", dot: "granate", complete: true, photo: "Mbappe_2022_FRA19_Oryx.jpg" },
           { label: "USA", dot: "blanca", complete: true, photo: "Mbappe_2022_FRA19_USA_Blanca.jpg" },
           { label: "USA", dot: "azulrey", complete: true, photo: "Mbappe_2022_FRA19_USA_Azul.jpg" },
-          { label: "USA", dot: "roja",   complete: true },
+          { label: "USA", dot: "roja",   complete: true, photo: "Mbappe_2022_FRA19_USA_Roja.jpg" },
           { label: "USA", dot: "violeta", complete: false },
           { label: "Gold", dot: "dorada", complete: false },
         ] },
